@@ -2,17 +2,19 @@ import React from "react"
 import {
     StyleSheet,
     View,
-    ImageBackground
+    ImageBackground,
+    StatusBar,
 } from 'react-native';
 
 
-const AuthIntro = ({children}) => {
+const AuthIntro = ({ children }) => {
     // setTimeout(() => navigation.navigate('Auth'), 1000)
     return (
         <View style={styles.sectionContainer}>
-            <ImageBackground source={require('../image/back-ground-lines.png')} resizeMode="cover" style={styles.backgroundImage}>
-                {children}
-            </ImageBackground>
+            <StatusBar barStyle="light-content"/>
+                <ImageBackground source={require('../image/back-ground-lines.png')} resizeMode="cover" style={styles.backgroundImage}>
+                    {children}
+                </ImageBackground>
         </View>
     )
 }

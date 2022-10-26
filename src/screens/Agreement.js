@@ -58,7 +58,6 @@ const Agreement = ({ navigation }) => {
                     handleSubmit(onSubmit(data))
                 }} style={{marginBottom: 25, alignItems: "center"}}>
                     <View style={styles.buttonInner}
-
                     >
                         <Text style={{ color: '#0F1218', fontWeight: "600", fontSize: 13 }}>Принять</Text>
                     </View>
