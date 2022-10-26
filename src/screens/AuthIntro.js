@@ -13,6 +13,13 @@ import LogoIntroBig from "../image/Svg/LogoIntroBig";
 
 const AuthIntro = ({ navigation }) => {
     setTimeout(() => navigation.navigate('Auth'), 1000)
+    React.useEffect(
+        () =>
+          navigation.addListener('beforeRemove', (e) => {
+            e.preventDefault();
+          }),
+        [navigation]
+      );
     return (
         <LayoutAuth>
             <View style={styles.header}>
