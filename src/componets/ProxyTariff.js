@@ -25,8 +25,7 @@ const ProxyTariff = ({ navigation }) => {
                 marginTop: 11,
 
             }}>
-                {/* <Shadow distance={5} startColor={'#FAC637'} endColor={'#FAC637'} offset={[0]} activeOpacity={0.01} style={{zIndex: 1}} > */}
-                <View style={{ zIndex: 1 }}>
+                <View style={{ zIndex: 1, borderBottomLeftRadius: 80}}>
                     <Text
                         style={{
                             color: "black",
@@ -44,7 +43,6 @@ const ProxyTariff = ({ navigation }) => {
                         Используют до 3-х человек
                     </Text>
                 </View>
-                {/* </Shadow> */}
                 <View style={{
                     display: "flex",
                     flexDirection: "row",

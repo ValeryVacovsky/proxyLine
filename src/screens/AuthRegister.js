@@ -17,6 +17,7 @@ import LayoutAuth from '../componets/LayoutAuth'
 
 import LogoIntroSmall from "../image/Svg/LogoIntroSmall";
 import postRegisterCode from "../api/postRegisterCode";
+import SuperEllipseMaskView from "react-native-super-ellipse-mask";
 
 const Input = ({ name, control }) => {
     const { field } = useController({
@@ -31,7 +32,6 @@ const Input = ({ name, control }) => {
             value={field.value}
             onChangeText={field.onChange}
             style={styles.input}
-            placeholder={"proxyline@pl.com"}
             placeholderTextColor="white"
         />
     )
@@ -63,8 +63,8 @@ const AuthRegister = ({ navigation }) => {
                     <Text style={{ color: "#CBCBCB", textAlign: "center", paddingBottom: 30 }}>Пароль будет отправлен на Ваш email</Text>
                     <Text style={styles.label}>Email</Text>
                     <Input name="email" control={control} />
-                    <Text style={{ color: '#CBCBCB', textAlign: "center" }}>Регистрируясь вы принимаете
-                        <Text onPress={() => navigation.navigate('Agrement')} style={{ color: '#CBCBCB', textDecorationLine: "underline" }}> публичную оферту
+                    <Text style={{ color: '#CBCBCB', textAlign: "center", fontSize: 12 }}>Регистрируясь вы принимаете
+                        <Text onPress={() => navigation.navigate('Agrement')} style={{ color: '#CBCBCB', textDecorationLine: "underline", fontSize: 12 }}> публичную оферту
                             и политику конфиденциальности</Text>
                     </Text>
                 </View>
@@ -73,10 +73,17 @@ const AuthRegister = ({ navigation }) => {
                         <Text style={{ color: 'white', textDecorationLine: "underline" }} onPress={() => navigation.navigate('Auth')}> Авторизация</Text>
                     </Text>
                     <TouchableOpacity onPress={handleSubmit(onSubmit)} >
-                        <View style={styles.buttonInner}
-                        >
-                            <Text style={{ color: 'black', fontWeight: "600", fontSize: 13 }}>Зарегистрироваться</Text>
-                        </View>
+                        <SuperEllipseMaskView radius={{
+                            topLeft: 12,
+                            topRight: 12,
+                            bottomLeft: 12,
+                            bottomRight: 12,
+                        }}>
+                            <View style={styles.buttonInner}
+                            >
+                                <Text style={{ color: '#0F1218', fontWeight: "600", fontSize: 13 }}>Зарегистрироваться</Text>
+                            </View>
+                        </SuperEllipseMaskView>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -101,6 +108,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 132,
         height: 24,
+        marginTop: 25,
     },
     header: {
         flex: 1,
@@ -124,7 +132,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#FAC637',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 12,
         height: 50,
     },
     input: {

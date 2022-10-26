@@ -15,6 +15,7 @@ import { useForm, Controller } from "react-hook-form";
 import LayoutAuth from '../componets/LayoutAuth'
 
 import LogoIntroSmall from "../image/Svg/LogoIntroSmall";
+import SuperEllipseMaskView from "react-native-super-ellipse-mask";
 
 const AuthRecover = ({ navigation }) => {
     const { control, handleSubmit, formState: { errors }, reset } = useForm({
@@ -29,7 +30,7 @@ const AuthRecover = ({ navigation }) => {
     return (
         <LayoutAuth>
             <View style={styles.header}>
-                <LogoIntroSmall  width={132} height={24} style={styles.mainLogo} />
+                <LogoIntroSmall width={132} height={24} style={styles.mainLogo} />
             </View>
             <View style={styles.authForm}>
                 <View >
@@ -46,7 +47,6 @@ const AuthRecover = ({ navigation }) => {
                                 onBlur={onBlur}
                                 onChangeText={value => onChange(value)}
                                 value={value}
-                                placeholder={"proxyline@pl.com"}
                                 placeholderTextColor="white"
                             />
                         )}
@@ -54,15 +54,22 @@ const AuthRecover = ({ navigation }) => {
                         rules={{ required: true }}
                     />
                 </View>
-                <View style={{marginBottom: 25}}>
+                <View style={{ marginBottom: 25 }}>
                     <TouchableOpacity onPress={(data) => {
                         handleSubmit(onSubmit(data));
                         navigation.navigate('Code')
                     }}>
-                        <View style={styles.buttonInner}
-                        >
-                            <Text style={{ color: 'black', fontWeight: "600", fontSize: 13 }} >Отправить</Text>
-                        </View>
+                        <SuperEllipseMaskView radius={{
+                            topLeft: 12,
+                            topRight: 12,
+                            bottomLeft: 12,
+                            bottomRight: 12,
+                        }}>
+                            <View style={styles.buttonInner}
+                            >
+                                <Text style={{ color: '#0F1218', fontWeight: "600", fontSize: 13 }} >Отправить</Text>
+                            </View>
+                        </SuperEllipseMaskView>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
                         <View style={styles.buttonInnerBack}
@@ -93,6 +100,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 132,
         height: 24,
+        marginTop: 25,
     },
     header: {
         flex: 1,
@@ -116,13 +124,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#FAC637',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 12,
         height: 50,
     },
     buttonInnerBack: {
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 12,
         height: 50,
     },
     input: {

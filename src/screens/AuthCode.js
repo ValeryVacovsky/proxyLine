@@ -17,6 +17,7 @@ import LayoutAuth from '../componets/LayoutAuth'
 
 import LogoIntroSmall from "../image/Svg/LogoIntroSmall";
 import postRegister from "../api/postRegister";
+import SuperEllipseMaskView from "react-native-super-ellipse-mask";
 
 const Input = ({ name, control }) => {
     const { field } = useController({
@@ -31,7 +32,6 @@ const Input = ({ name, control }) => {
             value={field.value}
             onChangeText={field.onChange}
             style={styles.input}
-            placeholder={"proxyline@pl.com"}
             placeholderTextColor="white"
         />
     )
@@ -72,14 +72,21 @@ const AuthCode = ({ navigation }) => {
                     }>
                         <View style={styles.buttonInner}
                         >
-                            <Text style={{ color: 'black', fontWeight: "600", fontSize: 13 }}>Отправить</Text>
+                            <Text style={{ color: '#0F1218', fontWeight: "600", fontSize: 13 }}>Отправить</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
-                        <View style={styles.buttonInnerBack}
-                        >
-                            <Text style={{ color: 'white', fontWeight: "600", fontSize: 13 }}>Отменить</Text>
-                        </View>
+                        <SuperEllipseMaskView radius={{
+                            topLeft: 12,
+                            topRight: 12,
+                            bottomLeft: 12,
+                            bottomRight: 12,
+                        }}>
+                            <View style={styles.buttonInnerBack}
+                            >
+                                <Text style={{ color: 'white', fontWeight: "600", fontSize: 13 }}>Отменить</Text>
+                            </View>
+                        </SuperEllipseMaskView>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -104,6 +111,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 132,
         height: 24,
+        marginTop: 25,
     },
     header: {
         flex: 1,
@@ -127,13 +135,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#FAC637',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 12,
         height: 50,
     },
     buttonInnerBack: {
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 12,
         height: 50,
     },
     input: {

@@ -39,12 +39,12 @@ const App = ({ navigation }) => {
             }
           }}
         >
-          <Stack.Screen name="Intro" component={AuthIntro} options={{ headerShown: false }} />
-          <Stack.Screen name="Auth" component={AuthAuthauthentification} options={{ headerShown: false }} />
-          <Stack.Screen name="Register" component={AuthRegister} options={{ headerShown: false }} />
-          <Stack.Screen name="Recover" component={AuthRecover} options={{ headerShown: false }} />
-          <Stack.Screen name="Code" component={AuthCode} options={{ headerShown: false }} />
-          <Stack.Screen name="Main" component={Main} options={{ headerShown: false }} />
+          <Stack.Screen name="Intro" component={AuthIntro} options={{ headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen name="Auth" component={AuthAuthauthentification} options={{ headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen name="Register" component={AuthRegister} options={{ headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen name="Recover" component={AuthRecover} options={{ headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen name="Code" component={AuthCode} options={{ headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen name="Main" component={Main} options={{ headerShown: false, gestureEnabled: false}} />
           <Stack.Screen name="Proxy" component={Proxy} options={{
             headerTitle: () => <Text style={{ color: "white", fontSize: 18 }}>Прокси</Text>,
             headerRight: () => (
