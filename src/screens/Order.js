@@ -118,7 +118,7 @@ const Order = ({ navigation }) => {
                     <Text style={{ color: "#CBCBCB" }}>Итого к оплате</Text>
                     <Text style={{ color: "white", fontWeight: "700", fontSize: 14 }}>$ 6.0</Text>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('Main')} style={{ alignItems: "center",  width: "100%",}}>
+                <TouchableOpacity onPress={() => navigation.navigate('Main')} style={{ alignItems: "center",  width: "100%",}} activeOpacity={0.8}>
                     <View style={styles.buttonInner}
                     >
                         <Text style={{ color: 'black', fontWeight: "600", fontSize: 13, }}>Купить прокси</Text>

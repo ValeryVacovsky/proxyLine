@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
     StyleSheet,
     View,
@@ -10,8 +10,7 @@ import {
     TouchableOpacity,
     AsyncStorage
 } from 'react-native';
-
-import { useForm, useController, } from "react-hook-form";
+import { useForm, useController, Controller, } from "react-hook-form";
 
 import LayoutAuth from '../componets/LayoutAuth'
 
@@ -19,34 +18,24 @@ import LogoIntroSmall from "../image/Svg/LogoIntroSmall";
 import postRegisterCode from "../api/postRegisterCode";
 import SuperEllipseMaskView from "react-native-super-ellipse-mask";
 
-const Input = ({ name, control }) => {
-    const { field } = useController({
-        control,
-        defaultValue: '',
-        name,
-    })
-    return (
-        <TextInput
-            autoCapitalize="none"
-            name={name}
-            value={field.value}
-            onChangeText={field.onChange}
-            style={styles.input}
-            placeholderTextColor="white"
-        />
-    )
-}
-
-
+const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const AuthRegister = ({ navigation }) => {
-    const { control, handleSubmit, } = useForm({});
+    const [commonFormError, setCommonFormError] = useState("")
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            email: '',
+            password: ''
+        }
+    });
     const onSubmit = async (data) => {
         const res = await postRegisterCode(data)
         if (res.data.success === true) {
             await AsyncStorage.setItem('@sign_up_email', data.email)
             console.log(data.email)
             navigation.navigate('Code')
+        }else {
+            setCommonFormError("Invalid email or password")
         }
     }
     // () => navigation.navigate('Intro')
@@ -61,8 +50,40 @@ const AuthRegister = ({ navigation }) => {
                 <View >
                     <Text style={styles.authLogo}>Регистрация</Text>
                     <Text style={{ color: "#CBCBCB", textAlign: "center", paddingBottom: 30 }}>Пароль будет отправлен на Ваш email</Text>
+                    {commonFormError&&(<Text style={{color: "white", textAlign: "center"}}>{commonFormError}</Text>)}
                     <Text style={styles.label}>Email</Text>
-                    <Input name="email" control={control} />
+                    
+                    <Controller
+                        control={control}
+                        rules={{
+                            required: true,
+                            pattern: {
+                                value: EMAIL_REGEX,
+                                message: "email error",
+                            }
+                        }}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <TextInput
+                                style={{
+                                    backgroundColor: '#1E2127',
+                                    color: "white",
+                                    height: 44,
+                                    minWidth: "100%",
+                                    marginBottom: 14,
+                                    borderRadius: 8,
+                                    borderWidth: 2,
+                                    paddingLeft: 20,
+                                    paddingTop: 14,
+                                    paddingBottom: 14,
+                                    borderColor: errors.email ? "rgb(138, 0, 0)" : "#333842"
+                                }}
+                                onBlur={onBlur}
+                                onChangeText={onChange}
+                                value={value}
+                            />
+                        )}
+                        name="email"
+                    />
                     <Text style={{ color: '#CBCBCB', textAlign: "center", fontSize: 12 }}>Регистрируясь вы принимаете
                         <Text onPress={() => navigation.navigate('Agrement')} style={{ color: '#CBCBCB', textDecorationLine: "underline", fontSize: 12 }}> публичную оферту
                             и политику конфиденциальности</Text>
@@ -72,7 +93,7 @@ const AuthRegister = ({ navigation }) => {
                     <Text style={{ color: 'white', textAlign: "center", marginBottom: 24 }} > Уже есть аккаунт? &ensp;
                         <Text style={{ color: 'white', textDecorationLine: "underline" }} onPress={() => navigation.navigate('Auth')}> Авторизация</Text>
                     </Text>
-                    <TouchableOpacity onPress={handleSubmit(onSubmit)} >
+                    <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
                         <SuperEllipseMaskView radius={{
                             topLeft: 12,
                             topRight: 12,

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
     StyleSheet,
     View,
@@ -7,25 +7,34 @@ import {
     Image,
     Button,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage
 } from 'react-native';
 
-import { useForm, Controller } from "react-hook-form";
+import { useForm, useController, Controller } from "react-hook-form";
 
 import LayoutAuth from '../componets/LayoutAuth'
 
 import LogoIntroSmall from "../image/Svg/LogoIntroSmall";
+import postRegister from "../api/postRegister";
 import SuperEllipseMaskView from "react-native-super-ellipse-mask";
 
-const AuthRecover = ({ navigation }) => {
-    const { control, handleSubmit, formState: { errors }, reset } = useForm({
-        defaultValues: {
-            email: '',
-            password: ''
+
+const AuthCodeReset = ({ navigation }) => {
+    const { control, handleSubmit, formState: { errors }  } = useForm({});
+    const onSubmit = async (data) => {
+        // console.log(data)
+        const email = await AsyncStorage.getItem("@sign_up_email")
+        try {
+            const res = await postRegister({ ...data, email })
+            await AsyncStorage.setItem("@auth_token", res.data.token)
+            console.log(res.data)
+            navigation.navigate("Auth")
+        } catch (error) {
+             console.log(error)
+             setCommonFormError("Invalid email_code")
         }
-    });
-    const onSubmit = (data) => {
-        console.log(data)
+        const [commonFormError, setCommonFormError] = useState("")
     };
     return (
         <LayoutAuth>
@@ -34,48 +43,60 @@ const AuthRecover = ({ navigation }) => {
             </View>
             <View style={styles.authForm}>
                 <View >
-                    <Text style={styles.authLogo}>Восстановление пароля</Text>
-                    <Text style={{ color: "#CBCBCB", textAlign: "center", paddingBottom: 30 }}>На Ваш email будет выслан проверочный
-                        код для сброса текущего пароля</Text>
-                    <Text style={styles.label}>Email</Text>
-                    <Controller
-                        style={styles.input}
+                    <Text style={styles.authLogo}>Проверочный код</Text>
+                    <Text style={{ color: "#CBCBCB", textAlign: "center", paddingBottom: 30 }}>На Ваш email будует выслан новый пароль</Text>
+                    <Text style={styles.label}>Код подтверждения</Text><Controller
                         control={control}
+                        rules={{
+                            required: true,
+                        }}
                         render={({ field: { onChange, onBlur, value } }) => (
                             <TextInput
-                                style={styles.input}
+                                style={{
+                                    backgroundColor: '#1E2127',
+                                    color: "white",
+                                    height: 44,
+                                    minWidth: "100%",
+                                    marginBottom: 14,
+                                    borderRadius: 8,
+                                    borderWidth: 2,
+                                    paddingLeft: 20,
+                                    paddingTop: 14,
+                                    paddingBottom: 14,
+                                    borderColor: errors.email_code ? "rgb(138, 0, 0)" : "#333842"
+                                }}
                                 onBlur={onBlur}
-                                onChangeText={value => onChange(value)}
+                                onChangeText={onChange}
                                 value={value}
-                                placeholderTextColor="white"
                             />
                         )}
-                        name="email"
-                        rules={{ required: true }}
+                        name="email_code"
+                        
                     />
                 </View>
                 <View style={{ marginBottom: 25 }}>
-                    <TouchableOpacity onPress={(data) => {
-                        handleSubmit(onSubmit(data));
-                        navigation.navigate('Code')
-                    }} activeOpacity={0.8}>
+                    <TouchableOpacity onPress={
+                        handleSubmit(onSubmit)
+                        
+                    } activeOpacity={0.8}>
+                        <View style={styles.buttonInner}
+                        >
+                            <Text style={{ color: '#0F1218', fontWeight: "600", fontSize: 13 }}>Отправить</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
                         <SuperEllipseMaskView radius={{
                             topLeft: 12,
                             topRight: 12,
                             bottomLeft: 12,
                             bottomRight: 12,
+                            marginBottom: 20
                         }}>
-                            <View style={styles.buttonInner}
+                            <View style={styles.buttonInnerBack}
                             >
-                                <Text style={{ color: '#0F1218', fontWeight: "600", fontSize: 13 }} >Отправить</Text>
+                                <Text style={{ color: 'white', fontWeight: "600", fontSize: 13 }}>Отменить</Text>
                             </View>
                         </SuperEllipseMaskView>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
-                        <View style={styles.buttonInnerBack}
-                        >
-                            <Text style={{ color: 'white', fontWeight: "600", fontSize: 13 }}>Отменить</Text>
-                        </View>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -153,4 +174,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AuthRecover
+export default AuthCodeReset

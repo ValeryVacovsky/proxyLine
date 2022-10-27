@@ -56,7 +56,7 @@ const Agreement = ({ navigation }) => {
                 </SafeAreaView>
                 <TouchableOpacity onPress={(data) => {
                     handleSubmit(onSubmit(data))
-                }} style={{marginBottom: 25, alignItems: "center"}}>
+                }} style={{marginBottom: 25, alignItems: "center"}} activeOpacity={0.8}>
                     <View style={styles.buttonInner}
                     >
                         <Text style={{ color: '#0F1218', fontWeight: "600", fontSize: 13 }}>Принять</Text>
