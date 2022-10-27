@@ -14,7 +14,7 @@ import {useForm, Controller} from 'react-hook-form';
 import LogoIntroSmall from '../image/Svg/LogoIntroSmall';
 import postAuth from '../api/postAuth';
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-
+import {Squircle} from 'react-ios-corners';
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -92,7 +92,7 @@ const AuthAuthauthentification = ({navigation}) => {
                   minWidth: '100%',
                   marginBottom: 14,
                   borderRadius: 8,
-                  borderWidth: 2,
+                  borderWidth: 1,
                   paddingLeft: 20,
                   paddingTop: 14,
                   paddingBottom: 14,
@@ -124,7 +124,7 @@ const AuthAuthauthentification = ({navigation}) => {
                   minWidth: '100%',
                   marginBottom: 14,
                   borderRadius: 8,
-                  borderWidth: 2,
+                  borderWidth: 1,
                   paddingLeft: 20,
                   paddingTop: 14,
                   paddingBottom: 14,
@@ -153,31 +153,31 @@ const AuthAuthauthentification = ({navigation}) => {
         </View>
         <View style={{marginBottom: 25}}>
           <Text style={{color: 'white', textAlign: 'center', marginBottom: 24}}>
-            Нет аккаунта? &ensp;
+            Нет аккаунта? &#160;
             <Text
-              style={{color: 'white', textDecorationLine: 'underline'}}
+              style={{
+                color: 'white',
+                textDecorationLine: 'underline',
+                fontWeight: '600',
+              }}
               onPress={() => navigation.push('Register')}>
               Регистрация
             </Text>
           </Text>
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-            activeOpacity={0.8}>
-            <SuperEllipseMaskView
-              radius={{
-                topLeft: 12,
-                topRight: 12,
-                bottomLeft: 12,
-                bottomRight: 12,
+          <TouchableOpacity onPress={() => navigation.push('Main')}>
+            <View
+              style={{
+                backgroundColor: '#FAC637',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: 50,
+                borderRadius: 18,
+                marginBottom: 20,
               }}>
-              <View style={styles.buttonInner}>
-                <Text
-                  style={{color: '#0F1218', fontWeight: '600', fontSize: 13}}
-                  onPress={() => {}}>
-                  Войти
-                </Text>
-              </View>
-            </SuperEllipseMaskView>
+              <Text style={{color: '#0F1218', fontWeight: '600', fontSize: 13}}>
+                Войти
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
