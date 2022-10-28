@@ -1,14 +1,13 @@
-import * as React from "react"
-import Svg, { Path } from "react-native-svg"
+import * as React from 'react';
+import Svg, {Path} from 'react-native-svg';
 
-const WalletButton = (props) => (
+const WalletButton = props => (
   <Svg
     width={16}
     height={17}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+    {...props}>
     <Path
       d="M12.667 1.5H1.833"
       stroke={props.color}
@@ -25,6 +24,6 @@ const WalletButton = (props) => (
       fill={props.color}
     />
   </Svg>
-)
+);
 
-export default WalletButton
+export default WalletButton;

@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from 'react';
 import Svg, {
   G,
   Mask,
@@ -8,28 +8,26 @@ import Svg, {
   Stop,
   ClipPath,
   Rect,
-} from "react-native-svg"
+} from 'react-native-svg';
 
-const FlagUsaSmall = (props) => (
+const FlagUsaSmall = props => (
   <Svg
     width={props.width}
     height={props.height}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+    {...props}>
     <G clipPath="url(#a)">
       <Mask
         id="b"
         style={{
-          maskType: "alpha",
+          maskType: 'alpha',
         }}
         maskUnits="userSpaceOnUse"
         x={0}
         y={0}
         width={props.width}
-        height={props.height}
-      >
+        height={props.height}>
         <Path fill="#fff" d="M0 .5h16v12H0z" />
       </Mask>
       <G mask="url(#b)">
@@ -56,7 +54,7 @@ const FlagUsaSmall = (props) => (
       <Path
         fill="url(#c)"
         style={{
-          mixBlendMode: "overlay",
+          mixBlendMode: 'overlay',
         }}
         d="M0 .5h16v12H0z"
       />
@@ -68,8 +66,7 @@ const FlagUsaSmall = (props) => (
         y1={0.5}
         x2={0}
         y2={props.height}
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <Stop stopColor="#fff" stopOpacity={0.3} />
         <Stop offset={0.263} stopOpacity={0.27} />
         <Stop offset={0.37} stopColor="#fff" stopOpacity={0.26} />
@@ -80,10 +77,16 @@ const FlagUsaSmall = (props) => (
         <Stop offset={1} stopOpacity={0.2} />
       </LinearGradient>
       <ClipPath id="a">
-        <Rect y={0.5} width={props.width} height={props.height} rx={1} fill="#fff" />
+        <Rect
+          y={0.5}
+          width={props.width}
+          height={props.height}
+          rx={1}
+          fill="#fff"
+        />
       </ClipPath>
     </Defs>
   </Svg>
-)
+);
 
-export default FlagUsaSmall
+export default FlagUsaSmall;
