@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react"
 import Svg, {
   G,
   Circle,
@@ -7,16 +7,17 @@ import Svg, {
   LinearGradient,
   Stop,
   RadialGradient,
-} from 'react-native-svg';
+} from "react-native-svg"
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
 
-const ButtonOff = props => (
+const ButtonOff = (props) => (
   <Svg
     width={160}
     height={160}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}>
+    {...props}
+  >
     <G filter="url(#a)">
       <Circle cx={80} cy={80} r={80} fill="url(#b)" />
     </G>
@@ -35,7 +36,8 @@ const ButtonOff = props => (
         y1={160}
         x2={80}
         y2={0}
-        gradientUnits="userSpaceOnUse">
+        gradientUnits="userSpaceOnUse"
+      >
         <Stop />
         <Stop offset={1} />
       </LinearGradient>
@@ -45,7 +47,8 @@ const ButtonOff = props => (
         y1={149.5}
         x2={80}
         y2={9.5}
-        gradientUnits="userSpaceOnUse">
+        gradientUnits="userSpaceOnUse"
+      >
         <Stop stopColor="#0B0D11" />
         <Stop offset={1} stopColor="#171B24" />
       </LinearGradient>
@@ -55,12 +58,13 @@ const ButtonOff = props => (
         cy={0}
         r={1}
         gradientUnits="userSpaceOnUse"
-        gradientTransform="matrix(0 -99.5 96.0923 0 80 150)">
+        gradientTransform="matrix(0 -99.5 96.0923 0 80 150)"
+      >
         <Stop stopColor="#DE1E1E" />
         <Stop offset={1} stopColor="#DE1E1E" stopOpacity={0} />
       </RadialGradient>
     </Defs>
   </Svg>
-);
+)
 
-export default ButtonOff;
+export default ButtonOff
