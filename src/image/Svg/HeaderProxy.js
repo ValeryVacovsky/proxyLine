@@ -1,14 +1,8 @@
-import * as React from "react"
-import Svg, { Path } from "react-native-svg"
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
-const HeaderProxy = (props) => (
-  <Svg
-    width={19}
-    height={18}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+const HeaderProxy = props => (
+  <Svg width={19} height={18} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <Path
       d="M15.125 7.5h1.125a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-1.125a1.875 1.875 0 1 1 0-3.75Z"
       stroke="#fff"

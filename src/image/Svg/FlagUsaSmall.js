@@ -1,44 +1,23 @@
-import * as React from "react"
-import Svg, {
-  G,
-  Mask,
-  Path,
-  Defs,
-  LinearGradient,
-  Stop,
-  ClipPath,
-  Rect,
-} from "react-native-svg"
+import * as React from 'react'
+import Svg, { G, Mask, Path, Defs, LinearGradient, Stop, ClipPath, Rect } from 'react-native-svg'
 
-const FlagUsaSmall = (props) => (
-  <Svg
-    width={props.width}
-    height={props.height}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+const FlagUsaSmall = props => (
+  <Svg width={props.width} height={props.height} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <G clipPath="url(#a)">
       <Mask
         id="b"
         style={{
-          maskType: "alpha",
+          maskType: 'alpha',
         }}
         maskUnits="userSpaceOnUse"
         x={0}
         y={0}
         width={props.width}
-        height={props.height}
-      >
+        height={props.height}>
         <Path fill="#fff" d="M0 .5h16v12H0z" />
       </Mask>
       <G mask="url(#b)">
-        <Path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M0 .5h16v12H0V.5Z"
-          fill="#E31D1C"
-        />
+        <Path fillRule="evenodd" clipRule="evenodd" d="M0 .5h16v12H0V.5Z" fill="#E31D1C" />
         <Path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -56,20 +35,13 @@ const FlagUsaSmall = (props) => (
       <Path
         fill="url(#c)"
         style={{
-          mixBlendMode: "overlay",
+          mixBlendMode: 'overlay',
         }}
         d="M0 .5h16v12H0z"
       />
     </G>
     <Defs>
-      <LinearGradient
-        id="c"
-        x1={props.width}
-        y1={0.5}
-        x2={0}
-        y2={props.height}
-        gradientUnits="userSpaceOnUse"
-      >
+      <LinearGradient id="c" x1={props.width} y1={0.5} x2={0} y2={props.height} gradientUnits="userSpaceOnUse">
         <Stop stopColor="#fff" stopOpacity={0.3} />
         <Stop offset={0.263} stopOpacity={0.27} />
         <Stop offset={0.37} stopColor="#fff" stopOpacity={0.26} />

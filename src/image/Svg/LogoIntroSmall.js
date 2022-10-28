@@ -1,14 +1,8 @@
-import * as React from "react"
-import Svg, { Path } from "react-native-svg"
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
-const LogoIntroSmall = (props) => (
-  <Svg
-    width={props.width}
-    height={props.height}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+const LogoIntroSmall = props => (
+  <Svg width={props.width} height={props.height} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <Path
       d="M.207.019c2.69 0 5.4-.021 8.09 0 .71 0 1.417.065 2.114.193 3.65.664 5.7 3.18 5.593 6.78-.107 3.237-2.476 5.787-6.02 6.065-3.245.249-6.51.193-9.777.249V.019Zm4.333 9.6c1.602 0 3.16.13 4.697-.042 1.537-.171 2.434-1.35 2.476-2.872.022-1.607-.768-2.786-2.39-3.043-1.559-.236-3.16-.193-4.783-.257V9.62ZM131.46 11.743V10.833a4.36 4.36 0 0 0-.039-.457c0-.058-.015-.118-.023-.175a.066.066 0 0 1 0-.035c-.427-3.814-3.672-6.622-8.411-6.065a6.914 6.914 0 0 0-4.876 2.817 6.982 6.982 0 0 0-1.187 5.52c4.568 0 9.179 0 13.79-.022.246-.019.513-.237.76-.368l-.014-.305Zm-10.595-1.836c.298-1.8 1.579-2.786 3.394-2.786 1.323 0 3.159 1.114 3.138 2.786h-6.532Z"
       fill="#fff"

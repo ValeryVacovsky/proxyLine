@@ -1,25 +1,17 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
 
-import LayoutAuth from '../componets/LayoutAuth';
+import LayoutAuth from '../componets/LayoutAuth'
 
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form'
 
-import LogoIntroSmall from '../image/Svg/LogoIntroSmall';
-import postAuth from '../api/postAuth';
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-import { Squircle } from 'react-ios-corners';
+import LogoIntroSmall from '../image/Svg/LogoIntroSmall'
+import postAuth from '../api/postAuth'
 const EMAIL_REGEX =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 const AuthAuthauthentification = ({ navigation }) => {
-  const [commonFormError, setCommonFormError] = useState('');
+  const [commonFormError, setCommonFormError] = useState('')
   const [focusOnEmail, setFocusOnEmail] = useState(false)
   const [focusOnPassword, setFocusOnPassword] = useState(false)
   const {
@@ -31,37 +23,33 @@ const AuthAuthauthentification = ({ navigation }) => {
       email: '',
       password: '',
     },
-  });
+  })
   React.useEffect(
     () =>
       navigation.addListener('beforeRemove', e => {
-        e.preventDefault();
-        console.log(123);
+        e.preventDefault()
+        console.log(123)
       }),
     [navigation],
-  );
+  )
   const onSubmit = data => {
     postAuth(data).then(result => {
-      console.log(result.data);
+      console.log(result.data)
       if (result.data.success === true) {
-        navigation.navigate('Main');
+        navigation.navigate('Main')
       } else {
-        setCommonFormError('Invalid email or password');
+        setCommonFormError('Invalid email or password')
       }
-    });
+    })
     if (data.email === 'email@gmail.com' && data.password === 'password') {
       navigation.push('Main', {
         initial: false,
-      });
+      })
     }
     if (data.email === 1111) {
-      navigation.push('Main');
+      navigation.push('Main')
     }
-    console.log(data);
-  };
-
-  const customOnFocuse = () => {
-
+    console.log(data)
   }
 
   return (
@@ -72,11 +60,7 @@ const AuthAuthauthentification = ({ navigation }) => {
       <View style={styles.authForm}>
         <View>
           <Text style={styles.authLogo}>Авторизация</Text>
-          {commonFormError && (
-            <Text style={{ color: 'white', textAlign: 'center' }}>
-              {commonFormError}
-            </Text>
-          )}
+          {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>}
           <Text style={styles.label}>Email</Text>
           {/* <Input name="email" control={control} /> */}
           {/* <TextInput {...register("email")} style={styles.input}></TextInput> */}
@@ -91,8 +75,8 @@ const AuthAuthauthentification = ({ navigation }) => {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                onFocus={(e) => setFocusOnEmail(true)}
-                onBlur={(e) => setFocusOnEmail(false)}
+                onFocus={e => setFocusOnEmail(true)}
+                onBlur={e => setFocusOnEmail(false)}
                 style={{
                   backgroundColor: '#1E2127',
                   color: 'white',
@@ -104,7 +88,7 @@ const AuthAuthauthentification = ({ navigation }) => {
                   paddingLeft: 20,
                   paddingTop: 14,
                   paddingBottom: 14,
-                  borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842'
+                  borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
                 }}
                 onChangeText={onChange}
                 value={value}
@@ -123,8 +107,8 @@ const AuthAuthauthentification = ({ navigation }) => {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                onFocus={(e) => setFocusOnPassword(true)}
-                onBlur={(e) => setFocusOnPassword(false)}
+                onFocus={e => setFocusOnPassword(true)}
+                onBlur={e => setFocusOnPassword(false)}
                 style={{
                   backgroundColor: '#1E2127',
                   color: 'white',
@@ -136,7 +120,7 @@ const AuthAuthauthentification = ({ navigation }) => {
                   paddingLeft: 20,
                   paddingTop: 14,
                   paddingBottom: 14,
-                  borderColor: (focusOnPassword && '#fac637') || (errors.password && 'rgb(138,0,0)') || '#333842'
+                  borderColor: (focusOnPassword && '#fac637') || (errors.password && 'rgb(138,0,0)') || '#333842',
                 }}
                 onChangeText={onChange}
                 value={value}
@@ -151,7 +135,7 @@ const AuthAuthauthentification = ({ navigation }) => {
                   color: '#CBCBCB',
                   textAlign: 'right',
                   textDecorationLine: 'underline',
-                  fontWeight: "600"
+                  fontWeight: '600',
                 }}
                 onPress={() => navigation.navigate('Recover')}>
                 Забыли пароль?
@@ -163,28 +147,33 @@ const AuthAuthauthentification = ({ navigation }) => {
           <Text style={{ color: 'white', textAlign: 'center', marginBottom: 24 }}>
             Нет аккаунта? &#160;
             <Text
-              style={{ color: 'white', textDecorationLine: 'underline', fontWeight: "600" }}
+              style={{
+                color: 'white',
+                textDecorationLine: 'underline',
+                fontWeight: '600',
+              }}
               onPress={() => navigation.push('Register')}>
               Регистрация
             </Text>
           </Text>
           <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-            <View style={{
-              backgroundColor: '#FAC637',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 50,
-              borderRadius: 12,
-              marginBottom: 20
-            }}>
-              <Text style={{ color: '#0F1218', fontWeight: "600", fontSize: 13 }}>Войти</Text>
+            <View
+              style={{
+                backgroundColor: '#FAC637',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: 50,
+                borderRadius: 12,
+                marginBottom: 20,
+              }}>
+              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Войти</Text>
             </View>
           </TouchableOpacity>
         </View>
       </View>
     </LayoutAuth>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -237,6 +226,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 22,
   },
-});
+})
 
-export default AuthAuthauthentification;
+export default AuthAuthauthentification

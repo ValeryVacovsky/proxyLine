@@ -1,19 +1,19 @@
-import React from 'react';
-import { StyleSheet, Text, SafeAreaView, ScrollView, } from 'react-native';
-import ProxyTariff from '../componets/ProxyTariff';
+import React from 'react'
+import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import ProxyTariff from '../componets/ProxyTariff'
 
 const TestScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <ProxyTariff/>
-        <ProxyTariff/>
-        <ProxyTariff/>
-        <ProxyTariff/>
-        <ProxyTariff/>
+        <ProxyTariff />
+        <ProxyTariff />
+        <ProxyTariff />
+        <ProxyTariff />
+        <ProxyTariff />
       </ScrollView>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -27,6 +27,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 42,
   },
-});
+})
 
-export default TestScreen;
+export default TestScreen
