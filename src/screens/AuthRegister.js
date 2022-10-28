@@ -1,45 +1,39 @@
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  AsyncStorage,
-} from 'react-native';
-import {useForm, Controller} from 'react-hook-form';
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, AsyncStorage } from 'react-native'
+import { useForm, Controller } from 'react-hook-form'
 
-import LayoutAuth from '../componets/LayoutAuth';
+import LayoutAuth from '../componets/LayoutAuth'
 
-import LogoIntroSmall from '../image/Svg/LogoIntroSmall';
-import postRegisterCode from '../api/postRegisterCode';
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
+import LogoIntroSmall from '../image/Svg/LogoIntroSmall'
+import postRegisterCode from '../api/postRegisterCode'
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
 const EMAIL_REGEX =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-const AuthRegister = ({navigation}) => {
-  const [commonFormError, setCommonFormError] = useState('');
+const AuthRegister = ({ navigation }) => {
+  const [commonFormError, setCommonFormError] = useState('')
+  const [focusOnEmail, setFocusOnEmail] = useState(false)
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     defaultValues: {
       email: '',
       password: '',
     },
-  });
+  })
   const onSubmit = async data => {
-    const res = await postRegisterCode(data);
+    const res = await postRegisterCode(data)
     if (res.data.success === true) {
-      await AsyncStorage.setItem('@sign_up_email', data.email);
-      console.log(data.email);
-      navigation.navigate('Code');
+      await AsyncStorage.setItem('@sign_up_email', data.email)
+      console.log(data.email)
+      navigation.navigate('Code')
     } else {
-      setCommonFormError('Invalid email or password');
+      setCommonFormError('Invalid email or password')
     }
-  };
+  }
   // () => navigation.navigate('Intro')
 
   return (
@@ -49,20 +43,13 @@ const AuthRegister = ({navigation}) => {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text
-            style={styles.authLogo}
-            onPress={() => navigation.navigate('Code')}>
+          <Text style={styles.authLogo} onPress={() => navigation.navigate('Code')}>
             Регистрация
           </Text>
-          <Text
-            style={{color: '#CBCBCB', textAlign: 'center', paddingBottom: 30}}>
+          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
             Пароль будет отправлен на Ваш email
           </Text>
-          {commonFormError && (
-            <Text style={{color: 'white', textAlign: 'center'}}>
-              {commonFormError}
-            </Text>
-          )}
+          {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>}
           <Text style={styles.label}>Email</Text>
 
           <Controller
@@ -74,8 +61,10 @@ const AuthRegister = ({navigation}) => {
                 message: 'email error',
               },
             }}
-            render={({field: {onChange, onBlur, value}}) => (
+            render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
+                onFocus={e => setFocusOnEmail(true)}
+                onBlur={e => setFocusOnEmail(false)}
                 style={{
                   backgroundColor: '#1E2127',
                   color: 'white',
@@ -87,16 +76,15 @@ const AuthRegister = ({navigation}) => {
                   paddingLeft: 20,
                   paddingTop: 14,
                   paddingBottom: 14,
-                  borderColor: errors.email ? 'rgb(138, 0, 0)' : '#333842',
+                  borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
                 }}
-                onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
               />
             )}
             name="email"
           />
-          <Text style={{color: '#CBCBCB', textAlign: 'center', fontSize: 12}}>
+          <Text style={{ color: '#CBCBCB', textAlign: 'center', fontSize: 12 }}>
             Регистрируясь вы принимаете&#160;
             <Text
               onPress={() => navigation.navigate('Agrement')}
@@ -109,8 +97,8 @@ const AuthRegister = ({navigation}) => {
             </Text>
           </Text>
         </View>
-        <View style={{marginBottom: 25}}>
-          <Text style={{color: 'white', textAlign: 'center', marginBottom: 24}}>
+        <View style={{ marginBottom: 25 }}>
+          <Text style={{ color: 'white', textAlign: 'center', marginBottom: 24 }}>
             {' '}
             Уже есть аккаунт? &#160;
             <Text
@@ -123,9 +111,7 @@ const AuthRegister = ({navigation}) => {
               Авторизация
             </Text>
           </Text>
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-            activeOpacity={0.8}>
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
             <SuperEllipseMaskView
               radius={{
                 topLeft: 12,
@@ -135,18 +121,15 @@ const AuthRegister = ({navigation}) => {
                 marginBottom: 20,
               }}>
               <View style={styles.buttonInner}>
-                <Text
-                  style={{color: '#0F1218', fontWeight: '600', fontSize: 13}}>
-                  Зарегистрироваться
-                </Text>
+                <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Зарегистрироваться</Text>
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>
         </View>
       </View>
     </LayoutAuth>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -210,6 +193,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 22,
   },
-});
+})
 
-export default AuthRegister;
+export default AuthRegister

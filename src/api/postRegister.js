@@ -1,5 +1,5 @@
-import axios from 'axios';
-const baseUrl = 'https://proxydbtest.proxyline.net';
+import axios from 'axios'
+const baseUrl = 'https://proxydbtest.proxyline.net'
 
 // Passing configuration object to axios
 const postRegister = data =>
@@ -11,6 +11,6 @@ const postRegister = data =>
       apikey: 'project-1-apikey',
     },
     data: data,
-  });
+  })
 
-export default postRegister;
+export default postRegister

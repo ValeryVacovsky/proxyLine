@@ -1,13 +1,8 @@
-import * as React from 'react';
-import Svg, {Path} from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 const DatabaseButtom = props => (
-  <Svg
-    width={15}
-    height={14}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}>
+  <Svg width={15} height={14} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <Path
       d="M.125 3.058c0-.121.067-.32.378-.583.308-.26.79-.523 1.441-.755 1.297-.463 3.13-.762 5.184-.762 2.054 0 3.887.299 5.184.762.651.232 1.134.495 1.442.755.31.262.377.462.377.583 0 .12-.066.32-.377.583-.308.26-.79.522-1.442.755-1.297.463-3.13.761-5.184.761-2.054 0-3.887-.298-5.184-.761C1.294 4.163.811 3.9.503 3.64c-.311-.263-.378-.462-.378-.583Z"
       fill={props.color}
@@ -21,6 +16,6 @@ const DatabaseButtom = props => (
       fill={props.color}
     />
   </Svg>
-);
+)
 
-export default DatabaseButtom;
+export default DatabaseButtom

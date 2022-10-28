@@ -1,9 +1,9 @@
-import {View, TouchableOpacity} from 'react-native';
+import { View, TouchableOpacity } from 'react-native'
 
-import DatabaseButtom from '../image/Svg/DatabaseButtom';
-import OrdersButton from '../image/Svg/OrdersButton';
-import SettingsButton from '../image/Svg/SettingsButton';
-import WalletButton from '../image/Svg/WalletButton';
+import DatabaseButtom from '../image/Svg/DatabaseButtom'
+import OrdersButton from '../image/Svg/OrdersButton'
+import SettingsButton from '../image/Svg/SettingsButton'
+import WalletButton from '../image/Svg/WalletButton'
 
 const UserNavigation = () => {
   return (
@@ -49,7 +49,7 @@ const UserNavigation = () => {
         <SettingsButton color="white" />
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
-export default UserNavigation;
+export default UserNavigation

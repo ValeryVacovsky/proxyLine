@@ -1,13 +1,8 @@
-import * as React from 'react';
-import Svg, {Mask, Path, G} from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Mask, Path, G } from 'react-native-svg'
 
 const FlagUseBig = props => (
-  <Svg
-    width={32}
-    height={24}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}>
+  <Svg width={32} height={24} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <Mask
       id="a"
       style={{
@@ -21,12 +16,7 @@ const FlagUseBig = props => (
       <Path fill="#fff" d="M0 0h32v24H0z" />
     </Mask>
     <G mask="url(#a)">
-      <Path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M0 0h32v24H0V0Z"
-        fill="#F7FCFF"
-      />
+      <Path fillRule="evenodd" clipRule="evenodd" d="M0 0h32v24H0V0Z" fill="#F7FCFF" />
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -42,6 +32,6 @@ const FlagUseBig = props => (
       />
     </G>
   </Svg>
-);
+)
 
-export default FlagUseBig;
+export default FlagUseBig

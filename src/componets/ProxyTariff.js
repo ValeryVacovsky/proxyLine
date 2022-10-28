@@ -1,9 +1,9 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
 
-import PeopleIconProxy from '../image/Svg/PeopleIconProxy';
+import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
 
-const ProxyTariff = ({navigation}) => {
+const ProxyTariff = ({ navigation }) => {
   return (
     <View
       style={{
@@ -19,7 +19,7 @@ const ProxyTariff = ({navigation}) => {
           zIndex: 0,
           marginTop: 11,
         }}>
-        <View style={{zIndex: 1, borderBottomLeftRadius: 80}}>
+        <View style={{ zIndex: 1, borderBottomLeftRadius: 80 }}>
           <Text
             style={{
               color: 'black',
@@ -55,12 +55,8 @@ const ProxyTariff = ({navigation}) => {
             borderTopRightRadius: 14,
           }}>
           <View>
-            <Text style={{color: 'white', fontSize: 18, fontWeight: '700'}}>
-              IPv4 Shared
-            </Text>
-            <Text style={{color: '#CBCBCB', fontSize: 12, fontWeight: '400'}}>
-              Подходят для любых целей и сайтов
-            </Text>
+            <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>IPv4 Shared</Text>
+            <Text style={{ color: '#CBCBCB', fontSize: 12, fontWeight: '400' }}>Подходят для любых целей и сайтов</Text>
           </View>
           <View>
             <PeopleIconProxy />
@@ -81,10 +77,10 @@ const ProxyTariff = ({navigation}) => {
             marginBottom: 1,
           }}>
           <View>
-            <Text style={{color: 'white', fontWeight: '700'}}>5 дней</Text>
+            <Text style={{ color: 'white', fontWeight: '700' }}>5 дней</Text>
           </View>
           <View>
-            <Text style={{color: 'white', fontWeight: '700'}}>$ 0.60</Text>
+            <Text style={{ color: 'white', fontWeight: '700' }}>$ 0.60</Text>
           </View>
         </View>
         <TouchableOpacity
@@ -110,7 +106,7 @@ const ProxyTariff = ({navigation}) => {
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default ProxyTariff;
+export default ProxyTariff

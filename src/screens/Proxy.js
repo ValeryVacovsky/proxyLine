@@ -1,14 +1,14 @@
-import React from 'react';
-import {View, ScrollView, StyleSheet, SafeAreaView} from 'react-native';
-import LayoutMain from '../componets/LayoutMain';
-import ProxyTariff from '../componets/ProxyTariff';
-import UserNavigation from '../componets/UserNavigation';
+import React from 'react'
+import { View, ScrollView, StyleSheet, SafeAreaView } from 'react-native'
+import LayoutMain from '../componets/LayoutMain'
+import ProxyTariff from '../componets/ProxyTariff'
+import UserNavigation from '../componets/UserNavigation'
 
-const ProxyList = [1, 2, 3, 4, 5];
+const ProxyList = [1, 2, 3, 4, 5]
 
-const Proxy = ({navigation}) => {
+const Proxy = ({ navigation }) => {
   return (
-    <LayoutMain style={{display: 'flex', alignItems: 'center'}}>
+    <LayoutMain style={{ display: 'flex', alignItems: 'center' }}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           {ProxyList.map(key => (
@@ -16,12 +16,12 @@ const Proxy = ({navigation}) => {
           ))}
         </ScrollView>
       </SafeAreaView>
-      <View style={{alignItems: 'center', marginBottom: 25}}>
+      <View style={{ alignItems: 'center', marginBottom: 25 }}>
         <UserNavigation />
       </View>
     </LayoutMain>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 42,
   },
-});
+})
 
-export default Proxy;
+export default Proxy

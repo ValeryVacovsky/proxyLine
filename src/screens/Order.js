@@ -1,13 +1,13 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import LayoutMain from '../componets/LayoutMain';
-import FlagUsaSmall from '../image/Svg/FlagUsaSmall';
-import PeopleIconProxy from '../image/Svg/PeopleIconProxy';
-import VectorRightSmall from '../image/Svg/VectorRightSmall';
+import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import LayoutMain from '../componets/LayoutMain'
+import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
+import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
+import VectorRightSmall from '../image/Svg/VectorRightSmall'
 
-const Order = ({navigation}) => {
+const Order = ({ navigation }) => {
   return (
-    <LayoutMain style={{display: 'flex', alignItems: 'center'}}>
+    <LayoutMain style={{ display: 'flex', alignItems: 'center' }}>
       <View
         style={{
           flex: 1,
@@ -18,7 +18,7 @@ const Order = ({navigation}) => {
           zIndex: 0,
           marginTop: 11,
         }}>
-        <View style={{zIndex: 1}}>
+        <View style={{ zIndex: 1 }}>
           <Text
             style={{
               color: 'black',
@@ -56,12 +56,8 @@ const Order = ({navigation}) => {
             borderBottomRightRadius: 14,
           }}>
           <View>
-            <Text style={{color: 'white', fontSize: 18, fontWeight: '700'}}>
-              IPv4 Shared
-            </Text>
-            <Text style={{color: '#CBCBCB', fontSize: 12, fontWeight: '400'}}>
-              Подходят для любых целей и сайтов
-            </Text>
+            <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>IPv4 Shared</Text>
+            <Text style={{ color: '#CBCBCB', fontSize: 12, fontWeight: '400' }}>Подходят для любых целей и сайтов</Text>
           </View>
           <View>
             <PeopleIconProxy />
@@ -76,7 +72,7 @@ const Order = ({navigation}) => {
             paddingBottom: 13,
           }}>
           <View>
-            <Text style={{color: '#CBCBCB'}}>Страна</Text>
+            <Text style={{ color: '#CBCBCB' }}>Страна</Text>
           </View>
           <View
             style={{
@@ -84,17 +80,9 @@ const Order = ({navigation}) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Text style={{color: 'white'}}>United States of America</Text>
-            <FlagUsaSmall
-              width={16}
-              height={13}
-              style={{top: 2, marginLeft: 5, marginRight: 5}}
-            />
-            <VectorRightSmall
-              width={6}
-              height={12}
-              style={{top: 5, marginLeft: 10}}
-            />
+            <Text style={{ color: 'white' }}>United States of America</Text>
+            <FlagUsaSmall width={16} height={13} style={{ top: 2, marginLeft: 5, marginRight: 5 }} />
+            <VectorRightSmall width={6} height={12} style={{ top: 5, marginLeft: 10 }} />
           </View>
         </TouchableOpacity>
         <View
@@ -106,8 +94,8 @@ const Order = ({navigation}) => {
             paddingTop: 10,
             marginBottom: 50,
           }}>
-          <Text style={{color: '#CBCBCB'}}>5 дней</Text>
-          <Text style={{color: '#CBCBCB'}}>360 дней</Text>
+          <Text style={{ color: '#CBCBCB' }}>5 дней</Text>
+          <Text style={{ color: '#CBCBCB' }}>360 дней</Text>
         </View>
         <View
           style={{
@@ -118,10 +106,8 @@ const Order = ({navigation}) => {
             paddingTop: 13,
             paddingBottom: 13,
           }}>
-          <Text style={{color: '#CBCBCB'}}>Период</Text>
-          <Text style={{color: 'white', fontWeight: '700', fontSize: 14}}>
-            90 дней
-          </Text>
+          <Text style={{ color: '#CBCBCB' }}>Период</Text>
+          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>90 дней</Text>
         </View>
         <View
           style={{
@@ -132,7 +118,7 @@ const Order = ({navigation}) => {
             alignItems: 'center',
             marginBottom: 10,
           }}>
-          <Text style={{color: '#CBCBCB'}}>Тип</Text>
+          <Text style={{ color: '#CBCBCB' }}>Тип</Text>
           <View
             style={{
               display: 'flex',
@@ -185,7 +171,7 @@ const Order = ({navigation}) => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{color: '#CBCBCB'}}>Колличество</Text>
+          <Text style={{ color: '#CBCBCB' }}>Колличество</Text>
           <View
             style={{
               display: 'flex',
@@ -195,7 +181,7 @@ const Order = ({navigation}) => {
               left: 5,
               alignItems: 'center',
             }}>
-            <TouchableOpacity style={{backgroundColor: '#1E2127'}}>
+            <TouchableOpacity style={{ backgroundColor: '#1E2127' }}>
               <Text
                 style={{
                   color: '#CBCBCB',
@@ -219,11 +205,9 @@ const Order = ({navigation}) => {
                 paddingLeft: 14,
                 paddingRight: 14,
               }}>
-              <Text style={{color: 'white', fontSize: 14, fontWeight: '600'}}>
-                10
-              </Text>
+              <Text style={{ color: 'white', fontSize: 14, fontWeight: '600' }}>10</Text>
             </View>
-            <TouchableOpacity style={{backgroundColor: '#1E2127'}}>
+            <TouchableOpacity style={{ backgroundColor: '#1E2127' }}>
               <Text
                 style={{
                   color: 'white',
@@ -248,13 +232,11 @@ const Order = ({navigation}) => {
             paddingTop: 13,
             paddingBottom: 13,
           }}>
-          <Text style={{color: '#CBCBCB'}}>Сена за штуку</Text>
-          <Text style={{color: 'white', fontWeight: '700', fontSize: 14}}>
-            $ 0.60
-          </Text>
+          <Text style={{ color: '#CBCBCB' }}>Сена за штуку</Text>
+          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ 0.60</Text>
         </View>
       </View>
-      <View style={{alignItems: 'center', marginBottom: 25}}>
+      <View style={{ alignItems: 'center', marginBottom: 25 }}>
         <View
           style={{
             display: 'flex',
@@ -264,25 +246,21 @@ const Order = ({navigation}) => {
             paddingTop: 13,
             paddingBottom: 13,
           }}>
-          <Text style={{color: '#CBCBCB'}}>Итого к оплате</Text>
-          <Text style={{color: 'white', fontWeight: '700', fontSize: 14}}>
-            $ 6.0
-          </Text>
+          <Text style={{ color: '#CBCBCB' }}>Итого к оплате</Text>
+          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ 6.0</Text>
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate('Main')}
-          style={{alignItems: 'center', width: '100%', marginBottom: 20}}
+          style={{ alignItems: 'center', width: '100%', marginBottom: 20 }}
           activeOpacity={0.8}>
           <View style={styles.buttonInner}>
-            <Text style={{color: 'black', fontWeight: '600', fontSize: 13}}>
-              Купить прокси
-            </Text>
+            <Text style={{ color: 'black', fontWeight: '600', fontSize: 13 }}>Купить прокси</Text>
           </View>
         </TouchableOpacity>
       </View>
     </LayoutMain>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   buttonInner: {
@@ -292,6 +270,6 @@ const styles = StyleSheet.create({
     height: 50,
     width: '90%',
   },
-});
+})
 
-export default Order;
+export default Order

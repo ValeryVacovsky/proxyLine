@@ -1,23 +1,24 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 
-import LayoutAuth from '../componets/LayoutAuth';
-import FlagUsaSmall from '../image/Svg/FlagUsaSmall';
-import FlagUseBig from '../image/Svg/FlagUseBig';
-import FrameGreen from '../image/Svg/FrameGreen';
-import FrameRed from '../image/Svg/FrameRed';
-import FrameYellow from '../image/Svg/FrameYellow';
-import FlagRusSmall from '../image/Svg/FlagRusSmall';
+import LayoutAuth from '../componets/LayoutAuth'
+import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
+import FlagUseBig from '../image/Svg/FlagUseBig'
+import FrameGreen from '../image/Svg/FrameGreen'
+import FrameRed from '../image/Svg/FrameRed'
+import FrameYellow from '../image/Svg/FrameYellow'
+import FlagRusSmall from '../image/Svg/FlagRusSmall'
 
-import LogoIntroWhite from '../image/Svg/LogoIntroWhite';
-import VectorRight from '../image/Svg/VectorRight';
-import UserNavigation from '../componets/UserNavigation';
+import LogoIntroWhite from '../image/Svg/LogoIntroWhite'
+import VectorRight from '../image/Svg/VectorRight'
+import UserNavigation from '../componets/UserNavigation'
 
-import ButtonOff from '../image/Svg/ButtonOff';
+import ButtonOff from '../image/Svg/ButtonOff'
+// import postAuth from "../api";
 
-const Main = ({navigation}) => {
-  const [statusConect, setStatusConect] = useState('off');
-  console.log(123);
+const Main = ({ navigation }) => {
+  const [statusConect, setStatusConect] = useState('off')
+  console.log(123)
   // postUserAuth.then((reuest) => {
   //     console.log(reuest)
   // })
@@ -30,8 +31,8 @@ const Main = ({navigation}) => {
         <LogoIntroWhite width={88} height={16} style={styles.mainLogo} />
       </View>
       <View style={styles.authForm}>
-        <View style={{marginBottom: 40, display: 'flex'}}>
-          <View style={{alignItems: 'center'}}>
+        <View style={{ marginBottom: 40, display: 'flex' }}>
+          <View style={{ alignItems: 'center' }}>
             <Text
               style={{
                 paddingBottom: 5,
@@ -146,35 +147,17 @@ const Main = ({navigation}) => {
                   Россия
                 </Text>
               )}
-              {statusConect === 'on' && (
-                <FlagUsaSmall
-                  width={16}
-                  height={13}
-                  style={{bottom: 5, left: 5}}
-                />
-              )}
-              {statusConect === 'off' && (
-                <FlagRusSmall
-                  width={16}
-                  height={13}
-                  style={{bottom: 5, left: 5}}
-                />
-              )}
-              {statusConect === 'none' && (
-                <FlagRusSmall
-                  width={16}
-                  height={13}
-                  style={{bottom: 5, left: 5}}
-                />
-              )}
+              {statusConect === 'on' && <FlagUsaSmall width={16} height={13} style={{ bottom: 5, left: 5 }} />}
+              {statusConect === 'off' && <FlagRusSmall width={16} height={13} style={{ bottom: 5, left: 5 }} />}
+              {statusConect === 'none' && <FlagRusSmall width={16} height={13} style={{ bottom: 5, left: 5 }} />}
             </View>
           </View>
-          <View style={{marginBottom: 50, alignItems: 'center'}}>
+          <View style={{ marginBottom: 50, alignItems: 'center' }}>
             {statusConect === 'on' && (
               <TouchableOpacity onPress={() => setStatusConect('off')}>
                 <Image
                   source={require('../image/ButtonOn.png')}
-                  style={{width: 160, height: 160, alignItems: 'center'}}
+                  style={{ width: 160, height: 160, alignItems: 'center' }}
                   onPress={() => setStatusConect('on')}
                 />
               </TouchableOpacity>
@@ -198,7 +181,7 @@ const Main = ({navigation}) => {
               </TouchableOpacity>
             )}
           </View>
-          <View style={{display: 'flex', flexDirection: 'column'}}>
+          <View style={{ display: 'flex', flexDirection: 'column' }}>
             <TouchableOpacity
               style={{
                 display: 'flex',
@@ -259,34 +242,23 @@ const Main = ({navigation}) => {
                   )}
                 </View>
                 {statusConect == 'on' && (
-                  <Text
-                    style={{color: '#CBCBCB', fontWeight: '400', fontSize: 12}}>
-                    Скорость подключения
-                  </Text>
+                  <Text style={{ color: '#CBCBCB', fontWeight: '400', fontSize: 12 }}>Скорость подключения</Text>
                 )}
                 {statusConect == 'off' && (
-                  <Text
-                    style={{color: '#CBCBCB', fontWeight: '400', fontSize: 12}}>
+                  <Text style={{ color: '#CBCBCB', fontWeight: '400', fontSize: 12 }}>
                     Нажмите на кнопку чтобы подключить
                   </Text>
                 )}
                 {statusConect == 'none' && (
-                  <Text
-                    style={{color: '#CBCBCB', fontWeight: '400', fontSize: 12}}>
+                  <Text style={{ color: '#CBCBCB', fontWeight: '400', fontSize: 12 }}>
                     Нажмите на кнопку чтобы подключить
                   </Text>
                 )}
               </View>
               {statusConect == 'on' && (
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Text
-                    style={{color: 'white', fontSize: 18, fontWeight: '700'}}>
-                    12.18{' '}
-                  </Text>
-                  <Text
-                    style={{color: 'white', fontSize: 13, fontWeight: '600'}}>
-                    Mbit/s
-                  </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>12.18 </Text>
+                  <Text style={{ color: 'white', fontSize: 13, fontWeight: '600' }}>Mbit/s</Text>
                 </View>
               )}
             </TouchableOpacity>
@@ -315,7 +287,7 @@ const Main = ({navigation}) => {
                       alignItems: 'center',
                     }}>
                     <FlagUseBig />
-                    <View style={{marginLeft: 14}}>
+                    <View style={{ marginLeft: 14 }}>
                       <View>
                         <Text
                           style={{
@@ -388,7 +360,7 @@ const Main = ({navigation}) => {
                       alignItems: 'center',
                     }}>
                     <FlagUseBig />
-                    <View style={{marginLeft: 14}}>
+                    <View style={{ marginLeft: 14 }}>
                       <View>
                         <Text
                           style={{
@@ -489,10 +461,7 @@ const Main = ({navigation}) => {
                   borderBottomLeftRadius: 8,
                   borderBottomRightRadius: 8,
                 }}>
-                <Text
-                  style={{fontWeight: '600', fontSize: 12, color: '#F5F5F5'}}>
-                  5 дней 6 часов
-                </Text>
+                <Text style={{ fontWeight: '600', fontSize: 12, color: '#F5F5F5' }}>5 дней 6 часов</Text>
               </View>
             )}
             {statusConect === 'off' && (
@@ -509,21 +478,18 @@ const Main = ({navigation}) => {
                   borderBottomLeftRadius: 8,
                   borderBottomRightRadius: 8,
                 }}>
-                <Text
-                  style={{fontWeight: '600', fontSize: 12, color: '#F5F5F5'}}>
-                  5 дней 6 часов
-                </Text>
+                <Text style={{ fontWeight: '600', fontSize: 12, color: '#F5F5F5' }}>5 дней 6 часов</Text>
               </View>
             )}
           </View>
         </View>
       </View>
-      <View style={{marginBottom: 25, width: '90%', alignItems: 'center'}}>
-        <UserNavigation style={{marginBottom: 25}} />
+      <View style={{ marginBottom: 25, width: '90%', alignItems: 'center' }}>
+        <UserNavigation style={{ marginBottom: 25 }} />
       </View>
     </LayoutAuth>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -575,6 +541,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 22,
   },
-});
+})
 
-export default Main;
+export default Main

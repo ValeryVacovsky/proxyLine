@@ -1,13 +1,8 @@
-import * as React from 'react';
-import Svg, {Path} from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 const LogoIntroBig = props => (
-  <Svg
-    width={202}
-    height={38}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}>
+  <Svg width={202} height={38} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <Path
       d="M.5.699c4.109 0 8.25-.033 12.359 0 1.083 0 2.163.1 3.228.294 5.576 1.015 8.707 4.858 8.544 10.358-.163 4.943-3.783 8.838-9.196 9.264-4.957.38-9.946.295-14.935.38V.699Zm6.62 14.665c2.445 0 4.826.197 7.174-.065 2.348-.262 3.717-2.063 3.782-4.387.033-2.455-1.174-4.255-3.652-4.648-2.38-.36-4.826-.295-7.304-.393v9.493ZM200.99 18.608v-1.391a6.779 6.779 0 0 0-.058-.697c0-.089-.023-.18-.036-.269a.154.154 0 0 1 0-.052c-.652-5.827-5.609-10.115-12.848-9.264a10.588 10.588 0 0 0-7.447 4.303 10.652 10.652 0 0 0-1.814 8.43c6.978 0 14.022 0 21.065-.032.375-.03.783-.363 1.161-.563l-.023-.465Zm-16.183-2.805c.456-2.75 2.413-4.256 5.184-4.256 2.022 0 4.827 1.703 4.794 4.256h-9.978Z"
       fill="#fff"
@@ -25,6 +20,6 @@ const LogoIntroBig = props => (
       fill="#FAC637"
     />
   </Svg>
-);
+)
 
-export default LogoIntroBig;
+export default LogoIntroBig

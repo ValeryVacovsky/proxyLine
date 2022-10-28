@@ -1,14 +1,9 @@
-import * as React from 'react';
-import Svg, {Rect, Defs, RadialGradient, Stop} from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Rect, Defs, RadialGradient, Stop } from 'react-native-svg'
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
 
 const FrameGreen = props => (
-  <Svg
-    width={10}
-    height={11}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}>
+  <Svg width={10} height={11} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <Rect y={0.5} width={10} height={10} rx={5} fill="url(#a)" />
     <Defs>
       <RadialGradient
@@ -23,6 +18,6 @@ const FrameGreen = props => (
       </RadialGradient>
     </Defs>
   </Svg>
-);
+)
 
-export default FrameGreen;
+export default FrameGreen

@@ -1,46 +1,42 @@
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
 
-import {useForm, Controller} from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form'
 
-import LayoutAuth from '../componets/LayoutAuth';
+import LayoutAuth from '../componets/LayoutAuth'
 
-import LogoIntroSmall from '../image/Svg/LogoIntroSmall';
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-import postReset from '../api/postReset';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import LogoIntroSmall from '../image/Svg/LogoIntroSmall'
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+import postReset from '../api/postReset'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const EMAIL_REGEX =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-const AuthRecover = ({navigation}) => {
-  const [, setCommonFormError] = useState('');
+const AuthRecover = ({ navigation }) => {
+  // TODO: fix it, unused commonFormError
+  const [, setCommonFormError] = useState('')
+  const [focusOnEmail, setFocusOnEmail] = useState(false)
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     defaultValues: {
       email: '',
       password: '',
     },
-  });
+  })
   const onSubmit = async data => {
-    const res = await postReset(data);
+    const res = await postReset(data)
     if (res.data.success === true) {
-      await AsyncStorage.setItem('@sign_up_email', data.email);
-      console.log(data.email);
-      navigation.navigate('CodeReset');
+      await AsyncStorage.setItem('@sign_up_email', data.email)
+      console.log(data.email)
+      navigation.navigate('CodeReset')
     } else {
-      setCommonFormError('Invalid email or password');
+      setCommonFormError('Invalid email or password')
     }
-  };
+  }
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -49,8 +45,7 @@ const AuthRecover = ({navigation}) => {
       <View style={styles.authForm}>
         <View>
           <Text style={styles.authLogo}>Восстановление пароля</Text>
-          <Text
-            style={{color: '#CBCBCB', textAlign: 'center', paddingBottom: 30}}>
+          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
             На Ваш email будет выслан проверочный код для сброса текущего пароля
           </Text>
           <Text style={styles.label}>Email</Text>
@@ -63,8 +58,10 @@ const AuthRecover = ({navigation}) => {
                 message: 'email error',
               },
             }}
-            render={({field: {onChange, onBlur, value}}) => (
+            render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
+                onFocus={e => setFocusOnEmail(true)}
+                onBlur={e => setFocusOnEmail(false)}
                 style={{
                   backgroundColor: '#1E2127',
                   color: 'white',
@@ -76,9 +73,8 @@ const AuthRecover = ({navigation}) => {
                   paddingLeft: 20,
                   paddingTop: 14,
                   paddingBottom: 14,
-                  borderColor: errors.email ? 'rgb(138, 0, 0)' : '#333842',
+                  borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
                 }}
-                onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
               />
@@ -86,10 +82,8 @@ const AuthRecover = ({navigation}) => {
             name="email"
           />
         </View>
-        <View style={{marginBottom: 25}}>
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-            activeOpacity={0.8}>
+        <View style={{ marginBottom: 25 }}>
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
             <SuperEllipseMaskView
               radius={{
                 topLeft: 12,
@@ -98,25 +92,20 @@ const AuthRecover = ({navigation}) => {
                 bottomRight: 12,
               }}>
               <View style={styles.buttonInner}>
-                <Text
-                  style={{color: '#0F1218', fontWeight: '600', fontSize: 13}}>
-                  Отправить
-                </Text>
+                <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Отправить</Text>
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
             <View style={styles.buttonInnerBack}>
-              <Text style={{color: 'white', fontWeight: '600', fontSize: 13}}>
-                Отменить
-              </Text>
+              <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>Отменить</Text>
             </View>
           </TouchableOpacity>
         </View>
       </View>
     </LayoutAuth>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -185,6 +174,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 22,
   },
-});
+})
 
-export default AuthRecover;
+export default AuthRecover

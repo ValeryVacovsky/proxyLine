@@ -1,14 +1,14 @@
-import React from 'react';
-import {StatusBar, StyleSheet, View} from 'react-native';
+import React from 'react'
+import { StatusBar, StyleSheet, View } from 'react-native'
 
-const LayoutMain = ({children}) => {
+const LayoutMain = ({ children }) => {
   return (
     <View style={styles.sectionContainer}>
       <StatusBar barStyle="light-content" />
       {children}
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -21,6 +21,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
 
-export default LayoutMain;
+export default LayoutMain

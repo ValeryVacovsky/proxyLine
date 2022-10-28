@@ -1,41 +1,32 @@
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  AsyncStorage,
-} from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, AsyncStorage } from 'react-native'
 
-import {useForm, Controller} from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form'
 
-import LayoutAuth from '../componets/LayoutAuth';
+import LayoutAuth from '../componets/LayoutAuth'
 
-import LogoIntroSmall from '../image/Svg/LogoIntroSmall';
-import postRegister from '../api/postRegister';
+import LogoIntroSmall from '../image/Svg/LogoIntroSmall'
+import postRegister from '../api/postRegister'
 
-const AuthCodeReset = ({navigation}) => {
+const AuthCodeReset = ({ navigation }) => {
   const {
     control,
     handleSubmit,
-    formState: {errors},
-  } = useForm({});
-  const [commonFormError, setCommonFormError] = useState('');
+    formState: { errors },
+  } = useForm({})
+  const [commonFormError, setCommonFormError] = useState('')
+  const [focusOnCode, setFocusOnCode] = useState(false)
   const onSubmit = async data => {
     // console.log(data)
-    const email = await AsyncStorage.getItem('@sign_up_email');
+    const email = await AsyncStorage.getItem('@sign_up_email')
     try {
-      const res = await postRegister({...data, email});
-      await AsyncStorage.setItem('@auth_token', res.data.token);
-      // console.log(res.data)
-      navigation.navigate('Auth');
+      const res = await postRegister({ ...data, email })
+      await AsyncStorage.setItem('@auth_token', res.data.token)
+      navigation.navigate('Auth')
     } catch (error) {
-      //  console.log(error)
-      setCommonFormError('Invalid email_code');
+      setCommonFormError('Invalid email_code')
     }
-    console.log(commonFormError);
-  };
+  }
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -44,23 +35,20 @@ const AuthCodeReset = ({navigation}) => {
       <View style={styles.authForm}>
         <View>
           <Text style={styles.authLogo}>Проверочный код</Text>
-          <Text
-            style={{color: '#CBCBCB', textAlign: 'center', paddingBottom: 30}}>
+          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
             На Ваш email будует выслан новый пароль
           </Text>
-          {commonFormError && (
-            <Text style={{color: 'white', textAlign: 'center'}}>
-              Введен не верный код
-            </Text>
-          )}
+          {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>Введен не верный код</Text>}
           <Text style={styles.label}>Код подтверждения</Text>
           <Controller
             control={control}
             rules={{
               required: true,
             }}
-            render={({field: {onChange, onBlur, value}}) => (
+            render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
+                onFocus={e => setFocusOnCode(true)}
+                onBlur={e => setFocusOnCode(false)}
                 style={{
                   backgroundColor: '#1E2127',
                   color: 'white',
@@ -72,9 +60,8 @@ const AuthCodeReset = ({navigation}) => {
                   paddingLeft: 20,
                   paddingTop: 14,
                   paddingBottom: 14,
-                  borderColor: errors.email_code ? 'rgb(138, 0, 0)' : '#333842',
+                  borderColor: (focusOnCode && '#fac637') || (errors.email_code && 'rgb(138,0,0)') || '#333842',
                 }}
-                onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
               />
@@ -82,28 +69,22 @@ const AuthCodeReset = ({navigation}) => {
             name="email_code"
           />
         </View>
-        <View style={{marginBottom: 25}}>
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-            activeOpacity={0.8}>
+        <View style={{ marginBottom: 25 }}>
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
             <View style={styles.buttonInner}>
-              <Text style={{color: '#0F1218', fontWeight: '600', fontSize: 13}}>
-                Отправить
-              </Text>
+              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Отправить</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
             <View style={styles.buttonInnerBack}>
-              <Text style={{color: 'white', fontWeight: '600', fontSize: 13}}>
-                Отменить
-              </Text>
+              <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>Отменить</Text>
             </View>
           </TouchableOpacity>
         </View>
       </View>
     </LayoutAuth>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -175,6 +156,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 22,
   },
-});
+})
 
-export default AuthCodeReset;
+export default AuthCodeReset
