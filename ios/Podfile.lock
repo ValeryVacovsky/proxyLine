@@ -308,6 +308,8 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-simple-openvpn (2.0.0):
+    - React
   - react-native-super-ellipse-mask (1.0.7):
     - React
   - React-perflogger (0.70.1)
@@ -436,6 +438,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-simple-openvpn (from `../node_modules/react-native-simple-openvpn`)
   - react-native-super-ellipse-mask (from `../node_modules/react-native-super-ellipse-mask`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -517,6 +520,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-simple-openvpn:
+    :path: "../node_modules/react-native-simple-openvpn"
   react-native-super-ellipse-mask:
     :path: "../node_modules/react-native-super-ellipse-mask"
   React-perflogger:
@@ -588,6 +593,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 1363be638eccfe1aea1b10dd42e632b0397e5ec8
   React-logger: 7bd569e3857d74ed412ce0a5c51f421ff7d4ca7f
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-simple-openvpn: b3b63ccf07a29b8c53642d5111cecfc55f5445c2
   react-native-super-ellipse-mask: 950abe130db6203b75e31f007e8568ac4c355a25
   React-perflogger: 48c6b363e867d64b682e84f80ca45636bd65e19c
   React-RCTActionSheet: 33c74fe5c754835e3715c300618da9aa2f7203fa

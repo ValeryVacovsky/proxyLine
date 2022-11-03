@@ -60,7 +60,11 @@ const AuthAuthauthentification = ({ navigation }) => {
       <View style={styles.authForm}>
         <View>
           <Text style={styles.authLogo}>Авторизация</Text>
-          {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>}
+          {commonFormError && (
+            <Text style={{ color: 'white', textAlign: 'center' }}>
+              {commonFormError}
+            </Text>
+          )}
           <Text style={styles.label}>Email</Text>
           {/* <Input name="email" control={control} /> */}
           {/* <TextInput {...register("email")} style={styles.input}></TextInput> */}
@@ -75,8 +79,8 @@ const AuthAuthauthentification = ({ navigation }) => {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                onFocus={e => setFocusOnEmail(true)}
-                onBlur={e => setFocusOnEmail(false)}
+                onFocus={(e) => setFocusOnEmail(true)}
+                onBlur={(e) => setFocusOnEmail(false)}
                 style={{
                   backgroundColor: '#1E2127',
                   color: 'white',
@@ -107,8 +111,8 @@ const AuthAuthauthentification = ({ navigation }) => {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                onFocus={e => setFocusOnPassword(true)}
-                onBlur={e => setFocusOnPassword(false)}
+                onFocus={(e) => setFocusOnPassword(true)}
+                onBlur={(e) => setFocusOnPassword(false)}
                 style={{
                   backgroundColor: '#1E2127',
                   color: 'white',
@@ -147,33 +151,28 @@ const AuthAuthauthentification = ({ navigation }) => {
           <Text style={{ color: 'white', textAlign: 'center', marginBottom: 24 }}>
             Нет аккаунта? &#160;
             <Text
-              style={{
-                color: 'white',
-                textDecorationLine: 'underline',
-                fontWeight: '600',
-              }}
+              style={{ color: 'white', textDecorationLine: 'underline', fontWeight: "600" }}
               onPress={() => navigation.push('Register')}>
               Регистрация
             </Text>
           </Text>
           <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-            <View
-              style={{
-                backgroundColor: '#FAC637',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: 50,
-                borderRadius: 12,
-                marginBottom: 20,
-              }}>
-              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Войти</Text>
+            <View style={{
+              backgroundColor: '#FAC637',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 50,
+              borderRadius: 12,
+              marginBottom: 20
+            }}>
+              <Text style={{ color: '#0F1218', fontWeight: "600", fontSize: 13 }}>Войти</Text>
             </View>
           </TouchableOpacity>
         </View>
       </View>
     </LayoutAuth>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -226,6 +225,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 22,
   },
-})
+});
 
-export default AuthAuthauthentification
+export default AuthAuthauthentification;
