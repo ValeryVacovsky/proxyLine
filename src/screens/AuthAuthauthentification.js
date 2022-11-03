@@ -75,8 +75,8 @@ const AuthAuthauthentification = ({ navigation }) => {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                onFocus={e => setFocusOnEmail(true)}
-                onBlur={e => setFocusOnEmail(false)}
+                onFocus={(e) => setFocusOnEmail(true)}
+                onBlur={(e) => setFocusOnEmail(false)}
                 style={{
                   backgroundColor: '#1E2127',
                   color: 'white',
@@ -107,8 +107,8 @@ const AuthAuthauthentification = ({ navigation }) => {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                onFocus={e => setFocusOnPassword(true)}
-                onBlur={e => setFocusOnPassword(false)}
+                onFocus={(e) => setFocusOnPassword(true)}
+                onBlur={(e) => setFocusOnPassword(false)}
                 style={{
                   backgroundColor: '#1E2127',
                   color: 'white',
@@ -156,7 +156,10 @@ const AuthAuthauthentification = ({ navigation }) => {
               Регистрация
             </Text>
           </Text>
-          <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+          <TouchableOpacity
+            onPress={handleSubmit(onSubmit)}
+            activeOpacity={0.8}
+          >
             <View
               style={{
                 backgroundColor: '#FAC637',
@@ -166,7 +169,15 @@ const AuthAuthauthentification = ({ navigation }) => {
                 borderRadius: 12,
                 marginBottom: 20,
               }}>
-              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Войти</Text>
+              <Text
+                style={{
+                  color: '#0F1218',
+                  fontWeight: '600',
+                  fontSize: 13
+              }}
+              >
+                Войти
+              </Text>
             </View>
           </TouchableOpacity>
         </View>

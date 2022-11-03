@@ -6,21 +6,21 @@ import LayoutAuth from '../componets/LayoutAuth'
 import LogoIntroBig from '../image/Svg/LogoIntroBig'
 
 const AuthIntro = ({ navigation }) => {
-  setTimeout(() => navigation.navigate('Auth'), 1000)
-  React.useEffect(
-    () =>
-      navigation.addListener('beforeRemove', e => {
-        e.preventDefault()
-      }),
-    [navigation],
-  )
-  return (
-    <LayoutAuth>
-      <View style={styles.header}>
-        <LogoIntroBig width={201} height={36} style={styles.mainLogo} onPress={() => navigation.push('Auth')} />
-      </View>
-    </LayoutAuth>
-  )
+    setTimeout(() => navigation.navigate('Test'), 1000)
+    React.useEffect(
+        () =>
+          navigation.addListener('beforeRemove', (e) => {
+            e.preventDefault()
+          }),
+        [navigation]
+      )
+    return (
+        <LayoutAuth>
+            <View style={styles.header}>
+                <LogoIntroBig  width={201} height={36} style={styles.mainLogo} onPress={() => navigation.push('Auth')} />
+            </View>
+        </LayoutAuth>
+    )
 }
 
 const styles = StyleSheet.create({
