@@ -14,6 +14,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-proxyLine-proxyLineTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-proxyLine-proxyLineTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		FA91BEB52919424A00501F65 /* RNIpSecVpn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91BEB42919424A00501F65 /* RNIpSecVpn.swift */; };
+		FA91BEB62919424A00501F65 /* RNIpSecVpn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91BEB42919424A00501F65 /* RNIpSecVpn.swift */; };
+		FA91BEB92919435000501F65 /* RCTVpnModule.m in Sources */ = {isa = PBXBuildFile; fileRef = FA91BEB82919435000501F65 /* RCTVpnModule.m */; };
+		FA91BEBA2919435000501F65 /* RCTVpnModule.m in Sources */ = {isa = PBXBuildFile; fileRef = FA91BEB82919435000501F65 /* RCTVpnModule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +66,12 @@
 		8C92D72329128AFD00952D40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C92D72429128AFD00952D40 /* NeOvpn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NeOvpn.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		FA91BEB22919424900501F65 /* proxyLine-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "proxyLine-Bridging-Header.h"; sourceTree = "<group>"; };
+		FA91BEB32919424900501F65 /* proxyLineTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "proxyLineTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		FA91BEB42919424A00501F65 /* RNIpSecVpn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNIpSecVpn.swift; sourceTree = "<group>"; };
+		FA91BEB72919431900501F65 /* RCTVpnModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTVpnModule.h; sourceTree = "<group>"; };
+		FA91BEB82919435000501F65 /* RCTVpnModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTVpnModule.m; sourceTree = "<group>"; };
+		FA91BEBB29194BD500501F65 /* proxyLine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = proxyLine.entitlements; path = proxyLine/proxyLine.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,12 +114,15 @@
 		13B07FAE1A68108700A75B9A /* proxyLine */ = {
 			isa = PBXGroup;
 			children = (
+				FA91BEBB29194BD500501F65 /* proxyLine.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				FA91BEB72919431900501F65 /* RCTVpnModule.h */,
+				FA91BEB82919435000501F65 /* RCTVpnModule.m */,
 			);
 			name = proxyLine;
 			sourceTree = "<group>";
@@ -135,6 +148,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				FA91BEB42919424A00501F65 /* RNIpSecVpn.swift */,
 				13B07FAE1A68108700A75B9A /* proxyLine */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* proxyLineTests */,
@@ -142,6 +156,8 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				FA91BEB22919424900501F65 /* proxyLine-Bridging-Header.h */,
+				FA91BEB32919424900501F65 /* proxyLineTests-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -236,10 +252,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 1410;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1410;
 					};
 				};
 			};
@@ -436,6 +453,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA91BEBA2919435000501F65 /* RCTVpnModule.m in Sources */,
+				FA91BEB62919424A00501F65 /* RNIpSecVpn.swift in Sources */,
 				00E356F31AD99517003FC87E /* proxyLineTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -446,6 +465,8 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				FA91BEB52919424A00501F65 /* RNIpSecVpn.swift in Sources */,
+				FA91BEB92919435000501F65 /* RCTVpnModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,7 +485,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-proxyLine-proxyLineTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -483,6 +506,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "proxyLineTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proxyLine.app/proxyLine";
 			};
 			name = Debug;
@@ -491,7 +517,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-proxyLine-proxyLineTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = proxyLineTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -507,6 +535,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "proxyLineTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proxyLine.app/proxyLine";
 			};
 			name = Release;
@@ -517,6 +547,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = proxyLine/proxyLine.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 34;
@@ -538,6 +569,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.proxyline.proxyline;
 				PRODUCT_NAME = proxyLine;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "proxyLine-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -550,6 +582,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = proxyLine/proxyLine.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 34;
@@ -570,6 +603,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.proxyline.proxyline;
 				PRODUCT_NAME = proxyLine;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "proxyLine-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
