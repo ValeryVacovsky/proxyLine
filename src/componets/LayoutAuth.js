@@ -1,20 +1,10 @@
-import React from 'react'
-import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native'
-
-const AuthIntro = ({ children }) => {
-  // setTimeout(() => navigation.navigate('Auth'), 1000)
-  return (
-    <View style={styles.sectionContainer}>
-      <StatusBar barStyle="light-content" />
-      <ImageBackground
-        source={require('../image/back-ground-lines.png')}
-        resizeMode="cover"
-        style={styles.backgroundImage}>
-        {children}
-      </ImageBackground>
-    </View>
-  )
-}
+import React from 'react';
+import {
+  StyleSheet,
+  View,
+  ImageBackground,
+  StatusBar,
+} from 'react-native';
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -27,6 +17,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-})
+});
 
-export default AuthIntro
+function AuthIntro({ children }) {
+  // setTimeout(() => navigation.navigate('Auth'), 1000)
+  return (
+    <View style={styles.sectionContainer}>
+      <StatusBar barStyle="light-content" />
+      <ImageBackground source={require('../image/back-ground-lines.png')} resizeMode="cover" style={styles.backgroundImage}>
+        {children}
+      </ImageBackground>
+    </View>
+  );
+}
+
+export default AuthIntro;

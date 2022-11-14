@@ -1,24 +1,30 @@
-import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import React from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 
-import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
+import PeopleIconProxy from '../image/Svg/PeopleIconProxy';
 
-const ProxyTariff = ({ navigation }) => {
+function ProxyTariff({ navigation }) {
   return (
-    <View
-      style={{
+    <View style={{
+      alignItems: 'center',
+      width: '100%',
+    }}
+    >
+
+      <View style={{
         alignItems: 'center',
-        width: '100%',
-      }}>
-      <View
-        style={{
-          alignItems: 'center',
-          width: '90%',
-          paddingLeft: 20,
-          paddingRight: 20,
-          zIndex: 0,
-          marginTop: 11,
-        }}>
+        width: '90%',
+        paddingLeft: 20,
+        paddingRight: 20,
+        zIndex: 0,
+        marginTop: 11,
+
+      }}
+      >
         <View style={{ zIndex: 1, borderBottomLeftRadius: 80 }}>
           <Text
             style={{
@@ -32,28 +38,29 @@ const ProxyTariff = ({ navigation }) => {
               top: 15,
               fontSize: 12,
               fontWeight: '600',
-            }}>
+            }}
+          >
             Используют до 3-х человек
           </Text>
         </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '100%',
-            zIndex: 0,
-            border: 2,
-            borderBottomColor: 'white',
-            backgroundColor: 'rgba(51, 51, 51, 0.3)',
-            marginBottom: 1,
-            paddingLeft: 20,
-            paddingRight: 20,
-            paddingTop: 21,
-            paddingBottom: 14,
-            borderTopLeftRadius: 14,
-            borderTopRightRadius: 14,
-          }}>
+        <View style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: '100%',
+          zIndex: 0,
+          border: 2,
+          borderBottomColor: 'white',
+          backgroundColor: 'rgba(51, 51, 51, 0.3)',
+          marginBottom: 1,
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingTop: 21,
+          paddingBottom: 14,
+          borderTopLeftRadius: 14,
+          borderTopRightRadius: 14,
+        }}
+        >
           <View>
             <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>IPv4 Shared</Text>
             <Text style={{ color: '#CBCBCB', fontSize: 12, fontWeight: '400' }}>Подходят для любых целей и сайтов</Text>
@@ -62,20 +69,20 @@ const ProxyTariff = ({ navigation }) => {
             <PeopleIconProxy />
           </View>
         </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '100%',
-            zIndex: 0,
-            backgroundColor: 'rgba(51, 51, 51, 0.3)',
-            paddingLeft: 20,
-            paddingRight: 20,
-            paddingTop: 14,
-            paddingBottom: 14,
-            marginBottom: 1,
-          }}>
+        <View style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: '100%',
+          zIndex: 0,
+          backgroundColor: 'rgba(51, 51, 51, 0.3)',
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingTop: 14,
+          paddingBottom: 14,
+          marginBottom: 1,
+        }}
+        >
           <View>
             <Text style={{ color: 'white', fontWeight: '700' }}>5 дней</Text>
           </View>
@@ -93,20 +100,21 @@ const ProxyTariff = ({ navigation }) => {
             paddingRight: 20,
             borderBottomLeftRadius: 14,
             borderBottomRightRadius: 14,
-          }}>
-          <Text
-            style={{
-              fontWeight: '700',
-              color: '#FAC637',
-              paddingTop: 14,
-              paddingBottom: 14,
-            }}>
+          }}
+        >
+          <Text style={{
+            fontWeight: '700',
+            color: '#FAC637',
+            paddingTop: 14,
+            paddingBottom: 14,
+          }}
+          >
             Подробнее
           </Text>
         </TouchableOpacity>
       </View>
     </View>
-  )
+  );
 }
 
-export default ProxyTariff
+export default ProxyTariff;
