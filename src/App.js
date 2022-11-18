@@ -21,11 +21,19 @@ import HeaderProxy from './image/Svg/HeaderProxy';
 import TestScreen from './screens/TestScreen';
 import Agreement from './screens/Agreement';
 import Order from './screens/Order';
+import Countreis from './screens/Countreis';
+import Orders from './screens/Orders';
+import Balance from './screens/Balance';
+
+// eslint-disable-next-line no-unused-vars
+const styles = StyleSheet.create({
+});
 
 const store = configureStore();
 
 const Stack = createNativeStackNavigator();
 
+// eslint-disable-next-line no-unused-vars
 function App({ navigation }) {
   return (
     <Provider store={store}>
@@ -49,7 +57,9 @@ function App({ navigation }) {
             name="Proxy"
             component={Proxy}
             options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
               headerTitle: () => <Text style={{ color: 'white', fontSize: 18 }}>Прокси</Text>,
+              // eslint-disable-next-line react/no-unstable-nested-components
               headerRight: () => (
                 <View style={{ marginLeft: 15 }}>
                   <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', fontSize: 15 }}>
@@ -64,18 +74,21 @@ function App({ navigation }) {
                 backgroundColor: '#0F1218',
 
               },
+              headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitle: 'Назад',
               headerBackTitleStyle: {
                 fontSize: 14,
                 color: 'white',
               },
+              gestureEnabled: false,
             }}
           />
           <Stack.Screen
             name="Agrement"
             component={Agreement}
             options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
               headerTitle: () => (
                 <View style={{ alignItems: 'center' }}>
                   <Text style={{ color: 'white', fontSize: 18 }}>Политика</Text>
@@ -89,6 +102,7 @@ function App({ navigation }) {
 
               },
               headerTitleAlign: 'center',
+              headerTintColor: '#CBCBCB',
               headerBackTitle: 'Назад',
               headerBackTitleStyle: {
                 fontSize: 14,
@@ -101,7 +115,9 @@ function App({ navigation }) {
             name="Order"
             component={Order}
             options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
               headerTitle: () => <Text style={{ color: 'white', fontSize: 18 }}>Оформление заказа</Text>,
+              // eslint-disable-next-line react/no-unstable-nested-components
               headerRight: () => (
                 <View style={{ marginLeft: 15 }}>
                   <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', fontSize: 15 }}>
@@ -117,11 +133,82 @@ function App({ navigation }) {
 
               },
               headerTitleAlign: 'center',
+              headerTintColor: '#CBCBCB',
               headerBackTitle: 'Назад',
               headerBackTitleStyle: {
                 fontSize: 14,
                 color: 'white',
               },
+              gestureEnabled: false,
+            }}
+          />
+          <Stack.Screen
+            name="Orders"
+            component={Orders}
+            options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
+              headerTitle: () => <Text style={{ color: 'white', fontSize: 18 }}>Заказы</Text>,
+              // eslint-disable-next-line react/no-unstable-nested-components
+              headerStyle: {
+                height: 300,
+                borderBottomLeftRadius: 50,
+                backgroundColor: '#0F1218',
+
+              },
+              headerTitleAlign: 'center',
+              headerTintColor: '#CBCBCB',
+              headerBackTitle: 'Назад',
+              headerBackTitleStyle: {
+                fontSize: 14,
+                color: 'white',
+              },
+              gestureEnabled: false,
+            }}
+          />
+          <Stack.Screen
+            name="Countries"
+            component={Countreis}
+            options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
+              headerTitle: () => <Text style={{ color: 'white', fontSize: 18 }}>Выбор страны</Text>,
+              // eslint-disable-next-line react/no-unstable-nested-components
+              headerStyle: {
+                height: 300,
+                borderBottomLeftRadius: 50,
+                backgroundColor: '#0F1218',
+
+              },
+              headerTintColor: '#CBCBCB',
+              headerTitleAlign: 'center',
+              headerBackTitle: 'Назад',
+              headerLargeTitleStyle: {
+                fontSize: 12,
+                color: 'red',
+              },
+              gestureEnabled: false,
+            }}
+          />
+          <Stack.Screen
+            name="Balance"
+            component={Balance}
+            options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
+              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Ваш баланс</Text>,
+              headerStyle: {
+                height: 300,
+                borderBottomLeftRadius: 50,
+                backgroundColor: '#0F1218',
+
+              },
+              headerTintColor: '#CBCBCB',
+              headerTitleAlign: 'center',
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {
+                fontSize: 14,
+                color: 'white',
+              },
+              gestureEnabled: false,
+              headerBackTitle: 'Назад',
             }}
           />
         </Stack.Navigator>
@@ -129,24 +216,5 @@ function App({ navigation }) {
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

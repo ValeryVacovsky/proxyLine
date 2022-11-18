@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet,
 } from 'react-native';
 import LayoutMain from '../componets/LayoutMain';
+// import SliderExample from '../componets/SliderExample';
 import FlagUsaSmall from '../image/Svg/FlagUsaSmall';
 import PeopleIconProxy from '../image/Svg/PeopleIconProxy';
 import VectorRightSmall from '../image/Svg/VectorRightSmall';
@@ -14,10 +15,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
     width: '90%',
+    borderRadius: 12,
   },
 });
 
 function Order({ navigation }) {
+  const [amount, setAmount] = useState(0);
+  const price = 0.6;
+  const totalPrice = Math.floor((amount * price) * 100) / 100;
   return (
     <LayoutMain style={{ display: 'flex', alignItems: 'center' }}>
       <View style={{
@@ -30,7 +35,11 @@ function Order({ navigation }) {
         marginTop: 11,
       }}
       >
-        <View style={{ zIndex: 1 }}>
+        <View style={{
+          zIndex: 1,
+          borderRadius: 12,
+        }}
+        >
           <Text
             style={{
               color: 'black',
@@ -76,16 +85,22 @@ function Order({ navigation }) {
             <PeopleIconProxy />
           </View>
         </View>
-        <TouchableOpacity style={{
-          flexDirection: 'row', justifyContent: 'space-between', width: '100%', paddingTop: 13, paddingBottom: 13,
-        }}
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row', justifyContent: 'space-between', width: '100%', paddingTop: 13, paddingBottom: 13,
+          }}
+          onPress={() => navigation.navigate('Countries')}
         >
           <View>
             <Text style={{ color: '#CBCBCB' }}>Страна</Text>
           </View>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
             <Text style={{ color: 'white' }}>United States of America</Text>
-            <FlagUsaSmall width={16} height={13} style={{ top: 2, marginLeft: 5, marginRight: 5 }} />
+            <FlagUsaSmall
+              width={16}
+              height={13}
+              style={{ top: 2, marginLeft: 5, marginRight: 5 }}
+            />
             <VectorRightSmall width={6} height={12} style={{ top: 5, marginLeft: 10 }} />
           </View>
         </TouchableOpacity>
@@ -93,21 +108,21 @@ function Order({ navigation }) {
           display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', paddingTop: 10, marginBottom: 50,
         }}
         >
-          <Text style={{ color: '#CBCBCB' }}>5 дней</Text>
-          <Text style={{ color: '#CBCBCB' }}>360 дней</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>5 дней</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>360 дней</Text>
         </View>
         <View style={{
           display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', paddingTop: 13, paddingBottom: 13,
         }}
         >
-          <Text style={{ color: '#CBCBCB' }}>Период</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Период</Text>
           <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>90 дней</Text>
         </View>
         <View style={{
           display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10,
         }}
         >
-          <Text style={{ color: '#CBCBCB' }}>Тип</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Тип</Text>
           <View style={{
             display: 'flex', flexDirection: 'row', backgroundColor: '#1E2127', padding: 4, borderRadius: 40, left: 5,
           }}
@@ -128,35 +143,69 @@ function Order({ navigation }) {
                 SOCKS5
               </Text>
             </TouchableOpacity>
-
           </View>
         </View>
         <View style={{
           display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center',
         }}
         >
-          <Text style={{ color: '#CBCBCB' }}>Колличество</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Колличество</Text>
           <View style={{
             display: 'flex', flexDirection: 'row', padding: 4, borderRadius: 40, left: 5, alignItems: 'center',
           }}
           >
-            <TouchableOpacity style={{ backgroundColor: '#1E2127' }}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#1E2127',
+                borderBottomLeftRadius: 44,
+                borderTopLeftRadius: 44,
+              }}
+              onPress={() => setAmount(amount + 1)}
+            >
               <Text style={{
-                color: '#CBCBCB', paddingTop: 10, paddingBottom: 10, paddingLeft: 14, paddingRight: 14, fontSize: 12, fontWeight: '600',
+                color: '#CBCBCB',
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingLeft: 14,
+                paddingRight: 14,
+                fontSize: 14,
+                fontWeight: '600',
               }}
               >
                 +
               </Text>
             </TouchableOpacity>
             <View style={{
-              alignItems: 'center', justifyContent: 'center', backgroundColor: '#1E2127', paddingTop: 9, paddingBottom: 9, paddingLeft: 14, paddingRight: 14,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#1E2127',
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingLeft: 14,
+              paddingRight: 14,
+              marginRight: 1,
+              marginLeft: 1,
             }}
             >
-              <Text style={{ color: 'white', fontSize: 14, fontWeight: '600' }}>10</Text>
+              <Text style={{ color: 'white', fontSize: 14, fontWeight: '600' }}>{amount}</Text>
             </View>
-            <TouchableOpacity style={{ backgroundColor: '#1E2127' }}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#1E2127',
+                borderBottomRightRadius: 44,
+                borderTopRightRadius: 44,
+              }}
+              // eslint-disable-next-line no-unused-expressions
+              onPress={() => { amount > 1 && setAmount(amount - 1); }}
+            >
               <Text style={{
-                color: 'white', paddingTop: 10, paddingBottom: 10, paddingLeft: 14, paddingRight: 14, fontSize: 12, fontWeight: '600',
+                color: 'white',
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingLeft: 14,
+                paddingRight: 14,
+                fontSize: 14,
+                fontWeight: '600',
               }}
               >
                 -
@@ -169,8 +218,12 @@ function Order({ navigation }) {
           display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', paddingTop: 13, paddingBottom: 13,
         }}
         >
-          <Text style={{ color: '#CBCBCB' }}>Сена за штуку</Text>
-          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ 0.60</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Цена за штуку</Text>
+          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>
+            $
+            {' '}
+            {price}
+          </Text>
         </View>
       </View>
       <View style={{ alignItems: 'center', marginBottom: 25 }}>
@@ -178,8 +231,12 @@ function Order({ navigation }) {
           display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between', paddingTop: 13, paddingBottom: 13,
         }}
         >
-          <Text style={{ color: '#CBCBCB' }}>Итого к оплате</Text>
-          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ 6.0</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Итого к оплате</Text>
+          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>
+            $
+            {' '}
+            {totalPrice}
+          </Text>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Main')} style={{ alignItems: 'center', width: '100%', marginBottom: 20 }} activeOpacity={0.8}>
           <View style={styles.buttonInner}>

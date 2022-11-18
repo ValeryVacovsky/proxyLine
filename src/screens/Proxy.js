@@ -29,7 +29,7 @@ function Proxy({ navigation }) {
         </ScrollView>
       </SafeAreaView>
       <View style={{ alignItems: 'center', marginBottom: 25 }}>
-        <UserNavigation />
+        <UserNavigation status="Proxy" navigation={navigation} />
       </View>
     </LayoutMain>
 

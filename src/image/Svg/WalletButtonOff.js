@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-function HeaderProxy(props) {
+function WalletButtonOff(props) {
   return (
     <Svg
-      width={19}
+      width={18}
       height={18}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -12,14 +12,14 @@ function HeaderProxy(props) {
       {...props}
     >
       <Path
-        d="M15.125 7.5h1.125a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-1.125a1.875 1.875 0 1 1 0-3.75Z"
+        d="M14.917 8.167h1.25A.833.833 0 0 1 17 9v2.5a.833.833 0 0 1-.833.833h-1.25a2.083 2.083 0 0 1 0-4.166ZM13.667 1.5H2.833"
         stroke="#fff"
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <Path
-        d="M16.25 11.25v1.875A1.875 1.875 0 0 1 14.375 15h-9.75a1.875 1.875 0 0 1-1.875-1.875v-7.5A1.875 1.875 0 0 1 4.625 3.75h9.75a1.875 1.875 0 0 1 1.875 1.875V7.5"
+        d="M16.167 12.333v2.084a2.083 2.083 0 0 1-2.084 2.083H3.25a2.083 2.083 0 0 1-2.083-2.083V6.083A2.083 2.083 0 0 1 3.25 4h10.833a2.083 2.083 0 0 1 2.084 2.083v2.084"
         stroke="#fff"
         strokeWidth={1.5}
         strokeLinecap="round"
@@ -29,4 +29,4 @@ function HeaderProxy(props) {
   );
 }
 
-export default HeaderProxy;
+export default WalletButtonOff;

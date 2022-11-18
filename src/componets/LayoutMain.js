@@ -1,7 +1,6 @@
 import React from 'react';
 import { StatusBar, StyleSheet, View } from 'react-native';
 
-
 const styles = StyleSheet.create({
   sectionContainer: {
     width: '100%',

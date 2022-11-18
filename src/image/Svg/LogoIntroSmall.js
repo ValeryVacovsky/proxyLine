@@ -4,10 +4,13 @@ import Svg, { Path } from 'react-native-svg';
 function LogoIntroSmall(props) {
   return (
     <Svg
+      // eslint-disable-next-line react/destructuring-assignment
       width={props.width}
+      // eslint-disable-next-line react/destructuring-assignment
       height={props.height}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       <Path

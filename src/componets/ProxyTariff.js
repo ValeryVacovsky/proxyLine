@@ -17,7 +17,7 @@ function ProxyTariff({ navigation }) {
 
       <View style={{
         alignItems: 'center',
-        width: '90%',
+        width: '100%',
         paddingLeft: 20,
         paddingRight: 20,
         zIndex: 0,
@@ -25,7 +25,7 @@ function ProxyTariff({ navigation }) {
 
       }}
       >
-        <View style={{ zIndex: 1, borderBottomLeftRadius: 80 }}>
+        <View style={{ zIndex: 2 }}>
           <Text
             style={{
               color: 'black',
@@ -34,10 +34,11 @@ function ProxyTariff({ navigation }) {
               paddingTop: 3,
               paddingBottom: 4,
               paddingRight: 14,
-              borderRadius: 8,
               top: 15,
               fontSize: 12,
               fontWeight: '600',
+              zIndex: 2,
+              borderRadius: 12,
             }}
           >
             Используют до 3-х человек
@@ -87,7 +88,7 @@ function ProxyTariff({ navigation }) {
             <Text style={{ color: 'white', fontWeight: '700' }}>5 дней</Text>
           </View>
           <View>
-            <Text style={{ color: 'white', fontWeight: '700' }}>$ 0.60</Text>
+            <Text style={{ color: 'white', fontWeight: '700' }} onPress={() => { navigation.navigate('Balance'); }}>$ 0.60</Text>
           </View>
         </View>
         <TouchableOpacity

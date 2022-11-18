@@ -6,6 +6,8 @@ import {
   StatusBar,
 } from 'react-native';
 
+import backgroundlines from '../image/back-ground-lines.png';
+
 const styles = StyleSheet.create({
   sectionContainer: {
     width: '100%',
@@ -24,7 +26,7 @@ function AuthIntro({ children }) {
   return (
     <View style={styles.sectionContainer}>
       <StatusBar barStyle="light-content" />
-      <ImageBackground source={require('../image/back-ground-lines.png')} resizeMode="cover" style={styles.backgroundImage}>
+      <ImageBackground source={backgroundlines} resizeMode="cover" style={styles.backgroundImage}>
         {children}
       </ImageBackground>
     </View>

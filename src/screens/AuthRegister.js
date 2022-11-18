@@ -112,7 +112,6 @@ function AuthRegister({ navigation }) {
           <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>Пароль будет отправлен на Ваш email</Text>
           {commonFormError && (<Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>)}
           <Text style={styles.label}>Email</Text>
-
           <Controller
             control={control}
             rules={{

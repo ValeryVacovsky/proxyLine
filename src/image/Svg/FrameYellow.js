@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {
-  G, Rect, Defs, RadialGradient, Stop,
+  Rect, Defs, RadialGradient, Stop,
 } from 'react-native-svg';
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
 
@@ -11,6 +11,7 @@ function FrameYellow(props) {
       height={11}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       <Rect y={0.5} width={10} height={10} rx={5} fill="url(#a)" />

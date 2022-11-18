@@ -8,6 +8,7 @@ function FlagRusSmall(props) {
       height={13}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       <Mask

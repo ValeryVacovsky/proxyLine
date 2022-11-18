@@ -1,25 +1,25 @@
 import * as React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-function HeaderProxy(props) {
+function DatabaseButtonOff(props) {
   return (
     <Svg
-      width={19}
-      height={18}
+      width={18}
+      height={17}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       <Path
-        d="M15.125 7.5h1.125a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-1.125a1.875 1.875 0 1 1 0-3.75Z"
+        d="M1.5 12.776c0 1.505 3.415 2.724 7.628 2.724s7.628-1.22 7.628-2.724V4.058c0-1.505-3.415-2.725-7.628-2.725S1.5 2.553 1.5 4.058v8.718Z"
         stroke="#fff"
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <Path
-        d="M16.25 11.25v1.875A1.875 1.875 0 0 1 14.375 15h-9.75a1.875 1.875 0 0 1-1.875-1.875v-7.5A1.875 1.875 0 0 1 4.625 3.75h9.75a1.875 1.875 0 0 1 1.875 1.875V7.5"
+        d="M16.756 4.058c0 1.505-3.415 2.724-7.628 2.724S1.5 5.562 1.5 4.058M16.756 8.416c0 1.505-3.415 2.725-7.628 2.725S1.5 9.92 1.5 8.416"
         stroke="#fff"
         strokeWidth={1.5}
         strokeLinecap="round"
@@ -29,4 +29,4 @@ function HeaderProxy(props) {
   );
 }
 
-export default HeaderProxy;
+export default DatabaseButtonOff;

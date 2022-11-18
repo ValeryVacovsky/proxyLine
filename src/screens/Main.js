@@ -19,17 +19,13 @@ import LogoIntroWhite from '../image/Svg/LogoIntroWhite';
 import VectorRight from '../image/Svg/VectorRight';
 import UserNavigation from '../componets/UserNavigation';
 
+import ButtonOn from '../image/ButtonOn.png';
+import ButtonNone from '../image/ButtonNone.png';
 import ButtonOff from '../image/Svg/ButtonOff';
 // import postAuth from "../api";
 
 function Main({ navigation }) {
   const [statusConect, setStatusConect] = useState('off');
-  // postUserAuth.then((reuest) => {
-  //     console.log(reuest)
-  // })
-  // postAuth.then((response) => {
-  //     console.log(response.data);
-  //   });
   const styles = StyleSheet.create({
     sectionContainer: {
       width: '100%',
@@ -50,7 +46,7 @@ function Main({ navigation }) {
     },
     header: {
       marginBottom: 70,
-      paddingTop: 20,
+      paddingTop: 50,
       marginTop: 25,
     },
     authForm: {
@@ -98,80 +94,80 @@ function Main({ navigation }) {
               Ваш IP
             </Text>
             {statusConect === 'on' && (
-            <Text style={{
-              paddingBottom: 5, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
-            }}
-            >
-              136.117.121.183
-            </Text>
+              <Text style={{
+                paddingBottom: 5, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
+              }}
+              >
+                136.117.121.183
+              </Text>
             )}
             {statusConect === 'off' && (
-            <Text style={{
-              paddingBottom: 5, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
-            }}
-            >
-              192.0.0.1
-            </Text>
+              <Text style={{
+                paddingBottom: 5, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
+              }}
+              >
+                192.0.0.1
+              </Text>
             )}
             {statusConect === 'none' && (
-            <Text style={{
-              paddingBottom: 5, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
-            }}
-            >
-              192.0.0.1
-            </Text>
+              <Text style={{
+                paddingBottom: 5, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
+              }}
+              >
+                192.0.0.1
+              </Text>
             )}
             <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               {statusConect === 'on' && (
-              <Text style={{
-                paddingBottom: 15, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
-              }}
-              >
-                <Text
-                  style={{
-                    textAlign: 'center', color: 'white', fontWeight: '600', fontSize: 14, marginRight: 5, alignItems: 'center',
-                  }}
-                  onPress={() => navigation.navigate('Auth')}
+                <Text style={{
+                  paddingBottom: 15, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
+                }}
                 >
-                  United States of America
+                  <Text
+                    style={{
+                      textAlign: 'center', color: 'white', fontWeight: '600', fontSize: 14, marginRight: 5, alignItems: 'center',
+                    }}
+                    onPress={() => navigation.navigate('Auth')}
+                  >
+                    United States of America
+                  </Text>
                 </Text>
-              </Text>
               )}
               {statusConect === 'off' && (
-              <Text style={{
-                paddingBottom: 15, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
-              }}
-              >
+                <Text style={{
+                  paddingBottom: 15, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
+                }}
+                >
+                  <Text
+                    style={{
+                      textAlign: 'center', color: 'white', fontWeight: '600', fontSize: 14, marginRight: 5, alignItems: 'center',
+                    }}
+                    onPress={() => navigation.navigate('Auth')}
+                  >
+                    Россия
+                  </Text>
+                </Text>
+              )}
+              {statusConect === 'none' && (
                 <Text
                   style={{
-                    textAlign: 'center', color: 'white', fontWeight: '600', fontSize: 14, marginRight: 5, alignItems: 'center',
+                    paddingBottom: 15, textAlign: 'center', color: 'white', fontWeight: '600', fontSize: 14, marginRight: 5, alignItems: 'center',
                   }}
                   onPress={() => navigation.navigate('Auth')}
                 >
                   Россия
                 </Text>
-              </Text>
-              )}
-              {statusConect === 'none' && (
-              <Text
-                style={{
-                  paddingBottom: 15, textAlign: 'center', color: 'white', fontWeight: '600', fontSize: 14, marginRight: 5, alignItems: 'center',
-                }}
-                onPress={() => navigation.navigate('Auth')}
-              >
-                Россия
-              </Text>
               )}
               {statusConect === 'on' && <FlagUsaSmall width={16} height={13} style={{ bottom: 5, left: 5 }} />}
               {statusConect === 'off' && <FlagRusSmall width={16} height={13} style={{ bottom: 5, left: 5 }} />}
               {statusConect === 'none' && <FlagRusSmall width={16} height={13} style={{ bottom: 5, left: 5 }} />}
             </View>
           </View>
-          <View style={{ marginBottom: 50, alignItems: 'center' }}>
+          <View style={{ marginBottom: 60, alignItems: 'center', marginTop: 40 }}>
             {statusConect === 'on' && (
               <TouchableOpacity onPress={() => setStatusConect('off')}>
                 <Image
-                  source={require('../image/ButtonOn.png')}
+                  source={ButtonOn}
                   style={{ width: 160, height: 160, alignItems: 'center' }}
                   onPress={() => setStatusConect('on')}
                 />
@@ -186,7 +182,7 @@ function Main({ navigation }) {
               <TouchableOpacity onPress={() => setStatusConect('on')}>
 
                 <Image
-                  source={require('../image/ButtonNone.png')}
+                  source={ButtonNone}
                   style={{
                     width: 160,
                     height: 160,
@@ -250,164 +246,163 @@ function Main({ navigation }) {
                 {statusConect === 'none' && <Text style={{ color: '#CBCBCB', fontWeight: '400', fontSize: 12 }}>Нажмите на кнопку чтобы подключить</Text>}
               </View>
               {statusConect === 'on' && (
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>12.18 </Text>
-                <Text style={{ color: 'white', fontSize: 13, fontWeight: '600' }}>Mbit/s</Text>
-              </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>12.18 </Text>
+                  <Text style={{ color: 'white', fontSize: 13, fontWeight: '600' }}>Mbit/s</Text>
+                </View>
               )}
 
             </TouchableOpacity>
             <View>
               {statusConect === 'off' && (
-              <TouchableOpacity
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  backgroundColor: '#1E2127',
-                  paddingTop: 15,
-                  paddingBottom: 15,
-                  paddingLeft: 20,
-                  paddingRight: 14,
-                  marginTop: 1,
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  borderBottomRightRadius: 14,
-                  borderBottomStartRadius: 14,
-                }}
-                onPress={() => navigation.navigate('Proxy')}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
+                <TouchableOpacity
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    backgroundColor: '#1E2127',
+                    paddingTop: 15,
+                    paddingBottom: 15,
+                    paddingLeft: 20,
+                    paddingRight: 14,
+                    marginTop: 1,
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    borderBottomRightRadius: 14,
+                    borderBottomStartRadius: 14,
+                  }}
                 >
-                  <FlagUseBig />
-                  <View style={{ marginLeft: 14 }}>
-                    <View>
-                      <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
-                    </View>
-                    <View style={{
-                      display: 'flex', flexDirection: 'row', fontWeight: '400', fontSize: 13, alignItems: 'center',
-                    }}
-                    >
-                      <Text style={{
-                        color: '#0F1218',
-                        paddingBottom: 4,
-                        paddingTop: 4,
-                        paddingLeft: 8,
-                        paddingRight: 8,
-                        backgroundColor: '#FAC637',
-                        borderRadius: 20,
-                        fontWeight: '700',
-                        fontSize: 11,
-                        marginBottom: 6,
+                  <View style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                  >
+                    <FlagUseBig />
+                    <View style={{ marginLeft: 14 }}>
+                      <View>
+                        <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
+                      </View>
+                      <View style={{
+                        display: 'flex', flexDirection: 'row', fontWeight: '400', fontSize: 13, alignItems: 'center', borderRadius: 20,
                       }}
                       >
-                        IPv4
-                      </Text>
-                      <Text style={{
-                        color: 'white', marginLeft: 6, fontWeight: '400', fontSize: 13,
-                      }}
-                      >
-                        136.117.121.183
-                      </Text>
+                        <Text style={{
+                          color: '#0F1218',
+                          paddingBottom: 4,
+                          paddingTop: 4,
+                          paddingLeft: 8,
+                          paddingRight: 8,
+                          backgroundColor: '#FAC637',
+                          borderRadius: 20,
+                          fontWeight: '700',
+                          fontSize: 11,
+                          marginBottom: 6,
+                        }}
+                        >
+                          IPv4
+                        </Text>
+                        <Text style={{
+                          color: 'white', marginLeft: 6, fontWeight: '600', fontSize: 13,
+                        }}
+                        >
+                          136.117.121.183
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                </View>
-                <VectorRight color="#636363" />
-              </TouchableOpacity>
+                  <VectorRight color="#636363" />
+                </TouchableOpacity>
               )}
               {statusConect === 'on' && (
-              <TouchableOpacity
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  backgroundColor: '#1E2127',
-                  paddingTop: 15,
-                  paddingBottom: 15,
-                  paddingLeft: 20,
-                  paddingRight: 14,
-                  marginTop: 1,
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  borderBottomRightRadius: 14,
-                  borderBottomStartRadius: 14,
-                }}
-                onPress={() => navigation.navigate('Proxy')}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
+                <TouchableOpacity
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    backgroundColor: '#1E2127',
+                    paddingTop: 15,
+                    paddingBottom: 15,
+                    paddingLeft: 20,
+                    paddingRight: 14,
+                    marginTop: 1,
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    borderBottomRightRadius: 14,
+                    borderBottomStartRadius: 14,
+                  }}
+                  onPress={() => navigation.navigate('Proxy')}
                 >
-                  <FlagUseBig />
-                  <View style={{ marginLeft: 14 }}>
-                    <View>
-                      <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
-                    </View>
-                    <View style={{
-                      display: 'flex', flexDirection: 'row', fontWeight: '400', fontSize: 13, alignItems: 'center',
-                    }}
-                    >
-                      <Text style={{
-                        color: '#0F1218',
-                        paddingBottom: 4,
-                        paddingTop: 4,
-                        paddingLeft: 8,
-                        paddingRight: 8,
-                        backgroundColor: '#FAC637',
-                        borderRadius: 20,
-                        fontWeight: '700',
-                        fontSize: 11,
-                        marginBottom: 6,
+                  <View style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                  >
+                    <FlagUseBig />
+                    <View style={{ marginLeft: 14 }}>
+                      <View>
+                        <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
+                      </View>
+                      <View style={{
+                        display: 'flex', flexDirection: 'row', fontWeight: '400', fontSize: 13, alignItems: 'center', borderRadius: 20,
                       }}
                       >
-                        IPv4
-                      </Text>
-                      <Text style={{
-                        color: 'white', marginLeft: 6, fontWeight: '400', fontSize: 13,
-                      }}
-                      >
-                        136.117.121.183
-                      </Text>
+                        <Text style={{
+                          color: '#0F1218',
+                          paddingBottom: 4,
+                          paddingTop: 4,
+                          paddingLeft: 8,
+                          paddingRight: 8,
+                          backgroundColor: '#FAC637',
+                          borderRadius: 20,
+                          fontWeight: '700',
+                          fontSize: 11,
+                          marginBottom: 6,
+                        }}
+                        >
+                          IPv4
+                        </Text>
+                        <Text style={{
+                          color: 'white', marginLeft: 6, fontWeight: '600', fontSize: 13,
+                        }}
+                        >
+                          136.117.121.183
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                </View>
-                <VectorRight color="#636363" />
-              </TouchableOpacity>
+                  <VectorRight color="#636363" />
+                </TouchableOpacity>
               )}
               {statusConect === 'none' && (
-              <TouchableOpacity
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  backgroundColor: '#1E2127',
-                  paddingTop: 15,
-                  paddingBottom: 15,
-                  paddingLeft: 20,
-                  paddingRight: 14,
-                  marginTop: 1,
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  borderBottomRightRadius: 14,
-                  borderBottomStartRadius: 14,
-                }}
-                onPress={() => setStatusConect('on')}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
+                <TouchableOpacity
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    backgroundColor: '#1E2127',
+                    paddingTop: 15,
+                    paddingBottom: 15,
+                    paddingLeft: 20,
+                    paddingRight: 14,
+                    marginTop: 1,
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    borderBottomRightRadius: 14,
+                    borderBottomStartRadius: 14,
+                  }}
+                  onPress={() => setStatusConect('on')}
                 >
-                  <Text style={{ display: 'flex', justifyContent: 'center', color: '#FAC637' }}>Купить прокси</Text>
-                </View>
-                {statusConect === 'on' && <VectorRight color="#636363" />}
-                {statusConect === 'off' && <VectorRight color="#636363" />}
-              </TouchableOpacity>
+                  <View style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  >
+                    <Text style={{ display: 'flex', justifyContent: 'center', color: '#FAC637' }}>Купить прокси</Text>
+                  </View>
+                  {statusConect === 'on' && <VectorRight color="#636363" />}
+                  {statusConect === 'off' && <VectorRight color="#636363" />}
+                </TouchableOpacity>
               )}
             </View>
             {statusConect === 'on' && (
@@ -452,7 +447,7 @@ function Main({ navigation }) {
         </View>
       </View>
       <View style={{ marginBottom: 25, width: '90%', alignItems: 'center' }}>
-        <UserNavigation style={{ marginBottom: 25 }} />
+        <UserNavigation style={{ marginBottom: 25 }} status="Main" navigation={navigation} />
       </View>
     </LayoutAuth>
 

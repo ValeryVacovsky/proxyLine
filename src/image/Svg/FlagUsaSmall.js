@@ -13,10 +13,13 @@ import Svg, {
 function FlagUsaSmall(props) {
   return (
     <Svg
+      // eslint-disable-next-line react/destructuring-assignment
       width={props.width}
+      // eslint-disable-next-line react/destructuring-assignment
       height={props.height}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       <G clipPath="url(#a)">
@@ -28,7 +31,9 @@ function FlagUsaSmall(props) {
           maskUnits="userSpaceOnUse"
           x={0}
           y={0}
+          // eslint-disable-next-line react/destructuring-assignment
           width={props.width}
+          // eslint-disable-next-line react/destructuring-assignment
           height={props.height}
         >
           <Path fill="#fff" d="M0 .5h16v12H0z" />
@@ -65,9 +70,11 @@ function FlagUsaSmall(props) {
       <Defs>
         <LinearGradient
           id="c"
+          // eslint-disable-next-line react/destructuring-assignment
           x1={props.width}
           y1={0.5}
           x2={0}
+          // eslint-disable-next-line react/destructuring-assignment
           y2={props.height}
           gradientUnits="userSpaceOnUse"
         >
@@ -81,7 +88,15 @@ function FlagUsaSmall(props) {
           <Stop offset={1} stopOpacity={0.2} />
         </LinearGradient>
         <ClipPath id="a">
-          <Rect y={0.5} width={props.width} height={props.height} rx={1} fill="#fff" />
+          <Rect
+            y={0.5}
+            // eslint-disable-next-line react/destructuring-assignment
+            width={props.width}
+            // eslint-disable-next-line react/destructuring-assignment
+            height={props.height}
+            rx={1}
+            fill="#fff"
+          />
         </ClipPath>
       </Defs>
     </Svg>

@@ -8,6 +8,7 @@ function LogoIntroBig(props) {
       height={38}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       <Path
