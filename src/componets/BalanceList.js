@@ -57,8 +57,6 @@ function BalanceList() {
           backgroundColor: 'rgba(51, 51, 51, 0.3)',
           marginBottom: 1,
           width: '100%',
-          borderBottomLeftRadius: 14,
-          borderBottomRightRadius: 14,
         }}
         >
           <View style={{

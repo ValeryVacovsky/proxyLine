@@ -5,9 +5,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import PeopleIconProxy from '../image/Svg/PeopleIconProxy';
-
-function ProxyTariff({ navigation }) {
+function ProxyTariff({ navigation, proxy }) {
   return (
     <View style={{
       alignItems: 'center',
@@ -20,28 +18,30 @@ function ProxyTariff({ navigation }) {
         width: '100%',
         paddingLeft: 20,
         paddingRight: 20,
-        zIndex: 0,
         marginTop: 11,
-
       }}
       >
-        <View style={{ zIndex: 2 }}>
-          <Text
-            style={{
-              color: 'black',
-              backgroundColor: '#FAC637',
-              paddingLeft: 14,
-              paddingTop: 3,
-              paddingBottom: 4,
-              paddingRight: 14,
-              top: 15,
-              fontSize: 12,
-              fontWeight: '600',
-              zIndex: 2,
-              borderRadius: 12,
-            }}
+        <View style={{
+          backgroundColor: '#FAC637',
+          top: '7%',
+          borderRadius: 8,
+          position: 'relative',
+          paddingTop: 4,
+          paddingBottom: 4,
+          paddingLeft: 14,
+          paddingRight: 14,
+          shadowColor: '#FAC637',
+          shadowOffset: { width: 3, height: 20 },
+          shadowOpacity: 0.15,
+          shadowRadius: 10,
+          zIndex: 1,
+        }}
+        >
+          <Text style={{
+            alignItems: 'center', fontWeight: '600', fontSize: 12, color: '#0F1218',
+          }}
           >
-            Используют до 3-х человек
+            {proxy.handDesription}
           </Text>
         </View>
         <View style={{
@@ -63,11 +63,19 @@ function ProxyTariff({ navigation }) {
         }}
         >
           <View>
-            <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>IPv4 Shared</Text>
-            <Text style={{ color: '#CBCBCB', fontSize: 12, fontWeight: '400' }}>Подходят для любых целей и сайтов</Text>
+            <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>
+              IP
+              {proxy.proxyType}
+            </Text>
+            <Text style={{
+              color: '#CBCBCB', fontSize: 12, fontWeight: '400', lineHeight: 15,
+            }}
+            >
+              {proxy.discription}
+            </Text>
           </View>
           <View>
-            <PeopleIconProxy />
+            {proxy.icon}
           </View>
         </View>
         <View style={{
@@ -85,14 +93,18 @@ function ProxyTariff({ navigation }) {
         }}
         >
           <View>
-            <Text style={{ color: 'white', fontWeight: '700' }}>5 дней</Text>
+            <Text style={{ color: 'white', fontWeight: '700' }}>{proxy.days}</Text>
           </View>
           <View>
-            <Text style={{ color: 'white', fontWeight: '700' }} onPress={() => { navigation.navigate('Balance'); }}>$ 0.60</Text>
+            <Text style={{ color: 'white', fontWeight: '700' }} onPress={() => { navigation.navigate('Balance'); }}>
+              $
+              {' '}
+              {proxy.price}
+            </Text>
           </View>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Order')}
+          onPress={() => navigation.navigate('Order', { proxy })}
           style={{
             width: '100%',
             alignItems: 'center',
@@ -102,6 +114,7 @@ function ProxyTariff({ navigation }) {
             borderBottomLeftRadius: 14,
             borderBottomRightRadius: 14,
           }}
+          activeOpacity={0.8}
         >
           <Text style={{
             fontWeight: '700',

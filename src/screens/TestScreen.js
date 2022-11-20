@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import LayoutMain from '../componets/LayoutMain';
+import Order from './Order';
 
 function TestScreen() {
   return (
-    <View>
-      <Text style={{ color: 'red' }}>Sasdas</Text>
-    </View>
+    <LayoutMain>
+    </LayoutMain>
   );
 }
 

@@ -154,7 +154,7 @@ function AuthCodeReset({ navigation }) {
               <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Отправить</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
             <View style={styles.buttonInnerBack}>
               <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>Отменить</Text>
             </View>

@@ -169,7 +169,7 @@ function AuthRecover({ navigation }) {
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
             <View style={styles.buttonInnerBack}>
               <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>Отменить</Text>
             </View>

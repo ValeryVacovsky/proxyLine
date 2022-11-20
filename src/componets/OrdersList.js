@@ -162,6 +162,7 @@ function OrdersList() {
             borderBottomRightRadius: 14,
           }}
           onPress={() => { setReceived(false); }}
+          activeOpacity={0.8}
         >
           <Text style={{
             fontWeight: '700',

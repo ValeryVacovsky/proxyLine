@@ -188,7 +188,7 @@ function AuthAuthauthentification({ navigation }) {
             )}
             name="password"
           />
-          <TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.8}>
             <View style={{}}>
               <Text
                 style={{

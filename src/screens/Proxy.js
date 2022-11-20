@@ -5,8 +5,39 @@ import {
 import LayoutMain from '../componets/LayoutMain';
 import ProxyTariff from '../componets/ProxyTariff';
 import UserNavigation from '../componets/UserNavigation';
+import CloudProxyIcon from '../image/Svg/CloudProxyIcon';
+import PeopleIconProxy from '../image/Svg/PeopleIconProxy';
+import ServerProxyIcon from '../image/Svg/ServerProxyIcon';
 
-const ProxyList = [1, 2, 3, 4, 5];
+const ProxyList = [
+  {
+    id: 1,
+    proxyType: 'v4 Shared',
+    discription: 'Подходит для любых целей и сайтов',
+    days: '5 дней',
+    price: 0.60,
+    handDesription: 'Используется до 3-х человек',
+    icon: <PeopleIconProxy />,
+  },
+  {
+    id: 2,
+    proxyType: 'v4 Индвидуальные',
+    discription: 'Подходит для любых целей и сайтов',
+    days: '5 дней',
+    price: 0.88,
+    handDesription: 'Выдается в одни руки',
+    icon: <CloudProxyIcon />,
+  },
+  {
+    id: 3,
+    proxyType: 'v6 / 32',
+    discription: 'Подходит для любых целей и сайтов',
+    days: '5 дней',
+    price: 1.22,
+    handDesription: 'Выдается в одни руки',
+    icon: <ServerProxyIcon />,
+  },
+];
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +56,9 @@ function Proxy({ navigation }) {
     <LayoutMain style={{ display: 'flex', alignItems: 'center' }}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          {ProxyList.map((key) => <ProxyTariff key={key} navigation={navigation} />)}
+          {ProxyList.map(
+            (proxy) => <ProxyTariff key={proxy.id} proxy={proxy} navigation={navigation} />,
+          )}
         </ScrollView>
       </SafeAreaView>
       <View style={{ alignItems: 'center', marginBottom: 25 }}>

@@ -27,17 +27,6 @@ import ButtonOff from '../image/Svg/ButtonOff';
 function Main({ navigation }) {
   const [statusConect, setStatusConect] = useState('off');
   const styles = StyleSheet.create({
-    sectionContainer: {
-      width: '100%',
-      height: '100%',
-      backgroundColor: '#0F1218',
-    },
-    backgroundImage: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'white',
-    },
     mainLogo: {
       alignItems: 'center',
       justifyContent: 'center',
@@ -56,25 +45,59 @@ function Main({ navigation }) {
       justifyContent: 'space-between',
       width: '100%',
     },
-    label: {
-      color: 'white',
-      marginBottom: 8,
-      fontSize: 16,
-      lineHeight: 15,
-      fontWeight: '500',
-    },
-    buttonInner: {
-      backgroundColor: '#FAC637',
+    buyProxy: {
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: '#1E2127',
+      paddingTop: 15,
+      paddingBottom: 15,
+      paddingLeft: 20,
+      paddingRight: 14,
+      marginTop: 1,
       alignItems: 'center',
-      justifyContent: 'center',
-      height: 50,
+      justifyContent: 'space-between',
+      borderBottomRightRadius: 14,
+      borderBottomStartRadius: 14,
     },
-    authLogo: {
-      paddingBottom: 30,
+    timeCalendar: {
+      alignItems: 'center',
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingTop: 3,
+      paddingBottom: 4,
+      backgroundColor: 'rgba(99, 99, 99, 0.30)',
+      width: '40%',
+      left: '30%',
+      borderBottomLeftRadius: 8,
+      borderBottomRightRadius: 8,
+    },
+    Ip: {
+      color: '#0F1218',
+      paddingBottom: 4,
+      paddingTop: 4,
+      paddingLeft: 8,
+      paddingRight: 8,
+      backgroundColor: '#FAC637',
+      borderRadius: 20,
+      fontWeight: '700',
+      fontSize: 11,
+      marginBottom: 6,
+    },
+    countries: {
+      paddingBottom: 15,
       textAlign: 'center',
       color: 'white',
       fontWeight: '600',
-      fontSize: 22,
+      fontSize: 14,
+      marginRight: 5,
+      alignItems: 'center',
+    },
+    IpAdress: {
+      paddingBottom: 5,
+      textAlign: 'center',
+      color: 'white',
+      fontWeight: '700',
+      fontSize: 24,
     },
   });
   return (
@@ -94,78 +117,53 @@ function Main({ navigation }) {
               Ваш IP
             </Text>
             {statusConect === 'on' && (
-              <Text style={{
-                paddingBottom: 5, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
-              }}
-              >
+              <Text style={styles.IpAdress}>
                 136.117.121.183
               </Text>
             )}
             {statusConect === 'off' && (
-              <Text style={{
-                paddingBottom: 5, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
-              }}
-              >
+              <Text style={styles.IpAdress}>
                 192.0.0.1
               </Text>
             )}
             {statusConect === 'none' && (
-              <Text style={{
-                paddingBottom: 5, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
-              }}
-              >
+              <Text style={styles.IpAdress}>
                 192.0.0.1
               </Text>
             )}
             <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               {statusConect === 'on' && (
-                <Text style={{
-                  paddingBottom: 15, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
-                }}
+                <Text
+                  style={styles.countries}
+                  onPress={() => navigation.navigate('Auth')}
                 >
-                  <Text
-                    style={{
-                      textAlign: 'center', color: 'white', fontWeight: '600', fontSize: 14, marginRight: 5, alignItems: 'center',
-                    }}
-                    onPress={() => navigation.navigate('Auth')}
-                  >
-                    United States of America
-                  </Text>
+                  United states of america
                 </Text>
               )}
               {statusConect === 'off' && (
-                <Text style={{
-                  paddingBottom: 15, textAlign: 'center', color: 'white', fontWeight: '700', fontSize: 24,
-                }}
-                >
-                  <Text
-                    style={{
-                      textAlign: 'center', color: 'white', fontWeight: '600', fontSize: 14, marginRight: 5, alignItems: 'center',
-                    }}
-                    onPress={() => navigation.navigate('Auth')}
-                  >
-                    Россия
-                  </Text>
-                </Text>
-              )}
-              {statusConect === 'none' && (
                 <Text
-                  style={{
-                    paddingBottom: 15, textAlign: 'center', color: 'white', fontWeight: '600', fontSize: 14, marginRight: 5, alignItems: 'center',
-                  }}
+                  style={styles.countries}
                   onPress={() => navigation.navigate('Auth')}
                 >
                   Россия
                 </Text>
               )}
-              {statusConect === 'on' && <FlagUsaSmall width={16} height={13} style={{ bottom: 5, left: 5 }} />}
-              {statusConect === 'off' && <FlagRusSmall width={16} height={13} style={{ bottom: 5, left: 5 }} />}
-              {statusConect === 'none' && <FlagRusSmall width={16} height={13} style={{ bottom: 5, left: 5 }} />}
+              {statusConect === 'none' && (
+                <Text
+                  style={styles.countries}
+                  onPress={() => navigation.navigate('Auth')}
+                >
+                  Россия
+                </Text>
+              )}
+              {statusConect === 'on' && <FlagUsaSmall width={16} height={13} style={{ bottom: 7, left: 5 }} />}
+              {statusConect === 'off' && <FlagRusSmall width={16} height={13} style={{ bottom: 7, left: 5 }} />}
+              {statusConect === 'none' && <FlagRusSmall width={16} height={13} style={{ bottom: 7, left: 5 }} />}
             </View>
           </View>
           <View style={{ marginBottom: 60, alignItems: 'center', marginTop: 40 }}>
             {statusConect === 'on' && (
-              <TouchableOpacity onPress={() => setStatusConect('off')}>
+              <TouchableOpacity onPress={() => setStatusConect('off')} activeOpacity={0.8}>
                 <Image
                   source={ButtonOn}
                   style={{ width: 160, height: 160, alignItems: 'center' }}
@@ -174,13 +172,12 @@ function Main({ navigation }) {
               </TouchableOpacity>
             )}
             {statusConect === 'off' && (
-              <TouchableOpacity onPress={() => setStatusConect('on')}>
+              <TouchableOpacity onPress={() => setStatusConect('on')} activeOpacity={0.8}>
                 <ButtonOff />
               </TouchableOpacity>
             )}
             {statusConect === 'none' && (
-              <TouchableOpacity onPress={() => setStatusConect('on')}>
-
+              <TouchableOpacity onPress={() => setStatusConect('on')} activeOpacity={0.8}>
                 <Image
                   source={ButtonNone}
                   style={{
@@ -195,27 +192,45 @@ function Main({ navigation }) {
           </View>
           <View style={{ display: 'flex', flexDirection: 'column' }}>
             <TouchableOpacity
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                backgroundColor: '#1E2127',
-                paddingTop: 15,
-                paddingBottom: 15,
-                paddingLeft: 20,
-                paddingRight: 14,
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                borderTopLeftRadius: 14,
-                borderTopRightRadius: 14,
-
-              }}
+              style={styles.buyProxy}
               onPress={() => setStatusConect('none')}
+              activeOpacity={0.8}
             >
               <View>
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                  {statusConect === 'on' && <FrameGreen />}
-                  {statusConect === 'off' && <FrameRed />}
-                  {statusConect === 'none' && <FrameYellow />}
+                  {statusConect === 'on' && (
+                  <View style={{
+                    shadowColor: 'rgba(255, 255, 255, 0.4), 4px 4px 30px rgba(147, 222, 30, 0.4), 0px 0px 50px #93DE1E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
+                    shadowOffset: { width: 0, height: 0 },
+                    shadowOpacity: 1,
+                    shadowRadius: 10,
+                  }}
+                  >
+                    <FrameGreen />
+                  </View>
+                  )}
+                  {statusConect === 'off' && (
+                  <View style={{
+                    shadowColor: 'rgba(255, 255, 255, 0.4), 4px 4px 30px rgba(147, 222, 30, 0.4), 0px 0px 50px #93DE1E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
+                    shadowOffset: { width: 0, height: 0 },
+                    shadowOpacity: 1,
+                    shadowRadius: 10,
+                  }}
+                  >
+                    <FrameRed />
+                  </View>
+                  )}
+                  {statusConect === 'none' && (
+                  <View style={{
+                    shadowColor: 'rgba(250, 198, 55, 0.6), 4px 4px 30px rgba(222, 134, 30, 0.4), 0px 0px 50px #DEA81E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
+                    shadowOffset: { width: 0, height: 0 },
+                    shadowOpacity: 1,
+                    shadowRadius: 10,
+                  }}
+                  >
+                    <FrameYellow />
+                  </View>
+                  )}
                   {statusConect === 'on' && (
                     <Text style={{
                       color: 'white', marginLeft: 10, fontWeight: '600', fontSize: 15,
@@ -256,20 +271,8 @@ function Main({ navigation }) {
             <View>
               {statusConect === 'off' && (
                 <TouchableOpacity
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    backgroundColor: '#1E2127',
-                    paddingTop: 15,
-                    paddingBottom: 15,
-                    paddingLeft: 20,
-                    paddingRight: 14,
-                    marginTop: 1,
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    borderBottomRightRadius: 14,
-                    borderBottomStartRadius: 14,
-                  }}
+                  style={styles.buyProxy}
+                  activeOpacity={0.8}
                 >
                   <View style={{
                     display: 'flex',
@@ -282,25 +285,24 @@ function Main({ navigation }) {
                       <View>
                         <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
                       </View>
-                      <View style={{
-                        display: 'flex', flexDirection: 'row', fontWeight: '400', fontSize: 13, alignItems: 'center', borderRadius: 20,
-                      }}
-                      >
-                        <Text style={{
-                          color: '#0F1218',
-                          paddingBottom: 4,
-                          paddingTop: 4,
-                          paddingLeft: 8,
-                          paddingRight: 8,
-                          backgroundColor: '#FAC637',
-                          borderRadius: 20,
-                          fontWeight: '700',
-                          fontSize: 11,
-                          marginBottom: 6,
+                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{
+                          display: 'flex', backgroundColor: '#FAC637', borderRadius: 20, alignItems: 'center',
                         }}
                         >
-                          IPv4
-                        </Text>
+                          <Text style={{
+                            color: '#0F1218',
+                            paddingBottom: 4,
+                            paddingTop: 4,
+                            paddingLeft: 8,
+                            paddingRight: 8,
+                            fontWeight: '700',
+                            fontSize: 11,
+                          }}
+                          >
+                            IPv4
+                          </Text>
+                        </View>
                         <Text style={{
                           color: 'white', marginLeft: 6, fontWeight: '600', fontSize: 13,
                         }}
@@ -315,21 +317,9 @@ function Main({ navigation }) {
               )}
               {statusConect === 'on' && (
                 <TouchableOpacity
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    backgroundColor: '#1E2127',
-                    paddingTop: 15,
-                    paddingBottom: 15,
-                    paddingLeft: 20,
-                    paddingRight: 14,
-                    marginTop: 1,
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    borderBottomRightRadius: 14,
-                    borderBottomStartRadius: 14,
-                  }}
+                  style={styles.buyProxy}
                   onPress={() => navigation.navigate('Proxy')}
+                  activeOpacity={0.8}
                 >
                   <View style={{
                     display: 'flex',
@@ -342,25 +332,24 @@ function Main({ navigation }) {
                       <View>
                         <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
                       </View>
-                      <View style={{
-                        display: 'flex', flexDirection: 'row', fontWeight: '400', fontSize: 13, alignItems: 'center', borderRadius: 20,
-                      }}
-                      >
-                        <Text style={{
-                          color: '#0F1218',
-                          paddingBottom: 4,
-                          paddingTop: 4,
-                          paddingLeft: 8,
-                          paddingRight: 8,
-                          backgroundColor: '#FAC637',
-                          borderRadius: 20,
-                          fontWeight: '700',
-                          fontSize: 11,
-                          marginBottom: 6,
+                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{
+                          display: 'flex', backgroundColor: '#FAC637', borderRadius: 20, alignItems: 'center',
                         }}
                         >
-                          IPv4
-                        </Text>
+                          <Text style={{
+                            color: '#0F1218',
+                            paddingBottom: 4,
+                            paddingTop: 4,
+                            paddingLeft: 8,
+                            paddingRight: 8,
+                            fontWeight: '700',
+                            fontSize: 11,
+                          }}
+                          >
+                            IPv4
+                          </Text>
+                        </View>
                         <Text style={{
                           color: 'white', marginLeft: 6, fontWeight: '600', fontSize: 13,
                         }}
@@ -375,30 +364,20 @@ function Main({ navigation }) {
               )}
               {statusConect === 'none' && (
                 <TouchableOpacity
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    backgroundColor: '#1E2127',
-                    paddingTop: 15,
-                    paddingBottom: 15,
-                    paddingLeft: 20,
-                    paddingRight: 14,
-                    marginTop: 1,
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    borderBottomRightRadius: 14,
-                    borderBottomStartRadius: 14,
-                  }}
+                  style={styles.buyProxy}
                   onPress={() => setStatusConect('on')}
+                  activeOpacity={0.8}
                 >
                   <View style={{
-                    display: 'flex',
-                    flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'center',
                   }}
                   >
-                    <Text style={{ display: 'flex', justifyContent: 'center', color: '#FAC637' }}>Купить прокси</Text>
+                    <Text style={{
+                      display: 'flex', justifyContent: 'center', color: '#FAC637', textAlign: 'center', fontWeight: '600',
+                    }}
+                    >
+                      Купить прокси
+                    </Text>
                   </View>
                   {statusConect === 'on' && <VectorRight color="#636363" />}
                   {statusConect === 'off' && <VectorRight color="#636363" />}
@@ -406,38 +385,17 @@ function Main({ navigation }) {
               )}
             </View>
             {statusConect === 'on' && (
-              <View style={{
-                alignItems: 'center',
-                paddingLeft: 20,
-                paddingRight: 20,
-                paddingTop: 3,
-                paddingBottom: 4,
-                backgroundColor: 'rgba(99, 99, 99, 0.30)',
-                width: '40%',
-                left: '30%',
-                borderBottomLeftRadius: 8,
-                borderBottomRightRadius: 8,
-              }}
-              >
-                <Text style={{ fontWeight: '600', fontSize: 12, color: '#F5F5F5' }}>
+              <View style={styles.timeCalendar}>
+                <Text
+                  style={{ fontWeight: '600', fontSize: 12, color: '#F5F5F5' }}
+                  onPress={() => navigation.navigate('Test')}
+                >
                   5 дней 6 часов
                 </Text>
               </View>
             )}
             {statusConect === 'off' && (
-              <View style={{
-                alignItems: 'center',
-                paddingLeft: 20,
-                paddingRight: 20,
-                paddingTop: 3,
-                paddingBottom: 4,
-                backgroundColor: 'rgba(99, 99, 99, 0.30)',
-                width: '40%',
-                left: '30%',
-                borderBottomLeftRadius: 8,
-                borderBottomRightRadius: 8,
-              }}
-              >
+              <View style={styles.timeCalendar}>
                 <Text style={{ fontWeight: '600', fontSize: 12, color: '#F5F5F5' }}>
                   5 дней 6 часов
                 </Text>

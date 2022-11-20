@@ -62,7 +62,7 @@ function App({ navigation }) {
               // eslint-disable-next-line react/no-unstable-nested-components
               headerRight: () => (
                 <View style={{ marginLeft: 15 }}>
-                  <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', fontSize: 15 }}>
+                  <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', fontSize: 15 }} activeOpacity={0.8}>
                     <Text style={{ color: 'white' }}>$ 93.5 </Text>
                     <HeaderProxy />
                   </TouchableOpacity>
@@ -120,7 +120,7 @@ function App({ navigation }) {
               // eslint-disable-next-line react/no-unstable-nested-components
               headerRight: () => (
                 <View style={{ marginLeft: 15 }}>
-                  <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', fontSize: 15 }}>
+                  <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', fontSize: 15 }} activeOpacity={0.8}>
                     <Text style={{ color: 'white' }}>$ 93.5 </Text>
                     <HeaderProxy />
                   </TouchableOpacity>

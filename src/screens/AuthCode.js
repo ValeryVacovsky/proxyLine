@@ -162,7 +162,7 @@ function AuthCode({ navigation }) {
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
             <SuperEllipseMaskView radius={{
               topLeft: 12,
               topRight: 12,

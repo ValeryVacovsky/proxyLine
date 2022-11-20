@@ -13,15 +13,17 @@ function CountrySlot() {
   // setTimeout(() => navigation.navigate('Auth'), 1000)
   return (
     <View style={{ borderBottomWidth: 1, borderBottomColor: '#36393e' }}>
-      <TouchableOpacity style={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingTop: 18,
-        paddingBottom: 18,
-        borderBottomColor: 'white',
-      }}
+      <TouchableOpacity
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingTop: 18,
+          paddingBottom: 18,
+          borderBottomColor: 'white',
+        }}
+        activeOpacity={0.8}
       >
         <Text style={{
           color: '#FAC637', fontSize: 18, fontWeight: '900',

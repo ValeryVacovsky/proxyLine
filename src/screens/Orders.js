@@ -6,7 +6,7 @@ import LayoutMain from '../componets/LayoutMain';
 import UserNavigation from '../componets/UserNavigation';
 import OrdersList from '../componets/OrdersList';
 
-const OrdersListTotal = [];
+const OrdersListTotal = [1, 2, 3];
 
 const styles = StyleSheet.create({
   container: {
@@ -100,6 +100,7 @@ function Orders({ navigation }) {
                 borderBottomLeftRadius: 14,
                 borderBottomRightRadius: 14,
               }}
+              activeOpacity={0.8}
             >
               <Text style={{
                 fontWeight: '700',

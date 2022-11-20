@@ -3,7 +3,6 @@ import {
   ScrollView, StyleSheet, SafeAreaView, Text,
 } from 'react-native';
 import LayoutMain from '../componets/LayoutMain';
-
 import BalanceList from '../componets/BalanceList';
 import BalanceTopTable from '../componets/UI/BalanceUI/BalanceTopTable';
 import BalanceClearTable from '../componets/UI/BalanceUI/BalanceClearTable';
@@ -19,6 +18,18 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 42,
+  },
+  circleGradient: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  visit: {
+    margin: 4,
+    paddingHorizontal: 6,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    color: '#008f68',
+    fontSize: 12,
   },
 });
 

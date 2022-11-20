@@ -76,6 +76,7 @@ function BalanceTopTable() {
             borderBottomLeftRadius: 14,
             borderBottomRightRadius: 14,
           }}
+          activeOpacity={0.8}
         >
           <Text style={{
             fontWeight: '600',

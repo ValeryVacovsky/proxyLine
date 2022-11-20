@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet,
 } from 'react-native';
-import LayoutMain from '../componets/LayoutMain';
-import SliderExample from '../componets/SliderExample';
+import SliderExample from './SliderExample';
 // import SliderExample from '../componets/SliderExample';
 import FlagUsaSmall from '../image/Svg/FlagUsaSmall';
 import VectorRightSmall from '../image/Svg/VectorRightSmall';
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function Order({ navigation, route }) {
+function OrderItem({ navigation, route }) {
   const [amount, setAmount] = useState(0);
   const { price } = route.params.proxy;
   const totalPrice = Math.floor((amount * price) * 100) / 100;
@@ -27,7 +26,7 @@ function Order({ navigation, route }) {
   const [country, setCountry] = useState('United States of America');
   const [typeServer, setTypeServer] = useState({ SOCKS5: true, 'HTTP(S)': false });
   return (
-    <LayoutMain style={{ display: 'flex', alignItems: 'center' }}>
+    <View>
       <View style={{
         flex: 1,
         alignItems: 'center',
@@ -281,9 +280,8 @@ function Order({ navigation, route }) {
           </View>
         </TouchableOpacity>
       </View>
-    </LayoutMain>
-
+    </View>
   );
 }
 
-export default Order;
+export default OrderItem;
