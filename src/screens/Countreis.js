@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 42,
   },
+  button: {
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 40,
+  },
   buttonInner: {
     backgroundColor: '#FAC637',
     alignItems: 'center',
@@ -24,17 +29,31 @@ const styles = StyleSheet.create({
     height: 50,
     width: '90%',
   },
+  buttonText: {
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 13,
+  },
 });
 
 function Countreis({ navigation }) {
   return (
-    <LayoutMain style={{ display: 'flex', alignItems: 'center' }}>
+    <LayoutMain>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
         </ScrollView>
       </SafeAreaView>
-      <TouchableOpacity onPress={() => navigation.navigate('Order')} style={{ alignItems: 'center', width: '100%', marginBottom: 40 }} activeOpacity={0.8}>
+      <TouchableOpacity onPress={() => navigation.navigate('Order')} style={styles.button} activeOpacity={0.8}>
         <SuperEllipseMaskView
           radius={{
             topLeft: 12,
@@ -44,7 +63,7 @@ function Countreis({ navigation }) {
           }}
           style={styles.buttonInner}
         >
-          <Text style={{ color: 'black', fontWeight: '600', fontSize: 13 }}>Подтвердить</Text>
+          <Text style={styles.buttonText}>Подтвердить</Text>
         </SuperEllipseMaskView>
       </TouchableOpacity>
     </LayoutMain>

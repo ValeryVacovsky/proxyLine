@@ -6,7 +6,7 @@ import LayoutMain from '../componets/LayoutMain';
 import UserNavigation from '../componets/UserNavigation';
 import OrdersList from '../componets/OrdersList';
 
-const OrdersListTotal = [1, 2, 3];
+const OrdersListTotal = [1, 2, 4, 5];
 
 const styles = StyleSheet.create({
   container: {
@@ -18,11 +18,63 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 42,
   },
+  scrollContainer: {
+    alignItems: 'center',
+    top: '35%',
+  },
+  ElementContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '80%',
+    zIndex: 0,
+    marginTop: 11,
+  },
+  infoContainer: {
+    backgroundColor: 'rgba(51, 51, 51, 0.3)',
+    marginBottom: 1,
+    width: '100%',
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
+    alignItems: 'center',
+  },
+  infoBlock: {
+    display: 'flex',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 40,
+    paddingBottom: 20,
+    alignItems: 'center',
+  },
+  textH1: {
+    color: 'white', fontWeight: '700', fontSize: 18, marginBottom: 6,
+  },
+  textDiscription: {
+    color: 'white', fontWeight: '400', fontSize: 12, textAlign: 'center', paddingLeft: 20, paddingRight: 20,
+  },
+  Button: {
+    width: '100%',
+    alignItems: 'center',
+    backgroundColor: 'rgba(51, 51, 51, 0.3)',
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderBottomLeftRadius: 14,
+    borderBottomRightRadius: 14,
+  },
+  buttonText: {
+    fontWeight: '700',
+    color: '#FAC637',
+    paddingTop: 14,
+    paddingBottom: 14,
+  },
+  navContainer: {
+    alignItems: 'center',
+    marginBottom: 25,
+  },
 });
 
 function Orders({ navigation }) {
   return (
-    <LayoutMain style={{ display: 'flex', alignItems: 'center' }}>
+    <LayoutMain>
       <SafeAreaView style={styles.container}>
         {OrdersListTotal.length > 0
         && (
@@ -30,85 +82,25 @@ function Orders({ navigation }) {
           {OrdersListTotal.map((key) => <OrdersList key={key} navigation={navigation} />)}
         </ScrollView>
         )}
-        <View style={{
-          alignItems: 'center',
-          top: '35%',
-        }}
-        >
+        <View style={styles.scrollContainer}>
           {OrdersListTotal.length === 0 && (
-          <View style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '80%',
-            zIndex: 0,
-            marginTop: 11,
-          }}
-          >
-            <View style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
-              zIndex: 0,
-              border: 2,
-              borderBottomColor: 'white',
-              backgroundColor: 'rgba(51, 51, 51, 0.3)',
-              marginBottom: 1,
-              alignItems: 'center',
-            }}
-            />
-            <View style={{
-              backgroundColor: 'rgba(51, 51, 51, 0.3)',
-              marginBottom: 1,
-              width: '100%',
-              borderTopLeftRadius: 14,
-              borderTopRightRadius: 14,
-              alignItems: 'center',
-            }}
-            >
-              <View style={{
-                display: 'flex',
-                paddingLeft: 20,
-                paddingRight: 20,
-                paddingTop: 40,
-                paddingBottom: 20,
-                alignItems: 'center',
-              }}
-              >
-                <Text style={{
-                  color: 'white', fontWeight: '700', fontSize: 18, marginBottom: 6,
-                }}
-                >
+          <View style={styles.ElementContainer}>
+            <View style={styles.infoContainer}>
+              <View style={styles.infoBlock}>
+                <Text style={styles.textH1}>
                   Нет ни одного заказа
                 </Text>
-                <Text style={{
-                  color: 'white', fontWeight: '400', fontSize: 12, textAlign: 'center', paddingLeft: 20, paddingRight: 20,
-                }}
-                >
+                <Text style={styles.textDiscription}>
                   На данный момент вы не совершали
                   ни одного заказа
                 </Text>
               </View>
             </View>
             <TouchableOpacity
-              style={{
-                width: '100%',
-                alignItems: 'center',
-                backgroundColor: 'rgba(51, 51, 51, 0.3)',
-                paddingLeft: 20,
-                paddingRight: 20,
-                borderBottomLeftRadius: 14,
-                borderBottomRightRadius: 14,
-              }}
+              style={styles.Button}
               activeOpacity={0.8}
             >
-              <Text style={{
-                fontWeight: '700',
-                color: '#FAC637',
-                paddingTop: 14,
-                paddingBottom: 14,
-              }}
-              >
+              <Text style={styles.buttonText}>
                 Получить
               </Text>
             </TouchableOpacity>
@@ -116,7 +108,7 @@ function Orders({ navigation }) {
           )}
         </View>
       </SafeAreaView>
-      <View style={{ alignItems: 'center', marginBottom: 25 }}>
+      <View style={styles.navContainer}>
         <UserNavigation status="Orders" navigation={navigation} />
       </View>
     </LayoutMain>

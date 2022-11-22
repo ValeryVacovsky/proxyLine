@@ -59,6 +59,9 @@ function Main({ navigation }) {
       borderBottomRightRadius: 14,
       borderBottomStartRadius: 14,
     },
+    buyProxyText: {
+      display: 'flex', justifyContent: 'center', color: '#FAC637', textAlign: 'center', fontWeight: '600',
+    },
     timeCalendar: {
       alignItems: 'center',
       paddingLeft: 20,
@@ -84,6 +87,11 @@ function Main({ navigation }) {
       marginBottom: 6,
     },
     countries: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    countryText: {
       paddingBottom: 15,
       textAlign: 'center',
       color: 'white',
@@ -99,6 +107,57 @@ function Main({ navigation }) {
       fontWeight: '700',
       fontSize: 24,
     },
+    yourIP: {
+      paddingBottom: 5, textAlign: 'center', color: 'white', fontWeight: '400', fontSize: 15,
+    },
+    containerInfo: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    statusConect: {
+      color: '#CBCBCB',
+      fontWeight: '400',
+      fontSize: 12,
+    },
+    IPContainer: {
+      display: 'flex',
+      backgroundColor: '#FAC637',
+      orderRadius: 20,
+      alignItems: 'center',
+    },
+    IPText: {
+      color: '#0F1218',
+      paddingBottom: 4,
+      paddingTop: 4,
+      paddingLeft: 8,
+      paddingRight: 8,
+      fontWeight: '700',
+      fontSize: 11,
+    },
+    http: {
+      color: 'white',
+      marginLeft: 6,
+      fontWeight: '600',
+      fontSize: 13,
+    },
+    frameShadowGreen: {
+      shadowColor: 'rgba(255, 255, 255, 0.4), 4px 4px 30px rgba(147, 222, 30, 0.4), 0px 0px 50px #93DE1E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 1,
+      shadowRadius: 10,
+    },
+    frameShadowRed: {
+      shadowColor: 'rgba(255, 255, 255, 0.4), 4px 4px 30px rgba(147, 222, 30, 0.4), 0px 0px 50px #93DE1E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 1,
+      shadowRadius: 10,
+    },
+    frameShadowNone: {
+      shadowColor: 'rgba(250, 198, 55, 0.6), 4px 4px 30px rgba(222, 134, 30, 0.4), 0px 0px 50px #DEA81E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 1,
+      shadowRadius: 10,
+    },
   });
   return (
     <LayoutAuth>
@@ -109,9 +168,7 @@ function Main({ navigation }) {
         <View style={{ marginBottom: 40, display: 'flex' }}>
           <View style={{ alignItems: 'center' }}>
             <Text
-              style={{
-                paddingBottom: 5, textAlign: 'center', color: 'white', fontWeight: '400', fontSize: 15,
-              }}
+              style={styles.yourIP}
               onPress={() => navigation.navigate('Auth')}
             >
               Ваш IP
@@ -131,10 +188,10 @@ function Main({ navigation }) {
                 192.0.0.1
               </Text>
             )}
-            <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <View style={styles.countries}>
               {statusConect === 'on' && (
                 <Text
-                  style={styles.countries}
+                  style={styles.countryText}
                   onPress={() => navigation.navigate('Auth')}
                 >
                   United states of america
@@ -142,7 +199,7 @@ function Main({ navigation }) {
               )}
               {statusConect === 'off' && (
                 <Text
-                  style={styles.countries}
+                  style={styles.countryText}
                   onPress={() => navigation.navigate('Auth')}
                 >
                   Россия
@@ -150,7 +207,7 @@ function Main({ navigation }) {
               )}
               {statusConect === 'none' && (
                 <Text
-                  style={styles.countries}
+                  style={styles.countryText}
                   onPress={() => navigation.navigate('Auth')}
                 >
                   Россия
@@ -190,7 +247,7 @@ function Main({ navigation }) {
               </TouchableOpacity>
             )}
           </View>
-          <View style={{ display: 'flex', flexDirection: 'column' }}>
+          <View style={styles.containerInfo}>
             <TouchableOpacity
               style={styles.buyProxy}
               onPress={() => setStatusConect('none')}
@@ -199,35 +256,17 @@ function Main({ navigation }) {
               <View>
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                   {statusConect === 'on' && (
-                  <View style={{
-                    shadowColor: 'rgba(255, 255, 255, 0.4), 4px 4px 30px rgba(147, 222, 30, 0.4), 0px 0px 50px #93DE1E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
-                    shadowOffset: { width: 0, height: 0 },
-                    shadowOpacity: 1,
-                    shadowRadius: 10,
-                  }}
-                  >
+                  <View style={styles.frameShadowGreen}>
                     <FrameGreen />
                   </View>
                   )}
                   {statusConect === 'off' && (
-                  <View style={{
-                    shadowColor: 'rgba(255, 255, 255, 0.4), 4px 4px 30px rgba(147, 222, 30, 0.4), 0px 0px 50px #93DE1E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
-                    shadowOffset: { width: 0, height: 0 },
-                    shadowOpacity: 1,
-                    shadowRadius: 10,
-                  }}
-                  >
+                  <View style={styles.frameShadowRed}>
                     <FrameRed />
                   </View>
                   )}
                   {statusConect === 'none' && (
-                  <View style={{
-                    shadowColor: 'rgba(250, 198, 55, 0.6), 4px 4px 30px rgba(222, 134, 30, 0.4), 0px 0px 50px #DEA81E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
-                    shadowOffset: { width: 0, height: 0 },
-                    shadowOpacity: 1,
-                    shadowRadius: 10,
-                  }}
-                  >
+                  <View style={styles.frameShadowNone}>
                     <FrameYellow />
                   </View>
                   )}
@@ -256,9 +295,9 @@ function Main({ navigation }) {
                     </Text>
                   )}
                 </View>
-                {statusConect === 'on' && <Text style={{ color: '#CBCBCB', fontWeight: '400', fontSize: 12 }}>Скорость подключения</Text>}
-                {statusConect === 'off' && <Text style={{ color: '#CBCBCB', fontWeight: '400', fontSize: 12 }}>Нажмите на кнопку чтобы подключить</Text>}
-                {statusConect === 'none' && <Text style={{ color: '#CBCBCB', fontWeight: '400', fontSize: 12 }}>Нажмите на кнопку чтобы подключить</Text>}
+                {statusConect === 'on' && <Text style={styles.statusConect}>Скорость подключения</Text>}
+                {statusConect === 'off' && <Text style={styles.statusConect}>Нажмите на кнопку чтобы подключить</Text>}
+                {statusConect === 'none' && <Text style={styles.statusConect}>Нажмите на кнопку чтобы подключить</Text>}
               </View>
               {statusConect === 'on' && (
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -286,27 +325,12 @@ function Main({ navigation }) {
                         <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
                       </View>
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <View style={{
-                          display: 'flex', backgroundColor: '#FAC637', borderRadius: 20, alignItems: 'center',
-                        }}
-                        >
-                          <Text style={{
-                            color: '#0F1218',
-                            paddingBottom: 4,
-                            paddingTop: 4,
-                            paddingLeft: 8,
-                            paddingRight: 8,
-                            fontWeight: '700',
-                            fontSize: 11,
-                          }}
-                          >
+                        <View style={styles.IPContainer}>
+                          <Text style={styles.IPText}>
                             IPv4
                           </Text>
                         </View>
-                        <Text style={{
-                          color: 'white', marginLeft: 6, fontWeight: '600', fontSize: 13,
-                        }}
-                        >
+                        <Text style={styles.http}>
                           136.117.121.183
                         </Text>
                       </View>
@@ -333,27 +357,12 @@ function Main({ navigation }) {
                         <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
                       </View>
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <View style={{
-                          display: 'flex', backgroundColor: '#FAC637', borderRadius: 20, alignItems: 'center',
-                        }}
-                        >
-                          <Text style={{
-                            color: '#0F1218',
-                            paddingBottom: 4,
-                            paddingTop: 4,
-                            paddingLeft: 8,
-                            paddingRight: 8,
-                            fontWeight: '700',
-                            fontSize: 11,
-                          }}
-                          >
+                        <View style={styles.IPContainer}>
+                          <Text style={styles.IPText}>
                             IPv4
                           </Text>
                         </View>
-                        <Text style={{
-                          color: 'white', marginLeft: 6, fontWeight: '600', fontSize: 13,
-                        }}
-                        >
+                        <Text style={styles.http}>
                           136.117.121.183
                         </Text>
                       </View>
@@ -372,10 +381,7 @@ function Main({ navigation }) {
                     alignItems: 'center',
                   }}
                   >
-                    <Text style={{
-                      display: 'flex', justifyContent: 'center', color: '#FAC637', textAlign: 'center', fontWeight: '600',
-                    }}
-                    >
+                    <Text style={styles.buyProxyText}>
                       Купить прокси
                     </Text>
                   </View>

@@ -144,10 +144,7 @@ function AuthCode({ navigation }) {
         </View>
         <View style={{ marginBottom: 25 }}>
           <TouchableOpacity
-            onPress={
-                        handleSubmit(onSubmit)
-
-                    }
+            onPress={handleSubmit(onSubmit)}
             activeOpacity={0.8}
           >
             <SuperEllipseMaskView radius={{

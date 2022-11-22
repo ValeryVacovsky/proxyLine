@@ -59,6 +59,11 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 18,
   },
+  buttonInnerText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
+  },
   buttonInnerBack: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -144,19 +149,16 @@ function AuthCodeReset({ navigation }) {
         </View>
         <View style={{ marginBottom: 25 }}>
           <TouchableOpacity
-            onPress={
-                        handleSubmit(onSubmit)
-
-                    }
+            onPress={handleSubmit(onSubmit)}
             activeOpacity={0.8}
           >
             <View style={styles.buttonInner}>
-              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Отправить</Text>
+              <Text style={styles.buttonInnerText}>Отправить</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
             <View style={styles.buttonInnerBack}>
-              <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>Отменить</Text>
+              <Text style={styles.buttonInnerBack}>Отменить</Text>
             </View>
           </TouchableOpacity>
         </View>

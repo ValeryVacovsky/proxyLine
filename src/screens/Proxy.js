@@ -49,19 +49,30 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 42,
   },
+  navContainer: {
+    alignItems: 'center',
+    marginBottom: 25,
+  },
 });
 
 function Proxy({ navigation }) {
   return (
-    <LayoutMain style={{ display: 'flex', alignItems: 'center' }}>
+    <LayoutMain>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           {ProxyList.map(
-            (proxy) => <ProxyTariff key={proxy.id} proxy={proxy} navigation={navigation} />,
+            (proxy) => (
+              <ProxyTariff
+                key={proxy.id}
+                proxy={proxy}
+                ProxyList={ProxyList}
+                navigation={navigation}
+              />
+            ),
           )}
         </ScrollView>
       </SafeAreaView>
-      <View style={{ alignItems: 'center', marginBottom: 25 }}>
+      <View style={styles.navContainer}>
         <UserNavigation status="Proxy" navigation={navigation} />
       </View>
     </LayoutMain>

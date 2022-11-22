@@ -18,25 +18,33 @@ const styles = StyleSheet.create({
   },
 });
 
-function OrderItem({ navigation, route }) {
+function OrderItem({ navigation, order }) {
   const [amount, setAmount] = useState(0);
-  const { price } = route.params.proxy;
+  const { price } = order;
   const totalPrice = Math.floor((amount * price) * 100) / 100;
   const [days, setDays] = useState(90);
   const [country, setCountry] = useState('United States of America');
   const [typeServer, setTypeServer] = useState({ SOCKS5: true, 'HTTP(S)': false });
+  const [dataSourceCords, setDataSourceCords] = useState([]);
   return (
-    <View>
-      <View style={{
-        flex: 1,
-        alignItems: 'center',
-        width: '100%',
-        paddingLeft: 20,
-        paddingRight: 20,
-        zIndex: 0,
-        marginTop: 11,
-      }}
+    <View style={{ flex: 1 }}>
+      <View
+        style={{
+          alignItems: 'center',
+          width: '100%',
+          paddingLeft: 20,
+          paddingRight: 20,
+          zIndex: 0,
+          marginTop: 11,
+          flex: 1,
+        }}
+        onLayout={(event) => {
+          const { layout } = event.nativeEvent;
+          [order.key] = layout.y;
+          setDataSourceCords(dataSourceCords);
+        }}
       >
+
         <View style={{
           backgroundColor: '#FAC637',
           top: 12,
@@ -57,7 +65,7 @@ function OrderItem({ navigation, route }) {
             alignItems: 'center', fontWeight: '600', fontSize: 12, color: '#0F1218',
           }}
           >
-            {route.params.proxy.handDesription}
+            {order.handDesription}
           </Text>
         </View>
         <View style={{
@@ -83,12 +91,12 @@ function OrderItem({ navigation, route }) {
           <View>
             <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>
               IP
-              {route.params.proxy.proxyType}
+              {order.proxyType}
             </Text>
             <Text style={{ color: '#CBCBCB', fontSize: 12, fontWeight: '400' }}>Подходят для любых целей и сайтов</Text>
           </View>
           <View>
-            {route.params.proxy.icon}
+            {order.icon}
           </View>
         </View>
         <TouchableOpacity
@@ -274,7 +282,11 @@ function OrderItem({ navigation, route }) {
             {totalPrice}
           </Text>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Main')} style={{ alignItems: 'center', width: '100%', marginBottom: 20 }} activeOpacity={0.8}>
+        <TouchableOpacity
+          onPress={() => { console.log(price); }}
+          style={{ alignItems: 'center', width: '100%', marginBottom: 20 }}
+          activeOpacity={0.8}
+        >
           <View style={styles.buttonInner}>
             <Text style={{ color: 'black', fontWeight: '600', fontSize: 13 }}>Купить прокси</Text>
           </View>

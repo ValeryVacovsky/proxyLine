@@ -61,10 +61,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
   },
+  buttonInnerText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
+  },
   buttonInnerBack: {
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
+  },
+  buttonInnerBackText: {
+    color: 'white',
+    fontWeight: '600',
+    fontSize: 13,
   },
   input: {
     backgroundColor: '#1E2127',
@@ -152,9 +162,7 @@ function AuthRecover({ navigation }) {
         </View>
         <View style={{ marginBottom: 25 }}>
           <TouchableOpacity
-            onPress={
-                        handleSubmit(onSubmit)
-                    }
+            onPress={handleSubmit(onSubmit)}
             activeOpacity={0.8}
           >
             <SuperEllipseMaskView radius={{
@@ -165,13 +173,13 @@ function AuthRecover({ navigation }) {
             }}
             >
               <View style={styles.buttonInner}>
-                <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Отправить</Text>
+                <Text style={styles.buttonInnerText}>Отправить</Text>
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
             <View style={styles.buttonInnerBack}>
-              <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>Отменить</Text>
+              <Text style={styles.buttonInnerBackText}>Отменить</Text>
             </View>
           </TouchableOpacity>
         </View>

@@ -17,7 +17,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   text: {
-    fontSize: 42,
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    paddingLeft: 20,
+    marginTop: 10,
+    marginBottom: 10,
   },
   circleGradient: {
     backgroundColor: 'white',
@@ -35,13 +40,11 @@ const styles = StyleSheet.create({
 
 function Balance({ navigation }) {
   return (
-    <LayoutMain style={{ display: 'flex', alignItems: 'center' }}>
+    <LayoutMain>
       <SafeAreaView style={styles.container}>
         <BalanceTopTable />
-        <Text style={{
-          color: 'white', fontSize: 18, fontWeight: '700', paddingLeft: 20, marginTop: 10, marginBottom: 10,
-        }}
-        >
+        <Text style={styles.text
+        }>
           Операции
         </Text>
         {BalanceListTotal.length > 0 && (

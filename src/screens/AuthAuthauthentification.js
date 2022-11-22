@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-
+import { useRoute } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 import LayoutAuth from '../componets/LayoutAuth';
 
@@ -72,6 +72,8 @@ function AuthAuthauthentification({ navigation }) {
   const [commonFormError, setCommonFormError] = useState('');
   const [focusOnEmail, setFocusOnEmail] = useState(false);
   const [focusOnPassword, setFocusOnPassword] = useState(false);
+  const route = useRoute();
+  console.log(route.name);
   const {
     control,
     handleSubmit,
@@ -89,6 +91,7 @@ function AuthAuthauthentification({ navigation }) {
     }),
     [navigation],
   );
+
   const onSubmit = (data) => {
     postAuth(data).then((result) => {
       console.log(result.data);
@@ -156,7 +159,7 @@ function AuthAuthauthentification({ navigation }) {
             )}
             name="email"
           />
-
+          {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите логин</Text>}
           <Text style={styles.label}>Пароль</Text>
           {/* <Input name="password" control={control} /> */}
           {/* <TextInput {...register("password")} style={styles.input}></TextInput> */}
@@ -188,6 +191,7 @@ function AuthAuthauthentification({ navigation }) {
             )}
             name="password"
           />
+          {errors.password && <Text style={{ color: 'white' }}>Введите пароль</Text>}
           <TouchableOpacity activeOpacity={0.8}>
             <View style={{}}>
               <Text

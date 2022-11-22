@@ -12,6 +12,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
   },
+  TrackMarkComponent: {
+    width: 2,
+    height: 14,
+    backgroundColor: '#FAC637',
+    borderRadius: 2,
+    shadowColor: '#FAC637',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+  },
 });
 
 function SliderExample({ days, setDays }) {
@@ -38,17 +48,7 @@ function SliderExample({ days, setDays }) {
         }}
         step={1}
         renderTrackMarkComponent={() => (
-          <View style={{
-            width: 2,
-            height: 14,
-            backgroundColor: '#FAC637',
-            borderRadius: 2,
-            shadowColor: '#FAC637',
-            shadowOffset: { width: 0, height: 10 },
-            shadowOpacity: 0.2,
-            shadowRadius: 10,
-          }}
-          />
+          <View style={styles.TrackMarkComponent} />
         )}
       />
     </View>

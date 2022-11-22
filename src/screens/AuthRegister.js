@@ -60,6 +60,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
   },
+  buttonInnerText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
+  },
   input: {
     backgroundColor: '#1E2127',
     color: 'white',
@@ -78,6 +83,31 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '600',
     fontSize: 22,
+  },
+  authUnderLogo: {
+    color: '#CBCBCB',
+    textAlign: 'center',
+    paddingBottom: 30,
+  },
+  auth: {
+    color: 'white',
+    textDecorationLine: 'underline',
+    fontWeight: '600',
+  },
+  haveAcc: {
+    color: 'white',
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  publickOfferText: {
+    color: '#CBCBCB',
+    textAlign: 'center',
+    fontSize: 12,
+  },
+  publickOfferTextUnderline: {
+    color: '#CBCBCB',
+    textDecorationLine: 'underline',
+    fontSize: 12,
   },
 });
 
@@ -109,7 +139,7 @@ function AuthRegister({ navigation }) {
       <View style={styles.authForm}>
         <View>
           <Text style={styles.authLogo} onPress={() => navigation.navigate('Code')}>Регистрация</Text>
-          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>Пароль будет отправлен на Ваш email</Text>
+          <Text style={styles.authUnderLogo}>Пароль будет отправлен на Ваш email</Text>
           {commonFormError && (<Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>)}
           <Text style={styles.label}>Email</Text>
           <Controller
@@ -144,19 +174,19 @@ function AuthRegister({ navigation }) {
             )}
             name="email"
           />
-          <Text style={{ color: '#CBCBCB', textAlign: 'center', fontSize: 12 }}>
+          <Text style={styles.publickOfferText}>
             Регистрируясь вы принимаете&#160;
-            <Text onPress={() => navigation.navigate('Agrement')} style={{ color: '#CBCBCB', textDecorationLine: 'underline', fontSize: 12 }}>
+            <Text onPress={() => navigation.navigate('Agrement')} style={styles.publickOfferTextUnderline}>
               публичную оферту
               и политику конфиденциальности
             </Text>
           </Text>
         </View>
         <View style={{ marginBottom: 25 }}>
-          <Text style={{ color: 'white', textAlign: 'center', marginBottom: 24 }}>
+          <Text style={styles.haveAcc}>
             {' '}
             Уже есть аккаунт? &#160;
-            <Text style={{ color: 'white', textDecorationLine: 'underline', fontWeight: '600' }} onPress={() => navigation.navigate('Auth')}>Авторизация</Text>
+            <Text style={styles.auth} onPress={() => navigation.navigate('Auth')}>Авторизация</Text>
           </Text>
           <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
             <SuperEllipseMaskView radius={{
@@ -168,7 +198,7 @@ function AuthRegister({ navigation }) {
             }}
             >
               <View style={styles.buttonInner}>
-                <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Зарегистрироваться</Text>
+                <Text style={styles.buttonInnerText}>Зарегистрироваться</Text>
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>
