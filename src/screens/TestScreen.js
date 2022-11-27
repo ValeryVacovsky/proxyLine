@@ -1,168 +1,176 @@
-// Scroll to a Specific Item in ScrollView List View
-// https://aboutreact.com/scroll_to_a_specific_item_in_scrollview_list_view/
-
-// import React in our code
-import React, { useState, useEffect } from 'react';
-
-// import all the components we are going to use
+import React, {
+  useCallback, useRef, useMemo, useState,
+} from 'react';
 import {
-  SafeAreaView,
-  View,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  TextInput,
+  StyleSheet, View, Text, TouchableOpacity,
 } from 'react-native';
+import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
-function App() {
-  const [dataSource, setDataSource] = useState([]);
-  const [scrollToIndex, setScrollToIndex] = useState(0);
-  const [dataSourceCords, setDataSourceCords] = useState([]);
-  const [ref, setRef] = useState(null);
+const handleComponent = () => (
+  <View />
+);
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-        setDataSource(responseJson);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+function TestScreen() {
+  const sheetRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const snapPoints = useMemo(() => ['40%'], []);
+
+  const handleSnapPress = useCallback((index) => {
+    sheetRef.current?.snapToIndex(index);
+    setIsOpen(false);
   }, []);
 
-  const scrollHandler = () => {
-    console.log(dataSourceCords.length, scrollToIndex);
-    if (dataSourceCords.length > scrollToIndex) {
-      ref.scrollTo({
-        x: 0,
-        y: dataSourceCords[scrollToIndex - 1],
-        animated: true,
-      });
-    } else {
-      alert('Out of Max Index');
-    }
-  };
-
-  function ItemView(item, key) {
-    return (
-      // Flat List Item
-      <View
-        key={key}
-        style={styles.item}
-        onLayout={(event) => {
-          const { layout } = event.nativeEvent;
-          dataSourceCords[key] = layout.y;
-          setDataSourceCords(dataSourceCords);
-          console.log(dataSourceCords);
-          console.log('height:', layout.height);
-          console.log('width:', layout.width);
-          console.log('x:', layout.x);
-          console.log('y:', layout.y);
-        }}
-      >
-        <Text
-          style={styles.itemStyle}
-          onPress={() => getItem(item)}
-        >
-          {item.id}
-          .
-          {item.title}
-        </Text>
-        <ItemSeparatorView />
-      </View>
-    );
-  }
-
-  function ItemSeparatorView() {
-    return (
-      // Flat List Item Separator
-      <View style={styles.itemSeparatorStyle} />
-    );
-  }
-
-  const getItem = (item) => {
-    // Function for click on an item
-    alert(`Id : ${item.id} Title : ${item.title}`);
-  };
+  const handleClosePress = useCallback(() => {
+    sheetRef.current?.close();
+  }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <View style={styles.searchContainer}>
-          <TextInput
-            value={
-              String(
-                scrollToIndex || 0,
-              )
-            }
-            numericvalue
-            keyboardType="numeric"
-            onChangeText={(scrollToIndex) => {
-              setScrollToIndex(
-                parseInt(
-                  scrollToIndex != ''
-                    ? scrollToIndex : 0,
-                ),
-              );
-            }}
-            placeholder="Enter the index to scroll"
-            style={styles.searchInput}
+    <View style={styles.container}>
+      <TouchableOpacity onPress={() => handleSnapPress(0)}>
+        <Text>Get</Text>
+      </TouchableOpacity>
+      <BottomSheet
+        ref={sheetRef}
+        snapPoints={snapPoints}
+        enablePanDownToClose
+        onClose={() => setIsOpen(true)}
+        handleComponent={handleComponent}
+      >
+        <View style={{
+          height: '100%',
+          backgroundColor: '#0F1218',
+          borderRadius: 20,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+        >
+          <View style={{
+            position: 'absolute',
+            width: 60,
+            height: 3,
+            backgroundColor: 'rgba(255,255,255, 0.1)',
+            marginTop: 10,
+            borderRadius: 100,
+          }}
           />
           <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={scrollHandler}
-            style={styles.searchButton}
+            style={{
+              paddingTop: 18,
+              paddingBottom: 18,
+              backgroundColor: '#1E2127',
+              width: '90%',
+              marginTop: 33,
+              borderRadius: 12,
+              alignItems: 'center',
+            }}
+            activeOpacity={0.8}
           >
-            <Text style={styles.searchButtonText}>
-              Go to Index
+            <Text style={{
+              color: 'white', fontWeight: '600', fontSize: 12, lineHeight: 15,
+            }}
+            >
+              Заметки
+            </Text>
+          </TouchableOpacity>
+          <View style={{ width: '100%', alignItems: 'center' }}>
+            <TouchableOpacity
+              style={{
+                paddingTop: 18,
+                paddingBottom: 18,
+                backgroundColor: '#1E2127',
+                width: '90%',
+                marginBottom: 1,
+                borderTopLeftRadius: 12,
+                borderTopRightRadius: 12,
+                alignItems: 'center',
+              }}
+              activeOpacity={0.8}
+            >
+              <Text style={{
+                color: 'white', fontWeight: '600', fontSize: 12, lineHeight: 15,
+              }}
+              >
+                Изменить тип
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                paddingTop: 18,
+                paddingBottom: 18,
+                backgroundColor: '#1E2127',
+                width: '90%',
+                marginBottom: 1,
+                alignItems: 'center',
+              }}
+              activeOpacity={0.8}
+            >
+              <Text style={{
+                color: 'white', fontWeight: '600', fontSize: 12, lineHeight: 15,
+              }}
+              >
+                Удалить прокси
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                paddingTop: 18,
+                paddingBottom: 18,
+                backgroundColor: '#1E2127',
+                width: '90%',
+                borderBottomLeftRadius: 12,
+                borderBottomRightRadius: 12,
+                alignItems: 'center',
+              }}
+              activeOpacity={0.8}
+            >
+              <Text style={{
+                color: 'white', fontWeight: '600', fontSize: 12, lineHeight: 15,
+              }}
+              >
+                Продлить прокси
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            style={{
+              paddingTop: 18,
+              paddingBottom: 18,
+              backgroundColor: '#1E2127',
+              width: '90%',
+              marginBottom: 33,
+              borderRadius: 12,
+              alignItems: 'center',
+            }}
+            onPress={() => handleClosePress()}
+            activeOpacity={0.8}
+          >
+            <Text style={{
+              color: '#FAC637', fontWeight: '600', fontSize: 12, lineHeight: 15,
+            }}
+            >
+              Отменить
             </Text>
           </TouchableOpacity>
         </View>
-        {/* List Item as a function */}
-        <ScrollView
-          ref={(ref) => {
-            setRef(ref);
-          }}
-        >
-          {dataSource.map(ItemView)}
-        </ScrollView>
-      </View>
-    </SafeAreaView>
+      </BottomSheet>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
-  },
-  itemStyle: {
-    padding: 10,
-  },
-  itemSeparatorStyle: {
-    height: 0.5,
-    width: '100%',
-    backgroundColor: '#C8C8C8',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#1e73be',
-    padding: 5,
-  },
-  searchInput: {
     flex: 1,
-    backgroundColor: 'white',
-    padding: 10,
+    paddingTop: 200,
   },
-  searchButton: {
-    padding: 15,
-    backgroundColor: '#f4801e',
+  contentContainer: {
+    backgroundColor: 'black',
   },
-  searchButtonText: {
-    color: '#fff',
+  itemContainer: {
+    backgroundColor: '#eee',
   },
 });
 
-export default App;
+export default TestScreen;

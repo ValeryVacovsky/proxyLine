@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-function BalanceTopTable() {
+function BalanceTopTable({ balance, navigation }) {
   return (
     <View style={{
       alignItems: 'center',
@@ -62,7 +62,7 @@ function BalanceTopTable() {
               color: 'white', fontWeight: '600', fontSize: 40, marginLeft: 10,
             }}
             >
-              93.5
+              {balance}
             </Text>
           </View>
         </View>

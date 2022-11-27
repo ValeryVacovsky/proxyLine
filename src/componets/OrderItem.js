@@ -18,14 +18,13 @@ const styles = StyleSheet.create({
   },
 });
 
-function OrderItem({ navigation, order }) {
+function OrderItem({ navigation, order, setScrolling }) {
   const [amount, setAmount] = useState(0);
   const { price } = order;
   const totalPrice = Math.floor((amount * price) * 100) / 100;
   const [days, setDays] = useState(90);
   const [country, setCountry] = useState('United States of America');
   const [typeServer, setTypeServer] = useState({ SOCKS5: true, 'HTTP(S)': false });
-  const [dataSourceCords, setDataSourceCords] = useState([]);
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -37,11 +36,6 @@ function OrderItem({ navigation, order }) {
           zIndex: 0,
           marginTop: 11,
           flex: 1,
-        }}
-        onLayout={(event) => {
-          const { layout } = event.nativeEvent;
-          [order.key] = layout.y;
-          setDataSourceCords(dataSourceCords);
         }}
       >
 
@@ -107,7 +101,7 @@ function OrderItem({ navigation, order }) {
           activeOpacity={0.8}
         >
           <View>
-            <Text style={{ color: '#CBCBCB' }}>Страна</Text>
+            <Text style={{ color: '#CBCBCB', fontSize: 15, fontWeight: '600' }}>Страна</Text>
           </View>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
             <Text style={{ color: 'white' }}>{country}</Text>
@@ -126,7 +120,7 @@ function OrderItem({ navigation, order }) {
           <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>5 дней</Text>
           <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>360 дней</Text>
         </View>
-        <SliderExample days={days} setDays={setDays} />
+        <SliderExample days={days} setDays={setDays} setScrolling={setScrolling} />
         <View style={{
           display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', paddingTop: 13, paddingBottom: 13,
         }}

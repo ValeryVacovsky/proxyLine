@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text,
 } from 'react-native';
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
 import CountrySlot from '../componets/CountrySlot';
 import LayoutMain from '../componets/LayoutMain';
-
+import ProxyItem from '../componets/UI/ProxyUI/ProxyItem';
+import FlagUseBig from '../image/Svg/FlagUseBig';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   scrollView: {
-    marginHorizontal: 20,
     marginTop: 20,
   },
   text: {
@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     marginBottom: 40,
+    position: 'absolute',
+    bottom: '8%',
+    zIndex: 1,
   },
   buttonInner: {
     backgroundColor: '#FAC637',
@@ -28,6 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
     width: '90%',
+    position: 'absolute',
   },
   buttonText: {
     color: 'black',
@@ -35,8 +39,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
 });
-
 function Countreis({ navigation }) {
+  const [selected, setSelected] = useState(null);
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
@@ -53,7 +57,14 @@ function Countreis({ navigation }) {
           <CountrySlot />
         </ScrollView>
       </SafeAreaView>
-      <TouchableOpacity onPress={() => navigation.navigate('Order')} style={styles.button} activeOpacity={0.8}>
+      <TouchableOpacity
+        onPress={() => {}}
+        style={styles.button}
+        activeOpacity={0.8}
+        onLongPress={() => {
+          console.log('Long Press');
+        }}
+      >
         <SuperEllipseMaskView
           radius={{
             topLeft: 12,

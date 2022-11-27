@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,8 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+
 import { useForm, Controller } from 'react-hook-form';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import LayoutAuth from '../componets/LayoutAuth';
 
 import LogoIntroSmall from '../image/Svg/LogoIntroSmall';
@@ -72,8 +73,6 @@ function AuthAuthauthentification({ navigation }) {
   const [commonFormError, setCommonFormError] = useState('');
   const [focusOnEmail, setFocusOnEmail] = useState(false);
   const [focusOnPassword, setFocusOnPassword] = useState(false);
-  const route = useRoute();
-  console.log(route.name);
   const {
     control,
     handleSubmit,
@@ -87,20 +86,41 @@ function AuthAuthauthentification({ navigation }) {
   React.useEffect(
     () => navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();
-      console.log(123);
     }),
     [navigation],
   );
 
-  const onSubmit = (data) => {
-    postAuth(data).then((result) => {
-      console.log(result.data);
-      if (result.data.success === true) {
-        navigation.navigate('Main');
-      } else {
-        setCommonFormError('Invalid email or password');
-      }
-    });
+  // const onSubmit = (data) => {
+  //   postAuth(data).then((result) => {
+  //     if (result.data.success === true) {
+  //       AsyncStorage.setItem('@id', result.data.user.id);
+  //       // AsyncStorage.setItem('@token', result.data.user.token);
+  //       console.log(result.data.user);
+  //       navigation.navigate('Main');
+  //     } else {
+  //       setCommonFormError('Invalid email or password');
+  //     }
+  //   });
+  //   if (data.email === 'email@gmail.com' && data.password === 'password') {
+  //     navigation.push('Main', {
+  //       initial: false,
+  //     });
+  //   }
+  //   if (data.email === 1111) {
+  //     navigation.push('Main');
+  //   }
+  // };
+
+  const onSubmit = async (data) => {
+    const res = await postAuth(data);
+    if (res.data.success === true) {
+      await AsyncStorage.setItem('@token', String(res.data.user.token));
+      await AsyncStorage.setItem('@id', String(res.data.user.id));
+      console.log(res.data.user);
+      navigation.navigate('Main');
+    } else {
+      setCommonFormError('Invalid email or password');
+    }
     if (data.email === 'email@gmail.com' && data.password === 'password') {
       navigation.push('Main', {
         initial: false,
@@ -109,8 +129,8 @@ function AuthAuthauthentification({ navigation }) {
     if (data.email === 1111) {
       navigation.push('Main');
     }
-    console.log(data);
   };
+
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -124,7 +144,7 @@ function AuthAuthauthentification({ navigation }) {
               {commonFormError}
             </Text>
           )}
-          <Text style={styles.label}>Email</Text>
+          <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>Email</Text>
           {/* <Input name="email" control={control} /> */}
           {/* <TextInput {...register("email")} style={styles.input}></TextInput> */}
           <Controller
@@ -160,7 +180,7 @@ function AuthAuthauthentification({ navigation }) {
             name="email"
           />
           {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите логин</Text>}
-          <Text style={styles.label}>Пароль</Text>
+          <Text style={styles.label} onPress={() => navigation.navigate('Test')}>Пароль</Text>
           {/* <Input name="password" control={control} /> */}
           {/* <TextInput {...register("password")} style={styles.input}></TextInput> */}
           <Controller

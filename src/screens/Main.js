@@ -312,6 +312,7 @@ function Main({ navigation }) {
                 <TouchableOpacity
                   style={styles.buyProxy}
                   activeOpacity={0.8}
+                  onPress={() => navigation.navigate('Proxies')}
                 >
                   <View style={{
                     display: 'flex',
@@ -342,7 +343,7 @@ function Main({ navigation }) {
               {statusConect === 'on' && (
                 <TouchableOpacity
                   style={styles.buyProxy}
-                  onPress={() => navigation.navigate('Proxy')}
+                  onPress={() => navigation.navigate('Proxies')}
                   activeOpacity={0.8}
                 >
                   <View style={{
@@ -374,7 +375,7 @@ function Main({ navigation }) {
               {statusConect === 'none' && (
                 <TouchableOpacity
                   style={styles.buyProxy}
-                  onPress={() => setStatusConect('on')}
+                  onPress={() => { setStatusConect('on'); navigation.navigate('Proxies'); }}
                   activeOpacity={0.8}
                 >
                   <View style={{

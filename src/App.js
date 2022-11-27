@@ -24,6 +24,8 @@ import Order from './screens/Order';
 import Countreis from './screens/Countreis';
 import Orders from './screens/Orders';
 import Balance from './screens/Balance';
+import MyProxies from './screens/MyProxies';
+import Notes from './screens/Notes';
 
 // eslint-disable-next-line no-unused-vars
 const styles = StyleSheet.create({
@@ -194,6 +196,52 @@ function App({ navigation }) {
             options={{
               // eslint-disable-next-line react/no-unstable-nested-components
               headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Ваш баланс</Text>,
+              headerStyle: {
+                height: 300,
+                borderBottomLeftRadius: 50,
+                backgroundColor: '#0F1218',
+
+              },
+              headerTintColor: '#CBCBCB',
+              headerTitleAlign: 'center',
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {
+                fontSize: 14,
+                color: 'white',
+              },
+              gestureEnabled: false,
+              headerBackTitle: 'Назад',
+            }}
+          />
+          <Stack.Screen
+            name="Proxies"
+            component={MyProxies}
+            options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
+              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Мои прокси</Text>,
+              headerStyle: {
+                height: 300,
+                borderBottomLeftRadius: 50,
+                backgroundColor: '#0F1218',
+
+              },
+              headerTintColor: '#CBCBCB',
+              headerTitleAlign: 'center',
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {
+                fontSize: 14,
+                color: 'white',
+              },
+              gestureEnabled: false,
+              headerBackTitle: 'Назад',
+            }}
+          />
+          <Stack.Screen
+            name="Notes"
+            component={Notes}
+            options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
+              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Заметки</Text>,
               headerStyle: {
                 height: 300,
                 borderBottomLeftRadius: 50,

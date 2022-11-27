@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  View, ScrollView, StyleSheet, SafeAreaView,
+  View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import LayoutMain from '../componets/LayoutMain';
 import ProxyTariff from '../componets/ProxyTariff';
 import UserNavigation from '../componets/UserNavigation';
 import CloudProxyIcon from '../image/Svg/CloudProxyIcon';
+import HeaderProxy from '../image/Svg/HeaderProxy';
 import PeopleIconProxy from '../image/Svg/PeopleIconProxy';
 import ServerProxyIcon from '../image/Svg/ServerProxyIcon';
+import getBalance from '../api/getBalance';
 
 const ProxyList = [
   {
@@ -53,9 +56,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 25,
   },
+  balanceIcon: {
+    display: 'flex',
+    flexDirection: 'row',
+    fontSize: 15,
+    alignItems: 'center',
+  },
 });
 
 function Proxy({ navigation }) {
+  const [balance, setBalance] = useState({ balance: null });
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = await AsyncStorage.getItem('@token');
+      const id = await AsyncStorage.getItem('@id');
+      const data = await getBalance(`${id}_${token}`);
+      await setBalance(data.data);
+    };
+    fetchData();
+  }, []);
+  console.log(123, balance);
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      // eslint-disable-next-line react/no-unstable-nested-components
+      headerRight: () => (
+        <View style={{ marginLeft: 15 }}>
+          <TouchableOpacity
+            style={styles.balanceIcon}
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('Balance')}
+          >
+            <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>
+              $
+              {' '}
+              {balance.balance}
+            </Text>
+            <HeaderProxy style={{ bottom: 1, marginLeft: 3 }} />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  }, [navigation, balance]);
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>

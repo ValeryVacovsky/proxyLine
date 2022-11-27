@@ -12,25 +12,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
   },
-  TrackMarkComponent: {
-    width: 2,
-    height: 14,
-    backgroundColor: '#FAC637',
-    borderRadius: 2,
-    shadowColor: '#FAC637',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
-  },
 });
 
-function SliderExample({ days, setDays }) {
+function SliderExample({ days, setDays, setScrolling }) {
+  const trackMarks = [0, 15, 30, 45, 60,
+    75, 90, 105, 120, 135, 150, 165, 180, 195, 210,
+    225, 240, 255, 270, 285, 300, 315, 330, 345, 360];
   return (
     <View style={styles.container}>
       <Slider
-        trackMarks={[0, 15, 30, 45, 60,
-          75, 90, 105, 120, 135, 150, 165, 180, 195, 210,
-          225, 240, 255, 270, 285, 300, 315, 330, 345, 360]}
+        trackMarks={trackMarks}
         value={days}
         onValueChange={setDays}
         maximumValue={360}
@@ -38,6 +29,7 @@ function SliderExample({ days, setDays }) {
         maximumTrackTintColor="#1E2127"
         minimumTrackTintColor="#FAC637"
         thumbTintColor="#FAC637"
+        trackClickable
         thumbStyle={{
           borderWidth: 1,
           borderColor: '#0F1218',
@@ -46,9 +38,21 @@ function SliderExample({ days, setDays }) {
           shadowOpacity: 0.3,
           shadowRadius: 10,
         }}
-        step={1}
-        renderTrackMarkComponent={() => (
-          <View style={styles.TrackMarkComponent} />
+        step={5}
+        onSlidingStart={() => setScrolling(false)}
+        onSlidingComplete={() => setScrolling(true)}
+        renderTrackMarkComponent={(index) => (
+          <View style={{
+            width: index === 0 ? 4 : 2,
+            height: 14,
+            backgroundColor: days < trackMarks[index] ? '#1E2127' : '#FAC637',
+            borderRadius: 2,
+            shadowColor: '#FAC637',
+            shadowOffset: { width: 0, height: 10 },
+            shadowOpacity: 0.2,
+            shadowRadius: 10,
+          }}
+          />
         )}
       />
     </View>
