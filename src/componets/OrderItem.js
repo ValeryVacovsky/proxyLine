@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet,
 } from 'react-native';
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
 import SliderExample from './SliderExample';
 // import SliderExample from '../componets/SliderExample';
 import FlagUsaSmall from '../image/Svg/FlagUsaSmall';
@@ -14,7 +15,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
     width: '90%',
-    borderRadius: 12,
   },
 });
 
@@ -104,7 +104,15 @@ function OrderItem({ navigation, order, setScrolling }) {
             <Text style={{ color: '#CBCBCB', fontSize: 15, fontWeight: '600' }}>Страна</Text>
           </View>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-            <Text style={{ color: 'white' }}>{country}</Text>
+            <Text style={{
+              color: 'white',
+              fontWeight: '600',
+              fontSize: 13,
+            }}
+            >
+              {country}
+
+            </Text>
             <FlagUsaSmall
               width={16}
               height={13}
@@ -143,7 +151,7 @@ function OrderItem({ navigation, order, setScrolling }) {
           >
             <TouchableOpacity
               style={typeServer['HTTP(S)'] === false
-                ? {} : { backgroundColor: 'rgba(51, 51, 51, 0.5)', borderRadius: 50 }}
+                ? {} : { backgroundColor: 'rgba(51, 51, 51, 0.5)', borderRadius: 20 }}
               onPress={() => setTypeServer((prevState) => ({
                 ...prevState,
                 'HTTP(S)': !prevState['HTTP(S)'],
@@ -277,13 +285,13 @@ function OrderItem({ navigation, order, setScrolling }) {
           </Text>
         </View>
         <TouchableOpacity
-          onPress={() => { console.log(price); }}
+          onPress={() => {}}
           style={{ alignItems: 'center', width: '100%', marginBottom: 20 }}
           activeOpacity={0.8}
         >
-          <View style={styles.buttonInner}>
+          <SuperEllipseMaskView radius={12} style={styles.buttonInner}>
             <Text style={{ color: 'black', fontWeight: '600', fontSize: 13 }}>Купить прокси</Text>
-          </View>
+          </SuperEllipseMaskView>
         </TouchableOpacity>
       </View>
     </View>

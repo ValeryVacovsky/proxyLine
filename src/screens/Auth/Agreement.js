@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 
 import { useForm } from 'react-hook-form';
-import LayoutAuth from '../componets/LayoutAuth';
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
+import LayoutAuth from '../../componets/LayoutAuth';
 
 const styles = StyleSheet.create({
   buttonInner: {
@@ -18,7 +19,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
-    width: '90%',
+    width: '88%',
+    borderRadius: 12,
   },
   container: {
     flex: 1,
@@ -76,12 +78,24 @@ function Agreement({ navigation }) {
           onPress={(data) => {
             handleSubmit(onSubmit(data));
           }}
-          style={{ marginBottom: 25, alignItems: 'center' }}
+          style={{
+            marginBottom: 25,
+            alignItems: 'center',
+            borderRadius: 12,
+          }}
           activeOpacity={0.8}
         >
-          <View style={styles.buttonInner}>
+          <SuperEllipseMaskView
+            radius={{
+              topLeft: 12,
+              topRight: 12,
+              bottomLeft: 12,
+              bottomRight: 12,
+            }}
+            style={styles.buttonInner}
+          >
             <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Принять</Text>
-          </View>
+          </SuperEllipseMaskView>
         </TouchableOpacity>
       </View>
     </LayoutAuth>

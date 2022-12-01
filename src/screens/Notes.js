@@ -110,9 +110,7 @@ function Notes({ navigation }) {
         <TouchableOpacity
           style={styles.button}
           activeOpacity={0.8}
-          onLongPress={() => {
-            console.log('Long Press');
-          }}
+          onLongPress={() => {}}
         >
           <SuperEllipseMaskView
             radius={{
@@ -158,9 +156,7 @@ function Notes({ navigation }) {
                 zIndex: 1,
               }}
               activeOpacity={0.8}
-              onLongPress={() => {
-                console.log('Long Press');
-              }}
+              onLongPress={() => {}}
             >
               <SuperEllipseMaskView
                 radius={{
@@ -208,9 +204,7 @@ function Notes({ navigation }) {
                 marginTop: 20,
               }}
               activeOpacity={0.8}
-              onLongPress={() => {
-                console.log('Long Press');
-              }}
+              onLongPress={() => {}}
             >
               <SuperEllipseMaskView
                 radius={{

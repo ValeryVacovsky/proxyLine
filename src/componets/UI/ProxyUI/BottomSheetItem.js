@@ -107,6 +107,7 @@ function BottomSheetItem({ handleClosePress, navigation }) {
       <TouchableOpacity
         style={styles.topButton}
         activeOpacity={0.8}
+        onPress={() => navigation.navigate('Notes')}
       >
         <Text style={styles.topButtonText}>
           Заметки

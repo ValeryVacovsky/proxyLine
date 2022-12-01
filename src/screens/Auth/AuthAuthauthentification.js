@@ -9,10 +9,11 @@ import {
 
 import { useForm, Controller } from 'react-hook-form';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import LayoutAuth from '../componets/LayoutAuth';
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
+import LayoutAuth from '../../componets/LayoutAuth';
 
-import LogoIntroSmall from '../image/Svg/LogoIntroSmall';
-import postAuth from '../api/postAuth';
+import LogoIntroSmall from '../../image/Svg/LogoIntroSmall';
+import postAuth from '../../api/postAuth';
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -90,33 +91,11 @@ function AuthAuthauthentification({ navigation }) {
     [navigation],
   );
 
-  // const onSubmit = (data) => {
-  //   postAuth(data).then((result) => {
-  //     if (result.data.success === true) {
-  //       AsyncStorage.setItem('@id', result.data.user.id);
-  //       // AsyncStorage.setItem('@token', result.data.user.token);
-  //       console.log(result.data.user);
-  //       navigation.navigate('Main');
-  //     } else {
-  //       setCommonFormError('Invalid email or password');
-  //     }
-  //   });
-  //   if (data.email === 'email@gmail.com' && data.password === 'password') {
-  //     navigation.push('Main', {
-  //       initial: false,
-  //     });
-  //   }
-  //   if (data.email === 1111) {
-  //     navigation.push('Main');
-  //   }
-  // };
-
   const onSubmit = async (data) => {
     const res = await postAuth(data);
     if (res.data.success === true) {
       await AsyncStorage.setItem('@token', String(res.data.user.token));
       await AsyncStorage.setItem('@id', String(res.data.user.id));
-      console.log(res.data.user);
       navigation.navigate('Main');
     } else {
       setCommonFormError('Invalid email or password');
@@ -130,7 +109,6 @@ function AuthAuthauthentification({ navigation }) {
       navigation.push('Main');
     }
   };
-
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -238,18 +216,29 @@ function AuthAuthauthentification({ navigation }) {
               Регистрация
             </Text>
           </Text>
-          <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
-            <View style={{
-              backgroundColor: '#FAC637',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 50,
-              borderRadius: 12,
-              marginBottom: 20,
-            }}
+          <TouchableOpacity
+            onPress={handleSubmit(onSubmit)}
+            style={styles.button}
+            activeOpacity={0.8}
+            onLongPress={() => {}}
+          >
+            <SuperEllipseMaskView
+              radius={{
+                topLeft: 12,
+                topRight: 12,
+                bottomRight: 12,
+                bottomLeft: 12,
+              }}
+              style={{
+                backgroundColor: '#FAC637',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: 50,
+                marginBottom: 20,
+              }}
             >
-              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Войти</Text>
-            </View>
+              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Подтвердить</Text>
+            </SuperEllipseMaskView>
           </TouchableOpacity>
         </View>
       </View>

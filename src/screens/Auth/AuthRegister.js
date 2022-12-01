@@ -5,16 +5,15 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  AsyncStorage,
 } from 'react-native';
-
 import { useForm, Controller } from 'react-hook-form';
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import LayoutAuth from '../componets/LayoutAuth';
+import LayoutAuth from '../../componets/LayoutAuth';
 
-import LogoIntroSmall from '../image/Svg/LogoIntroSmall';
-import postReset from '../api/postReset';
+import LogoIntroSmall from '../../image/Svg/LogoIntroSmall';
+import postRegisterCode from '../../api/postRegisterCode';
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -66,16 +65,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
   },
-  buttonInnerBack: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-  },
-  buttonInnerBackText: {
-    color: 'white',
-    fontWeight: '600',
-    fontSize: 13,
-  },
   input: {
     backgroundColor: '#1E2127',
     color: 'white',
@@ -95,9 +84,35 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 22,
   },
+  authUnderLogo: {
+    color: '#CBCBCB',
+    textAlign: 'center',
+    paddingBottom: 30,
+  },
+  auth: {
+    color: 'white',
+    textDecorationLine: 'underline',
+    fontWeight: '600',
+  },
+  haveAcc: {
+    color: 'white',
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  publickOfferText: {
+    color: '#CBCBCB',
+    textAlign: 'center',
+    fontSize: 12,
+  },
+  publickOfferTextUnderline: {
+    color: '#CBCBCB',
+    textDecorationLine: 'underline',
+    fontSize: 12,
+  },
 });
 
-function AuthRecover({ navigation }) {
+function AuthRegister({ navigation }) {
+  const [commonFormError, setCommonFormError] = useState('');
   const [focusOnEmail, setFocusOnEmail] = useState(false);
   const { control, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
@@ -106,14 +121,16 @@ function AuthRecover({ navigation }) {
     },
   });
   const onSubmit = async (data) => {
-    const res = await postReset(data);
+    const res = await postRegisterCode(data);
     if (res.data.success === true) {
       await AsyncStorage.setItem('@sign_up_email', data.email);
-      navigation.navigate('CodeReset');
+      navigation.navigate('Code');
     } else {
-      // setCommonFormError('Invalid email or password');
+      setCommonFormError('Invalid email or password');
     }
   };
+  // () => navigation.navigate('Intro')
+
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -121,11 +138,9 @@ function AuthRecover({ navigation }) {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text style={styles.authLogo}>Восстановление пароля</Text>
-          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
-            На Ваш email будет выслан проверочный
-            код для сброса текущего пароля
-          </Text>
+          <Text style={styles.authLogo} onPress={() => navigation.navigate('Code')}>Регистрация</Text>
+          <Text style={styles.authUnderLogo}>Пароль будет отправлен на Ваш email</Text>
+          {commonFormError && (<Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>)}
           <Text style={styles.label}>Email</Text>
           <Controller
             control={control}
@@ -159,28 +174,33 @@ function AuthRecover({ navigation }) {
             )}
             name="email"
           />
+          <Text style={styles.publickOfferText}>
+            Регистрируясь вы принимаете&#160;
+            <Text onPress={() => navigation.navigate('Agrement')} style={styles.publickOfferTextUnderline}>
+              публичную оферту
+              и политику конфиденциальности
+            </Text>
+          </Text>
         </View>
         <View style={{ marginBottom: 25 }}>
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-            activeOpacity={0.8}
-          >
+          <Text style={styles.haveAcc}>
+            {' '}
+            Уже есть аккаунт? &#160;
+            <Text style={styles.auth} onPress={() => navigation.navigate('Auth')}>Авторизация</Text>
+          </Text>
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
             <SuperEllipseMaskView radius={{
               topLeft: 12,
               topRight: 12,
               bottomLeft: 12,
               bottomRight: 12,
+              marginBottom: 20,
             }}
             >
               <View style={styles.buttonInner}>
-                <Text style={styles.buttonInnerText}>Отправить</Text>
+                <Text style={styles.buttonInnerText}>Зарегистрироваться</Text>
               </View>
             </SuperEllipseMaskView>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
-            <View style={styles.buttonInnerBack}>
-              <Text style={styles.buttonInnerBackText}>Отменить</Text>
-            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -188,4 +208,4 @@ function AuthRecover({ navigation }) {
   );
 }
 
-export default AuthRecover;
+export default AuthRegister;

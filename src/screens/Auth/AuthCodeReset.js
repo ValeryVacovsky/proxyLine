@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   TextInput,
   TouchableOpacity,
   AsyncStorage,
+  StyleSheet,
 } from 'react-native';
 
 import { useForm, Controller } from 'react-hook-form';
 
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-import LayoutAuth from '../componets/LayoutAuth';
+import LayoutAuth from '../../componets/LayoutAuth';
 
-import LogoIntroSmall from '../image/Svg/LogoIntroSmall';
-import postRegister from '../api/postRegister';
+import LogoIntroSmall from '../../image/Svg/LogoIntroSmall';
+import postRegister from '../../api/postRegister';
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -58,11 +57,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
+    borderRadius: 18,
+  },
+  buttonInnerText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
   },
   buttonInnerBack: {
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
+    borderRadius: 18,
+    marginBottom: 20,
   },
   input: {
     backgroundColor: '#1E2127',
@@ -85,20 +92,17 @@ const styles = StyleSheet.create({
   },
 });
 
-function AuthCode({ navigation }) {
+function AuthCodeReset({ navigation }) {
   const { control, handleSubmit, formState: { errors } } = useForm({});
   const [commonFormError, setCommonFormError] = useState('');
   const [focusOnCode, setFocusOnCode] = useState(false);
   const onSubmit = async (data) => {
-    // console.log(data)
     const email = await AsyncStorage.getItem('@sign_up_email');
     try {
       const res = await postRegister({ ...data, email });
       await AsyncStorage.setItem('@auth_token', res.data.token);
-      // console.log(res.data);
       navigation.navigate('Auth');
     } catch (error) {
-      // console.log(error);
       setCommonFormError('Invalid email_code');
     }
   };
@@ -110,8 +114,8 @@ function AuthCode({ navigation }) {
       <View style={styles.authForm}>
         <View>
           <Text style={styles.authLogo}>Проверочный код</Text>
-          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>На Ваш email будует выслан код подтверждения</Text>
-          {commonFormError && (<Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>)}
+          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>На Ваш email будует выслан новый пароль</Text>
+          {commonFormError && (<Text style={{ color: 'white', textAlign: 'center' }}>Введен не верный код</Text>)}
           <Text style={styles.label}>Код подтверждения</Text>
           <Controller
             control={control}
@@ -147,31 +151,14 @@ function AuthCode({ navigation }) {
             onPress={handleSubmit(onSubmit)}
             activeOpacity={0.8}
           >
-            <SuperEllipseMaskView radius={{
-              topLeft: 12,
-              topRight: 12,
-              bottomLeft: 12,
-              bottomRight: 12,
-            }}
-            >
-              <View style={styles.buttonInner}>
-                <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Отправить</Text>
-              </View>
-            </SuperEllipseMaskView>
+            <View style={styles.buttonInner}>
+              <Text style={styles.buttonInnerText}>Отправить</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
-            <SuperEllipseMaskView radius={{
-              topLeft: 12,
-              topRight: 12,
-              bottomLeft: 12,
-              bottomRight: 12,
-              marginBottom: 20,
-            }}
-            >
-              <View style={styles.buttonInnerBack}>
-                <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>Отменить</Text>
-              </View>
-            </SuperEllipseMaskView>
+            <View style={styles.buttonInnerBack}>
+              <Text style={styles.buttonInnerBack}>Отменить</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -179,4 +166,4 @@ function AuthCode({ navigation }) {
   );
 }
 
-export default AuthCode;
+export default AuthCodeReset;

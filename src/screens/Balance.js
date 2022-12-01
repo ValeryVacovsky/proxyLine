@@ -49,7 +49,6 @@ function Balance({ navigation }) {
       const dataProps = `${id}_${token}`;
       const data = await getBalance(dataProps);
       await setBalance(data.data);
-      await console.log(dataProps);
     };
     fetchData();
   }, []);

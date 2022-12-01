@@ -2,17 +2,17 @@ import React, {
   useCallback, useRef, useMemo, useState,
 } from 'react';
 import {
-  ScrollView, View, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, Text,
+  ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput,
 } from 'react-native';
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-import ProxiesFilter from '../image/Svg/ProxiesFilter';
+import ProxiesFilter from '../../image/Svg/ProxiesFilter';
 
-import LayoutMain from '../componets/LayoutMain';
-import ProxiesDotts from '../image/Svg/ProxiesDotts';
-import ProxyItem from '../componets/UI/ProxyUI/ProxyItem';
-import FlagUseBig from '../image/Svg/FlagUseBig';
-import BottomSheetForm from '../componets/BottomSheetForm';
-import BottomSheetList from '../componets/UI/ProxyUI/BottomSheetIist';
+import LayoutMain from '../../componets/LayoutMain';
+import ProxiesDotts from '../../image/Svg/ProxiesDotts';
+import ProxyItem from '../../componets/UI/ProxyUI/ProxyItem';
+import FlagUseBig from '../../image/Svg/FlagUseBig';
+import BottomSheetForm from '../../componets/BottomSheetForm';
+import BottomSheetList from '../../componets/UI/ProxyUI/BottomSheetIist';
 
 const MyProxiesList = [
   {
@@ -153,38 +153,8 @@ const styles = StyleSheet.create({
 });
 
 function MyProxies({ navigation }) {
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
-      headerRight: () => (
-        <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <TouchableOpacity
-            style={styles.balanceIconFilter}
-            activeOpacity={0.8}
-            onPress={() => {}}
-          >
-            <ProxiesFilter />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.balanceIconFilterDotts}
-            activeOpacity={0.8}
-            onPress={() => {
-              setChildrenItem(<BottomSheetList
-                handleClosePress={handleClosePress}
-                navigation={navigation}
-              />);
-              handleSnapPress(0);
-            }}
-          >
-            <ProxiesDotts />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
-  }, [navigation]);
-
   const sheetRef = useRef(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [, setIsOpen] = useState(false);
   const snapPoints = useMemo(() => ['50%'], []);
 
   const handleSnapPress = useCallback((index) => {
@@ -199,6 +169,37 @@ function MyProxies({ navigation }) {
   const [selected, setSelected] = useState(null);
   const [proxyItemPicked, setProxyItemPicked] = useState(null);
   const [childrenItem, setChildrenItem] = useState();
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      // eslint-disable-next-line react/no-unstable-nested-components
+      headerRight: () => (
+        <View style={{ display: 'flex', flexDirection: 'row' }}>
+          <TouchableOpacity
+            style={styles.balanceIconFilter}
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('Filters')}
+          >
+            <ProxiesFilter />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.balanceIconFilterDotts}
+            activeOpacity={0.8}
+            onPress={() => {
+              setChildrenItem(<BottomSheetList
+                handleClosePress={handleClosePress}
+                navigation={navigation}
+              />);
+              handleSnapPress(0);
+              setProxyItemPicked(true);
+            }}
+          >
+            <ProxiesDotts />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  }, [navigation]);
+
   return (
     <LayoutMain>
       <View style={{ alignItems: 'center', display: 'flex' }}>
@@ -216,6 +217,8 @@ function MyProxies({ navigation }) {
             textAlign: 'center',
             marginTop: 10,
           }}
+          placeholder="Найти прокси"
+          placeholderTextColor="#CBCBCB"
         />
         <SafeAreaView>
           <ScrollView style={{ width: '100%' }}>
@@ -236,7 +239,7 @@ function MyProxies({ navigation }) {
         </SafeAreaView>
         {selected && (
         <TouchableOpacity
-          onPress={() => { console.log('short Press'); }}
+          onPress={() => { }}
           style={styles.button}
           activeOpacity={0.8}
           onLongPress={() => {

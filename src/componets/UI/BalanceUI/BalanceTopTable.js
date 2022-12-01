@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-function BalanceTopTable({ balance, navigation }) {
+function BalanceTopTable({ balance }) {
   return (
     <View style={{
       alignItems: 'center',

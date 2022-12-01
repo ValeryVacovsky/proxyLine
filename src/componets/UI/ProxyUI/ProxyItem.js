@@ -30,7 +30,6 @@ function ProxyItem({
   proxy, selected, setSelected, setProxyItemPicked,
   handleSnapPress, setChildrenItem, handleClosePress, navigation, childrenItem,
 }) {
-  console.log(childrenItem);
 
   return (
     <View style={styles.container}>
@@ -108,6 +107,7 @@ function ProxyItem({
         <View style={{ display: 'flex', flexDirection: 'row' }}>
           <TouchableOpacity onPress={() => {
             setProxyItemPicked(proxy.id);
+            // eslint-disable-next-line no-unused-expressions
             childrenItem && handleSnapPress(0);
             setSelected(null);
             setChildrenItem(

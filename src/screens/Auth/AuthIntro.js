@@ -4,9 +4,9 @@ import {
   View,
 } from 'react-native';
 
-import LayoutAuth from '../componets/LayoutAuth';
+import LayoutAuth from '../../componets/LayoutAuth';
 
-import LogoIntroBig from '../image/Svg/LogoIntroBig';
+import LogoIntroBig from '../../image/Svg/LogoIntroBig';
 
 const styles = StyleSheet.create({
   sectionContainer: {

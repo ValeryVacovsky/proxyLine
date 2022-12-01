@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +32,6 @@ const styles = StyleSheet.create({
   handDesription: {
     backgroundColor: '#FAC637',
     top: '7%',
-    borderRadius: 8,
     position: 'relative',
     paddingTop: 4,
     paddingBottom: 4,
@@ -60,8 +60,6 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 21,
     paddingBottom: 14,
-    borderTopLeftRadius: 14,
-    borderTopRightRadius: 14,
   },
   proxyTypeText: {
     color: 'white',
@@ -90,6 +88,7 @@ const styles = StyleSheet.create({
   daysText: {
     color: 'white',
     fontWeight: '700',
+    fontSize: 16,
   },
   priceText: {
     color: 'white',
@@ -105,10 +104,11 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 14,
   },
   buttomInnerText: {
-    fontWeight: '700',
+    fontWeight: '600',
     color: '#FAC637',
     paddingTop: 14,
     paddingBottom: 14,
+    fontSize: 13,
   },
 });
 
@@ -116,12 +116,18 @@ function ProxyTariff({ navigation, proxy }) {
   return (
     <View style={styles.container}>
       <View style={styles.container2}>
-        <View style={styles.handDesription}>
+        <SuperEllipseMaskView radius={8} style={styles.handDesription}>
           <Text style={styles.handDesriptionText}>
             {proxy.handDesription}
           </Text>
-        </View>
-        <View style={styles.topBlock}>
+        </SuperEllipseMaskView>
+        <SuperEllipseMaskView
+          radius={{
+            topLeft: 12,
+            topRight: 12,
+          }}
+          style={styles.topBlock}
+        >
           <View>
             <Text style={styles.proxyTypeText}>
               IP
@@ -134,7 +140,7 @@ function ProxyTariff({ navigation, proxy }) {
           <View>
             {proxy.icon}
           </View>
-        </View>
+        </SuperEllipseMaskView>
         <View style={styles.centerBlock}>
           <View>
             <Text style={styles.daysText}>{proxy.days}</Text>

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
 import LayoutAuth from '../componets/LayoutAuth';
 import FlagUsaSmall from '../image/Svg/FlagUsaSmall';
 import FlagUseBig from '../image/Svg/FlagUseBig';
@@ -21,7 +22,7 @@ import UserNavigation from '../componets/UserNavigation';
 
 import ButtonOn from '../image/ButtonOn.png';
 import ButtonNone from '../image/ButtonNone.png';
-import ButtonOff from '../image/Svg/ButtonOff';
+import ButtonOff from '../image/ButtonOff.png';
 // import postAuth from "../api";
 
 function Main({ navigation }) {
@@ -56,8 +57,22 @@ function Main({ navigation }) {
       marginTop: 1,
       alignItems: 'center',
       justifyContent: 'space-between',
-      borderBottomRightRadius: 14,
-      borderBottomStartRadius: 14,
+      // borderTopRightRadius: 14,
+      // borderTopStartRadius: 14,
+    },
+    buyProxyBottom: {
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: '#1E2127',
+      paddingTop: 15,
+      paddingBottom: 15,
+      paddingLeft: 20,
+      paddingRight: 14,
+      marginTop: 1,
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      // borderBottomRightRadius: 14,
+      // borderBottomStartRadius: 14,
     },
     buyProxyText: {
       display: 'flex', justifyContent: 'center', color: '#FAC637', textAlign: 'center', fontWeight: '600',
@@ -122,7 +137,7 @@ function Main({ navigation }) {
     IPContainer: {
       display: 'flex',
       backgroundColor: '#FAC637',
-      orderRadius: 20,
+      borderRadius: 20,
       alignItems: 'center',
     },
     IPText: {
@@ -223,14 +238,18 @@ function Main({ navigation }) {
               <TouchableOpacity onPress={() => setStatusConect('off')} activeOpacity={0.8}>
                 <Image
                   source={ButtonOn}
-                  style={{ width: 160, height: 160, alignItems: 'center' }}
+                  style={{ width: 200, height: 200, alignItems: 'center' }}
                   onPress={() => setStatusConect('on')}
                 />
               </TouchableOpacity>
             )}
             {statusConect === 'off' && (
               <TouchableOpacity onPress={() => setStatusConect('on')} activeOpacity={0.8}>
-                <ButtonOff />
+                <Image
+                  source={ButtonOff}
+                  style={{ width: 200, height: 200, alignItems: 'center' }}
+                  onPress={() => setStatusConect('on')}
+                />
               </TouchableOpacity>
             )}
             {statusConect === 'none' && (
@@ -242,6 +261,7 @@ function Main({ navigation }) {
                     height: 160,
                     alignItems: 'center',
                     padding: 40,
+                    marginTop: 30,
                   }}
                 />
               </TouchableOpacity>
@@ -249,146 +269,172 @@ function Main({ navigation }) {
           </View>
           <View style={styles.containerInfo}>
             <TouchableOpacity
-              style={styles.buyProxy}
               onPress={() => setStatusConect('none')}
               activeOpacity={0.8}
             >
-              <View>
-                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                  {statusConect === 'on' && (
-                  <View style={styles.frameShadowGreen}>
-                    <FrameGreen />
-                  </View>
-                  )}
-                  {statusConect === 'off' && (
-                  <View style={styles.frameShadowRed}>
-                    <FrameRed />
-                  </View>
-                  )}
-                  {statusConect === 'none' && (
-                  <View style={styles.frameShadowNone}>
-                    <FrameYellow />
-                  </View>
-                  )}
-                  {statusConect === 'on' && (
+              <SuperEllipseMaskView
+                radius={{
+                  topLeft: 12,
+                  topRight: 12,
+                }}
+                style={styles.buyProxy}
+              >
+                <View>
+                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    {statusConect === 'on' && (
+                    <View style={styles.frameShadowGreen}>
+                      <FrameGreen />
+                    </View>
+                    )}
+                    {statusConect === 'off' && (
+                    <View style={styles.frameShadowRed}>
+                      <FrameRed />
+                    </View>
+                    )}
+                    {statusConect === 'none' && (
+                    <View style={styles.frameShadowNone}>
+                      <FrameYellow />
+                    </View>
+                    )}
+                    {statusConect === 'on' && (
                     <Text style={{
                       color: 'white', marginLeft: 10, fontWeight: '600', fontSize: 15,
                     }}
                     >
                       Подключено
                     </Text>
-                  )}
-                  {statusConect === 'off' && (
+                    )}
+                    {statusConect === 'off' && (
                     <Text style={{
                       color: 'white', marginLeft: 10, fontWeight: '600', fontSize: 15,
                     }}
                     >
                       Не подключено
                     </Text>
-                  )}
-                  {statusConect === 'none' && (
+                    )}
+                    {statusConect === 'none' && (
                     <Text style={{
                       color: 'white', marginLeft: 10, fontWeight: '600', fontSize: 15,
                     }}
                     >
                       Нет подключения
                     </Text>
-                  )}
+                    )}
+                  </View>
+                  {statusConect === 'on' && <Text style={styles.statusConect}>Скорость подключения</Text>}
+                  {statusConect === 'off' && <Text style={styles.statusConect}>Нажмите на кнопку чтобы подключить</Text>}
+                  {statusConect === 'none' && <Text style={styles.statusConect}>Нажмите на кнопку чтобы подключить</Text>}
                 </View>
-                {statusConect === 'on' && <Text style={styles.statusConect}>Скорость подключения</Text>}
-                {statusConect === 'off' && <Text style={styles.statusConect}>Нажмите на кнопку чтобы подключить</Text>}
-                {statusConect === 'none' && <Text style={styles.statusConect}>Нажмите на кнопку чтобы подключить</Text>}
-              </View>
-              {statusConect === 'on' && (
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                {statusConect === 'on' && (
+                <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
                   <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>12.18 </Text>
                   <Text style={{ color: 'white', fontSize: 13, fontWeight: '600' }}>Mbit/s</Text>
                 </View>
-              )}
-
+                )}
+              </SuperEllipseMaskView>
             </TouchableOpacity>
             <View>
               {statusConect === 'off' && (
                 <TouchableOpacity
-                  style={styles.buyProxy}
                   activeOpacity={0.8}
                   onPress={() => navigation.navigate('Proxies')}
                 >
-                  <View style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}
+                  <SuperEllipseMaskView
+                    radius={{
+                      bottomRight: 12,
+                      bottomLeft: 12,
+                    }}
+                    style={styles.buyProxyBottom}
                   >
-                    <FlagUseBig />
-                    <View style={{ marginLeft: 14 }}>
-                      <View>
-                        <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
-                      </View>
-                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <View style={styles.IPContainer}>
-                          <Text style={styles.IPText}>
-                            IPv4
+                    <View style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}
+                    >
+                      <FlagUseBig />
+                      <View style={{ marginLeft: 14 }}>
+                        <View>
+                          <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                          <View style={styles.IPContainer}>
+                            <Text style={styles.IPText}>
+                              IPv4
+                            </Text>
+                          </View>
+                          <Text style={styles.http}>
+                            136.117.121.183
                           </Text>
                         </View>
-                        <Text style={styles.http}>
-                          136.117.121.183
-                        </Text>
                       </View>
                     </View>
-                  </View>
-                  <VectorRight color="#636363" />
+                    <VectorRight color="#636363" />
+                  </SuperEllipseMaskView>
                 </TouchableOpacity>
               )}
               {statusConect === 'on' && (
-                <TouchableOpacity
-                  style={styles.buyProxy}
-                  onPress={() => navigation.navigate('Proxies')}
-                  activeOpacity={0.8}
-                >
-                  <View style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
+                <SuperEllipseMaskView
+                  radius={{
+                    bottomRight: 12,
+                    bottomLeft: 12,
                   }}
+                >
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('Proxies')}
+                    activeOpacity={0.8}
+                    style={styles.buyProxyBottom}
                   >
-                    <FlagUseBig />
-                    <View style={{ marginLeft: 14 }}>
-                      <View>
-                        <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
-                      </View>
-                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <View style={styles.IPContainer}>
-                          <Text style={styles.IPText}>
-                            IPv4
+                    <View style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}
+                    >
+                      <FlagUseBig />
+                      <View style={{ marginLeft: 14 }}>
+                        <View>
+                          <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>United States of America</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                          <View style={styles.IPContainer}>
+                            <Text style={styles.IPText}>
+                              IPv4
+                            </Text>
+                          </View>
+                          <Text style={styles.http}>
+                            136.117.121.183
                           </Text>
                         </View>
-                        <Text style={styles.http}>
-                          136.117.121.183
-                        </Text>
                       </View>
                     </View>
-                  </View>
-                  <VectorRight color="#636363" />
-                </TouchableOpacity>
+                    <VectorRight color="#636363" />
+                  </TouchableOpacity>
+                </SuperEllipseMaskView>
               )}
               {statusConect === 'none' && (
-                <TouchableOpacity
-                  style={styles.buyProxy}
-                  onPress={() => { setStatusConect('on'); navigation.navigate('Proxies'); }}
-                  activeOpacity={0.8}
+                <SuperEllipseMaskView radius={{
+                  bottomRight: 12,
+                  bottomLeft: 12,
+                }}
                 >
-                  <View style={{
-                    alignItems: 'center',
-                  }}
+                  <TouchableOpacity
+                    style={styles.buyProxyBottom}
+                    onPress={() => { setStatusConect('on'); navigation.navigate('Proxies'); }}
+                    activeOpacity={0.8}
                   >
-                    <Text style={styles.buyProxyText}>
-                      Купить прокси
-                    </Text>
-                  </View>
-                  {statusConect === 'on' && <VectorRight color="#636363" />}
-                  {statusConect === 'off' && <VectorRight color="#636363" />}
-                </TouchableOpacity>
+                    <View style={{
+                      alignItems: 'center',
+                    }}
+                    >
+                      <Text style={styles.buyProxyText}>
+                        Купить прокси
+                      </Text>
+                    </View>
+                    {statusConect === 'on' && <VectorRight color="#636363" />}
+                    {statusConect === 'off' && <VectorRight color="#636363" />}
+                  </TouchableOpacity>
+                </SuperEllipseMaskView>
               )}
             </View>
             {statusConect === 'on' && (

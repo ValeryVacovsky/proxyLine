@@ -111,7 +111,6 @@ function Order({ navigation, route }) {
         onLayout={(event) => {
           const { layout } = event.nativeEvent;
           setCurrentProxyId(layout.width);
-          console.log(currentProxyId);
         }}
         scrollEnabled={scrolling}
       >

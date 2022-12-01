@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text,
 } from 'react-native';
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
 import CountrySlot from '../componets/CountrySlot';
 import LayoutMain from '../componets/LayoutMain';
-import ProxyItem from '../componets/UI/ProxyUI/ProxyItem';
-import FlagUseBig from '../image/Svg/FlagUseBig';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -40,7 +39,6 @@ const styles = StyleSheet.create({
   },
 });
 function Countreis({ navigation }) {
-  const [selected, setSelected] = useState(null);
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
@@ -58,12 +56,9 @@ function Countreis({ navigation }) {
         </ScrollView>
       </SafeAreaView>
       <TouchableOpacity
-        onPress={() => {}}
+        onPress={() => navigation.navigate('Order')}
         style={styles.button}
         activeOpacity={0.8}
-        onLongPress={() => {
-          console.log('Long Press');
-        }}
       >
         <SuperEllipseMaskView
           radius={{

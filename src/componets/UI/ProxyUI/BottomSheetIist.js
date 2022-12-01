@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     paddingBottom: 18,
     backgroundColor: '#1E2127',
     width: '90%',
-    marginTop: 33,
     borderRadius: 12,
     alignItems: 'center',
   },
@@ -45,6 +44,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
     alignItems: 'center',
+    marginTop: 33,
   },
   centerTopButtonText: {
     color: 'white',
@@ -106,6 +106,7 @@ function BottomSheetList({ handleClosePress, navigation }) {
         <TouchableOpacity
           style={styles.centerTopButton}
           activeOpacity={0.8}
+          onPress={() => navigation.navigate('Change')}
         >
           <Text style={styles.centerTopButtonText}>
             Изменить тип
@@ -114,6 +115,7 @@ function BottomSheetList({ handleClosePress, navigation }) {
         <TouchableOpacity
           style={styles.centerMiddleButton}
           activeOpacity={0.8}
+          onPress={() => navigation.navigate('Delete')}
         >
           <Text style={styles.centerMiddleButtonText}>
             Удалить прокси
@@ -123,7 +125,10 @@ function BottomSheetList({ handleClosePress, navigation }) {
           style={styles.centerBottomButton}
           activeOpacity={0.8}
         >
-          <Text style={styles.centerBottomButtonText}>
+          <Text
+            style={styles.centerBottomButtonText}
+            onPress={() => navigation.navigate('Extend')}
+          >
             Продлить прокси
           </Text>
         </TouchableOpacity>
@@ -131,9 +136,10 @@ function BottomSheetList({ handleClosePress, navigation }) {
       <TouchableOpacity
         style={styles.topButton}
         activeOpacity={0.8}
+        onPress={() => navigation.navigate('Info')}
       >
         <Text style={styles.topButtonText}>
-          Заметки
+          Продлить
         </Text>
       </TouchableOpacity>
       <TouchableOpacity

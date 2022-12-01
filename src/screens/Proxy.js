@@ -75,7 +75,6 @@ function Proxy({ navigation }) {
     };
     fetchData();
   }, []);
-  console.log(123, balance);
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
