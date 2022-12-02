@@ -14,9 +14,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-proxyLine-proxyLineTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-proxyLine-proxyLineTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8C92D71E29128AFD00952D40 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C92D71D29128AFD00952D40 /* NetworkExtension.framework */; };
-		8C92D72229128AFD00952D40 /* AppProxyProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C92D72129128AFD00952D40 /* AppProxyProvider.m */; };
-		8C92D72729128AFD00952D40 /* NeOvpn.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8C92D71C29128AFD00952D40 /* NeOvpn.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,13 +24,6 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = proxyLine;
 		};
-		8C92D72529128AFD00952D40 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8C92D71B29128AFD00952D40;
-			remoteInfo = NeOvpn;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,7 +33,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				8C92D72729128AFD00952D40 /* NeOvpn.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,7 +56,6 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-proxyLine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-proxyLine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = proxyLine/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-proxyLine-proxyLineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proxyLine-proxyLineTests.release.xcconfig"; path = "Target Support Files/Pods-proxyLine-proxyLineTests/Pods-proxyLine-proxyLineTests.release.xcconfig"; sourceTree = "<group>"; };
-		8C92D71C29128AFD00952D40 /* NeOvpn.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NeOvpn.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C92D71D29128AFD00952D40 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		8C92D72029128AFD00952D40 /* AppProxyProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppProxyProvider.h; sourceTree = "<group>"; };
 		8C92D72129128AFD00952D40 /* AppProxyProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppProxyProvider.m; sourceTree = "<group>"; };
@@ -90,14 +78,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C80B921A6F3F58F76C31292 /* libPods-proxyLine.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8C92D71929128AFD00952D40 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8C92D71E29128AFD00952D40 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,7 +153,6 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* proxyLine.app */,
 				00E356EE1AD99517003FC87E /* proxyLineTests.xctest */,
-				8C92D71C29128AFD00952D40 /* NeOvpn.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -241,29 +220,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				8C92D72629128AFD00952D40 /* PBXTargetDependency */,
 			);
 			name = proxyLine;
 			productName = proxyLine;
 			productReference = 13B07F961A680F5B00A75B9A /* proxyLine.app */;
 			productType = "com.apple.product-type.application";
-		};
-		8C92D71B29128AFD00952D40 /* NeOvpn */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8C92D72B29128AFD00952D40 /* Build configuration list for PBXNativeTarget "NeOvpn" */;
-			buildPhases = (
-				8C92D71829128AFD00952D40 /* Sources */,
-				8C92D71929128AFD00952D40 /* Frameworks */,
-				8C92D71A29128AFD00952D40 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = NeOvpn;
-			productName = NeOvpn;
-			productReference = 8C92D71C29128AFD00952D40 /* NeOvpn.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -279,9 +240,6 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1120;
-					};
-					8C92D71B29128AFD00952D40 = {
-						CreatedOnToolsVersion = 13.0;
 					};
 				};
 			};
@@ -300,7 +258,6 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* proxyLine */,
 				00E356ED1AD99517003FC87E /* proxyLineTests */,
-				8C92D71B29128AFD00952D40 /* NeOvpn */,
 			);
 		};
 /* End PBXProject section */
@@ -319,13 +276,6 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8C92D71A29128AFD00952D40 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,14 +449,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8C92D71829128AFD00952D40 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8C92D72229128AFD00952D40 /* AppProxyProvider.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -514,11 +456,6 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* proxyLine */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
-		};
-		8C92D72629128AFD00952D40 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8C92D71B29128AFD00952D40 /* NeOvpn */;
-			targetProxy = 8C92D72529128AFD00952D40 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -582,7 +519,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = VPY6VT9JS9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = proxyLine/Info.plist;
@@ -614,7 +551,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = VPY6VT9JS9;
 				INFOPLIST_FILE = proxyLine/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -773,82 +710,6 @@
 			};
 			name = Release;
 		};
-		8C92D72929128AFD00952D40 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = NeOvpn/NeOvpn.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NeOvpn/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NeOvpn;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.proxyline.proxyline.NeOvpn;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		8C92D72A29128AFD00952D40 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = NeOvpn/NeOvpn.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NeOvpn/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NeOvpn;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.proxyline.proxyline.NeOvpn;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -875,15 +736,6 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8C92D72B29128AFD00952D40 /* Build configuration list for PBXNativeTarget "NeOvpn" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8C92D72929128AFD00952D40 /* Debug */,
-				8C92D72A29128AFD00952D40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
