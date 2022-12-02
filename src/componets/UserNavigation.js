@@ -1,18 +1,15 @@
-import React from 'react';
-import {
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
+import React from 'react'
+import { TouchableOpacity, StyleSheet } from 'react-native'
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
-import DatabaseButtomOn from '../image/Svg/DatabaseButtomOn';
-import DatabaseButtonOff from '../image/Svg/DatabaseButtonOff';
-import OrdersButtonOff from '../image/Svg/OrdersButtonOff';
-import OrdersButtonOn from '../image/Svg/OrdersButtonOn';
-import SettingsButtonOff from '../image/Svg/SettingsButtonOff';
-import SettingsButtonOn from '../image/Svg/SettingsButtonOn';
-import WalletButtonOff from '../image/Svg/WalletButtonOff';
-import WalletButtonOn from '../image/Svg/WalletButtonOn';
+import DatabaseButtomOn from '../image/Svg/DatabaseButtomOn'
+import DatabaseButtonOff from '../image/Svg/DatabaseButtonOff'
+import OrdersButtonOff from '../image/Svg/OrdersButtonOff'
+import OrdersButtonOn from '../image/Svg/OrdersButtonOn'
+import SettingsButtonOff from '../image/Svg/SettingsButtonOff'
+import SettingsButtonOn from '../image/Svg/SettingsButtonOn'
+import WalletButtonOff from '../image/Svg/WalletButtonOff'
+import WalletButtonOn from '../image/Svg/WalletButtonOn'
 
 const styles = StyleSheet.create({
   active: {
@@ -25,7 +22,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 10,
   },
-});
+})
 
 function UserNavigation({ status, navigation }) {
   return (
@@ -42,22 +39,33 @@ function UserNavigation({ status, navigation }) {
         justifyContent: 'space-around',
         marginBottom: 15,
       }}
-      radius={12}
-    >
-      <TouchableOpacity style={status === 'Main' && styles.active} onPress={() => navigation.navigate('Main')} activeOpacity={0.8}>
+      radius={12}>
+      <TouchableOpacity
+        style={status === 'Main' && styles.active}
+        onPress={() => navigation.navigate('Main')}
+        activeOpacity={0.8}>
         {status === 'Main' ? <DatabaseButtomOn /> : <DatabaseButtonOff />}
       </TouchableOpacity>
-      <TouchableOpacity style={status === 'Proxy' && styles.active} onPress={() => navigation.navigate('Proxy')} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={status === 'Proxy' && styles.active}
+        onPress={() => navigation.navigate('Proxy')}
+        activeOpacity={0.8}>
         {status === 'Proxy' ? <WalletButtonOn /> : <WalletButtonOff />}
       </TouchableOpacity>
-      <TouchableOpacity style={status === 'Orders' && styles.active} onPress={() => navigation.navigate('Orders')} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={status === 'Orders' && styles.active}
+        onPress={() => navigation.navigate('Orders')}
+        activeOpacity={0.8}>
         {status === 'Orders' ? <OrdersButtonOn /> : <OrdersButtonOff />}
       </TouchableOpacity>
-      <TouchableOpacity style={status === 'Settings' && styles.active} onPress={() => navigation.navigate('Settings')} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={status === 'Settings' && styles.active}
+        onPress={() => navigation.navigate('Settings')}
+        activeOpacity={0.8}>
         {status === 'Settings' ? <SettingsButtonOn /> : <SettingsButtonOff />}
       </TouchableOpacity>
     </SuperEllipseMaskView>
-  );
+  )
 }
 
-export default UserNavigation;
+export default UserNavigation

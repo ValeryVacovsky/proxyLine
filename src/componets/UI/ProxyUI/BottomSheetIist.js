@@ -1,7 +1,5 @@
-import React from 'react';
-import {
-  StyleSheet, View, Text, TouchableOpacity,
-} from 'react-native';
+import React from 'react'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -96,7 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 15,
   },
-});
+})
 
 function BottomSheetList({ handleClosePress, navigation }) {
   return (
@@ -106,53 +104,29 @@ function BottomSheetList({ handleClosePress, navigation }) {
         <TouchableOpacity
           style={styles.centerTopButton}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('Change')}
-        >
-          <Text style={styles.centerTopButtonText}>
-            Изменить тип
-          </Text>
+          onPress={() => navigation.navigate('Change')}>
+          <Text style={styles.centerTopButtonText}>Изменить тип</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.centerMiddleButton}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('Delete')}
-        >
-          <Text style={styles.centerMiddleButtonText}>
-            Удалить прокси
-          </Text>
+          onPress={() => navigation.navigate('Delete')}>
+          <Text style={styles.centerMiddleButtonText}>Удалить прокси</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.centerBottomButton}
-          activeOpacity={0.8}
-        >
-          <Text
-            style={styles.centerBottomButtonText}
-            onPress={() => navigation.navigate('Extend')}
-          >
+        <TouchableOpacity style={styles.centerBottomButton} activeOpacity={0.8}>
+          <Text style={styles.centerBottomButtonText} onPress={() => navigation.navigate('Extend')}>
             Продлить прокси
           </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.topButton}
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate('Info')}
-      >
-        <Text style={styles.topButtonText}>
-          Продлить
-        </Text>
+      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => navigation.navigate('Info')}>
+        <Text style={styles.topButtonText}>Продлить</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.bottomButton}
-        onPress={() => handleClosePress()}
-        activeOpacity={0.8}
-      >
-        <Text style={styles.bottomButtonText}>
-          Отменить
-        </Text>
+      <TouchableOpacity style={styles.bottomButton} onPress={() => handleClosePress()} activeOpacity={0.8}>
+        <Text style={styles.bottomButtonText}>Отменить</Text>
       </TouchableOpacity>
     </View>
-  );
+  )
 }
 
-export default BottomSheetList;
+export default BottomSheetList

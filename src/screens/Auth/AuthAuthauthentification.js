@@ -1,21 +1,16 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
 
-import { useForm, Controller } from 'react-hook-form';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-import LayoutAuth from '../../componets/LayoutAuth';
+import { useForm, Controller } from 'react-hook-form'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+import LayoutAuth from '../../componets/LayoutAuth'
 
-import LogoIntroSmall from '../../image/Svg/LogoIntroSmall';
-import postAuth from '../../api/postAuth';
+import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
+import postAuth from '../../api/postAuth'
 
-const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -68,12 +63,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 22,
   },
-});
+})
 
 function AuthAuthauthentification({ navigation }) {
-  const [commonFormError, setCommonFormError] = useState('');
-  const [focusOnEmail, setFocusOnEmail] = useState(false);
-  const [focusOnPassword, setFocusOnPassword] = useState(false);
+  const [commonFormError, setCommonFormError] = useState('')
+  const [focusOnEmail, setFocusOnEmail] = useState(false)
+  const [focusOnPassword, setFocusOnPassword] = useState(false)
   const {
     control,
     handleSubmit,
@@ -83,32 +78,33 @@ function AuthAuthauthentification({ navigation }) {
       email: '',
       password: '',
     },
-  });
+  })
   React.useEffect(
-    () => navigation.addListener('beforeRemove', (e) => {
-      e.preventDefault();
-    }),
+    () =>
+      navigation.addListener('beforeRemove', e => {
+        e.preventDefault()
+      }),
     [navigation],
-  );
+  )
 
-  const onSubmit = async (data) => {
-    const res = await postAuth(data);
+  const onSubmit = async data => {
+    const res = await postAuth(data)
     if (res.data.success === true) {
-      await AsyncStorage.setItem('@token', String(res.data.user.token));
-      await AsyncStorage.setItem('@id', String(res.data.user.id));
-      navigation.navigate('Main');
+      await AsyncStorage.setItem('@token', String(res.data.user.token))
+      await AsyncStorage.setItem('@id', String(res.data.user.id))
+      navigation.navigate('Main')
     } else {
-      setCommonFormError('Invalid email or password');
+      setCommonFormError('Invalid email or password')
     }
     if (data.email === 'email@gmail.com' && data.password === 'password') {
       navigation.push('Main', {
         initial: false,
-      });
+      })
     }
     if (data.email === 1111) {
-      navigation.push('Main');
+      navigation.push('Main')
     }
-  };
+  }
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -116,13 +112,13 @@ function AuthAuthauthentification({ navigation }) {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text onPress={() => navigation.navigate('Main')} style={styles.authLogo}>Авторизация</Text>
-          {commonFormError && (
-            <Text style={{ color: 'white', textAlign: 'center' }}>
-              {commonFormError}
-            </Text>
-          )}
-          <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>Email</Text>
+          <Text onPress={() => navigation.navigate('Main')} style={styles.authLogo}>
+            Авторизация
+          </Text>
+          {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>}
+          <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
+            Email
+          </Text>
           {/* <Input name="email" control={control} /> */}
           {/* <TextInput {...register("email")} style={styles.input}></TextInput> */}
           <Controller
@@ -158,7 +154,9 @@ function AuthAuthauthentification({ navigation }) {
             name="email"
           />
           {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите логин</Text>}
-          <Text style={styles.label} onPress={() => navigation.navigate('Test')}>Пароль</Text>
+          <Text style={styles.label} onPress={() => navigation.navigate('Test')}>
+            Пароль
+          </Text>
           {/* <Input name="password" control={control} /> */}
           {/* <TextInput {...register("password")} style={styles.input}></TextInput> */}
           <Controller
@@ -199,8 +197,7 @@ function AuthAuthauthentification({ navigation }) {
                   textDecorationLine: 'underline',
                   fontWeight: '600',
                 }}
-                onPress={() => navigation.navigate('Recover')}
-              >
+                onPress={() => navigation.navigate('Recover')}>
                 Забыли пароль?
               </Text>
             </View>
@@ -211,8 +208,7 @@ function AuthAuthauthentification({ navigation }) {
             Нет аккаунта? &#160;
             <Text
               style={{ color: 'white', textDecorationLine: 'underline', fontWeight: '600' }}
-              onPress={() => navigation.push('Register')}
-            >
+              onPress={() => navigation.push('Register')}>
               Регистрация
             </Text>
           </Text>
@@ -220,8 +216,7 @@ function AuthAuthauthentification({ navigation }) {
             onPress={handleSubmit(onSubmit)}
             style={styles.button}
             activeOpacity={0.8}
-            onLongPress={() => {}}
-          >
+            onLongPress={() => {}}>
             <SuperEllipseMaskView
               radius={{
                 topLeft: 12,
@@ -235,15 +230,14 @@ function AuthAuthauthentification({ navigation }) {
                 justifyContent: 'center',
                 height: 50,
                 marginBottom: 20,
-              }}
-            >
+              }}>
               <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Подтвердить</Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
         </View>
       </View>
     </LayoutAuth>
-  );
+  )
 }
 
-export default AuthAuthauthentification;
+export default AuthAuthauthentification

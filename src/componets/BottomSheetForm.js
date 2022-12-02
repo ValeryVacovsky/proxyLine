@@ -1,10 +1,8 @@
-import React from 'react';
-import { View } from 'react-native';
-import BottomSheet from '@gorhom/bottom-sheet';
+import React from 'react'
+import { View } from 'react-native'
+import BottomSheet from '@gorhom/bottom-sheet'
 
-const handleComponent = () => (
-  <View />
-);
+const handleComponent = () => <View />
 
 // const styles = StyleSheet.create({
 //   container: {
@@ -19,20 +17,17 @@ const handleComponent = () => (
 //   },
 // });
 
-function BottomSheetForm({
-  sheetRef, snapPoints, setIsOpen, children,
-}) {
+function BottomSheetForm({ sheetRef, snapPoints, setIsOpen, children }) {
   return (
     <BottomSheet
       ref={sheetRef}
       snapPoints={snapPoints}
       enablePanDownToClose
       onClose={() => setIsOpen(true)}
-      handleComponent={handleComponent}
-    >
+      handleComponent={handleComponent}>
       {children}
     </BottomSheet>
-  );
+  )
 }
 
-export default BottomSheetForm;
+export default BottomSheetForm

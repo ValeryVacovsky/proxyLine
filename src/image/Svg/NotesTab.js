@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 function NotesTab(props) {
   return (
@@ -9,8 +9,7 @@ function NotesTab(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <Path
         d="M14.25 7.25v6a1.5 1.5 0 0 1-1.5 1.5H2.25a1.5 1.5 0 0 1-1.5-1.5V2.75a1.5 1.5 0 0 1 1.5-1.5H7.5"
         stroke="#fff"
@@ -26,7 +25,7 @@ function NotesTab(props) {
         strokeLinejoin="round"
       />
     </Svg>
-  );
+  )
 }
 
-export default NotesTab;
+export default NotesTab

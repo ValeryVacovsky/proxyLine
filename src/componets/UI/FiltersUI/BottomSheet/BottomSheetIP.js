@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-expressions */
-import React, { useState } from 'react';
-import {
-  StyleSheet, View, Text, TouchableOpacity, TextInput,
-} from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -52,19 +49,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 100,
   },
-});
+})
 
-function BottomSheetIP({
-  handleClosePress, setIsOpen, setIpaddress,
-}) {
-  const [value, setValue] = useState('');
+function BottomSheetIP({ handleClosePress, setIsOpen, setIpaddress }) {
+  const [value, setValue] = useState('')
   return (
     <View style={styles.container}>
-      <View style={{
-        alignItems: 'center',
-        width: '100%',
-      }}
-      >
+      <View
+        style={{
+          alignItems: 'center',
+          width: '100%',
+        }}>
         <TextInput
           style={{
             backgroundColor: '#1E2127',
@@ -86,24 +81,21 @@ function BottomSheetIP({
       <TouchableOpacity
         style={styles.bottomButton}
         onPress={() => {
-          handleClosePress();
-          setIsOpen(false);
+          handleClosePress()
+          setIsOpen(false)
           // eslint-disable-next-line no-lone-blocks
-          { value.length > 0 && setIpaddress((prevState) => (
-            prevState.includes(value)
-              ? prevState.filter((id) => id !== value)
-              : prevState.concat(String(value))
-          )); }
+          {
+            value.length > 0 &&
+              setIpaddress(prevState =>
+                prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
+              )
+          }
         }}
-        activeOpacity={0.8}
-
-      >
-        <Text style={styles.bottomButtonText}>
-          Добавить
-        </Text>
+        activeOpacity={0.8}>
+        <Text style={styles.bottomButtonText}>Добавить</Text>
       </TouchableOpacity>
     </View>
-  );
+  )
 }
 
-export default BottomSheetIP;
+export default BottomSheetIP

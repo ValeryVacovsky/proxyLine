@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 function CloudProxyIcon(props) {
   return (
@@ -9,8 +9,7 @@ function CloudProxyIcon(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <Path
         d="M19.667 18.333C19.667 19.807 17.577 21 15 21s-4.667-1.195-4.667-2.667M10.333 14.333C10.333 15.807 12.423 17 15 17s4.667-1.193 4.667-2.667"
         stroke="#4F4F4F"
@@ -33,7 +32,7 @@ function CloudProxyIcon(props) {
         strokeLinejoin="round"
       />
     </Svg>
-  );
+  )
 }
 
-export default CloudProxyIcon;
+export default CloudProxyIcon

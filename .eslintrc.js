@@ -3,16 +3,13 @@ module.exports = {
   env: {
     es2021: true,
   },
-  extends: ['@react-native-community', 'plugin:prettier/recommended', 'plugin:react/recommended',],
-  overrides: [
-  ],
+  extends: ['plugin:prettier/recommended', 'plugin:react/recommended'],
+  overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ['react', 'react-hooks'],
   rules: {
     semi: 0,
     'react/jsx-curly-brace-presence': [2, { props: 'never', children: 'ignore' }],

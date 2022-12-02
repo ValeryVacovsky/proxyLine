@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 function ServerProxyIcon(props) {
   return (
@@ -9,8 +9,7 @@ function ServerProxyIcon(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <Path
         d="M21 14.667H5a4 4 0 1 0 0 8h16a4 4 0 1 0 0-8ZM21 18.667h-9.333M6.333 18.667H5"
         stroke="#4F4F4F"
@@ -26,7 +25,7 @@ function ServerProxyIcon(props) {
         strokeLinejoin="round"
       />
     </Svg>
-  );
+  )
 }
 
-export default ServerProxyIcon;
+export default ServerProxyIcon

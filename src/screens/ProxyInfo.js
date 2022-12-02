@@ -1,9 +1,7 @@
-import React from 'react';
-import {
-  ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity,
-} from 'react-native';
-import LayoutMain from '../componets/LayoutMain';
-import ReadTrash from '../image/Svg/ReadTrash';
+import React from 'react'
+import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
+import LayoutMain from '../componets/LayoutMain'
+import ReadTrash from '../image/Svg/ReadTrash'
 
 const styles = StyleSheet.create({
   container: {
@@ -45,7 +43,7 @@ const styles = StyleSheet.create({
     width: '90%',
     marginLeft: 20,
   },
-});
+})
 
 function ProxyInfo({ navigation }) {
   React.useLayoutEffect(() => {
@@ -56,181 +54,179 @@ function ProxyInfo({ navigation }) {
           <ReadTrash />
         </TouchableOpacity>
       ),
-    });
-  }, [navigation]);
+    })
+  }, [navigation])
   return (
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View>
-            <Text style={styles.text}>
-              Данные прокси
-            </Text>
+            <Text style={styles.text}>Данные прокси</Text>
             <View style={styles.dataProxyes}>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
+              <View
+                style={{
                   alignItems: 'center',
-                  width: '90%',
-                }}
-                >
+                  width: '100%',
+                  backgroundColor: '#1E2127',
+                  marginBottom: 1,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 17,
+                    paddingTop: 17,
+                    alignItems: 'center',
+                    width: '90%',
+                  }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>ID заказа</Text>
                   <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>4829002398</Text>
                 </View>
               </View>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
+              <View
+                style={{
                   alignItems: 'center',
-                  width: '90%',
-                }}
-                >
+                  width: '100%',
+                  backgroundColor: '#1E2127',
+                  marginBottom: 1,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 17,
+                    paddingTop: 17,
+                    alignItems: 'center',
+                    width: '90%',
+                  }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Страна</Text>
                   <Text style={{ fontWeight: '600', fontSize: 13, color: 'white' }}>United States of America</Text>
                 </View>
               </View>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
+              <View
+                style={{
                   alignItems: 'center',
-                  width: '90%',
-                }}
-                >
+                  width: '100%',
+                  backgroundColor: '#1E2127',
+                  marginBottom: 1,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 17,
+                    paddingTop: 17,
+                    alignItems: 'center',
+                    width: '90%',
+                  }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Версия</Text>
                   <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>IPv6</Text>
                 </View>
               </View>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
+              <View
+                style={{
                   alignItems: 'center',
-                  width: '90%',
-                }}
-                >
+                  width: '100%',
+                  backgroundColor: '#1E2127',
+                  marginBottom: 1,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 17,
+                    paddingTop: 17,
+                    alignItems: 'center',
+                    width: '90%',
+                  }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>IP</Text>
                   <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>192.0.0.1</Text>
                 </View>
               </View>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
+              <View
+                style={{
                   alignItems: 'center',
-                  width: '90%',
-                }}
-                >
+                  width: '100%',
+                  backgroundColor: '#1E2127',
+                  marginBottom: 1,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 17,
+                    paddingTop: 17,
+                    alignItems: 'center',
+                    width: '90%',
+                  }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Port</Text>
                   <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>11594</Text>
                 </View>
               </View>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
+              <View
+                style={{
                   alignItems: 'center',
-                  width: '90%',
-                }}
-                >
+                  width: '100%',
+                  backgroundColor: '#1E2127',
+                  marginBottom: 1,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 17,
+                    paddingTop: 17,
+                    alignItems: 'center',
+                    width: '90%',
+                  }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Логин</Text>
                   <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>gJgsaH</Text>
                 </View>
               </View>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
+              <View
+                style={{
                   alignItems: 'center',
-                  width: '90%',
-                }}
-                >
+                  width: '100%',
+                  backgroundColor: '#1E2127',
+                  marginBottom: 1,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 17,
+                    paddingTop: 17,
+                    alignItems: 'center',
+                    width: '90%',
+                  }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Пароль</Text>
                   <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>MsUpsas62</Text>
                 </View>
               </View>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
+              <View
+                style={{
                   alignItems: 'center',
-                  width: '90%',
-                }}
-                >
+                  width: '100%',
+                  backgroundColor: '#1E2127',
+                  marginBottom: 1,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 17,
+                    paddingTop: 17,
+                    alignItems: 'center',
+                    width: '90%',
+                  }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Тип</Text>
                   <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>HTTP</Text>
                 </View>
@@ -245,92 +241,87 @@ function ProxyInfo({ navigation }) {
                   borderRadius: 12,
                   marginTop: 20,
                 }}
-                activeOpacity={0.8}
-              >
-                <Text style={{
-                  fontWeight: '600',
-                  fontSize: 13,
-                  color: '#FAC637',
-                  paddingBottom: 18,
-                  paddingTop: 18,
-                }}
-                >
+                activeOpacity={0.8}>
+                <Text
+                  style={{
+                    fontWeight: '600',
+                    fontSize: 13,
+                    color: '#FAC637',
+                    paddingBottom: 18,
+                    paddingTop: 18,
+                  }}>
                   Проверить прокси
                 </Text>
               </TouchableOpacity>
             </View>
-            <Text style={styles.text}>
-              Дата
-            </Text>
+            <Text style={styles.text}>Дата</Text>
             <View styles={styles.Data}>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
+              <View
+                style={{
                   alignItems: 'center',
-                  width: '90%',
-                }}
-                >
+                  width: '100%',
+                  backgroundColor: '#1E2127',
+                  marginBottom: 1,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 17,
+                    paddingTop: 17,
+                    alignItems: 'center',
+                    width: '90%',
+                  }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Заказ от</Text>
                   <Text style={{ fontWeight: '600', fontSize: 13, color: 'white' }}>09.09.2022, 12:33</Text>
                 </View>
               </View>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
+              <View
+                style={{
                   alignItems: 'center',
-                  width: '90%',
-                }}
-                >
+                  width: '100%',
+                  backgroundColor: '#1E2127',
+                  marginBottom: 1,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 17,
+                    paddingTop: 17,
+                    alignItems: 'center',
+                    width: '90%',
+                  }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Окончание</Text>
                   <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>09.12.2022, 12:33</Text>
                 </View>
               </View>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}
-              >
-                <View style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
+              <View
+                style={{
                   alignItems: 'center',
-                  width: '90%',
-                }}
-                >
+                  width: '100%',
+                  backgroundColor: '#1E2127',
+                  marginBottom: 1,
+                }}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingBottom: 17,
+                    paddingTop: 17,
+                    alignItems: 'center',
+                    width: '90%',
+                  }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Осталось</Text>
                   <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>1 месяц 10 дней</Text>
                 </View>
               </View>
             </View>
             <View style={styles.chipsContainer}>
-              <Text style={styles.text}>
-                Разрешенные IP
-              </Text>
+              <Text style={styles.text}>Разрешенные IP</Text>
               <View style={styles.Chips}>
                 <View>
                   <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -342,18 +333,17 @@ function ProxyInfo({ navigation }) {
                         marginTop: 20,
                         marginRight: 10,
                       }}
-                      activeOpacity={0.8}
-                    >
-                      <Text style={{
-                        fontWeight: '600',
-                        fontSize: 13,
-                        color: 'white',
-                        paddingBottom: 6,
-                        paddingTop: 6,
-                        paddingRight: 12,
-                        paddingLeft: 12,
-                      }}
-                      >
+                      activeOpacity={0.8}>
+                      <Text
+                        style={{
+                          fontWeight: '600',
+                          fontSize: 13,
+                          color: 'white',
+                          paddingBottom: 6,
+                          paddingTop: 6,
+                          paddingRight: 12,
+                          paddingLeft: 12,
+                        }}>
                         192.168.0.1
                       </Text>
                     </TouchableOpacity>
@@ -365,18 +355,17 @@ function ProxyInfo({ navigation }) {
                         marginTop: 20,
                         marginRight: 10,
                       }}
-                      activeOpacity={0.8}
-                    >
-                      <Text style={{
-                        fontWeight: '600',
-                        fontSize: 13,
-                        color: 'white',
-                        paddingBottom: 6,
-                        paddingTop: 6,
-                        paddingRight: 12,
-                        paddingLeft: 12,
-                      }}
-                      >
+                      activeOpacity={0.8}>
+                      <Text
+                        style={{
+                          fontWeight: '600',
+                          fontSize: 13,
+                          color: 'white',
+                          paddingBottom: 6,
+                          paddingTop: 6,
+                          paddingRight: 12,
+                          paddingLeft: 12,
+                        }}>
                         192.168.0.1
                       </Text>
                     </TouchableOpacity>
@@ -388,27 +377,24 @@ function ProxyInfo({ navigation }) {
                         marginTop: 20,
                         marginRight: 10,
                       }}
-                      activeOpacity={0.8}
-                    >
-                      <Text style={{
-                        fontWeight: '600',
-                        fontSize: 13,
-                        color: 'white',
-                        paddingBottom: 6,
-                        paddingTop: 6,
-                        paddingRight: 12,
-                        paddingLeft: 12,
-                      }}
-                      >
+                      activeOpacity={0.8}>
+                      <Text
+                        style={{
+                          fontWeight: '600',
+                          fontSize: 13,
+                          color: 'white',
+                          paddingBottom: 6,
+                          paddingTop: 6,
+                          paddingRight: 12,
+                          paddingLeft: 12,
+                        }}>
                         192.168.0.1
                       </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
               </View>
-              <Text style={styles.text}>
-                Теги
-              </Text>
+              <Text style={styles.text}>Теги</Text>
               <View style={styles.Chips}>
                 <View>
                   <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -420,18 +406,17 @@ function ProxyInfo({ navigation }) {
                         marginTop: 20,
                         marginRight: 10,
                       }}
-                      activeOpacity={0.8}
-                    >
-                      <Text style={{
-                        fontWeight: '600',
-                        fontSize: 13,
-                        color: '#3FA53D',
-                        paddingBottom: 6,
-                        paddingTop: 6,
-                        paddingRight: 12,
-                        paddingLeft: 12,
-                      }}
-                      >
+                      activeOpacity={0.8}>
+                      <Text
+                        style={{
+                          fontWeight: '600',
+                          fontSize: 13,
+                          color: '#3FA53D',
+                          paddingBottom: 6,
+                          paddingTop: 6,
+                          paddingRight: 12,
+                          paddingLeft: 12,
+                        }}>
                         Тестовые
                       </Text>
                     </TouchableOpacity>
@@ -443,18 +428,17 @@ function ProxyInfo({ navigation }) {
                         marginTop: 20,
                         marginRight: 10,
                       }}
-                      activeOpacity={0.8}
-                    >
-                      <Text style={{
-                        fontWeight: '600',
-                        fontSize: 13,
-                        color: '#FAC637',
-                        paddingBottom: 6,
-                        paddingTop: 6,
-                        paddingRight: 12,
-                        paddingLeft: 12,
-                      }}
-                      >
+                      activeOpacity={0.8}>
+                      <Text
+                        style={{
+                          fontWeight: '600',
+                          fontSize: 13,
+                          color: '#FAC637',
+                          paddingBottom: 6,
+                          paddingTop: 6,
+                          paddingRight: 12,
+                          paddingLeft: 12,
+                        }}>
                         Лучшие прокси
                       </Text>
                     </TouchableOpacity>
@@ -466,18 +450,17 @@ function ProxyInfo({ navigation }) {
                         marginTop: 20,
                         marginRight: 10,
                       }}
-                      activeOpacity={0.8}
-                    >
-                      <Text style={{
-                        fontWeight: '600',
-                        fontSize: 13,
-                        color: '#3FA53D',
-                        paddingBottom: 6,
-                        paddingTop: 6,
-                        paddingRight: 12,
-                        paddingLeft: 12,
-                      }}
-                      >
+                      activeOpacity={0.8}>
+                      <Text
+                        style={{
+                          fontWeight: '600',
+                          fontSize: 13,
+                          color: '#3FA53D',
+                          paddingBottom: 6,
+                          paddingTop: 6,
+                          paddingRight: 12,
+                          paddingLeft: 12,
+                        }}>
                         Тестовые
                       </Text>
                     </TouchableOpacity>
@@ -489,18 +472,17 @@ function ProxyInfo({ navigation }) {
                         marginTop: 20,
                         marginRight: 10,
                       }}
-                      activeOpacity={0.8}
-                    >
-                      <Text style={{
-                        fontWeight: '600',
-                        fontSize: 13,
-                        color: '#3FA53D',
-                        paddingBottom: 6,
-                        paddingTop: 6,
-                        paddingRight: 12,
-                        paddingLeft: 12,
-                      }}
-                      >
+                      activeOpacity={0.8}>
+                      <Text
+                        style={{
+                          fontWeight: '600',
+                          fontSize: 13,
+                          color: '#3FA53D',
+                          paddingBottom: 6,
+                          paddingTop: 6,
+                          paddingRight: 12,
+                          paddingLeft: 12,
+                        }}>
                         Тестовые
                       </Text>
                     </TouchableOpacity>
@@ -512,8 +494,7 @@ function ProxyInfo({ navigation }) {
         </ScrollView>
       </SafeAreaView>
     </LayoutMain>
-
-  );
+  )
 }
 
-export default ProxyInfo;
+export default ProxyInfo

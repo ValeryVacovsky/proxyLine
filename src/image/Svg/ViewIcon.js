@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 function ViewIcon(props) {
   return (
@@ -9,8 +9,7 @@ function ViewIcon(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <Path
         d="M1.079 6.311a.658.658 0 0 1 0-.623c1.26-2.332 3.59-4.354 5.92-4.354s4.66 2.022 5.922 4.355a.658.658 0 0 1 0 .623C11.66 8.645 9.33 10.667 7 10.667S2.34 8.645 1.079 6.31v0Z"
         stroke="#fff"
@@ -26,7 +25,7 @@ function ViewIcon(props) {
         strokeLinejoin="round"
       />
     </Svg>
-  );
+  )
 }
 
-export default ViewIcon;
+export default ViewIcon

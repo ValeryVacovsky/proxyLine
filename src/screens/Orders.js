@@ -1,12 +1,10 @@
-import React from 'react';
-import {
-  View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity,
-} from 'react-native';
-import LayoutMain from '../componets/LayoutMain';
-import UserNavigation from '../componets/UserNavigation';
-import OrdersList from '../componets/OrdersList';
+import React from 'react'
+import { View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native'
+import LayoutMain from '../componets/LayoutMain'
+import UserNavigation from '../componets/UserNavigation'
+import OrdersList from '../componets/OrdersList'
 
-const OrdersListTotal = [1, 2, 4, 5];
+const OrdersListTotal = [1, 2, 4, 5]
 
 const styles = StyleSheet.create({
   container: {
@@ -46,10 +44,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textH1: {
-    color: 'white', fontWeight: '700', fontSize: 18, marginBottom: 6,
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 18,
+    marginBottom: 6,
   },
   textDiscription: {
-    color: 'white', fontWeight: '400', fontSize: 12, textAlign: 'center', paddingLeft: 20, paddingRight: 20,
+    color: 'white',
+    fontWeight: '400',
+    fontSize: 12,
+    textAlign: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   Button: {
     width: '100%',
@@ -70,41 +76,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 25,
   },
-});
+})
 
 function Orders({ navigation }) {
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
-        {OrdersListTotal.length > 0
-        && (
-        <ScrollView style={styles.scrollView}>
-          {OrdersListTotal.map((key) => <OrdersList key={key} navigation={navigation} />)}
-        </ScrollView>
+        {OrdersListTotal.length > 0 && (
+          <ScrollView style={styles.scrollView}>
+            {OrdersListTotal.map(key => (
+              <OrdersList key={key} navigation={navigation} />
+            ))}
+          </ScrollView>
         )}
         <View style={styles.scrollContainer}>
           {OrdersListTotal.length === 0 && (
-          <View style={styles.ElementContainer}>
-            <View style={styles.infoContainer}>
-              <View style={styles.infoBlock}>
-                <Text style={styles.textH1}>
-                  Нет ни одного заказа
-                </Text>
-                <Text style={styles.textDiscription}>
-                  На данный момент вы не совершали
-                  ни одного заказа
-                </Text>
+            <View style={styles.ElementContainer}>
+              <View style={styles.infoContainer}>
+                <View style={styles.infoBlock}>
+                  <Text style={styles.textH1}>Нет ни одного заказа</Text>
+                  <Text style={styles.textDiscription}>На данный момент вы не совершали ни одного заказа</Text>
+                </View>
               </View>
+              <TouchableOpacity style={styles.Button} activeOpacity={0.8}>
+                <Text style={styles.buttonText}>Получить</Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              style={styles.Button}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.buttonText}>
-                Получить
-              </Text>
-            </TouchableOpacity>
-          </View>
           )}
         </View>
       </SafeAreaView>
@@ -112,8 +109,7 @@ function Orders({ navigation }) {
         <UserNavigation status="Orders" navigation={navigation} />
       </View>
     </LayoutMain>
-
-  );
+  )
 }
 
-export default Orders;
+export default Orders

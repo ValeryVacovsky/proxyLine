@@ -1,15 +1,11 @@
-import React, {
-  useCallback, useRef, useMemo, useState, useEffect,
-} from 'react';
-import {
-  ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput,
-} from 'react-native';
+import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
+import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput } from 'react-native'
 
-import LayoutMain from '../../componets/LayoutMain';
-import FlagUseBig from '../../image/Svg/FlagUseBig';
-import BottomSheetForm from '../../componets/BottomSheetForm';
-import ProxyItemDelete from '../../componets/UI/ProxyUI/ProxyItemDelete';
-import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectForm';
+import LayoutMain from '../../componets/LayoutMain'
+import FlagUseBig from '../../image/Svg/FlagUseBig'
+import BottomSheetForm from '../../componets/BottomSheetForm'
+import ProxyItemDelete from '../../componets/UI/ProxyUI/ProxyItemDelete'
+import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectForm'
 
 const MyProxiesList = [
   {
@@ -108,15 +104,13 @@ const MyProxiesList = [
     IpAdress: '136.117.121.183',
     flag: <FlagUseBig />,
   },
-];
+]
 
 const styles = StyleSheet.create({
   balanceIconFilter: {
     marginRight: 15,
   },
-  balanceIconFilterDotts: {
-
-  },
+  balanceIconFilterDotts: {},
   container: {
     flex: 1,
   },
@@ -147,49 +141,43 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
   },
-});
+})
 
 function ChangeProxies({ navigation }) {
-  const sheetRef = useRef(null);
-  const [, setIsOpen] = useState(false);
-  const snapPoints = useMemo(() => ['30%'], []);
+  const sheetRef = useRef(null)
+  const [, setIsOpen] = useState(false)
+  const snapPoints = useMemo(() => ['30%'], [])
 
-  const handleSnapPress = useCallback((index) => {
-    sheetRef.current?.snapToIndex(index);
-    setIsOpen(false);
-  }, []);
+  const handleSnapPress = useCallback(index => {
+    sheetRef.current?.snapToIndex(index)
+    setIsOpen(false)
+  }, [])
 
   const handleClosePress = useCallback(() => {
-    sheetRef.current?.close();
-  }, []);
+    sheetRef.current?.close()
+  }, [])
 
-  const [selectedProxies, setSelectedProxies] = useState([]);
-  const onChange = (value) => {
-    const proxyId = Number(value);
-    setSelectedProxies((prevState) => (
-      prevState.includes(proxyId)
-        ? prevState.filter((id) => id !== proxyId)
-        : prevState.concat(proxyId)
-    ));
-  };
-  const arryId = [];
-  useEffect(() => { MyProxiesList.map((item) => arryId.push(item.id)); }, []);
+  const [selectedProxies, setSelectedProxies] = useState([])
+  const onChange = value => {
+    const proxyId = Number(value)
+    setSelectedProxies(prevState =>
+      prevState.includes(proxyId) ? prevState.filter(id => id !== proxyId) : prevState.concat(proxyId),
+    )
+  }
+  const arryId = []
+  useEffect(() => {
+    MyProxiesList.map(item => arryId.push(item.id))
+  }, [])
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
-        <TouchableOpacity
-          style={styles.balanceIcon}
-          activeOpacity={0.8}
-          onPress={() => setSelectedProxies(arryId)}
-        >
-          <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>
-            Выбрать все
-          </Text>
+        <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => setSelectedProxies(arryId)}>
+          <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Выбрать все</Text>
         </TouchableOpacity>
       ),
-    });
-  }, [navigation]);
+    })
+  }, [navigation])
   return (
     <LayoutMain>
       <View style={{ alignItems: 'center', display: 'flex' }}>
@@ -213,11 +201,10 @@ function ChangeProxies({ navigation }) {
         <SafeAreaView>
           <ScrollView
             style={{
-              width: (selectedProxies.length > 0 ? '90%' : '90%'),
-              marginBottom: (selectedProxies.length > 0 && 300),
-            }}
-          >
-            {MyProxiesList.map((proxy) => (
+              width: selectedProxies.length > 0 ? '90%' : '90%',
+              marginBottom: selectedProxies.length > 0 && 300,
+            }}>
+            {MyProxiesList.map(proxy => (
               <ProxyItemDelete
                 key={proxy.id}
                 proxy={proxy}
@@ -230,26 +217,24 @@ function ChangeProxies({ navigation }) {
           </ScrollView>
         </SafeAreaView>
         {selectedProxies.length > 0 && (
-        <BottomSheetForm
-          navigation={navigation}
-          sheetRef={sheetRef}
-          snapPoints={snapPoints}
-          setIsOpen={setIsOpen}
-          handleClosePress={handleClosePress}
-        >
-          <BottomSheetSelectForm
-            handleClosePress={handleClosePress}
+          <BottomSheetForm
             navigation={navigation}
-            setSelectedProxies={setSelectedProxies}
-            selected={selectedProxies.length}
-            move="Изменить"
-          />
-        </BottomSheetForm>
+            sheetRef={sheetRef}
+            snapPoints={snapPoints}
+            setIsOpen={setIsOpen}
+            handleClosePress={handleClosePress}>
+            <BottomSheetSelectForm
+              handleClosePress={handleClosePress}
+              navigation={navigation}
+              setSelectedProxies={setSelectedProxies}
+              selected={selectedProxies.length}
+              move="Изменить"
+            />
+          </BottomSheetForm>
         )}
       </View>
     </LayoutMain>
-
-  );
+  )
 }
 
-export default ChangeProxies;
+export default ChangeProxies

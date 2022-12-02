@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 function DatabaseButtonOff(props) {
   return (
@@ -9,8 +9,7 @@ function DatabaseButtonOff(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <Path
         d="M1.5 12.776c0 1.505 3.415 2.724 7.628 2.724s7.628-1.22 7.628-2.724V4.058c0-1.505-3.415-2.725-7.628-2.725S1.5 2.553 1.5 4.058v8.718Z"
         stroke="#fff"
@@ -26,7 +25,7 @@ function DatabaseButtonOff(props) {
         strokeLinejoin="round"
       />
     </Svg>
-  );
+  )
 }
 
-export default DatabaseButtonOff;
+export default DatabaseButtonOff

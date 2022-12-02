@@ -1,13 +1,11 @@
-import React from 'react';
-import {
-  View, StyleSheet, SafeAreaView, TouchableOpacity, Text,
-} from 'react-native';
-import LayoutMain from '../../componets/LayoutMain';
-import UserNavigation from '../../componets/UserNavigation';
-import CheckProxy from '../../image/Svg/CheckProxy';
-import CheckSpeed from '../../image/Svg/CheckSpeed';
-import SettingsVector from '../../image/Svg/SettingsVector';
-import SettingsVector2 from '../../image/Svg/SettingsVector2';
+import React from 'react'
+import { View, StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native'
+import LayoutMain from '../../componets/LayoutMain'
+import UserNavigation from '../../componets/UserNavigation'
+import CheckProxy from '../../image/Svg/CheckProxy'
+import CheckSpeed from '../../image/Svg/CheckSpeed'
+import SettingsVector from '../../image/Svg/SettingsVector'
+import SettingsVector2 from '../../image/Svg/SettingsVector2'
 
 const styles = StyleSheet.create({
   container: {
@@ -66,7 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
   },
-});
+})
 
 function Settgings({ navigation }) {
   React.useLayoutEffect(() => {
@@ -77,16 +75,13 @@ function Settgings({ navigation }) {
           <TouchableOpacity
             style={styles.balanceIcon}
             activeOpacity={0.8}
-            onPress={() => navigation.navigate('Account')}
-          >
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>
-              Аккаунт
-            </Text>
+            onPress={() => navigation.navigate('Account')}>
+            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Аккаунт</Text>
           </TouchableOpacity>
         </View>
       ),
-    });
-  }, [navigation]);
+    })
+  }, [navigation])
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container} activeOpacity={0.8}>
@@ -106,7 +101,10 @@ function Settgings({ navigation }) {
             <CheckProxy />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => navigation.navigate('AnwserQuaction')}>
+        <TouchableOpacity
+          style={styles.settingLine}
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate('AnwserQuaction')}>
           <View style={styles.setting}>
             <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Вопросы и ответы</Text>
             <SettingsVector />
@@ -135,8 +133,7 @@ function Settgings({ navigation }) {
         <UserNavigation status="Settings" navigation={navigation} />
       </View>
     </LayoutMain>
-
-  );
+  )
 }
 
-export default Settgings;
+export default Settgings

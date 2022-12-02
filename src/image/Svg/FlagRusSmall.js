@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, { Mask, Path, G } from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Mask, Path, G } from 'react-native-svg'
 
 function FlagRusSmall(props) {
   return (
@@ -9,8 +9,7 @@ function FlagRusSmall(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <Mask
         id="a"
         style={{
@@ -20,17 +19,11 @@ function FlagRusSmall(props) {
         x={0}
         y={0}
         width={16}
-        height={13}
-      >
+        height={13}>
         <Path fill="#fff" d="M0 .5h16v12H0z" />
       </Mask>
       <G mask="url(#a)">
-        <Path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M0 .5v12h16V.5H0Z"
-          fill="#3D58DB"
-        />
+        <Path fillRule="evenodd" clipRule="evenodd" d="M0 .5v12h16V.5H0Z" fill="#3D58DB" />
         <Mask
           id="b"
           style={{
@@ -40,14 +33,8 @@ function FlagRusSmall(props) {
           x={0}
           y={0}
           width={16}
-          height={13}
-        >
-          <Path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M0 .5v12h16V.5H0Z"
-            fill="#fff"
-          />
+          height={13}>
+          <Path fillRule="evenodd" clipRule="evenodd" d="M0 .5v12h16V.5H0Z" fill="#fff" />
         </Mask>
         <G mask="url(#b)" fillRule="evenodd" clipRule="evenodd">
           <Path d="M0 .5v4h16v-4H0Z" fill="#F7FCFF" />
@@ -55,7 +42,7 @@ function FlagRusSmall(props) {
         </G>
       </G>
     </Svg>
-  );
+  )
 }
 
-export default FlagRusSmall;
+export default FlagRusSmall

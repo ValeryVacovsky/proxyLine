@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, { Mask, Path, G } from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Mask, Path, G } from 'react-native-svg'
 
 function FlagUseBig(props) {
   return (
@@ -9,8 +9,7 @@ function FlagUseBig(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <Mask
         id="a"
         style={{
@@ -20,17 +19,11 @@ function FlagUseBig(props) {
         x={0}
         y={0}
         width={32}
-        height={24}
-      >
+        height={24}>
         <Path fill="#fff" d="M0 0h32v24H0z" />
       </Mask>
       <G mask="url(#a)">
-        <Path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M0 0h32v24H0V0Z"
-          fill="#F7FCFF"
-        />
+        <Path fillRule="evenodd" clipRule="evenodd" d="M0 0h32v24H0V0Z" fill="#F7FCFF" />
         <Path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -46,7 +39,7 @@ function FlagUseBig(props) {
         />
       </G>
     </Svg>
-  );
+  )
 }
 
-export default FlagUseBig;
+export default FlagUseBig

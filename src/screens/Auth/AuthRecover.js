@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
 
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form'
 
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import LayoutAuth from '../../componets/LayoutAuth';
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import LayoutAuth from '../../componets/LayoutAuth'
 
-import LogoIntroSmall from '../../image/Svg/LogoIntroSmall';
-import postReset from '../../api/postReset';
+import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
+import postReset from '../../api/postReset'
 
-const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -95,25 +90,29 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 22,
   },
-});
+})
 
 function AuthRecover({ navigation }) {
-  const [focusOnEmail, setFocusOnEmail] = useState(false);
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const [focusOnEmail, setFocusOnEmail] = useState(false)
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       email: '',
       password: '',
     },
-  });
-  const onSubmit = async (data) => {
-    const res = await postReset(data);
+  })
+  const onSubmit = async data => {
+    const res = await postReset(data)
     if (res.data.success === true) {
-      await AsyncStorage.setItem('@sign_up_email', data.email);
-      navigation.navigate('CodeReset');
+      await AsyncStorage.setItem('@sign_up_email', data.email)
+      navigation.navigate('CodeReset')
     } else {
       // setCommonFormError('Invalid email or password');
     }
-  };
+  }
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -123,8 +122,7 @@ function AuthRecover({ navigation }) {
         <View>
           <Text style={styles.authLogo}>Восстановление пароля</Text>
           <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
-            На Ваш email будет выслан проверочный
-            код для сброса текущего пароля
+            На Ваш email будет выслан проверочный код для сброса текущего пароля
           </Text>
           <Text style={styles.label}>Email</Text>
           <Controller
@@ -161,17 +159,14 @@ function AuthRecover({ navigation }) {
           />
         </View>
         <View style={{ marginBottom: 25 }}>
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-            activeOpacity={0.8}
-          >
-            <SuperEllipseMaskView radius={{
-              topLeft: 12,
-              topRight: 12,
-              bottomLeft: 12,
-              bottomRight: 12,
-            }}
-            >
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
+            <SuperEllipseMaskView
+              radius={{
+                topLeft: 12,
+                topRight: 12,
+                bottomLeft: 12,
+                bottomRight: 12,
+              }}>
               <View style={styles.buttonInner}>
                 <Text style={styles.buttonInnerText}>Отправить</Text>
               </View>
@@ -185,7 +180,7 @@ function AuthRecover({ navigation }) {
         </View>
       </View>
     </LayoutAuth>
-  );
+  )
 }
 
-export default AuthRecover;
+export default AuthRecover

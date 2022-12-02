@@ -1,10 +1,8 @@
-import React from 'react';
-import {
-  ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text,
-} from 'react-native';
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-import CountrySlot from '../componets/CountrySlot';
-import LayoutMain from '../componets/LayoutMain';
+import React from 'react'
+import { ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native'
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+import CountrySlot from '../componets/CountrySlot'
+import LayoutMain from '../componets/LayoutMain'
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +35,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
   },
-});
+})
 function Countreis({ navigation }) {
   return (
     <LayoutMain>
@@ -55,11 +53,7 @@ function Countreis({ navigation }) {
           <CountrySlot />
         </ScrollView>
       </SafeAreaView>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Order')}
-        style={styles.button}
-        activeOpacity={0.8}
-      >
+      <TouchableOpacity onPress={() => navigation.navigate('Order')} style={styles.button} activeOpacity={0.8}>
         <SuperEllipseMaskView
           radius={{
             topLeft: 12,
@@ -67,13 +61,12 @@ function Countreis({ navigation }) {
             bottomRight: 12,
             bottomLeft: 12,
           }}
-          style={styles.buttonInner}
-        >
+          style={styles.buttonInner}>
           <Text style={styles.buttonText}>Подтвердить</Text>
         </SuperEllipseMaskView>
       </TouchableOpacity>
     </LayoutMain>
-  );
+  )
 }
 
-export default Countreis;
+export default Countreis

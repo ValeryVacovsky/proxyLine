@@ -1,19 +1,20 @@
-import axios from 'axios';
+import axios from 'axios'
 
-const baseUrl = 'https://proxydbtest.proxyline.net';
+const baseUrl = 'https://proxydbtest.proxyline.net'
 
 // Passing configuration object to axios
-const postCreateOrder = ({ token, data }) => axios({
-  method: 'post',
-  url: `${baseUrl}/projectapi/v1/1/user/${token}/order/`,
-  headers: {
-    'Content-Type': 'application/json',
-    apikey: 'project-1-apikey',
-  },
-  data,
-});
+const postCreateOrder = ({ token, data }) =>
+  axios({
+    method: 'post',
+    url: `${baseUrl}/projectapi/v1/1/user/${token}/order/`,
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: 'project-1-apikey',
+    },
+    data,
+  })
 
-export default postCreateOrder;
+export default postCreateOrder
 // {
 //     "quantity": 2,
 //     "ip_type": 1,

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 function SettingsButtonOn(props) {
   return (
@@ -9,8 +9,7 @@ function SettingsButtonOn(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -22,7 +21,7 @@ function SettingsButtonOn(props) {
         fill="#FAC637"
       />
     </Svg>
-  );
+  )
 }
 
-export default SettingsButtonOn;
+export default SettingsButtonOn

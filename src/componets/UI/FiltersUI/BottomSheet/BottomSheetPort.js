@@ -1,9 +1,5 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-lone-blocks */
-import React, { useState } from 'react';
-import {
-  StyleSheet, View, Text, TouchableOpacity, TextInput,
-} from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -53,19 +49,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 100,
   },
-});
+})
 
-function BottomSheetPort({
-  handleClosePress, setIsOpen, setPorts,
-}) {
-  const [value, setValue] = useState('');
+function BottomSheetPort({ handleClosePress, setIsOpen, setPorts }) {
+  const [value, setValue] = useState('')
   return (
     <View style={styles.container}>
-      <View style={{
-        alignItems: 'center',
-        width: '100%',
-      }}
-      >
+      <View
+        style={{
+          alignItems: 'center',
+          width: '100%',
+        }}>
         <TextInput
           style={{
             backgroundColor: '#1E2127',
@@ -87,22 +81,20 @@ function BottomSheetPort({
       <TouchableOpacity
         style={styles.bottomButton}
         onPress={() => {
-          handleClosePress();
-          setIsOpen(false);
-          { value.length > 0 && setPorts((prevState) => (
-            prevState.includes(value)
-              ? prevState.filter((id) => id !== value)
-              : prevState.concat(String(value))
-          )); }
+          handleClosePress()
+          setIsOpen(false)
+          {
+            value.length > 0 &&
+              setPorts(prevState =>
+                prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
+              )
+          }
         }}
-        activeOpacity={0.8}
-      >
-        <Text style={styles.bottomButtonText}>
-          Добавить
-        </Text>
+        activeOpacity={0.8}>
+        <Text style={styles.bottomButtonText}>Добавить</Text>
       </TouchableOpacity>
     </View>
-  );
+  )
 }
 
-export default BottomSheetPort;
+export default BottomSheetPort

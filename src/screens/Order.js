@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import {
-  ScrollView, View, TouchableOpacity, StyleSheet, Text,
-} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import LayoutMain from '../componets/LayoutMain';
-import OrderItem from '../componets/OrderItem';
-import CloudProxyIcon from '../image/Svg/CloudProxyIcon';
-import PeopleIconProxy from '../image/Svg/PeopleIconProxy';
-import ServerProxyIcon from '../image/Svg/ServerProxyIcon';
-import getBalance from '../api/getBalance';
-import HeaderProxy from '../image/Svg/HeaderProxy';
+import React, { useState, useEffect } from 'react'
+import { ScrollView, View, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import LayoutMain from '../componets/LayoutMain'
+import OrderItem from '../componets/OrderItem'
+import CloudProxyIcon from '../image/Svg/CloudProxyIcon'
+import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
+import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
+import getBalance from '../api/getBalance'
+import HeaderProxy from '../image/Svg/HeaderProxy'
 
 const styles = StyleSheet.create({
   container: {
@@ -31,21 +29,21 @@ const styles = StyleSheet.create({
     fontSize: 15,
     alignItems: 'center',
   },
-});
+})
 
 function Order({ navigation, route }) {
-  const [scrolling, setScrolling] = useState(true);
-  const [currentProxyId, setCurrentProxyId] = useState(390);
-  const [balance, setBalance] = useState({ balance: null });
+  const [scrolling, setScrolling] = useState(true)
+  const [currentProxyId, setCurrentProxyId] = useState(390)
+  const [balance, setBalance] = useState({ balance: null })
   useEffect(() => {
     const fetchData = async () => {
-      const token = await AsyncStorage.getItem('@token');
-      const id = await AsyncStorage.getItem('@id');
-      const data = await getBalance(`${id}_${token}`);
-      await setBalance(data.data);
-    };
-    fetchData();
-  }, []);
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const data = await getBalance(`${id}_${token}`)
+      await setBalance(data.data)
+    }
+    fetchData()
+  }, [])
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -54,26 +52,21 @@ function Order({ navigation, route }) {
           <TouchableOpacity
             style={styles.balanceIcon}
             activeOpacity={0.8}
-            onPress={() => navigation.navigate('Balance')}
-          >
-            <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>
-              $
-              {' '}
-              {balance.balance}
-            </Text>
+            onPress={() => navigation.navigate('Balance')}>
+            <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance}</Text>
             <HeaderProxy style={{ bottom: 1, marginLeft: 3 }} />
           </TouchableOpacity>
         </View>
       ),
-    });
-  }, [navigation, balance]);
+    })
+  }, [navigation, balance])
   const ProxyList = [
     {
       id: 1,
       proxyType: 'v4 Shared',
       discription: 'Подходит для любых целей и сайтов',
       days: '5 дней',
-      price: 0.60,
+      price: 0.6,
       handDesription: 'Используется до 3-х человек',
       icon: <PeopleIconProxy />,
     },
@@ -95,8 +88,8 @@ function Order({ navigation, route }) {
       handDesription: 'Выдается в одни руки',
       icon: <ServerProxyIcon />,
     },
-  ];
-  const startPos = (currentProxyId * (route.params.proxy.id - 1));
+  ]
+  const startPos = currentProxyId * (route.params.proxy.id - 1)
   return (
     <LayoutMain>
       <ScrollView
@@ -108,23 +101,18 @@ function Order({ navigation, route }) {
         pagingEnabled
         contentOffset={{ x: startPos }}
         disableIntervalMomentum
-        onLayout={(event) => {
-          const { layout } = event.nativeEvent;
-          setCurrentProxyId(layout.width);
+        onLayout={event => {
+          const { layout } = event.nativeEvent
+          setCurrentProxyId(layout.width)
         }}
-        scrollEnabled={scrolling}
-      >
-        {ProxyList.map((order) => (
-          <OrderItem
-            navigation={navigation}
-            order={order}
-            setScrolling={setScrolling}
-          />
+        scrollEnabled={scrolling}>
+        {ProxyList.map(order => (
+          // eslint-disable-next-line react/jsx-key
+          <OrderItem navigation={navigation} order={order} setScrolling={setScrolling} />
         ))}
       </ScrollView>
     </LayoutMain>
-
-  );
+  )
 }
 
-export default Order;
+export default Order

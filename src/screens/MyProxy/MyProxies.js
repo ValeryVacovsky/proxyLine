@@ -1,18 +1,14 @@
-import React, {
-  useCallback, useRef, useMemo, useState,
-} from 'react';
-import {
-  ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput,
-} from 'react-native';
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-import ProxiesFilter from '../../image/Svg/ProxiesFilter';
+import React, { useCallback, useRef, useMemo, useState } from 'react'
+import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput } from 'react-native'
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+import ProxiesFilter from '../../image/Svg/ProxiesFilter'
 
-import LayoutMain from '../../componets/LayoutMain';
-import ProxiesDotts from '../../image/Svg/ProxiesDotts';
-import ProxyItem from '../../componets/UI/ProxyUI/ProxyItem';
-import FlagUseBig from '../../image/Svg/FlagUseBig';
-import BottomSheetForm from '../../componets/BottomSheetForm';
-import BottomSheetList from '../../componets/UI/ProxyUI/BottomSheetIist';
+import LayoutMain from '../../componets/LayoutMain'
+import ProxiesDotts from '../../image/Svg/ProxiesDotts'
+import ProxyItem from '../../componets/UI/ProxyUI/ProxyItem'
+import FlagUseBig from '../../image/Svg/FlagUseBig'
+import BottomSheetForm from '../../componets/BottomSheetForm'
+import BottomSheetList from '../../componets/UI/ProxyUI/BottomSheetIist'
 
 const MyProxiesList = [
   {
@@ -111,15 +107,13 @@ const MyProxiesList = [
     IpAdress: '136.117.121.183',
     flag: <FlagUseBig />,
   },
-];
+]
 
 const styles = StyleSheet.create({
   balanceIconFilter: {
     marginRight: 15,
   },
-  balanceIconFilterDotts: {
-
-  },
+  balanceIconFilterDotts: {},
   container: {
     flex: 1,
   },
@@ -150,25 +144,25 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
   },
-});
+})
 
 function MyProxies({ navigation }) {
-  const sheetRef = useRef(null);
-  const [, setIsOpen] = useState(false);
-  const snapPoints = useMemo(() => ['50%'], []);
+  const sheetRef = useRef(null)
+  const [, setIsOpen] = useState(false)
+  const snapPoints = useMemo(() => ['50%'], [])
 
-  const handleSnapPress = useCallback((index) => {
-    sheetRef.current?.snapToIndex(index);
-    setIsOpen(false);
-  }, []);
+  const handleSnapPress = useCallback(index => {
+    sheetRef.current?.snapToIndex(index)
+    setIsOpen(false)
+  }, [])
 
   const handleClosePress = useCallback(() => {
-    sheetRef.current?.close();
-  }, []);
+    sheetRef.current?.close()
+  }, [])
 
-  const [selected, setSelected] = useState(null);
-  const [proxyItemPicked, setProxyItemPicked] = useState(null);
-  const [childrenItem, setChildrenItem] = useState();
+  const [selected, setSelected] = useState(null)
+  const [proxyItemPicked, setProxyItemPicked] = useState(null)
+  const [childrenItem, setChildrenItem] = useState()
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -177,28 +171,23 @@ function MyProxies({ navigation }) {
           <TouchableOpacity
             style={styles.balanceIconFilter}
             activeOpacity={0.8}
-            onPress={() => navigation.navigate('Filters')}
-          >
+            onPress={() => navigation.navigate('Filters')}>
             <ProxiesFilter />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.balanceIconFilterDotts}
             activeOpacity={0.8}
             onPress={() => {
-              setChildrenItem(<BottomSheetList
-                handleClosePress={handleClosePress}
-                navigation={navigation}
-              />);
-              handleSnapPress(0);
-              setProxyItemPicked(true);
-            }}
-          >
+              setChildrenItem(<BottomSheetList handleClosePress={handleClosePress} navigation={navigation} />)
+              handleSnapPress(0)
+              setProxyItemPicked(true)
+            }}>
             <ProxiesDotts />
           </TouchableOpacity>
         </View>
       ),
-    });
-  }, [navigation]);
+    })
+  }, [navigation])
 
   return (
     <LayoutMain>
@@ -222,7 +211,7 @@ function MyProxies({ navigation }) {
         />
         <SafeAreaView>
           <ScrollView style={{ width: '100%' }}>
-            {MyProxiesList.map((proxy) => (
+            {MyProxiesList.map(proxy => (
               <ProxyItem
                 key={proxy.id}
                 proxy={proxy}
@@ -238,43 +227,38 @@ function MyProxies({ navigation }) {
           </ScrollView>
         </SafeAreaView>
         {selected && (
-        <TouchableOpacity
-          onPress={() => { }}
-          style={styles.button}
-          activeOpacity={0.8}
-          onLongPress={() => {
-            navigation.navigate('Test');
-          }}
-        >
-          <SuperEllipseMaskView
-            radius={{
-              topLeft: 12,
-              topRight: 12,
-              bottomRight: 12,
-              bottomLeft: 12,
-            }}
-            style={styles.buttonInner}
-          >
-            <Text style={styles.buttonText}>Купить прокси</Text>
-          </SuperEllipseMaskView>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {}}
+            style={styles.button}
+            activeOpacity={0.8}
+            onLongPress={() => {
+              navigation.navigate('Test')
+            }}>
+            <SuperEllipseMaskView
+              radius={{
+                topLeft: 12,
+                topRight: 12,
+                bottomRight: 12,
+                bottomLeft: 12,
+              }}
+              style={styles.buttonInner}>
+              <Text style={styles.buttonText}>Купить прокси</Text>
+            </SuperEllipseMaskView>
+          </TouchableOpacity>
         )}
         {proxyItemPicked && (
-        <BottomSheetForm
-          navigation={navigation}
-          sheetRef={sheetRef}
-          snapPoints={snapPoints}
-          setIsOpen={setIsOpen}
-          handleClosePress={handleClosePress}
-        >
-          {childrenItem}
-
-        </BottomSheetForm>
+          <BottomSheetForm
+            navigation={navigation}
+            sheetRef={sheetRef}
+            snapPoints={snapPoints}
+            setIsOpen={setIsOpen}
+            handleClosePress={handleClosePress}>
+            {childrenItem}
+          </BottomSheetForm>
         )}
       </View>
     </LayoutMain>
-
-  );
+  )
 }
 
-export default MyProxies;
+export default MyProxies

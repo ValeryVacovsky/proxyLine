@@ -1,13 +1,5 @@
-import * as React from 'react';
-import Svg, {
-  G,
-  Circle,
-  Path,
-  Defs,
-  LinearGradient,
-  Stop,
-  RadialGradient,
-} from 'react-native-svg';
+import * as React from 'react'
+import Svg, { G, Circle, Path, Defs, LinearGradient, Stop, RadialGradient } from 'react-native-svg'
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
 
 function ButtonOff(props) {
@@ -18,8 +10,7 @@ function ButtonOff(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <G filter="url(#a)">
         <Circle cx={80} cy={80} r={80} fill="url(#b)" />
       </G>
@@ -32,25 +23,11 @@ function ButtonOff(props) {
         fill="#fff"
       />
       <Defs>
-        <LinearGradient
-          id="b"
-          x1={80}
-          y1={160}
-          x2={80}
-          y2={0}
-          gradientUnits="userSpaceOnUse"
-        >
+        <LinearGradient id="b" x1={80} y1={160} x2={80} y2={0} gradientUnits="userSpaceOnUse">
           <Stop />
           <Stop offset={1} />
         </LinearGradient>
-        <LinearGradient
-          id="d"
-          x1={80}
-          y1={149.5}
-          x2={80}
-          y2={9.5}
-          gradientUnits="userSpaceOnUse"
-        >
+        <LinearGradient id="d" x1={80} y1={149.5} x2={80} y2={9.5} gradientUnits="userSpaceOnUse">
           <Stop stopColor="#0B0D11" />
           <Stop offset={1} stopColor="#171B24" />
         </LinearGradient>
@@ -60,14 +37,13 @@ function ButtonOff(props) {
           cy={0}
           r={1}
           gradientUnits="userSpaceOnUse"
-          gradientTransform="matrix(0 -99.5 96.0923 0 80 150)"
-        >
+          gradientTransform="matrix(0 -99.5 96.0923 0 80 150)">
           <Stop stopColor="#DE1E1E" />
           <Stop offset={1} stopColor="#DE1E1E" stopOpacity={0} />
         </RadialGradient>
       </Defs>
     </Svg>
-  );
+  )
 }
 
-export default ButtonOff;
+export default ButtonOff

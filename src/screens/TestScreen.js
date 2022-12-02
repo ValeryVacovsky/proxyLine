@@ -1,10 +1,8 @@
-import React from 'react';
-import { View } from 'react-native';
+import React from 'react'
+import { View } from 'react-native'
 
 function TestScreen() {
-  return (
-    <View style={{}} />
-  );
+  return <View style={{}} />
 }
 
-export default TestScreen;
+export default TestScreen

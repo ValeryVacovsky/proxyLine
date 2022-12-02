@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet, SafeAreaView, Text, View, TouchableOpacity,
-} from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-import LayoutMain from '../../componets/LayoutMain';
+import React, { useState } from 'react'
+import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
+import { TextInput } from 'react-native-gesture-handler'
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+import LayoutMain from '../../componets/LayoutMain'
 
 const styles = StyleSheet.create({
   container: {
@@ -88,22 +86,20 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
   },
-});
+})
 
 function MessageForm({ navigation }) {
-  const [textValue, setTextValue] = useState('');
+  const [textValue, setTextValue] = useState('')
   return (
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>
         <View>
-          <Text style={styles.text}>
-            Тема
-          </Text>
+          <Text style={styles.text}>Тема</Text>
           <View style={styles.dataProxyes}>
-            <View style={{
-              width: '90%',
-            }}
-            >
+            <View
+              style={{
+                width: '90%',
+              }}>
               <TextInput
                 style={{
                   backgroundColor: '#1E2127',
@@ -120,15 +116,13 @@ function MessageForm({ navigation }) {
               />
             </View>
           </View>
-          <Text style={styles.text}>
-            Сообщение
-          </Text>
+          <Text style={styles.text}>Сообщение</Text>
           <View style={styles.dataProxyes}>
-            <View style={{
-              alignItems: 'center',
-              width: '100%',
-            }}
-            >
+            <View
+              style={{
+                alignItems: 'center',
+                width: '100%',
+              }}>
               <TextInput
                 style={{
                   backgroundColor: '#1E2127',
@@ -144,14 +138,12 @@ function MessageForm({ navigation }) {
                 }}
                 multiline
                 numberOfLines={4}
-                onChangeText={(event) => setTextValue(event)}
+                onChangeText={event => setTextValue(event)}
                 value={textValue}
               />
             </View>
           </View>
-          <Text style={styles.textSmallh1}>
-            Требования к паролю:
-          </Text>
+          <Text style={styles.textSmallh1}>Требования к паролю:</Text>
           <Text style={styles.textSmall}>
             1. 8 и более символов.
             {'\n'}
@@ -167,8 +159,7 @@ function MessageForm({ navigation }) {
         onPress={() => navigation.navigate('Settings')}
         style={styles.button}
         activeOpacity={0.8}
-        onLongPress={() => {}}
-      >
+        onLongPress={() => {}}>
         <SuperEllipseMaskView
           radius={{
             topLeft: 12,
@@ -176,14 +167,12 @@ function MessageForm({ navigation }) {
             bottomRight: 12,
             bottomLeft: 12,
           }}
-          style={styles.buttonInner}
-        >
+          style={styles.buttonInner}>
           <Text style={styles.buttonText}>Подтвердить</Text>
         </SuperEllipseMaskView>
       </TouchableOpacity>
     </LayoutMain>
-
-  );
+  )
 }
 
-export default MessageForm;
+export default MessageForm

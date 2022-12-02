@@ -1,49 +1,46 @@
-import React from 'react';
-import {
-  StyleSheet, Text, TouchableOpacity, View,
-} from 'react-native';
+import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import { Provider } from 'react-redux';
-import AuthIntro from './screens/Auth/AuthIntro';
-import AuthRegister from './screens/Auth/AuthRegister';
-import AuthAuthauthentification from './screens/Auth/AuthAuthauthentification';
-import AuthRecover from './screens/Auth/AuthRecover';
-import AuthCode from './screens/Auth/AuthCode';
-import AuthCodeReset from './screens/Auth/AuthCodeReset';
-import Main from './screens/Main';
+import { Provider } from 'react-redux'
+import AuthIntro from './screens/Auth/AuthIntro'
+import AuthRegister from './screens/Auth/AuthRegister'
+import AuthAuthauthentification from './screens/Auth/AuthAuthauthentification'
+import AuthRecover from './screens/Auth/AuthRecover'
+import AuthCode from './screens/Auth/AuthCode'
+import AuthCodeReset from './screens/Auth/AuthCodeReset'
+import Main from './screens/Main'
 
-import configureStore from './store';
-import Proxy from './screens/Proxy';
-import HeaderProxy from './image/Svg/HeaderProxy';
-import TestScreen from './screens/TestScreen';
-import Agreement from './screens/Auth/Agreement';
-import Order from './screens/Order';
-import Countreis from './screens/Countreis';
-import Orders from './screens/Orders';
-import Balance from './screens/Balance';
-import MyProxies from './screens/MyProxy/MyProxies';
-import Notes from './screens/Notes';
-import ProxyInfo from './screens/ProxyInfo';
-import Settgings from './screens/Settings/Settgings';
-import AnswerQuastion from './screens/Settings/AnswerQuastion';
-import AccountInfo from './screens/Settings/AccountInfo';
-import ChangePassword from './screens/Settings/ChangePassword';
-import MessageForm from './screens/Settings/MessageForm';
-import Filters from './screens/Filters';
-import DeleteProxies from './screens/MyProxy/DeleteProxies';
-import ExtendProxies from './screens/MyProxy/ExtendProxies';
-import ChangeProxies from './screens/MyProxy/ChangeProxies';
+import configureStore from './store'
+import Proxy from './screens/Proxy'
+import HeaderProxy from './image/Svg/HeaderProxy'
+import TestScreen from './screens/TestScreen'
+import Agreement from './screens/Auth/Agreement'
+import Order from './screens/Order'
+import Countreis from './screens/Countreis'
+import Orders from './screens/Orders'
+import Balance from './screens/Balance'
+import MyProxies from './screens/MyProxy/MyProxies'
+import Notes from './screens/Notes'
+import ProxyInfo from './screens/ProxyInfo'
+import Settgings from './screens/Settings/Settgings'
+import AnswerQuastion from './screens/Settings/AnswerQuastion'
+import AccountInfo from './screens/Settings/AccountInfo'
+import ChangePassword from './screens/Settings/ChangePassword'
+import MessageForm from './screens/Settings/MessageForm'
+import Filters from './screens/Filters'
+import DeleteProxies from './screens/MyProxy/DeleteProxies'
+import ExtendProxies from './screens/MyProxy/ExtendProxies'
+import ChangeProxies from './screens/MyProxy/ChangeProxies'
 
 // eslint-disable-next-line no-unused-vars
-const styles = StyleSheet.create({
-});
+const styles = StyleSheet.create({})
 
-const store = configureStore();
+const store = configureStore()
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
 // eslint-disable-next-line no-unused-vars
 function App({ navigation }) {
@@ -56,14 +53,29 @@ function App({ navigation }) {
               backgroundColor: '#0F1218',
               headerTintColor: 'red',
             },
-          }}
-        >
+          }}>
           <Stack.Screen name="Intro" component={AuthIntro} options={{ headerShown: false, gestureEnabled: false }} />
-          <Stack.Screen name="Auth" component={AuthAuthauthentification} options={{ headerShown: false, gestureEnabled: false }} />
-          <Stack.Screen name="Register" component={AuthRegister} options={{ headerShown: false, gestureEnabled: false }} />
-          <Stack.Screen name="Recover" component={AuthRecover} options={{ headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen
+            name="Auth"
+            component={AuthAuthauthentification}
+            options={{ headerShown: false, gestureEnabled: false }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={AuthRegister}
+            options={{ headerShown: false, gestureEnabled: false }}
+          />
+          <Stack.Screen
+            name="Recover"
+            component={AuthRecover}
+            options={{ headerShown: false, gestureEnabled: false }}
+          />
           <Stack.Screen name="Code" component={AuthCode} options={{ headerShown: false, gestureEnabled: false }} />
-          <Stack.Screen name="CodeReset" component={AuthCodeReset} options={{ headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen
+            name="CodeReset"
+            component={AuthCodeReset}
+            options={{ headerShown: false, gestureEnabled: false }}
+          />
           <Stack.Screen name="Main" component={Main} options={{ headerShown: false, gestureEnabled: false }} />
           <Stack.Screen
             name="Proxy"
@@ -110,7 +122,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTitleAlign: 'center',
               headerTintColor: '#CBCBCB',
@@ -127,7 +138,9 @@ function App({ navigation }) {
             component={Order}
             options={{
               // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Оформление заказа</Text>,
+              headerTitle: () => (
+                <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Оформление заказа</Text>
+              ),
               // eslint-disable-next-line react/no-unstable-nested-components
               headerRight: () => (
                 <View style={{ marginLeft: 15 }}>
@@ -141,7 +154,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTitleAlign: 'center',
               headerTintColor: '#CBCBCB',
@@ -164,7 +176,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTitleAlign: 'center',
               headerTintColor: '#CBCBCB',
@@ -187,7 +198,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -209,7 +219,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -232,7 +241,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -255,7 +263,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -278,7 +285,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -302,7 +308,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTitleAlign: 'center',
               headerTintColor: '#CBCBCB',
@@ -319,13 +324,14 @@ function App({ navigation }) {
             component={AnswerQuastion}
             options={{
               // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Вопросы-ответы</Text>,
+              headerTitle: () => (
+                <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Вопросы-ответы</Text>
+              ),
               // eslint-disable-next-line react/no-unstable-nested-components
               headerStyle: {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTitleAlign: 'center',
               headerTintColor: '#CBCBCB',
@@ -347,7 +353,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -365,12 +370,13 @@ function App({ navigation }) {
             component={ChangePassword}
             options={{
               // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Сменина пароля</Text>,
+              headerTitle: () => (
+                <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Сменина пароля</Text>
+              ),
               headerStyle: {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -393,7 +399,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -416,7 +421,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -439,7 +443,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -462,7 +465,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -485,7 +487,6 @@ function App({ navigation }) {
                 height: 300,
                 borderBottomLeftRadius: 50,
                 backgroundColor: '#0F1218',
-
               },
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
@@ -501,7 +502,7 @@ function App({ navigation }) {
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
-  );
+  )
 }
 
-export default App;
+export default App

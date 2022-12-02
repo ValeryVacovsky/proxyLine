@@ -1,11 +1,6 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
+import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
 const styles = StyleSheet.create({
   container: {
@@ -44,7 +39,10 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   handDesriptionText: {
-    alignItems: 'center', fontWeight: '600', fontSize: 12, color: '#0F1218',
+    alignItems: 'center',
+    fontWeight: '600',
+    fontSize: 12,
+    color: '#0F1218',
   },
   topBlock: {
     display: 'flex',
@@ -110,61 +108,53 @@ const styles = StyleSheet.create({
     paddingBottom: 14,
     fontSize: 13,
   },
-});
+})
 
 function ProxyTariff({ navigation, proxy }) {
   return (
     <View style={styles.container}>
       <View style={styles.container2}>
         <SuperEllipseMaskView radius={8} style={styles.handDesription}>
-          <Text style={styles.handDesriptionText}>
-            {proxy.handDesription}
-          </Text>
+          <Text style={styles.handDesriptionText}>{proxy.handDesription}</Text>
         </SuperEllipseMaskView>
         <SuperEllipseMaskView
           radius={{
             topLeft: 12,
             topRight: 12,
           }}
-          style={styles.topBlock}
-        >
+          style={styles.topBlock}>
           <View>
             <Text style={styles.proxyTypeText}>
               IP
               {proxy.proxyType}
             </Text>
-            <Text style={styles.discriptionText}>
-              {proxy.discription}
-            </Text>
+            <Text style={styles.discriptionText}>{proxy.discription}</Text>
           </View>
-          <View>
-            {proxy.icon}
-          </View>
+          <View>{proxy.icon}</View>
         </SuperEllipseMaskView>
         <View style={styles.centerBlock}>
           <View>
             <Text style={styles.daysText}>{proxy.days}</Text>
           </View>
           <View>
-            <Text style={styles.priceText} onPress={() => { navigation.navigate('Balance'); }}>
-              $
-              {' '}
-              {proxy.price}
+            <Text
+              style={styles.priceText}
+              onPress={() => {
+                navigation.navigate('Balance')
+              }}>
+              $ {proxy.price}
             </Text>
           </View>
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate('Order', { proxy })}
           style={styles.buttomInner}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.buttomInnerText}>
-            Подробнее
-          </Text>
+          activeOpacity={0.8}>
+          <Text style={styles.buttomInnerText}>Подробнее</Text>
         </TouchableOpacity>
       </View>
     </View>
-  );
+  )
 }
 
-export default ProxyTariff;
+export default ProxyTariff

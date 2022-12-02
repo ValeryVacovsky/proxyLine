@@ -1,7 +1,7 @@
-import React from 'react';
-import CloudProxyIcon from '../../image/Svg/CloudProxyIcon';
-import PeopleIconProxy from '../../image/Svg/PeopleIconProxy';
-import ServerProxyIcon from '../../image/Svg/ServerProxyIcon';
+import React from 'react'
+import CloudProxyIcon from '../../image/Svg/CloudProxyIcon'
+import PeopleIconProxy from '../../image/Svg/PeopleIconProxy'
+import ServerProxyIcon from '../../image/Svg/ServerProxyIcon'
 
 const initialState = {
   ProxyList: [
@@ -10,7 +10,7 @@ const initialState = {
       proxyType: 'v4 Shared',
       discription: 'Подходит для любых целей и сайтов',
       days: '5 дней',
-      price: 0.60,
+      price: 0.6,
       handDesription: 'Используется до 3-х человек',
       icon: <PeopleIconProxy />,
     },
@@ -33,14 +33,13 @@ const initialState = {
       icon: <ServerProxyIcon />,
     },
   ],
-};
+}
 
-// eslint-disable-next-line import/prefer-default-export, default-param-last
 export const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'AUTH_STATUS':
-      return { authStatus: action.payload };
+      return { authStatus: action.payload }
     default:
-      return state;
+      return state
   }
-};
+}

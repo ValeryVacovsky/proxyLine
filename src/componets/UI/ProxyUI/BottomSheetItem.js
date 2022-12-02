@@ -1,7 +1,5 @@
-import React from 'react';
-import {
-  StyleSheet, View, Text, TouchableOpacity,
-} from 'react-native';
+import React from 'react'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 
 // eslint-disable-next-line no-unused-vars
 
@@ -98,58 +96,31 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 15,
   },
-});
+})
 
 function BottomSheetItem({ handleClosePress, navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.topTab} />
-      <TouchableOpacity
-        style={styles.topButton}
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate('Notes')}
-      >
-        <Text style={styles.topButtonText}>
-          Заметки
-        </Text>
+      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => navigation.navigate('Notes')}>
+        <Text style={styles.topButtonText}>Заметки</Text>
       </TouchableOpacity>
       <View style={{ width: '100%', alignItems: 'center' }}>
-        <TouchableOpacity
-          style={styles.centerTopButton}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.centerTopButtonText}>
-            Изменить тип
-          </Text>
+        <TouchableOpacity style={styles.centerTopButton} activeOpacity={0.8}>
+          <Text style={styles.centerTopButtonText}>Изменить тип</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.centerMiddleButton}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.centerMiddleButtonText}>
-            Удалить прокси
-          </Text>
+        <TouchableOpacity style={styles.centerMiddleButton} activeOpacity={0.8}>
+          <Text style={styles.centerMiddleButtonText}>Удалить прокси</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.centerBottomButton}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.centerBottomButtonText}>
-            Продлить прокси
-          </Text>
+        <TouchableOpacity style={styles.centerBottomButton} activeOpacity={0.8}>
+          <Text style={styles.centerBottomButtonText}>Продлить прокси</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.bottomButton}
-        onPress={() => handleClosePress()}
-        activeOpacity={0.8}
-      >
-        <Text style={styles.bottomButtonText}>
-          Отменить
-        </Text>
+      <TouchableOpacity style={styles.bottomButton} onPress={() => handleClosePress()} activeOpacity={0.8}>
+        <Text style={styles.bottomButtonText}>Отменить</Text>
       </TouchableOpacity>
     </View>
-  );
+  )
 }
 
-export default BottomSheetItem;
+export default BottomSheetItem

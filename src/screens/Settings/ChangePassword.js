@@ -1,9 +1,7 @@
-import React from 'react';
-import {
-  ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity,
-} from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import LayoutMain from '../../componets/LayoutMain';
+import React from 'react'
+import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
+import { TextInput } from 'react-native-gesture-handler'
+import LayoutMain from '../../componets/LayoutMain'
 
 const styles = StyleSheet.create({
   container: {
@@ -54,7 +52,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
-});
+})
 
 function ChangePassword({ navigation }) {
   React.useLayoutEffect(() => {
@@ -62,33 +60,25 @@ function ChangePassword({ navigation }) {
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <TouchableOpacity activeOpacity={0.7}>
-          <TouchableOpacity
-            style={styles.balanceIcon}
-            activeOpacity={0.8}
-            onPress={() => navigation.navigate('Main')}
-          >
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>
-              Выйти
-            </Text>
+          <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => navigation.navigate('Main')}>
+            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Выйти</Text>
           </TouchableOpacity>
         </TouchableOpacity>
       ),
-    });
-  }, [navigation]);
+    })
+  }, [navigation])
   return (
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View>
-            <Text style={styles.text}>
-              Новый пароль
-            </Text>
+            <Text style={styles.text}>Новый пароль</Text>
             <View style={styles.dataProxyes}>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-              }}
-              >
+              <View
+                style={{
+                  alignItems: 'center',
+                  width: '100%',
+                }}>
                 <TextInput
                   style={{
                     backgroundColor: '#1E2127',
@@ -106,15 +96,13 @@ function ChangePassword({ navigation }) {
                 />
               </View>
             </View>
-            <Text style={styles.text}>
-              Повторить новый пароль
-            </Text>
+            <Text style={styles.text}>Повторить новый пароль</Text>
             <View style={styles.dataProxyes}>
-              <View style={{
-                alignItems: 'center',
-                width: '100%',
-              }}
-              >
+              <View
+                style={{
+                  alignItems: 'center',
+                  width: '100%',
+                }}>
                 <TextInput
                   style={{
                     backgroundColor: '#1E2127',
@@ -140,23 +128,20 @@ function ChangePassword({ navigation }) {
                   borderRadius: 12,
                   marginTop: 20,
                 }}
-                activeOpacity={0.8}
-              >
-                <Text style={{
-                  fontWeight: '600',
-                  fontSize: 13,
-                  color: '#FAC637',
-                  paddingBottom: 18,
-                  paddingTop: 18,
-                }}
-                >
+                activeOpacity={0.8}>
+                <Text
+                  style={{
+                    fontWeight: '600',
+                    fontSize: 13,
+                    color: '#FAC637',
+                    paddingBottom: 18,
+                    paddingTop: 18,
+                  }}>
                   Применить
                 </Text>
               </TouchableOpacity>
             </View>
-            <Text style={styles.textSmallh1}>
-              Требования к паролю:
-            </Text>
+            <Text style={styles.textSmallh1}>Требования к паролю:</Text>
             <Text style={styles.textSmall}>
               1. 8 и более символов.
               {'\n'}
@@ -170,8 +155,7 @@ function ChangePassword({ navigation }) {
         </ScrollView>
       </SafeAreaView>
     </LayoutMain>
-
-  );
+  )
 }
 
-export default ChangePassword;
+export default ChangePassword

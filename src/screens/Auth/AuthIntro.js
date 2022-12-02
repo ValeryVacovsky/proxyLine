@@ -1,12 +1,9 @@
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
 
-import LayoutAuth from '../../componets/LayoutAuth';
+import LayoutAuth from '../../componets/LayoutAuth'
 
-import LogoIntroBig from '../../image/Svg/LogoIntroBig';
+import LogoIntroBig from '../../image/Svg/LogoIntroBig'
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -25,23 +22,24 @@ const styles = StyleSheet.create({
     width: 201,
     height: 36,
   },
-});
+})
 
 function AuthIntro({ navigation }) {
-  setTimeout(() => navigation.navigate('Auth'), 1000);
+  setTimeout(() => navigation.navigate('Auth'), 1000)
   React.useEffect(
-    () => navigation.addListener('beforeRemove', (e) => {
-      e.preventDefault();
-    }),
+    () =>
+      navigation.addListener('beforeRemove', e => {
+        e.preventDefault()
+      }),
     [navigation],
-  );
+  )
   return (
     <LayoutAuth>
       <View style={styles.header}>
         <LogoIntroBig width={201} height={36} style={styles.mainLogo} onPress={() => navigation.push('Auth')} />
       </View>
     </LayoutAuth>
-  );
+  )
 }
 
-export default AuthIntro;
+export default AuthIntro

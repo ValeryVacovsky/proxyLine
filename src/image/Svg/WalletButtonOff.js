@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 function WalletButtonOff(props) {
   return (
@@ -9,8 +9,7 @@ function WalletButtonOff(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <Path
         d="M14.917 8.167h1.25A.833.833 0 0 1 17 9v2.5a.833.833 0 0 1-.833.833h-1.25a2.083 2.083 0 0 1 0-4.166ZM13.667 1.5H2.833"
         stroke="#fff"
@@ -26,7 +25,7 @@ function WalletButtonOff(props) {
         strokeLinejoin="round"
       />
     </Svg>
-  );
+  )
 }
 
-export default WalletButtonOff;
+export default WalletButtonOff

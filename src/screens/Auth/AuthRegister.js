@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  AsyncStorage,
-} from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, AsyncStorage } from 'react-native'
+import { useForm, Controller } from 'react-hook-form'
 
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
-import LayoutAuth from '../../componets/LayoutAuth';
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+import LayoutAuth from '../../componets/LayoutAuth'
 
-import LogoIntroSmall from '../../image/Svg/LogoIntroSmall';
-import postRegisterCode from '../../api/postRegisterCode';
+import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
+import postRegisterCode from '../../api/postRegisterCode'
 
-const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -109,26 +103,30 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontSize: 12,
   },
-});
+})
 
 function AuthRegister({ navigation }) {
-  const [commonFormError, setCommonFormError] = useState('');
-  const [focusOnEmail, setFocusOnEmail] = useState(false);
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const [commonFormError, setCommonFormError] = useState('')
+  const [focusOnEmail, setFocusOnEmail] = useState(false)
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       email: '',
       password: '',
     },
-  });
-  const onSubmit = async (data) => {
-    const res = await postRegisterCode(data);
+  })
+  const onSubmit = async data => {
+    const res = await postRegisterCode(data)
     if (res.data.success === true) {
-      await AsyncStorage.setItem('@sign_up_email', data.email);
-      navigation.navigate('Code');
+      await AsyncStorage.setItem('@sign_up_email', data.email)
+      navigation.navigate('Code')
     } else {
-      setCommonFormError('Invalid email or password');
+      setCommonFormError('Invalid email or password')
     }
-  };
+  }
   // () => navigation.navigate('Intro')
 
   return (
@@ -138,9 +136,11 @@ function AuthRegister({ navigation }) {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text style={styles.authLogo} onPress={() => navigation.navigate('Code')}>Регистрация</Text>
+          <Text style={styles.authLogo} onPress={() => navigation.navigate('Code')}>
+            Регистрация
+          </Text>
           <Text style={styles.authUnderLogo}>Пароль будет отправлен на Ваш email</Text>
-          {commonFormError && (<Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>)}
+          {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>}
           <Text style={styles.label}>Email</Text>
           <Controller
             control={control}
@@ -177,8 +177,7 @@ function AuthRegister({ navigation }) {
           <Text style={styles.publickOfferText}>
             Регистрируясь вы принимаете&#160;
             <Text onPress={() => navigation.navigate('Agrement')} style={styles.publickOfferTextUnderline}>
-              публичную оферту
-              и политику конфиденциальности
+              публичную оферту и политику конфиденциальности
             </Text>
           </Text>
         </View>
@@ -186,17 +185,19 @@ function AuthRegister({ navigation }) {
           <Text style={styles.haveAcc}>
             {' '}
             Уже есть аккаунт? &#160;
-            <Text style={styles.auth} onPress={() => navigation.navigate('Auth')}>Авторизация</Text>
+            <Text style={styles.auth} onPress={() => navigation.navigate('Auth')}>
+              Авторизация
+            </Text>
           </Text>
           <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
-            <SuperEllipseMaskView radius={{
-              topLeft: 12,
-              topRight: 12,
-              bottomLeft: 12,
-              bottomRight: 12,
-              marginBottom: 20,
-            }}
-            >
+            <SuperEllipseMaskView
+              radius={{
+                topLeft: 12,
+                topRight: 12,
+                bottomLeft: 12,
+                bottomRight: 12,
+                marginBottom: 20,
+              }}>
               <View style={styles.buttonInner}>
                 <Text style={styles.buttonInnerText}>Зарегистрироваться</Text>
               </View>
@@ -205,7 +206,7 @@ function AuthRegister({ navigation }) {
         </View>
       </View>
     </LayoutAuth>
-  );
+  )
 }
 
-export default AuthRegister;
+export default AuthRegister

@@ -1,14 +1,5 @@
-import * as React from 'react';
-import Svg, {
-  G,
-  Mask,
-  Path,
-  Defs,
-  LinearGradient,
-  Stop,
-  ClipPath,
-  Rect,
-} from 'react-native-svg';
+import * as React from 'react'
+import Svg, { G, Mask, Path, Defs, LinearGradient, Stop, ClipPath, Rect } from 'react-native-svg'
 
 function FlagUsaSmall(props) {
   return (
@@ -20,8 +11,7 @@ function FlagUsaSmall(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <G clipPath="url(#a)">
         <Mask
           id="b"
@@ -34,17 +24,11 @@ function FlagUsaSmall(props) {
           // eslint-disable-next-line react/destructuring-assignment
           width={props.width}
           // eslint-disable-next-line react/destructuring-assignment
-          height={props.height}
-        >
+          height={props.height}>
           <Path fill="#fff" d="M0 .5h16v12H0z" />
         </Mask>
         <G mask="url(#b)">
-          <Path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M0 .5h16v12H0V.5Z"
-            fill="#E31D1C"
-          />
+          <Path fillRule="evenodd" clipRule="evenodd" d="M0 .5h16v12H0V.5Z" fill="#E31D1C" />
           <Path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -76,8 +60,7 @@ function FlagUsaSmall(props) {
           x2={0}
           // eslint-disable-next-line react/destructuring-assignment
           y2={props.height}
-          gradientUnits="userSpaceOnUse"
-        >
+          gradientUnits="userSpaceOnUse">
           <Stop stopColor="#fff" stopOpacity={0.3} />
           <Stop offset={0.263} stopOpacity={0.27} />
           <Stop offset={0.37} stopColor="#fff" stopOpacity={0.26} />
@@ -100,7 +83,7 @@ function FlagUsaSmall(props) {
         </ClipPath>
       </Defs>
     </Svg>
-  );
+  )
 }
 
-export default FlagUsaSmall;
+export default FlagUsaSmall

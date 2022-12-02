@@ -1,7 +1,5 @@
-import React from 'react';
-import {
-  StyleSheet, View, Text, TouchableOpacity,
-} from 'react-native';
+import React from 'react'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -51,38 +49,27 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 100,
   },
-});
+})
 
-function BottomSheetSelectForm({
-  handleClosePress, setSelectedProxies, move, selected,
-}) {
+function BottomSheetSelectForm({ handleClosePress, setSelectedProxies, move, selected }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.topButton}
-        activeOpacity={0.8}
-        onPress={() => {}}
-      >
+      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => {}}>
         <Text style={styles.topButtonText}>
-          {move}
-          {' '}
-          выбранные
-          (
-          {selected}
-          )
+          {move} выбранные ({selected})
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.bottomButton}
-        onPress={() => { handleClosePress(); setSelectedProxies([]); }}
-        activeOpacity={0.8}
-      >
-        <Text style={styles.bottomButtonText}>
-          Отменить
-        </Text>
+        onPress={() => {
+          handleClosePress()
+          setSelectedProxies([])
+        }}
+        activeOpacity={0.8}>
+        <Text style={styles.bottomButtonText}>Отменить</Text>
       </TouchableOpacity>
     </View>
-  );
+  )
 }
 
-export default BottomSheetSelectForm;
+export default BottomSheetSelectForm

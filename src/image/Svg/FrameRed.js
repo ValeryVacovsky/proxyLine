@@ -1,7 +1,5 @@
-import * as React from 'react';
-import Svg, {
-  Rect, Defs, RadialGradient, Stop,
-} from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Rect, Defs, RadialGradient, Stop } from 'react-native-svg'
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
 
 function FrameRed(props) {
@@ -12,8 +10,7 @@ function FrameRed(props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
+      {...props}>
       <Rect y={0.5} width={10} height={10} rx={5} fill="url(#a)" />
       <Defs>
         <RadialGradient
@@ -22,14 +19,13 @@ function FrameRed(props) {
           cy={0}
           r={1}
           gradientUnits="userSpaceOnUse"
-          gradientTransform="matrix(0 5 -5 0 5 5.5)"
-        >
+          gradientTransform="matrix(0 5 -5 0 5 5.5)">
           <Stop stopColor="#FB3B3B" />
           <Stop offset={1} stopColor="#FF3F3F" />
         </RadialGradient>
       </Defs>
     </Svg>
-  );
+  )
 }
 
-export default FrameRed;
+export default FrameRed

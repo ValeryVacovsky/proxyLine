@@ -1,14 +1,15 @@
-import axios from 'axios';
+import axios from 'axios'
 
-const baseUrl = 'https://proxydbtest.proxyline.net';
+const baseUrl = 'https://proxydbtest.proxyline.net'
 
-const getContryAvailability = () => axios({
-  method: 'get',
-  url: `${baseUrl}/projectapi/v1/1/country-availability/`,
-  headers: {
-    'Content-Type': 'application/json',
-    apikey: 'project-1-apikey',
-  },
-});
+const getContryAvailability = () =>
+  axios({
+    method: 'get',
+    url: `${baseUrl}/projectapi/v1/1/country-availability/`,
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: 'project-1-apikey',
+    },
+  })
 
-export default getContryAvailability;
+export default getContryAvailability
