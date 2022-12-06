@@ -1,16 +1,9 @@
 import * as React from 'react'
 import Svg, { Rect, Defs, RadialGradient, Stop } from 'react-native-svg'
-/* SVGR has dropped some elements not supported by react-native-svg: filter */
 
 function FrameRed(props) {
   return (
-    <Svg
-      width={10}
-      height={11}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}>
+    <Svg width={10} height={11} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <Rect y={0.5} width={10} height={10} rx={5} fill="url(#a)" />
       <Defs>
         <RadialGradient

@@ -157,6 +157,7 @@ function AuthRecover({ navigation }) {
             )}
             name="email"
           />
+          {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите почту</Text>}
         </View>
         <View style={{ marginBottom: 25 }}>
           <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>

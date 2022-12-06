@@ -3,13 +3,7 @@ import Svg, { Mask, Path, G } from 'react-native-svg'
 
 function FlagUseBig(props) {
   return (
-    <Svg
-      width={32}
-      height={24}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}>
+    <Svg width={32} height={24} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <Mask
         id="a"
         style={{

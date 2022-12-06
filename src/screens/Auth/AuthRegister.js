@@ -174,6 +174,7 @@ function AuthRegister({ navigation }) {
             )}
             name="email"
           />
+          {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите почту</Text>}
           <Text style={styles.publickOfferText}>
             Регистрируясь вы принимаете&#160;
             <Text onPress={() => navigation.navigate('Agrement')} style={styles.publickOfferTextUnderline}>

@@ -122,8 +122,8 @@ function AnswerQuastion({ navigation }) {
           <TouchableOpacity
             style={styles.balanceIcon}
             activeOpacity={0.8}
-            onPress={() => navigation.navigate('Balance')}>
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Аккаунт</Text>
+            onPress={() => navigation.navigate('Message')}>
+            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Написать нам</Text>
           </TouchableOpacity>
         </View>
       ),

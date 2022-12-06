@@ -4,13 +4,7 @@ import Svg, { G, Circle, Path, Defs, LinearGradient, Stop, RadialGradient } from
 
 function ButtonOff(props) {
   return (
-    <Svg
-      width={160}
-      height={160}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}>
+    <Svg width={160} height={160} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <G filter="url(#a)">
         <Circle cx={80} cy={80} r={80} fill="url(#b)" />
       </G>

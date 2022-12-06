@@ -55,18 +55,6 @@ const styles = StyleSheet.create({
 })
 
 function ChangePassword({ navigation }) {
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
-      headerRight: () => (
-        <TouchableOpacity activeOpacity={0.7}>
-          <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => navigation.navigate('Main')}>
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Выйти</Text>
-          </TouchableOpacity>
-        </TouchableOpacity>
-      ),
-    })
-  }, [navigation])
   return (
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>
@@ -128,7 +116,8 @@ function ChangePassword({ navigation }) {
                   borderRadius: 12,
                   marginTop: 20,
                 }}
-                activeOpacity={0.8}>
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('Settings')}>
                 <Text
                   style={{
                     fontWeight: '600',

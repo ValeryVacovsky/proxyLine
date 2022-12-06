@@ -213,6 +213,7 @@ function ExtendProxies({ navigation }) {
                 handleClosePress={handleClosePress}
                 onChange={onChange}
                 selectedProxies={selectedProxies}
+                navigation={navigation}
               />
             ))}
           </ScrollView>

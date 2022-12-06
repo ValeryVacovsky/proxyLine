@@ -7,9 +7,11 @@ import LayoutMain from '../componets/LayoutMain'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
   },
   scrollView: {
     marginTop: 20,
+    width: '100%',
   },
   text: {
     fontSize: 42,

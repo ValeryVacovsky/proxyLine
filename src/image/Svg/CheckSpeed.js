@@ -3,13 +3,7 @@ import Svg, { Path } from 'react-native-svg'
 
 function CheckSpeed(props) {
   return (
-    <Svg
-      width={24}
-      height={23}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}>
+    <Svg width={24} height={23} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <Path
         d="M12 14.047a2.042 2.042 0 1 0 0-4.083 2.042 2.042 0 0 0 0 4.083ZM12 5.005v1.167M7.053 7.059l.817.828M13.447 10.559l3.5-3.5M7.917 17.255h8.166M19 12.005h-1.167M6.167 12.005H5"
         stroke="#FAC637"

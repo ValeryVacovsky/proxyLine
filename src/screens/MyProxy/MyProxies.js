@@ -29,7 +29,7 @@ const MyProxiesList = [
   },
   {
     id: 3,
-    name: 'United states of Russia',
+    name: 'United states of America',
     days: 5,
     IP: 'IPv4',
     IpAdress: '136.117.121.183',
@@ -222,6 +222,7 @@ function MyProxies({ navigation }) {
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
                 childrenItem={childrenItem}
+                navigation={navigation}
               />
             ))}
           </ScrollView>

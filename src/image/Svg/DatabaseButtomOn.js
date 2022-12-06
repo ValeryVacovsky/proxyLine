@@ -3,13 +3,7 @@ import Svg, { Path } from 'react-native-svg'
 
 function DatabaseButtomOn(props) {
   return (
-    <Svg
-      width={20}
-      height={20}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}>
+    <Svg width={20} height={20} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <Path
         d="M3.125 6.058c0-.121.067-.32.378-.583.308-.26.79-.523 1.441-.755 1.297-.463 3.13-.762 5.184-.762 2.054 0 3.887.299 5.184.762.651.232 1.134.495 1.442.755.31.262.377.462.377.583 0 .12-.067.32-.377.583-.308.26-.79.522-1.442.755-1.297.463-3.13.761-5.184.761-2.054 0-3.887-.298-5.184-.761-.65-.233-1.133-.495-1.441-.755-.311-.263-.378-.462-.378-.583Z"
         fill="#FAC637"

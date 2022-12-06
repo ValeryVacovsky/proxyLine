@@ -274,7 +274,7 @@ function ProxyInfo({ navigation }) {
                     width: '90%',
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Заказ от</Text>
-                  <Text style={{ fontWeight: '600', fontSize: 13, color: 'white' }}>09.09.2022, 12:33</Text>
+                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>09.09.2022, 12:33</Text>
                 </View>
               </View>
               <View

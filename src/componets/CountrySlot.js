@@ -14,10 +14,11 @@ function CountrySlot() {
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'space-around',
           paddingTop: 18,
           paddingBottom: 18,
           borderBottomColor: 'white',
+          marginHorizontal: 20,
         }}
         activeOpacity={0.8}>
         <Text

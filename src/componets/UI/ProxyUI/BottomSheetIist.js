@@ -111,16 +111,16 @@ function BottomSheetList({ handleClosePress, navigation }) {
           style={styles.centerMiddleButton}
           activeOpacity={0.8}
           onPress={() => navigation.navigate('Delete')}>
-          <Text style={styles.centerMiddleButtonText}>Удалить прокси</Text>
+          <Text style={styles.centerMiddleButtonText}>Удалить </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.centerBottomButton} activeOpacity={0.8}>
           <Text style={styles.centerBottomButtonText} onPress={() => navigation.navigate('Extend')}>
-            Продлить прокси
+            Продлить
           </Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => navigation.navigate('Info')}>
-        <Text style={styles.topButtonText}>Продлить</Text>
+        <Text style={styles.topButtonText}>Подробнее</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.bottomButton} onPress={() => handleClosePress()} activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>Отменить</Text>

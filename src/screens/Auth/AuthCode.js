@@ -137,6 +137,7 @@ function AuthCode({ navigation }) {
             )}
             name="email_code"
           />
+          {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите код</Text>}
         </View>
         <View style={{ marginBottom: 25 }}>
           <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>

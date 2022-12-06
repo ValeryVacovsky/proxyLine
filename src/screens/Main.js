@@ -218,7 +218,7 @@ function Main({ navigation }) {
             {statusConect === 'on' && (
               <TouchableOpacity onPress={() => setStatusConect('off')} activeOpacity={0.8}>
                 <Image
-                  source={ButtonOn}
+                  source={ButtonOff}
                   style={{ width: 200, height: 200, alignItems: 'center' }}
                   onPress={() => setStatusConect('on')}
                 />
@@ -227,7 +227,7 @@ function Main({ navigation }) {
             {statusConect === 'off' && (
               <TouchableOpacity onPress={() => setStatusConect('on')} activeOpacity={0.8}>
                 <Image
-                  source={ButtonOff}
+                  source={ButtonOn}
                   style={{ width: 200, height: 200, alignItems: 'center' }}
                   onPress={() => setStatusConect('on')}
                 />
@@ -292,7 +292,7 @@ function Main({ navigation }) {
                           fontWeight: '600',
                           fontSize: 15,
                         }}>
-                        Не подключено
+                        Нет подключения
                       </Text>
                     )}
                     {statusConect === 'none' && (

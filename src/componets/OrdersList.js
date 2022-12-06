@@ -67,10 +67,25 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginBottom: 5,
   },
+  IdNumberSmall: {
+    color: '#CBCBCB',
+    fontSize: 12,
+    fontWeight: '400',
+    lineHeight: 15,
+    textAlign: 'right',
+    marginBottom: 5,
+  },
   calenderTime: {
     color: '#CBCBCB',
     fontSize: 12,
     fontWeight: '600',
+    lineHeight: 15,
+    textAlign: 'right',
+  },
+  calenderTimeSmall: {
+    color: '#CBCBCB',
+    fontSize: 12,
+    fontWeight: '400',
     lineHeight: 15,
     textAlign: 'right',
   },
@@ -115,8 +130,14 @@ function OrdersList() {
             <Text style={styles.data}>От 19.03.2022 19:04</Text>
           </View>
           <View>
-            <Text style={styles.IdNumber}>ID 4829002398</Text>
-            <Text style={styles.calenderTime}>Осталось 5 дней 6 часов</Text>
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+              <Text style={styles.IdNumberSmall}>ID </Text>
+              <Text style={styles.IdNumber}> 4829002398</Text>
+            </View>
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+              <Text style={styles.calenderTimeSmall}>Осталось </Text>
+              <Text style={styles.calenderTime}> 5 дней 6 часов</Text>
+            </View>
           </View>
         </View>
         <View

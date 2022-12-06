@@ -3,13 +3,7 @@ import Svg, { Path } from 'react-native-svg'
 
 function CheckProxy(props) {
   return (
-    <Svg
-      width={24}
-      height={24}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}>
+    <Svg width={24} height={24} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <Path
         d="M6.178 3.833H3.833A2.325 2.325 0 0 0 1.5 6.168v14a2.323 2.323 0 0 0 2.333 2.321h5.834"
         stroke="#FAC637"

@@ -1,16 +1,9 @@
 import * as React from 'react'
 import Svg, { G, Rect, Defs, LinearGradient, Stop } from 'react-native-svg'
-/* SVGR has dropped some elements not supported by react-native-svg: filter */
 
 function LightRadioUncheked(props) {
   return (
-    <Svg
-      width={20}
-      height={20}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}>
+    <Svg width={20} height={20} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <G filter="url(#a)">
         <Rect width={20} height={20} rx={10} fill="url(#b)" />
         <G filter="url(#c)">

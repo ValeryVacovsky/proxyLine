@@ -71,7 +71,7 @@ function BalanceList() {
             }}>
             <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 13 }}>Сумма</Text>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>$ 10.00</Text>
+              <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ 10.00</Text>
             </View>
           </View>
         </View>

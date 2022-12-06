@@ -112,7 +112,7 @@ function Notes({ navigation }) {
               bottomLeft: 12,
             }}
             style={styles.buttonInner}>
-            <Text style={styles.buttonText}>Подтвердить</Text>
+            <Text style={styles.buttonText}>Закрыть</Text>
           </SuperEllipseMaskView>
         </TouchableOpacity>
       ) : (

@@ -98,7 +98,7 @@ function OrderItem({ navigation, order, setScrolling }) {
             paddingTop: 13,
             paddingBottom: 13,
           }}
-          onPress={() => navigation.navigate('Countries', { params: setCountry() })}
+          onPress={() => navigation.navigate('Countries', { params: setCountry })}
           activeOpacity={0.8}>
           <View>
             <Text style={{ color: '#CBCBCB', fontSize: 15, fontWeight: '600' }}>Страна</Text>
@@ -124,8 +124,8 @@ function OrderItem({ navigation, order, setScrolling }) {
             justifyContent: 'space-between',
             paddingTop: 10,
           }}>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>5 дней</Text>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>360 дней</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 12 }}>5 дней</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 12 }}>360 дней</Text>
         </View>
         <SliderExample days={days} setDays={setDays} setScrolling={setScrolling} />
         <View
@@ -178,8 +178,8 @@ function OrderItem({ navigation, order, setScrolling }) {
                         color: 'white',
                         paddingTop: 10,
                         paddingBottom: 10,
-                        paddingLeft: 14,
-                        paddingRight: 14,
+                        paddingLeft: 15,
+                        paddingRight: 15,
                         fontSize: 12,
                         fontWeight: '600',
                       }
@@ -197,11 +197,7 @@ function OrderItem({ navigation, order, setScrolling }) {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={
-                typeServer.SOCKS5 === false
-                  ? { marginLeft: 10 }
-                  : { marginLeft: 10, backgroundColor: 'rgba(51, 51, 51, 0.5)', borderRadius: 50 }
-              }
+              style={typeServer.SOCKS5 === false ? {} : { backgroundColor: 'rgba(51, 51, 51, 0.5)', borderRadius: 50 }}
               // eslint-disable-next-line no-return-assign
               onPress={() =>
                 setTypeServer(prevState => ({
@@ -218,8 +214,8 @@ function OrderItem({ navigation, order, setScrolling }) {
                         color: 'white',
                         paddingTop: 10,
                         paddingBottom: 10,
-                        paddingLeft: 14,
-                        paddingRight: 14,
+                        paddingLeft: 15,
+                        paddingRight: 15,
                         fontSize: 12,
                         fontWeight: '600',
                       }
@@ -227,8 +223,8 @@ function OrderItem({ navigation, order, setScrolling }) {
                         color: '#CBCBCB',
                         paddingTop: 10,
                         paddingBottom: 10,
-                        paddingLeft: 14,
-                        paddingRight: 14,
+                        paddingLeft: 15,
+                        paddingRight: 15,
                         fontSize: 12,
                         fontWeight: '600',
                       }
@@ -245,6 +241,7 @@ function OrderItem({ navigation, order, setScrolling }) {
             width: '100%',
             justifyContent: 'space-between',
             alignItems: 'center',
+            marginBottom: 10,
           }}>
           <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Колличество</Text>
           <View
@@ -340,7 +337,7 @@ function OrderItem({ navigation, order, setScrolling }) {
             paddingBottom: 13,
           }}>
           <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Итого к оплате</Text>
-          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ {totalPrice}</Text>
+          <Text style={{ color: 'white', fontWeight: '700', fontSize: 18 }}>$ {totalPrice}</Text>
         </View>
         <TouchableOpacity
           onPress={() => {}}

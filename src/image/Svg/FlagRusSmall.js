@@ -3,13 +3,7 @@ import Svg, { Mask, Path, G } from 'react-native-svg'
 
 function FlagRusSmall(props) {
   return (
-    <Svg
-      width={16}
-      height={13}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}>
+    <Svg width={16} height={13} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <Mask
         id="a"
         style={{
