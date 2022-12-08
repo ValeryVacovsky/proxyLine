@@ -18,6 +18,11 @@
 		FA91BEB62919424A00501F65 /* RNIpSecVpn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91BEB42919424A00501F65 /* RNIpSecVpn.swift */; };
 		FA91BEB92919435000501F65 /* RCTVpnModule.m in Sources */ = {isa = PBXBuildFile; fileRef = FA91BEB82919435000501F65 /* RCTVpnModule.m */; };
 		FA91BEBA2919435000501F65 /* RCTVpnModule.m in Sources */ = {isa = PBXBuildFile; fileRef = FA91BEB82919435000501F65 /* RCTVpnModule.m */; };
+		FACF69392940FFCF00D7FB9F /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACF69382940FFCF00D7FB9F /* Observer.swift */; };
+		FACF693B2941001B00D7FB9F /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACF693A2941001B00D7FB9F /* KeychainItemAccessibility.swift */; };
+		FACF693D2941004200D7FB9F /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACF693C2941004200D7FB9F /* KeychainWrapper.swift */; };
+		FACF693F2941007500D7FB9F /* VPNManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACF693E2941007500D7FB9F /* VPNManager.swift */; };
+		FACF69412941009800D7FB9F /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACF69402941009800D7FB9F /* Configuration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +77,11 @@
 		FA91BEB72919431900501F65 /* RCTVpnModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTVpnModule.h; sourceTree = "<group>"; };
 		FA91BEB82919435000501F65 /* RCTVpnModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTVpnModule.m; sourceTree = "<group>"; };
 		FA91BEBB29194BD500501F65 /* proxyLine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = proxyLine.entitlements; path = proxyLine/proxyLine.entitlements; sourceTree = "<group>"; };
+		FACF69382940FFCF00D7FB9F /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		FACF693A2941001B00D7FB9F /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		FACF693C2941004200D7FB9F /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		FACF693E2941007500D7FB9F /* VPNManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNManager.swift; sourceTree = "<group>"; };
+		FACF69402941009800D7FB9F /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +133,11 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				FA91BEB72919431900501F65 /* RCTVpnModule.h */,
 				FA91BEB82919435000501F65 /* RCTVpnModule.m */,
+				FACF693A2941001B00D7FB9F /* KeychainItemAccessibility.swift */,
+				FACF69382940FFCF00D7FB9F /* Observer.swift */,
+				FACF693C2941004200D7FB9F /* KeychainWrapper.swift */,
+				FACF693E2941007500D7FB9F /* VPNManager.swift */,
+				FACF69402941009800D7FB9F /* Configuration.swift */,
 			);
 			name = proxyLine;
 			sourceTree = "<group>";
@@ -464,9 +479,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				FACF69392940FFCF00D7FB9F /* Observer.swift in Sources */,
+				FACF693F2941007500D7FB9F /* VPNManager.swift in Sources */,
+				FACF69412941009800D7FB9F /* Configuration.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				FACF693D2941004200D7FB9F /* KeychainWrapper.swift in Sources */,
 				FA91BEB52919424A00501F65 /* RNIpSecVpn.swift in Sources */,
 				FA91BEB92919435000501F65 /* RCTVpnModule.m in Sources */,
+				FACF693B2941001B00D7FB9F /* KeychainItemAccessibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

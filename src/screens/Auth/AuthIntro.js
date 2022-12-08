@@ -39,6 +39,7 @@ function AuthIntro({ navigation }) {
       }
     }
     void comeIn()
+    setTimeout(() => navigation.navigate('Test'), 1000)
   }, [dispatch, language, navigation])
 
   return <View style={styles.sectionContainer} />

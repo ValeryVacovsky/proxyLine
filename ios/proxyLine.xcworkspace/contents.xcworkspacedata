@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:KeychainItemAccessibility.swift">
+   </FileRef>
+   <FileRef
       location = "group:proxyLine.xcodeproj">
    </FileRef>
    <FileRef
