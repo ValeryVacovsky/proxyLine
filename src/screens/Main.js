@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
@@ -17,168 +17,35 @@ import UserNavigation from '../componets/UserNavigation'
 import ButtonOn from '../image/ButtonOn.png'
 import ButtonNone from '../image/ButtonNone.png'
 import ButtonOff from '../image/ButtonOff.png'
+import { VPN, VPNStatuses } from '../services/VPNManager'
 // import postAuth from "../api";
 
 function Main({ navigation }) {
   const [statusConect, setStatusConect] = useState('off')
-  const styles = StyleSheet.create({
-    mainLogo: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: 132,
-      height: 24,
-    },
-    header: {
-      marginBottom: 70,
-      paddingTop: 50,
-      marginTop: 25,
-    },
-    authForm: {
-      flex: 1,
-      paddingLeft: 30,
-      paddingRight: 30,
-      justifyContent: 'space-between',
-      width: '100%',
-    },
-    buyProxy: {
-      display: 'flex',
-      flexDirection: 'row',
-      backgroundColor: '#1E2127',
-      paddingTop: 15,
-      paddingBottom: 15,
-      paddingLeft: 20,
-      paddingRight: 14,
-      marginTop: 1,
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      // borderTopRightRadius: 14,
-      // borderTopStartRadius: 14,
-    },
-    buyProxyBottom: {
-      display: 'flex',
-      flexDirection: 'row',
-      backgroundColor: '#1E2127',
-      paddingTop: 15,
-      paddingBottom: 15,
-      paddingLeft: 20,
-      paddingRight: 14,
-      marginTop: 1,
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      // borderBottomRightRadius: 14,
-      // borderBottomStartRadius: 14,
-    },
-    buyProxyText: {
-      display: 'flex',
-      justifyContent: 'center',
-      color: '#FAC637',
-      textAlign: 'center',
-      fontWeight: '600',
-    },
-    timeCalendar: {
-      alignItems: 'center',
-      paddingLeft: 20,
-      paddingRight: 20,
-      paddingTop: 3,
-      paddingBottom: 4,
-      backgroundColor: 'rgba(99, 99, 99, 0.30)',
-      width: '40%',
-      left: '30%',
-      borderBottomLeftRadius: 8,
-      borderBottomRightRadius: 8,
-    },
-    Ip: {
-      color: '#0F1218',
-      paddingBottom: 4,
-      paddingTop: 4,
-      paddingLeft: 8,
-      paddingRight: 8,
-      backgroundColor: '#FAC637',
-      borderRadius: 20,
-      fontWeight: '700',
-      fontSize: 11,
-      marginBottom: 6,
-    },
-    countries: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    countryText: {
-      paddingBottom: 15,
-      textAlign: 'center',
-      color: 'white',
-      fontWeight: '600',
-      fontSize: 14,
-      marginRight: 5,
-      alignItems: 'center',
-    },
-    IpAdress: {
-      paddingBottom: 5,
-      textAlign: 'center',
-      color: 'white',
-      fontWeight: '700',
-      fontSize: 24,
-    },
-    yourIP: {
-      paddingBottom: 5,
-      textAlign: 'center',
-      color: 'white',
-      fontWeight: '400',
-      fontSize: 15,
-    },
-    containerInfo: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    statusConect: {
-      color: '#CBCBCB',
-      fontWeight: '400',
-      fontSize: 12,
-    },
-    IPContainer: {
-      display: 'flex',
-      backgroundColor: '#FAC637',
-      borderRadius: 20,
-      alignItems: 'center',
-    },
-    IPText: {
-      color: '#0F1218',
-      paddingBottom: 4,
-      paddingTop: 4,
-      paddingLeft: 8,
-      paddingRight: 8,
-      fontWeight: '700',
-      fontSize: 11,
-    },
-    http: {
-      color: 'white',
-      marginLeft: 6,
-      fontWeight: '600',
-      fontSize: 13,
-    },
-    frameShadowGreen: {
-      shadowColor:
-        'rgba(255, 255, 255, 0.4), 4px 4px 30px rgba(147, 222, 30, 0.4), 0px 0px 50px #93DE1E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
-      shadowOffset: { width: 0, height: 0 },
-      shadowOpacity: 1,
-      shadowRadius: 10,
-    },
-    frameShadowRed: {
-      shadowColor:
-        'rgba(255, 255, 255, 0.4), 4px 4px 30px rgba(147, 222, 30, 0.4), 0px 0px 50px #93DE1E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
-      shadowOffset: { width: 0, height: 0 },
-      shadowOpacity: 1,
-      shadowRadius: 10,
-    },
-    frameShadowNone: {
-      shadowColor:
-        'rgba(250, 198, 55, 0.6), 4px 4px 30px rgba(222, 134, 30, 0.4), 0px 0px 50px #DEA81E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
-      shadowOffset: { width: 0, height: 0 },
-      shadowOpacity: 1,
-      shadowRadius: 10,
-    },
-  })
+
+  useEffect(() => {
+    VPN.getStatus().then(status => {
+      setStatusConect(status === VPNStatuses.connected ? 'on' : 'off')
+    })
+  }, [])
+
+  const handleConnect = async () => {
+    try {
+      await VPN.connect('164.92.138.94', '123ZQvboM7aI+PO6dtHsCgXpnX4WxDK0Uz+ho6mY48fh0g=')
+      setStatusConect('on')
+    } catch (e) {
+      setStatusConect('off')
+    }
+  }
+
+  const handleDisconnect = async () => {
+    const status = await VPN.getStatus()
+    if (status === VPNStatuses.connected) {
+      VPN.disconnect()
+      setStatusConect('off')
+    }
+  }
+
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -216,7 +83,7 @@ function Main({ navigation }) {
           </View>
           <View style={{ marginBottom: 60, alignItems: 'center', marginTop: 40 }}>
             {statusConect === 'on' && (
-              <TouchableOpacity onPress={() => setStatusConect('off')} activeOpacity={0.8}>
+              <TouchableOpacity onPress={handleDisconnect} activeOpacity={0.8}>
                 <Image
                   source={ButtonOff}
                   style={{ width: 200, height: 200, alignItems: 'center' }}
@@ -225,7 +92,7 @@ function Main({ navigation }) {
               </TouchableOpacity>
             )}
             {statusConect === 'off' && (
-              <TouchableOpacity onPress={() => setStatusConect('on')} activeOpacity={0.8}>
+              <TouchableOpacity onPress={handleConnect} activeOpacity={0.8}>
                 <Image
                   source={ButtonOn}
                   style={{ width: 200, height: 200, alignItems: 'center' }}
@@ -440,5 +307,164 @@ function Main({ navigation }) {
     </LayoutAuth>
   )
 }
+
+const styles = StyleSheet.create({
+  mainLogo: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 132,
+    height: 24,
+  },
+  header: {
+    marginBottom: 70,
+    paddingTop: 50,
+    marginTop: 25,
+  },
+  authForm: {
+    flex: 1,
+    paddingLeft: 30,
+    paddingRight: 30,
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  buyProxy: {
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: '#1E2127',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 14,
+    marginTop: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // borderTopRightRadius: 14,
+    // borderTopStartRadius: 14,
+  },
+  buyProxyBottom: {
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: '#1E2127',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 14,
+    marginTop: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // borderBottomRightRadius: 14,
+    // borderBottomStartRadius: 14,
+  },
+  buyProxyText: {
+    display: 'flex',
+    justifyContent: 'center',
+    color: '#FAC637',
+    textAlign: 'center',
+    fontWeight: '600',
+  },
+  timeCalendar: {
+    alignItems: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 3,
+    paddingBottom: 4,
+    backgroundColor: 'rgba(99, 99, 99, 0.30)',
+    width: '40%',
+    left: '30%',
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  Ip: {
+    color: '#0F1218',
+    paddingBottom: 4,
+    paddingTop: 4,
+    paddingLeft: 8,
+    paddingRight: 8,
+    backgroundColor: '#FAC637',
+    borderRadius: 20,
+    fontWeight: '700',
+    fontSize: 11,
+    marginBottom: 6,
+  },
+  countries: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  countryText: {
+    paddingBottom: 15,
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: '600',
+    fontSize: 14,
+    marginRight: 5,
+    alignItems: 'center',
+  },
+  IpAdress: {
+    paddingBottom: 5,
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 24,
+  },
+  yourIP: {
+    paddingBottom: 5,
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: '400',
+    fontSize: 15,
+  },
+  containerInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  statusConect: {
+    color: '#CBCBCB',
+    fontWeight: '400',
+    fontSize: 12,
+  },
+  IPContainer: {
+    display: 'flex',
+    backgroundColor: '#FAC637',
+    borderRadius: 20,
+    alignItems: 'center',
+  },
+  IPText: {
+    color: '#0F1218',
+    paddingBottom: 4,
+    paddingTop: 4,
+    paddingLeft: 8,
+    paddingRight: 8,
+    fontWeight: '700',
+    fontSize: 11,
+  },
+  http: {
+    color: 'white',
+    marginLeft: 6,
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  frameShadowGreen: {
+    shadowColor:
+      'rgba(255, 255, 255, 0.4), 4px 4px 30px rgba(147, 222, 30, 0.4), 0px 0px 50px #93DE1E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+  },
+  frameShadowRed: {
+    shadowColor:
+      'rgba(255, 255, 255, 0.4), 4px 4px 30px rgba(147, 222, 30, 0.4), 0px 0px 50px #93DE1E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+  },
+  frameShadowNone: {
+    shadowColor:
+      'rgba(250, 198, 55, 0.6), 4px 4px 30px rgba(222, 134, 30, 0.4), 0px 0px 50px #DEA81E, inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2)',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+  },
+})
 
 export default Main
