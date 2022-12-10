@@ -26,6 +26,7 @@ import useProxyList from '../hooks/useProxyList'
 import useCountries from '../hooks/useCountries'
 import { useListOrdersUnpay } from '../hooks/useListOrdersUnpay'
 const heightOffScreen = Dimensions.get('window').height
+import { VPN, VPNStatuses } from '../services/VPNManager'
 
 function Main({ navigation }) {
   useCountries()
@@ -49,7 +50,30 @@ function Main({ navigation }) {
   }, [])
   const mainText = useSelector(res => res.textReducer.main.payload)
   const [statusConect, setStatusConect] = useState('off')
-  useEffect(() => {}, [])
+
+  useEffect(() => {
+    VPN.getStatus().then(status => {
+      setStatusConect(status === VPNStatuses.connected ? 'on' : 'off')
+    })
+  }, [])
+
+  const handleConnect = async () => {
+    try {
+      await VPN.connect('164.92.138.94', '123ZQvboM7aI+PO6dtHsCgXpnX4WxDK0Uz+ho6mY48fh0g=')
+      setStatusConect('on')
+    } catch (e) {
+      setStatusConect('off')
+    }
+  }
+
+  const handleDisconnect = async () => {
+    const status = await VPN.getStatus()
+    if (status === VPNStatuses.connected) {
+      VPN.disconnect()
+      setStatusConect('off')
+    }
+  }
+
   return (
     <LayoutAuth>
       <View style={heightOffScreen > 700 ? styles.header : styles.S_header}>
@@ -102,7 +126,7 @@ function Main({ navigation }) {
                 : { marginBottom: 20, alignItems: 'center' }
             }>
             {statusConect === 'on' && (
-              <TouchableOpacity onPress={() => setStatusConect('off')} activeOpacity={0.8}>
+              <TouchableOpacity onPress={handleDisconnect} activeOpacity={0.8}>
                 <Image
                   source={ButtonOff}
                   style={{ width: 200, height: 200, alignItems: 'center', bottom: heightOffScreen < 700 && 12 }}
@@ -111,7 +135,7 @@ function Main({ navigation }) {
               </TouchableOpacity>
             )}
             {statusConect === 'off' && (
-              <TouchableOpacity onPress={() => setStatusConect('on')} activeOpacity={0.8}>
+              <TouchableOpacity onPress={handleConnect} activeOpacity={0.8}>
                 <Image
                   source={ButtonOn}
                   style={{ width: 200, height: 200, alignItems: 'center', bottom: heightOffScreen < 700 && 12 }}
