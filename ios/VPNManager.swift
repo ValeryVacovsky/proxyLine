@@ -43,12 +43,16 @@ final class VPNManager: NSObject {
             name: NSNotification.Name.NEVPNStatusDidChange,
             object: nil)
     }
-    public func disconnect(completionHandler: (()->Void)? = nil) {
+
+    @objc
+//  public func disconnect(completionHandler: (()->Void)? = nil) {
+    public func disconnect(_ findEventsWithResolver: @escaping RCTPromiseResolveBlock, rejecter: @escaping RCTPromiseRejectBlock) {
         manager.onDemandRules = []
         manager.isOnDemandEnabled = false
         manager.saveToPreferences { _ in
             self.manager.connection.stopVPNTunnel()
-            completionHandler?()
+//            completionHandler?()
+            findEventsWithResolver(nil)
         }
     }
     
@@ -96,9 +100,7 @@ final class VPNManager: NSObject {
   
     @objc
 //    public func connect(_ server: String, psk: String? = nil, onSuccess: @escaping ((Bool) -> Void), onError: @escaping ((String) -> Void)) {
-    public func connect() {
-      let server = "164.92.138.94"
-      let psk: String? = "123ZQvboM7aI+PO6dtHsCgXpnX4WxDK0Uz+ho6mY48fh0g="
+  public func connect(_ server: NSString, psk: NSString? = nil, onSuccess: @escaping RCTPromiseResolveBlock, onError: @escaping RCTPromiseRejectBlock) {
         let p = NEVPNProtocolIKEv2()
         if psk != nil {
             p.authenticationMethod = NEVPNIKEAuthenticationMethod.sharedSecret
@@ -106,10 +108,10 @@ final class VPNManager: NSObject {
             p.authenticationMethod = NEVPNIKEAuthenticationMethod.none
         }
         
-        p.serverAddress = server
+        p.serverAddress = server as String
         p.disconnectOnSleep = false
-        p.remoteIdentifier = server
-      p.sharedSecretReference = self.getPSKRef(psk: psk)
+        p.remoteIdentifier = server as String
+        p.sharedSecretReference = self.getPSKRef(psk: psk as String?)
         p.useExtendedAuthentication = false
         
         loadProfile { _ in
@@ -122,20 +124,24 @@ final class VPNManager: NSObject {
             self.saveProfile { success in
                 if !success {
 //                    onError("Unable To Save VPN Profile()")
+                  onError("VPN Error", "Error save profile to Preferences", NSError())
                   NSLog("Unable To Save VPN Profile()")
                     return
                 }
                 self.loadProfile() { success in
                     if !success {
 //                        onError("Unable To Load Profile")
+                        onError("VPN Error", "Error load profile from Preferences", NSError())
                         NSLog("Unable To Load Profile")
                         return
                     }
                     let result = self.startVPNTunnel()
                     if !result {
 //                        onError("Can't Connect")
+                        onError("VPN Error", "Can't connect to VPN", NSError())
                         NSLog("Can't Connect")
                     } else {
+                      onSuccess(true)
 //                        onSuccess(true)
                     }
                 }
@@ -156,16 +162,41 @@ final class VPNManager: NSObject {
         return false
     }
     
-    public func isConnectActive() -> Bool {
-        if self.manager.connection.status == .connected {
-            return true
+  @objc
+  public func getStatus(_ cb: @escaping RCTResponseSenderBlock) -> Void {
+    self.manager.loadFromPreferences { error in
+        if let error = error {
+            NSLog("Failed to load preferences: \(error.localizedDescription)")
+            cb([false])
         } else {
-            return false
+          NSLog("VPN Status \(String(self.checkNEStatus(status: self.manager.connection.status)))")
+          cb([self.checkNEStatus(status: self.manager.connection.status)])
         }
     }
+  }
   
   @objc
   static func requiresMainQueueSetup() -> Bool {
       return true
   }
+  
+  private func checkNEStatus( status:NEVPNStatus ) -> NSString {
+    switch status {
+    case .connecting:
+        return "connecting"
+    case .connected:
+        return "connected"
+    case .disconnecting:
+        return "disconnecting"
+    case .disconnected:
+        return "disconnected"
+    case .invalid:
+        return "invalid"
+    case .reasserting:
+        return "reasserting"
+    @unknown default:
+        return "unknown"
+    }
+  }
+
 }
