@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 })
 
 function AuthIntro({ navigation }) {
-  setTimeout(() => navigation.navigate('Test'), 1000)
+  setTimeout(() => navigation.navigate('Auth'), 1000)
   React.useEffect(
     () =>
       navigation.addListener('beforeRemove', e => {
