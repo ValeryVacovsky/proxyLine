@@ -127,8 +127,8 @@ function AuthCode({ navigation }) {
                   borderRadius: 8,
                   borderWidth: 1,
                   paddingLeft: 20,
-                  paddingTop: 14,
-                  paddingBottom: 14,
+                  paddingTop: 15,
+                  paddingBottom: 15,
                   borderColor: (focusOnCode && '#fac637') || (errors.email_code && 'rgb(138,0,0)') || '#333842',
                 }}
                 onChangeText={onChange}

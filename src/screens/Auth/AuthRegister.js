@@ -120,15 +120,15 @@ function AuthRegister({ navigation }) {
   })
   const onSubmit = async data => {
     const res = await postRegisterCode(data)
-    if (res.data.success === true) {
+    if (res?.data?.success === true) {
       await AsyncStorage.setItem('@sign_up_email', data.email)
       navigation.navigate('Code')
     } else {
       setCommonFormError('Invalid email or password')
+      console.log(123)
     }
   }
   // () => navigation.navigate('Intro')
-
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -141,7 +141,14 @@ function AuthRegister({ navigation }) {
           </Text>
           <Text style={styles.authUnderLogo}>Пароль будет отправлен на Ваш email</Text>
           {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>}
-          <Text style={styles.label}>Email</Text>
+          {errors.email ? (
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.label}>Email</Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>Введите логин</Text>
+            </View>
+          ) : (
+            <Text style={styles.label}>Email</Text>
+          )}
           <Controller
             control={control}
             rules={{
@@ -164,8 +171,8 @@ function AuthRegister({ navigation }) {
                   borderRadius: 8,
                   borderWidth: 1,
                   paddingLeft: 20,
-                  paddingTop: 14,
-                  paddingBottom: 14,
+                  paddingTop: 15,
+                  paddingBottom: 15,
                   borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
                 }}
                 onChangeText={onChange}
@@ -174,11 +181,15 @@ function AuthRegister({ navigation }) {
             )}
             name="email"
           />
-          {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите почту</Text>}
           <Text style={styles.publickOfferText}>
-            Регистрируясь вы принимаете&#160;
+            Регистрируясь вы принимаете
+            <Text onPress={() => {}} style={styles.publickOfferTextUnderline}>
+              {' '}
+              публичную оферту&#160;
+            </Text>
+            <Text> и </Text>
             <Text onPress={() => navigation.navigate('Agrement')} style={styles.publickOfferTextUnderline}>
-              публичную оферту и политику конфиденциальности
+              политику конфиденциальности
             </Text>
           </Text>
         </View>

@@ -7,6 +7,7 @@ import LayoutAuth from '../../componets/LayoutAuth'
 
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
 import postRegister from '../../api/postRegister'
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -50,7 +51,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
-    borderRadius: 18,
   },
   buttonInnerText: {
     color: '#0F1218',
@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
-    borderRadius: 18,
     marginBottom: 20,
   },
   input: {
@@ -114,7 +113,9 @@ function AuthCodeReset({ navigation }) {
           <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
             На Ваш email будует выслан новый пароль
           </Text>
-          {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>Введен не верный код</Text>}
+          {commonFormError && (
+            <Text style={{ color: 'white', textAlign: 'center', bottom: 10 }}>Введен не верный код</Text>
+          )}
           <Text style={styles.label}>Код подтверждения</Text>
           <Controller
             control={control}
@@ -134,8 +135,8 @@ function AuthCodeReset({ navigation }) {
                   borderRadius: 8,
                   borderWidth: 1,
                   paddingLeft: 20,
-                  paddingTop: 14,
-                  paddingBottom: 14,
+                  paddingTop: 15,
+                  paddingBottom: 15,
                   borderColor: (focusOnCode && '#fac637') || (errors.email_code && 'rgb(138,0,0)') || '#333842',
                 }}
                 onChangeText={onChange}
@@ -148,13 +149,21 @@ function AuthCodeReset({ navigation }) {
         </View>
         <View style={{ marginBottom: 25 }}>
           <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
-            <View style={styles.buttonInner}>
-              <Text style={styles.buttonInnerText}>Отправить</Text>
-            </View>
+            <SuperEllipseMaskView
+              radius={{
+                topLeft: 12,
+                topRight: 12,
+                bottomRight: 12,
+                bottomLeft: 12,
+              }}>
+              <View style={styles.buttonInner}>
+                <Text style={styles.buttonInnerText}>Отправить</Text>
+              </View>
+            </SuperEllipseMaskView>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
             <View style={styles.buttonInnerBack}>
-              <Text style={styles.buttonInnerBack}>Отменить</Text>
+              <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>Отменить</Text>
             </View>
           </TouchableOpacity>
         </View>

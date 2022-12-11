@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, Text } from 'react-native'
 
 import LayoutMain from '../../componets/LayoutMain'
-import AnswerLine from '../../componets/UI/Settings.js/AnswerLine'
+import AnswerLine from '../../componets/UI/Settings/AnswerLine'
 
 const styles = StyleSheet.create({
   container: {

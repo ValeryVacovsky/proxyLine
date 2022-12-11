@@ -8,6 +8,7 @@ import LayoutAuth from '../../componets/LayoutAuth'
 
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
 import postAuth from '../../api/postAuth'
+import VectorOpen from '../../image/Svg/VectorOpen'
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -116,9 +117,18 @@ function AuthAuthauthentification({ navigation }) {
             Авторизация
           </Text>
           {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>}
-          <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
-            Email
-          </Text>
+          {errors.email ? (
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
+                Email
+              </Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>Введите логин</Text>
+            </View>
+          ) : (
+            <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
+              Email
+            </Text>
+          )}
           {/* <Input name="email" control={control} /> */}
           {/* <TextInput {...register("email")} style={styles.input}></TextInput> */}
           <Controller
@@ -143,8 +153,8 @@ function AuthAuthauthentification({ navigation }) {
                   borderRadius: 8,
                   borderWidth: 1,
                   paddingLeft: 20,
-                  paddingTop: 14,
-                  paddingBottom: 14,
+                  paddingTop: 20,
+                  paddingBottom: 20,
                   borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
                 }}
                 onChangeText={onChange}
@@ -153,10 +163,18 @@ function AuthAuthauthentification({ navigation }) {
             )}
             name="email"
           />
-          {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите логин</Text>}
-          <Text style={styles.label} onPress={() => navigation.navigate('Test')}>
-            Пароль
-          </Text>
+          {errors.password ? (
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.label} onPress={() => navigation.navigate('Test')}>
+                Пароль
+              </Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>Введите пароль</Text>
+            </View>
+          ) : (
+            <Text style={styles.label} onPress={() => navigation.navigate('Test')}>
+              Пароль
+            </Text>
+          )}
           {/* <Input name="password" control={control} /> */}
           {/* <TextInput {...register("password")} style={styles.input}></TextInput> */}
           <Controller
@@ -177,17 +195,19 @@ function AuthAuthauthentification({ navigation }) {
                   borderRadius: 8,
                   borderWidth: 1,
                   paddingLeft: 20,
-                  paddingTop: 14,
-                  paddingBottom: 14,
+                  paddingTop: 15,
+                  paddingBottom: 15,
                   borderColor: (focusOnPassword && '#fac637') || (errors.password && 'rgb(138,0,0)') || '#333842',
                 }}
                 onChangeText={onChange}
                 value={value}
+                secureTextEntry={true}
+                icon={<VectorOpen />}
+                iconPosition="right"
               />
             )}
             name="password"
           />
-          {errors.password && <Text style={{ color: 'white' }}>Введите пароль</Text>}
           <TouchableOpacity activeOpacity={0.8}>
             <View style={{}}>
               <Text
@@ -231,7 +251,7 @@ function AuthAuthauthentification({ navigation }) {
                 height: 50,
                 marginBottom: 20,
               }}>
-              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Подтвердить</Text>
+              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Войти</Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
         </View>

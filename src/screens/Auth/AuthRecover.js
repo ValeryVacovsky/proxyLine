@@ -124,7 +124,14 @@ function AuthRecover({ navigation }) {
           <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
             На Ваш email будет выслан проверочный код для сброса текущего пароля
           </Text>
-          <Text style={styles.label}>Email</Text>
+          {errors.email ? (
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.label}>Email</Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>Введите логин</Text>
+            </View>
+          ) : (
+            <Text style={styles.label}>Email</Text>
+          )}
           <Controller
             control={control}
             rules={{
@@ -147,8 +154,8 @@ function AuthRecover({ navigation }) {
                   borderRadius: 8,
                   borderWidth: 1,
                   paddingLeft: 20,
-                  paddingTop: 14,
-                  paddingBottom: 14,
+                  paddingTop: 15,
+                  paddingBottom: 15,
                   borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
                 }}
                 onChangeText={onChange}
@@ -157,7 +164,6 @@ function AuthRecover({ navigation }) {
             )}
             name="email"
           />
-          {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите почту</Text>}
         </View>
         <View style={{ marginBottom: 25 }}>
           <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
