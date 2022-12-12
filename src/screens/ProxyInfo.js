@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
+import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Pressable } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
 import ReadTrash from '../image/Svg/ReadTrash'
 
@@ -50,9 +50,9 @@ function ProxyInfo({ navigation }) {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
-        <TouchableOpacity activeOpacity={0.7}>
+        <Pressable activeOpacity={0.7} hitSlop={50}>
           <ReadTrash />
-        </TouchableOpacity>
+        </Pressable>
       ),
     })
   }, [navigation])

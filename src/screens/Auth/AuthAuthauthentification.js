@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Pressable } from 'react-native'
 
 import { useForm, Controller } from 'react-hook-form'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -9,6 +9,8 @@ import LayoutAuth from '../../componets/LayoutAuth'
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
 import postAuth from '../../api/postAuth'
 import VectorOpen from '../../image/Svg/VectorOpen'
+import ViewIcon from '../../image/Svg/ViewIcon'
+import ViewIconOff from '../../image/Svg/ViewIconOff'
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -70,6 +72,7 @@ function AuthAuthauthentification({ navigation }) {
   const [commonFormError, setCommonFormError] = useState('')
   const [focusOnEmail, setFocusOnEmail] = useState(false)
   const [focusOnPassword, setFocusOnPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(true)
   const {
     control,
     handleSubmit,
@@ -131,6 +134,7 @@ function AuthAuthauthentification({ navigation }) {
           )}
           {/* <Input name="email" control={control} /> */}
           {/* <TextInput {...register("email")} style={styles.input}></TextInput> */}
+
           <Controller
             control={control}
             rules={{
@@ -153,8 +157,8 @@ function AuthAuthauthentification({ navigation }) {
                   borderRadius: 8,
                   borderWidth: 1,
                   paddingLeft: 20,
-                  paddingTop: 20,
-                  paddingBottom: 20,
+                  paddingTop: 15,
+                  paddingBottom: 15,
                   borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
                 }}
                 onChangeText={onChange}
@@ -183,9 +187,7 @@ function AuthAuthauthentification({ navigation }) {
               required: true,
             }}
             render={({ field: { onChange, value } }) => (
-              <TextInput
-                onFocus={() => setFocusOnPassword(true)}
-                onBlur={() => setFocusOnPassword(false)}
+              <View
                 style={{
                   backgroundColor: '#1E2127',
                   color: 'white',
@@ -195,16 +197,25 @@ function AuthAuthauthentification({ navigation }) {
                   borderRadius: 8,
                   borderWidth: 1,
                   paddingLeft: 20,
-                  paddingTop: 15,
-                  paddingBottom: 15,
                   borderColor: (focusOnPassword && '#fac637') || (errors.password && 'rgb(138,0,0)') || '#333842',
-                }}
-                onChangeText={onChange}
-                value={value}
-                secureTextEntry={true}
-                icon={<VectorOpen />}
-                iconPosition="right"
-              />
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <TextInput
+                  onFocus={() => setFocusOnPassword(true)}
+                  onBlur={() => setFocusOnPassword(false)}
+                  style={{ color: 'white', width: '90%', height: '100%' }}
+                  onChangeText={onChange}
+                  value={value}
+                  secureTextEntry={showPassword}
+                  icon={<VectorOpen />}
+                  iconPosition="right"
+                />
+                <Pressable hitSlop={50} onPress={() => setShowPassword(prev => !prev)}>
+                  {showPassword ? <ViewIcon /> : <ViewIconOff />}
+                </Pressable>
+              </View>
             )}
             name="password"
           />

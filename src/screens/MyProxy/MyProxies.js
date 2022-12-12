@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useMemo, useState } from 'react'
-import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput } from 'react-native'
+import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput, Pressable } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import ProxiesFilter from '../../image/Svg/ProxiesFilter'
 
@@ -168,22 +168,24 @@ function MyProxies({ navigation }) {
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <TouchableOpacity
+          <Pressable
             style={styles.balanceIconFilter}
             activeOpacity={0.8}
-            onPress={() => navigation.navigate('Filters')}>
+            onPress={() => navigation.navigate('Filters')}
+            hitSlop={15}>
             <ProxiesFilter />
-          </TouchableOpacity>
-          <TouchableOpacity
+          </Pressable>
+          <Pressable
             style={styles.balanceIconFilterDotts}
             activeOpacity={0.8}
             onPress={() => {
               setChildrenItem(<BottomSheetList handleClosePress={handleClosePress} navigation={navigation} />)
               handleSnapPress(0)
               setProxyItemPicked(true)
-            }}>
+            }}
+            hitSlop={5}>
             <ProxiesDotts />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       ),
     })

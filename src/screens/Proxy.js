@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native'
+import { View, ScrollView, StyleSheet, SafeAreaView, Text, Pressable } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LayoutMain from '../componets/LayoutMain'
 import ProxyTariff from '../componets/ProxyTariff'
@@ -78,13 +78,14 @@ function Proxy({ navigation }) {
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <View style={{ marginLeft: 15 }}>
-          <TouchableOpacity
+          <Pressable
             style={styles.balanceIcon}
             activeOpacity={0.8}
+            hitSlop={50}
             onPress={() => navigation.navigate('Balance')}>
             <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance}</Text>
             <HeaderProxy style={{ bottom: 1, marginLeft: 3 }} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       ),
     })

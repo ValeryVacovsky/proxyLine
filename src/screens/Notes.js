@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, Text, View, Pressable } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import { AutoGrowingTextInput } from 'react-native-autogrow-textinput'
 import LayoutMain from '../componets/LayoutMain'
@@ -56,7 +56,8 @@ function Notes({ navigation }) {
   const [openStatus, setOpenStatus] = useState(true)
   const [openStatusItem, setOpenStatusItem] = useState(
     <View style={{ marginLeft: 15 }}>
-      <TouchableOpacity
+      <Pressable
+        hitSlop={50}
         style={styles.balanceIcon}
         activeOpacity={0.8}
         onPress={() => {
@@ -64,7 +65,7 @@ function Notes({ navigation }) {
           setOpenStatusItem(<View />)
         }}>
         <NotesTab />
-      </TouchableOpacity>
+      </Pressable>
     </View>,
   )
   React.useLayoutEffect(() => {

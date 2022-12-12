@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import ProxiesDotts from '../../../image/Svg/ProxiesDotts'
 import DarkRadioUncheked from '../../../image/Svg/DarkRadioUncheked'
 import LightRadioUncheked from '../../../image/Svg/LightRadioUncheked'
@@ -110,7 +110,8 @@ function ProxyItem({
           </View>
         </View>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <TouchableOpacity
+          <Pressable
+            hitSlop={5}
             onPress={() => {
               setProxyItemPicked(proxy.id)
               childrenItem && handleSnapPress(0)
@@ -118,23 +119,25 @@ function ProxyItem({
               setChildrenItem(<BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} />)
             }}>
             <ProxiesDotts style={{ marginRight: 8 }} />
-          </TouchableOpacity>
+          </Pressable>
           {selected === proxy.id ? (
-            <TouchableOpacity
+            <Pressable
+              hitSlop={3}
               onPress={() => {
                 setSelected(null)
                 handleClosePress()
               }}>
               <LightRadioUncheked style={{ marginLeft: 9, bottom: 3 }} />
-            </TouchableOpacity>
+            </Pressable>
           ) : (
-            <TouchableOpacity
+            <Pressable
+              hitSlop={3}
               onPress={() => {
                 setSelected(proxy.id)
                 handleClosePress()
               }}>
               <DarkRadioUncheked style={{ marginLeft: 9, bottom: 3 }} />
-            </TouchableOpacity>
+            </Pressable>
           )}
         </View>
       </View>

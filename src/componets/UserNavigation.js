@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet } from 'react-native'
+import { StyleSheet, Pressable } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
 import DatabaseButtomOn from '../image/Svg/DatabaseButtomOn'
@@ -40,30 +40,34 @@ function UserNavigation({ status, navigation }) {
         marginBottom: 15,
       }}
       radius={12}>
-      <TouchableOpacity
+      <Pressable
         style={status === 'Main' && styles.active}
         onPress={() => navigation.navigate('Main')}
+        hitSlop={25}
         activeOpacity={0.8}>
         {status === 'Main' ? <DatabaseButtomOn /> : <DatabaseButtonOff />}
-      </TouchableOpacity>
-      <TouchableOpacity
+      </Pressable>
+      <Pressable
         style={status === 'Proxy' && styles.active}
         onPress={() => navigation.navigate('Proxy')}
+        hitSlop={25}
         activeOpacity={0.8}>
         {status === 'Proxy' ? <WalletButtonOn /> : <WalletButtonOff />}
-      </TouchableOpacity>
-      <TouchableOpacity
+      </Pressable>
+      <Pressable
         style={status === 'Orders' && styles.active}
         onPress={() => navigation.navigate('Orders')}
+        hitSlop={25}
         activeOpacity={0.8}>
         {status === 'Orders' ? <OrdersButtonOn /> : <OrdersButtonOff />}
-      </TouchableOpacity>
-      <TouchableOpacity
+      </Pressable>
+      <Pressable
         style={status === 'Settings' && styles.active}
         onPress={() => navigation.navigate('Settings')}
+        hitSlop={25}
         activeOpacity={0.8}>
         {status === 'Settings' ? <SettingsButtonOn /> : <SettingsButtonOff />}
-      </TouchableOpacity>
+      </Pressable>
     </SuperEllipseMaskView>
   )
 }

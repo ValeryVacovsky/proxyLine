@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, View, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { ScrollView, View, StyleSheet, Text, Pressable } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LayoutMain from '../componets/LayoutMain'
 import OrderItem from '../componets/OrderItem'
@@ -49,13 +49,14 @@ function Order({ navigation, route }) {
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <View style={{ marginLeft: 15 }}>
-          <TouchableOpacity
+          <Pressable
             style={styles.balanceIcon}
             activeOpacity={0.8}
+            hitSlop={50}
             onPress={() => navigation.navigate('Balance')}>
             <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance}</Text>
             <HeaderProxy style={{ bottom: 1, marginLeft: 3 }} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       ),
     })
