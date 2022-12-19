@@ -3,23 +3,17 @@ import Svg, { Path } from 'react-native-svg'
 
 function ViewIcon(props) {
   return (
-    <Svg
-      width={14}
-      height={12}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}>
+    <Svg width={18} height={14} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <Path
-        d="M1.079 6.311a.658.658 0 0 1 0-.623c1.26-2.332 3.59-4.354 5.92-4.354s4.66 2.022 5.922 4.355a.658.658 0 0 1 0 .623C11.66 8.645 9.33 10.667 7 10.667S2.34 8.645 1.079 6.31v0Z"
-        stroke="#fff"
+        d="M1.598 7.39a.822.822 0 0 1 0-.78C3.175 3.694 6.088 1.167 9 1.167S14.825 3.694 16.4 6.61c.131.242.131.536 0 .779-1.576 2.916-4.489 5.443-7.401 5.443-2.913 0-5.825-2.527-7.402-5.444v0Z"
+        stroke="#CBCBCB"
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <Path
-        d="M8.414 4.586a2 2 0 1 1-2.828 2.828 2 2 0 0 1 2.828-2.828Z"
-        stroke="#fff"
+        d="M10.768 5.232a2.5 2.5 0 1 1-3.536 3.536 2.5 2.5 0 0 1 3.535-3.536Z"
+        stroke="#CBCBCB"
         strokeWidth={1.429}
         strokeLinecap="round"
         strokeLinejoin="round"

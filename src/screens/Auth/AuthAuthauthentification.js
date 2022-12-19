@@ -213,7 +213,7 @@ function AuthAuthauthentification({ navigation }) {
                   iconPosition="right"
                 />
                 <Pressable hitSlop={50} onPress={() => setShowPassword(prev => !prev)}>
-                  {showPassword ? <ViewIcon /> : <ViewIconOff />}
+                  {!showPassword ? <ViewIcon /> : <ViewIconOff />}
                 </Pressable>
               </View>
             )}
