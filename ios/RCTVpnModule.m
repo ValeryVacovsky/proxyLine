@@ -12,7 +12,20 @@
 @interface RCT_EXTERN_MODULE(VPNManager, NSObject)
 
 //RCT_EXTERN_METHOD(connect:(NSString *)server psk:(NSString *)psk onSuccess:(((Bool) -> Void))onSuccess onError:(((String) -> Void))onError)
-RCT_EXTERN_METHOD(connect: (NSString *)server psk:(NSString *)psk onSuccess:(RCTPromiseResolveBlock)onSuccess onError:(RCTPromiseRejectBlock)onError)
+RCT_EXTERN_METHOD(
+                  connect: (NSString *)server
+                  username:(NSString)username
+                  password:(NSString)password
+                  psk:(NSString *)psk
+                  proxyAddress:(NSString)proxyAddress
+                  proxyPort:(nonnull NSNumber *)proxyPort
+                  proxyUsername:(NSString *)proxyUsername
+                  proxyPassword:(NSString *)proxyPassword
+                  http:(BOOL)http
+                  https:(BOOL)https
+                  onSuccess:(RCTPromiseResolveBlock)onSuccess
+                  onError:(RCTPromiseRejectBlock)onError
+)
 
 //@interface RCT_EXTERN_MODULE(RNIpSecVpn, RCTEventEmitter)
 //

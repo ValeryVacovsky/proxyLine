@@ -59,9 +59,23 @@ function Main({ navigation }) {
 
   const handleConnect = async () => {
     try {
-      await VPN.connect('164.92.138.94', '123ZQvboM7aI+PO6dtHsCgXpnX4WxDK0Uz+ho6mY48fh0g=')
+      await VPN.connect({
+        server: '164.92.138.94',
+        username: 'vpnuser',
+        password: '8fdqeecJxUFPWo96',
+        key: 'arHpbe5SnbxqsaEVqiyN',
+        proxy: {
+          address: '164.92.138.94',
+          port: 3128,
+          http: true,
+          https: false,
+          proxyUsername: 'prx',
+          proxyPassword: 'auth_20!',
+        },
+      })
       setStatusConect('on')
     } catch (e) {
+      console.log('ERROR', e)
       setStatusConect('off')
     }
   }
