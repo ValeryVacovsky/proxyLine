@@ -91,6 +91,11 @@ final class VPNManager: NSObject {
         }
     }
   
+    private func getPasswordRef(password: String) -> Data? {
+        KeychainWrapper.standard.set(password, forKey: Configuration.KEYCHAIN_PASSWORD_KEY)
+        return KeychainWrapper.standard.dataRef(forKey: Configuration.KEYCHAIN_PASSWORD_KEY)
+    }
+  
     private func getPSKRef(psk: String? = nil) -> Data? {
         if psk == nil { return nil }
         
@@ -99,9 +104,21 @@ final class VPNManager: NSObject {
     }
   
     @objc
-//    public func connect(_ server: String, psk: String? = nil, onSuccess: @escaping ((Bool) -> Void), onError: @escaping ((String) -> Void)) {
-  public func connect(_ server: NSString, psk: NSString? = nil, onSuccess: @escaping RCTPromiseResolveBlock, onError: @escaping RCTPromiseRejectBlock) {
-        let p = NEVPNProtocolIKEv2()
+    public func connect(
+      _ server: NSString,
+      username: NSString,
+      password: NSString,
+      psk: NSString? = nil,
+      proxyAddress: NSString,
+      proxyPort: NSNumber,
+      proxyUsername: NSString?,
+      proxyPassword: NSString?,
+      http: Bool,
+      https: Bool,
+      onSuccess: @escaping RCTPromiseResolveBlock,
+      onError: @escaping RCTPromiseRejectBlock
+    ) {
+        let p = NEVPNProtocolIPSec()
         if psk != nil {
             p.authenticationMethod = NEVPNIKEAuthenticationMethod.sharedSecret
         } else {
@@ -109,11 +126,27 @@ final class VPNManager: NSObject {
         }
         
         p.serverAddress = server as String
+        p.username = String(username)
+        p.passwordReference = getPasswordRef(password: String(password))
         p.disconnectOnSleep = false
         p.remoteIdentifier = server as String
         p.sharedSecretReference = self.getPSKRef(psk: psk as String?)
-        p.useExtendedAuthentication = false
+        p.useExtendedAuthentication = true
+      
+        let proxy = NEProxySettings()
+        let proxyServer = NEProxyServer(address: String(proxyAddress), port: Int(truncating: proxyPort))
+
+        if (proxyUsername != nil && proxyPassword != nil) {
+          proxyServer.username = String(proxyUsername!)
+          proxyServer.password = String(proxyPassword!)
+        }
         
+        proxy.httpServer = proxyServer
+        proxy.httpEnabled = http
+        proxy.httpsEnabled = https
+        proxy.autoProxyConfigurationEnabled = false
+        p.proxySettings = proxy
+      
         loadProfile { _ in
             self.manager.protocolConfiguration = p
 //            if config.onDemand {
@@ -138,7 +171,7 @@ final class VPNManager: NSObject {
                     let result = self.startVPNTunnel()
                     if !result {
 //                        onError("Can't Connect")
-                        onError("VPN Error", "Can't connect to VPN", NSError())
+                        onError("VPN Error", "Can't connect to VPN", NSError.init(domain: "", code: 0, userInfo: nil))
                         NSLog("Can't Connect")
                     } else {
                       onSuccess(true)
