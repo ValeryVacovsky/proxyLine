@@ -65,12 +65,12 @@ function Main({ navigation }) {
         password: '8fdqeecJxUFPWo96',
         key: 'arHpbe5SnbxqsaEVqiyN',
         proxy: {
-          address: '164.92.138.94',
-          port: 3128,
+          address: '185.78.79.92',
+          port: 62748,
           http: true,
           https: false,
-          proxyUsername: 'prx',
-          proxyPassword: 'auth_20!',
+          proxyUsername: 'AvTw2LVh',
+          proxyPassword: 'HwSMdUVr',
         },
       })
       setStatusConect('on')
