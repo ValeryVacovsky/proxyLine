@@ -14,7 +14,9 @@ import ViewIconOff from '../../image/Svg/ViewIconOff'
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/g
 
+// const PASSWOR_REGEX;
 const styles = StyleSheet.create({
   sectionContainer: {
     width: '100%',
@@ -93,6 +95,7 @@ function AuthAuthauthentification({ navigation }) {
 
   const onSubmit = async data => {
     const res = await postAuth(data)
+    console.log(res.data)
     if (res.data.success === true) {
       await AsyncStorage.setItem('@token', String(res.data.user.token))
       await AsyncStorage.setItem('@id', String(res.data.user.id))
@@ -108,7 +111,9 @@ function AuthAuthauthentification({ navigation }) {
     if (data.email === 1111) {
       navigation.push('Main')
     }
+    console.log('DNYpACG6KmEHglSx49aWozWWw' === 'DNYpACG6KmEHgISx49aWozWWw')
   }
+
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -119,7 +124,7 @@ function AuthAuthauthentification({ navigation }) {
           <Text onPress={() => navigation.navigate('Main')} style={styles.authLogo}>
             Авторизация
           </Text>
-          {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>}
+          {/* {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>} */}
           {errors.email ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
@@ -128,9 +133,20 @@ function AuthAuthauthentification({ navigation }) {
               <Text style={{ color: 'white', fontSize: 12 }}>Введите логин</Text>
             </View>
           ) : (
-            <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
-              Email
-            </Text>
+            <View>
+              {commonFormError ? (
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
+                    Email
+                  </Text>
+                  <Text style={{ color: 'white', fontSize: 12 }}>Не существующий логин или пароль</Text>
+                </View>
+              ) : (
+                <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
+                  Email
+                </Text>
+              )}
+            </View>
           )}
           {/* <Input name="email" control={control} /> */}
           {/* <TextInput {...register("email")} style={styles.input}></TextInput> */}
@@ -175,9 +191,20 @@ function AuthAuthauthentification({ navigation }) {
               <Text style={{ color: 'white', fontSize: 12 }}>Введите пароль</Text>
             </View>
           ) : (
-            <Text style={styles.label} onPress={() => navigation.navigate('Test')}>
-              Пароль
-            </Text>
+            <View>
+              {commonFormError ? (
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
+                    Пароль
+                  </Text>
+                  <Text style={{ color: 'white', fontSize: 12 }}>Не существующий логин или пароль</Text>
+                </View>
+              ) : (
+                <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
+                  Пароль
+                </Text>
+              )}
+            </View>
           )}
           {/* <Input name="password" control={control} /> */}
           {/* <TextInput {...register("password")} style={styles.input}></TextInput> */}
@@ -185,6 +212,9 @@ function AuthAuthauthentification({ navigation }) {
             control={control}
             rules={{
               required: true,
+              pattern: {
+                value: PASSWORD_REGEX,
+              },
             }}
             render={({ field: { onChange, value } }) => (
               <View
@@ -213,7 +243,7 @@ function AuthAuthauthentification({ navigation }) {
                   iconPosition="right"
                 />
                 <Pressable hitSlop={50} onPress={() => setShowPassword(prev => !prev)}>
-                  {!showPassword ? <ViewIcon /> : <ViewIconOff />}
+                  {showPassword ? <ViewIcon /> : <ViewIconOff />}
                 </Pressable>
               </View>
             )}

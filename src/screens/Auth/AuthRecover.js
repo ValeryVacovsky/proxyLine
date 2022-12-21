@@ -106,8 +106,10 @@ function AuthRecover({ navigation }) {
   })
   const onSubmit = async data => {
     const res = await postReset(data)
-    if (res.data.success === true) {
-      await AsyncStorage.setItem('@sign_up_email', data.email)
+    console.log(res.data)
+    if (res?.data?.success === true) {
+      await AsyncStorage.setItem('@sign_up_email_reset', data.email)
+      console.log(data.email)
       navigation.navigate('CodeReset')
     } else {
       // setCommonFormError('Invalid email or password');

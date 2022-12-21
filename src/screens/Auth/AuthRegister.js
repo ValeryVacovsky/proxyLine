@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, AsyncStorage } from 'react-native'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutAuth from '../../componets/LayoutAuth'
@@ -119,16 +120,17 @@ function AuthRegister({ navigation }) {
     },
   })
   const onSubmit = async data => {
-    const res = await postRegisterCode(data)
-    if (res?.data?.success === true) {
-      await AsyncStorage.setItem('@sign_up_email', data.email)
-      navigation.navigate('Code')
-    } else {
+    try {
+      const res = await postRegisterCode(data)
+      if (res?.data?.success === true) {
+        await AsyncStorage.setItem('@sign_up_email', data.email)
+        navigation.navigate('Code')
+      } else {
+      }
+    } catch (err) {
       setCommonFormError('Invalid email or password')
-      console.log(123)
     }
   }
-  // () => navigation.navigate('Intro')
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -140,14 +142,28 @@ function AuthRegister({ navigation }) {
             Регистрация
           </Text>
           <Text style={styles.authUnderLogo}>Пароль будет отправлен на Ваш email</Text>
-          {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>}
           {errors.email ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.label}>Email</Text>
+              <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
+                Email
+              </Text>
               <Text style={{ color: 'white', fontSize: 12 }}>Введите логин</Text>
             </View>
           ) : (
-            <Text style={styles.label}>Email</Text>
+            <View>
+              {commonFormError ? (
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
+                    Email
+                  </Text>
+                  <Text style={{ color: 'white', fontSize: 12 }}>Данная почта уже зарегерстрированна</Text>
+                </View>
+              ) : (
+                <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
+                  Email
+                </Text>
+              )}
+            </View>
           )}
           <Controller
             control={control}
@@ -182,10 +198,9 @@ function AuthRegister({ navigation }) {
             name="email"
           />
           <Text style={styles.publickOfferText}>
-            Регистрируясь вы принимаете
+            Регистрируясь вы принимаете{' '}
             <Text onPress={() => {}} style={styles.publickOfferTextUnderline}>
-              {' '}
-              публичную оферту&#160;
+              публичную оферту
             </Text>
             <Text> и </Text>
             <Text onPress={() => navigation.navigate('Agrement')} style={styles.publickOfferTextUnderline}>

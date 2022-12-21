@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, AsyncStorage } from 'react-native'
-
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useForm, Controller } from 'react-hook-form'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
@@ -88,6 +88,7 @@ function AuthCode({ navigation }) {
   const [focusOnCode, setFocusOnCode] = useState(false)
   const onSubmit = async data => {
     const email = await AsyncStorage.getItem('@sign_up_email')
+    console.log(email)
     try {
       const res = await postRegister({ ...data, email })
       await AsyncStorage.setItem('@auth_token', res.data.token)
@@ -107,8 +108,29 @@ function AuthCode({ navigation }) {
           <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
             На Ваш email будует выслан код подтверждения
           </Text>
-          {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>}
-          <Text style={styles.label}>Код подтверждения</Text>
+          {/* {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>} */}
+          {/* <Text style={styles.label}>Код подтверждения</Text> */}
+          {errors.email_code ? (
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.label} onPress={() => {}}>
+                Код подтверждения
+              </Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>Введите код подтверждения</Text>
+            </View>
+          ) : (
+            <View>
+              {commonFormError ? (
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={styles.label} onPress={() => {}}>
+                    Код подтверждения
+                  </Text>
+                  <Text style={{ color: 'white', fontSize: 12 }}>Не верный код подтверждения</Text>
+                </View>
+              ) : (
+                <Text style={{ color: 'white', fontSize: 12 }}>Введите проверочный код</Text>
+              )}
+            </View>
+          )}
           <Controller
             control={control}
             rules={{
@@ -116,6 +138,7 @@ function AuthCode({ navigation }) {
             }}
             render={({ field: { onChange, value } }) => (
               <TextInput
+                keyboardType="numeric"
                 onFocus={() => setFocusOnCode(true)}
                 onBlur={() => setFocusOnCode(false)}
                 style={{
@@ -137,7 +160,6 @@ function AuthCode({ navigation }) {
             )}
             name="email_code"
           />
-          {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите код</Text>}
         </View>
         <View style={{ marginBottom: 25 }}>
           <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>

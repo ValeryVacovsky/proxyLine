@@ -66,7 +66,7 @@ function Order({ navigation, route }) {
       id: 1,
       proxyType: 'v4 Shared',
       discription: 'Подходит для любых целей и сайтов',
-      days: '6 дней',
+      days: '5 дней',
       price: 0.6,
       handDesription: 'Используется до 3-х человек',
       icon: <PeopleIconProxy />,

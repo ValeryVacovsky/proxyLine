@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, AsyncStorage, StyleSheet } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 
 import { useForm, Controller } from 'react-hook-form'
 
 import LayoutAuth from '../../componets/LayoutAuth'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
-import postRegister from '../../api/postRegister'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+import postResetCode from '../../api/postResetCode'
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -93,14 +94,23 @@ function AuthCodeReset({ navigation }) {
   const [commonFormError, setCommonFormError] = useState('')
   const [focusOnCode, setFocusOnCode] = useState(false)
   const onSubmit = async data => {
-    const email = await AsyncStorage.getItem('@sign_up_email')
-    try {
-      const res = await postRegister({ ...data, email })
-      await AsyncStorage.setItem('@auth_token', res.data.token)
+    const email = await AsyncStorage.getItem('@sign_up_email_reset')
+    const res = await postResetCode({ email, ...data })
+    if (res?.data?.success === true) {
       navigation.navigate('Auth')
-    } catch (error) {
+    } else {
       setCommonFormError('Invalid email_code')
     }
+    // try {
+    //   if (res.data.success === true) {
+    //     await AsyncStorage.setItem('@auth_token', resesult.data.token)
+    //     console.log('Успех')
+    //     navigation.navigate('Auth')
+    //   }
+    // } catch (error) {
+    //   setCommonFormError('Invalid email_code')
+    //   // console.log(error)
+    // }
   }
   return (
     <LayoutAuth>
@@ -113,17 +123,43 @@ function AuthCodeReset({ navigation }) {
           <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
             На Ваш email будует выслан новый пароль
           </Text>
-          {commonFormError && (
+          {/* {commonFormError && (
             <Text style={{ color: 'white', textAlign: 'center', bottom: 10 }}>Введен не верный код</Text>
           )}
-          <Text style={styles.label}>Код подтверждения</Text>
+          <Text style={styles.label}>Код подтверждения</Text> */}
+          {errors.code ? (
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.label} onPress={() => {}}>
+                Код
+              </Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>Введите код подтверждения</Text>
+            </View>
+          ) : (
+            <View>
+              {commonFormError ? (
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={styles.label} onPress={() => {}}>
+                    Код
+                  </Text>
+                  <Text style={{ color: 'white', fontSize: 12 }}>Не верный код подтверждения</Text>
+                </View>
+              ) : (
+                <Text style={styles.label} onPress={() => {}}>
+                  Код
+                </Text>
+              )}
+            </View>
+          )}
           <Controller
             control={control}
             rules={{
               required: true,
+              maxLength: 10,
+              minLength: 7,
             }}
             render={({ field: { onChange, value } }) => (
               <TextInput
+                keyboardType="numeric"
                 onFocus={() => setFocusOnCode(true)}
                 onBlur={() => setFocusOnCode(false)}
                 style={{
@@ -137,13 +173,13 @@ function AuthCodeReset({ navigation }) {
                   paddingLeft: 20,
                   paddingTop: 15,
                   paddingBottom: 15,
-                  borderColor: (focusOnCode && '#fac637') || (errors.email_code && 'rgb(138,0,0)') || '#333842',
+                  borderColor: (focusOnCode && '#fac637') || (errors.code && 'rgb(138,0,0)') || '#333842',
                 }}
                 onChangeText={onChange}
                 value={value}
               />
             )}
-            name="email_code"
+            name="code"
           />
           {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите код</Text>}
         </View>
