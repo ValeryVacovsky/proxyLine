@@ -109,7 +109,7 @@ function AuthRecover({ navigation }) {
     console.log(res.data)
     if (res?.data?.success === true) {
       await AsyncStorage.setItem('@sign_up_email_reset', data.email)
-      console.log(data.email)
+      console.log(res.data)
       navigation.navigate('CodeReset')
     } else {
       // setCommonFormError('Invalid email or password');
