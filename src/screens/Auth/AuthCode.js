@@ -138,6 +138,8 @@ function AuthCode({ navigation }) {
             }}
             render={({ field: { onChange, value } }) => (
               <TextInput
+                keyboardType="numeric"
+                returnKeyType="done"
                 onFocus={() => setFocusOnCode(true)}
                 onBlur={() => setFocusOnCode(false)}
                 style={{

@@ -9,28 +9,6 @@ import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
 import getBalance from '../api/getBalance'
 import HeaderProxy from '../image/Svg/HeaderProxy'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    marginHorizontal: 20,
-  },
-  text: {
-    fontSize: 42,
-  },
-  navContainer: {
-    alignItems: 'center',
-    marginBottom: 25,
-  },
-  balanceIcon: {
-    display: 'flex',
-    flexDirection: 'row',
-    fontSize: 15,
-    alignItems: 'center',
-  },
-})
-
 function Order({ navigation, route }) {
   const [scrolling, setScrolling] = useState(true)
   const [currentProxyId, setCurrentProxyId] = useState(390)
@@ -115,5 +93,27 @@ function Order({ navigation, route }) {
     </LayoutMain>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    marginHorizontal: 20,
+  },
+  text: {
+    fontSize: 42,
+  },
+  navContainer: {
+    alignItems: 'center',
+    marginBottom: 25,
+  },
+  balanceIcon: {
+    display: 'flex',
+    flexDirection: 'row',
+    fontSize: 15,
+    alignItems: 'center',
+  },
+})
 
 export default Order
