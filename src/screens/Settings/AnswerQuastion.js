@@ -3,6 +3,7 @@ import { ScrollView, View, TouchableOpacity, StyleSheet, TextInput, SafeAreaView
 
 import LayoutMain from '../../componets/LayoutMain'
 import AnswerLine from '../../componets/UI/Settings/AnswerLine'
+import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
 })
 
 function AnswerQuastion({ navigation }) {
+  const [valueProxy, setValueProxy] = useState('')
   const [question, setQuestion] = useState([
     {
       id: 1,
@@ -133,21 +135,33 @@ function AnswerQuastion({ navigation }) {
   return (
     <LayoutMain>
       <View style={{ alignItems: 'center', display: 'flex' }}>
-        <TextInput
+        <View
           style={{
             backgroundColor: '#1E2127',
             color: '#CBCBCB',
             height: 44,
-            width: '90%',
+            minWidth: '90%',
             marginBottom: 14,
             borderRadius: 8,
+            borderWidth: 1,
             paddingLeft: 20,
-            paddingTop: 15,
-            paddingBottom: 15,
-            textAlign: 'center',
-            marginTop: 10,
-          }}
-        />
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'relative',
+          }}>
+          <TextInput
+            onFocus={() => {}}
+            onBlur={() => {}}
+            style={{ color: 'white', width: '80%', height: '100%', textAlign: 'center' }}
+            onChangeText={setValueProxy}
+            value={valueProxy}
+            iconPosition="right"
+            placeholder="Найти ответы"
+            placeholderTextColor="#CBCBCB"
+          />
+          {valueProxy.length === 0 && <ProxiesSearch style={{ position: 'absolute', left: '65%' }} />}
+        </View>
         <SafeAreaView>
           <ScrollView style={styles.container}>
             <View style={{ width: '100%', alignItems: 'center', marginBottom: 120 }}>

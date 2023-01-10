@@ -117,17 +117,16 @@ function BottomSheetList({ handleClosePress, navigation }) {
             navigation.navigate('Delete')
             handleClosePress()
           }}>
-          <Text style={styles.centerMiddleButtonText}>Удалить </Text>
+          <Text style={styles.centerMiddleButtonText}>Удалить</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.centerBottomButton} activeOpacity={0.8}>
-          <Text
-            style={styles.centerBottomButtonText}
-            onPress={() => {
-              navigation.navigate('Extend')
-              handleClosePress()
-            }}>
-            Продлить
-          </Text>
+        <TouchableOpacity
+          style={styles.centerBottomButton}
+          onPress={() => {
+            navigation.navigate('Extend')
+            handleClosePress()
+          }}
+          activeOpacity={0.8}>
+          <Text style={styles.centerBottomButtonText}>Продлить</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity

@@ -6,6 +6,7 @@ import FlagUseBig from '../../image/Svg/FlagUseBig'
 import BottomSheetForm from '../../componets/BottomSheetForm'
 import ProxyItemDelete from '../../componets/UI/ProxyUI/ProxyItemDelete'
 import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectForm'
+import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
 const MyProxiesList = [
   {
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
 })
 
 function DeleteProxies({ navigation }) {
+  const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
   const snapPoints = useMemo(() => ['30%'], [])
@@ -181,23 +183,33 @@ function DeleteProxies({ navigation }) {
   return (
     <LayoutMain>
       <View style={{ alignItems: 'center', display: 'flex' }}>
-        <TextInput
+        <View
           style={{
             backgroundColor: '#1E2127',
             color: '#CBCBCB',
             height: 44,
-            width: '90%',
+            minWidth: '90%',
             marginBottom: 14,
             borderRadius: 8,
+            borderWidth: 1,
             paddingLeft: 20,
-            paddingTop: 15,
-            paddingBottom: 15,
-            textAlign: 'center',
-            marginTop: 10,
-          }}
-          placeholder="Найти прокси"
-          placeholderTextColor="#CBCBCB"
-        />
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'relative',
+          }}>
+          <TextInput
+            onFocus={() => {}}
+            onBlur={() => {}}
+            style={{ color: 'white', width: '80%', height: '100%', textAlign: 'center' }}
+            onChangeText={setValueProxy}
+            value={valueProxy}
+            iconPosition="right"
+            placeholder="Найти прокси"
+            placeholderTextColor="#CBCBCB"
+          />
+          {valueProxy.length === 0 && <ProxiesSearch style={{ position: 'absolute', left: '65%' }} />}
+        </View>
         <SafeAreaView>
           <ScrollView
             style={{

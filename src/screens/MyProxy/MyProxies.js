@@ -10,7 +10,7 @@ import FlagUseBig from '../../image/Svg/FlagUseBig'
 import BottomSheetForm from '../../componets/BottomSheetForm'
 import BottomSheetList from '../../componets/UI/ProxyUI/BottomSheetIist'
 import VectorOpen from '../../image/Svg/VectorOpen'
-import ViewIcon from '../../image/Svg/ViewIcon'
+import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
 const MyProxiesList = [
   {
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
 })
 
 function MyProxies({ navigation }) {
+  const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
   const snapPoints = useMemo(() => ['50%'], [])
@@ -196,25 +197,6 @@ function MyProxies({ navigation }) {
   return (
     <LayoutMain>
       <View style={{ alignItems: 'center', display: 'flex' }}>
-        <View style={{ width: '100%', alignItems: 'center' }}>
-          <TextInput
-            style={{
-              backgroundColor: '#1E2127',
-              color: '#CBCBCB',
-              height: 44,
-              width: '90%',
-              marginBottom: 14,
-              borderRadius: 8,
-              paddingLeft: 20,
-              paddingTop: 15,
-              paddingBottom: 15,
-              textAlign: 'center',
-              marginTop: 10,
-            }}
-            placeholder="Найти прокси"
-            placeholderTextColor="#CBCBCB"
-          />
-        </View>
         <View
           style={{
             backgroundColor: '#1E2127',
@@ -234,16 +216,14 @@ function MyProxies({ navigation }) {
             onFocus={() => {}}
             onBlur={() => {}}
             style={{ color: 'white', width: '80%', height: '100%', textAlign: 'center' }}
-            onChangeText={() => {}}
-            // value="dkfjdnlskjfs"
+            onChangeText={setValueProxy}
+            value={valueProxy}
             icon={<VectorOpen />}
             iconPosition="right"
             placeholder="Найти прокси"
             placeholderTextColor="#CBCBCB"
           />
-          <Pressable hitSlop={50} onPress={() => {}} style={{ position: 'absolute', left: '70%' }}>
-            {true && <ViewIcon />}
-          </Pressable>
+          {valueProxy.length === 0 && <ProxiesSearch style={{ position: 'absolute', left: '65%' }} />}
         </View>
         <SafeAreaView>
           <ScrollView style={{ width: '100%', marginBottom: 100 }}>
