@@ -84,7 +84,7 @@ function ChangePassword({ navigation }) {
                 />
               </View>
             </View>
-            <Text style={styles.text}>Повторить новый пароль</Text>
+            <Text style={styles.text}>Повторите новый пароль</Text>
             <View style={styles.dataProxyes}>
               <View
                 style={{

@@ -154,6 +154,7 @@ function AuthCode({ navigation }) {
                   paddingTop: 15,
                   paddingBottom: 15,
                   borderColor: (focusOnCode && '#fac637') || (errors.email_code && 'rgb(138,0,0)') || '#333842',
+                  marginTop: 8,
                 }}
                 onChangeText={onChange}
                 value={value}

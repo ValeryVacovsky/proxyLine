@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 20,
   },
-  textSmallh1: {
+  textSmall2: {
     color: '#CBCBCB',
-    fontSize: 15,
-    fontWeight: '600',
+    fontSize: 14,
+    fontWeight: '400',
     paddingLeft: 20,
-    marginTop: 40,
+    marginTop: 20,
   },
   textSmall: {
     color: '#CBCBCB',
@@ -143,15 +143,9 @@ function MessageForm({ navigation }) {
               />
             </View>
           </View>
-          <Text style={styles.textSmallh1}>Требования к паролю:</Text>
-          <Text style={styles.textSmall}>
-            1. 8 и более символов.
-            {'\n'}
-            2. Непохож на email.
-            {'\n'}
-            3. Прописные и строчые буквы.
-            {'\n'}
-            4. Хотя бы одна цифра.
+          <Text style={styles.textSmall}>Если у вас публичные прокси (без логина и пароля), то IP:PORT</Text>
+          <Text style={styles.textSmall2}>
+            Если у вас Индивидуальные/Приватные (авторизация по логину и паролю), тогда IP:PORT:LOGIN:PASW
           </Text>
         </View>
       </SafeAreaView>
@@ -168,7 +162,7 @@ function MessageForm({ navigation }) {
             bottomLeft: 12,
           }}
           style={styles.buttonInner}>
-          <Text style={styles.buttonText}>Подтвердить</Text>
+          <Text style={styles.buttonText}>Отправить</Text>
         </SuperEllipseMaskView>
       </TouchableOpacity>
     </LayoutMain>

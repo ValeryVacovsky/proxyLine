@@ -33,7 +33,7 @@ function Order({ navigation, route }) {
             hitSlop={50}
             onPress={() => navigation.navigate('Balance')}>
             <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance}</Text>
-            <HeaderProxy style={{ bottom: 1, marginLeft: 3 }} />
+            <HeaderProxy style={{ marginLeft: 3 }} />
           </Pressable>
         </View>
       ),

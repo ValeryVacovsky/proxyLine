@@ -52,7 +52,7 @@ function AnswerLine({ navigation, quest }) {
       <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => setStatus(!status)}>
         <View style={styles.setting}>
           <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{quest.title}</Text>
-          {status ? <VectorClose /> : <VectorOpen />}
+          {!status ? <VectorClose /> : <VectorOpen />}
         </View>
       </TouchableOpacity>
       {status && (

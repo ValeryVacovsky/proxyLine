@@ -147,7 +147,7 @@ function AuthRegister({ navigation }) {
               <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
                 Email
               </Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>Введите логин</Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>Введите ваш email</Text>
             </View>
           ) : (
             <View>
@@ -156,7 +156,7 @@ function AuthRegister({ navigation }) {
                   <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
                     Email
                   </Text>
-                  <Text style={{ color: 'white', fontSize: 12 }}>Данная почта уже зарегерстрированна</Text>
+                  <Text style={{ color: 'white', fontSize: 12 }}>Данный email уже зарегерстрированна</Text>
                 </View>
               ) : (
                 <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
@@ -199,7 +199,7 @@ function AuthRegister({ navigation }) {
           />
           <Text style={styles.publickOfferText}>
             Регистрируясь вы принимаете{' '}
-            <Text onPress={() => {}} style={styles.publickOfferTextUnderline}>
+            <Text onPress={() => navigation.navigate('Ofert')} style={styles.publickOfferTextUnderline}>
               публичную оферту
             </Text>
             <Text> и </Text>

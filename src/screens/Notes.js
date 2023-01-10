@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { StyleSheet, TouchableOpacity, Text, View, Pressable } from 'react-native'
+import { StyleSheet, TouchableOpacity, Text, View, Pressable, Keyboard } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
-import { AutoGrowingTextInput } from 'react-native-autogrow-textinput'
 import LayoutMain from '../componets/LayoutMain'
 import NotesTab from '../image/Svg/NotesTab'
+import { TextInput } from 'react-native-gesture-handler'
 
 const styles = StyleSheet.create({
   textAreaContainer: {
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '400',
     fontSize: 14,
+    height: 180,
   },
   button: {
     alignItems: 'center',
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   },
 })
 function Notes({ navigation }) {
-  const [textValue, setTextValue] = useState({ textValue: 'My initial\nText' })
+  const [textValue, setTextValue] = useState('')
   const [openStatus, setOpenStatus] = useState(true)
   const [openStatusItem, setOpenStatusItem] = useState(
     <View style={{ marginLeft: 15 }}>
@@ -75,7 +76,7 @@ function Notes({ navigation }) {
     })
   }, [navigation])
   const onChange = event => {
-    setTextValue({ textValue: event.nativeEvent.text || '' })
+    setTextValue(event)
   }
   return (
     <LayoutMain>
@@ -88,17 +89,28 @@ function Notes({ navigation }) {
         }}>
         <View style={styles.textInputContainer}>
           {openStatus ? (
-            <Text style={{ color: 'white' }}>{textValue.textValue}</Text>
+            <Text style={{ color: 'white' }}>{textValue}</Text>
           ) : (
-            <AutoGrowingTextInput
-              value={textValue.textValue}
+            // <AutoGrowingTextInput
+            //   value={textValue.textValue}
+            //   style={styles.textInput}
+            //   onChange={event => onChange(event)}
+            //   placeholder="Your Message"
+            //   placeholderTextColor="#66737C"
+            //   maxHeight={500}
+            //   minHeight={200}
+            //   enableScrollToCaret
+            // />
+            <TextInput
               style={styles.textInput}
-              onChange={event => onChange(event)}
-              placeholder="Your Message"
-              placeholderTextColor="#66737C"
-              maxHeight={500}
-              minHeight={200}
-              enableScrollToCaret
+              multiline
+              numberOfLines={4}
+              onChangeText={event => onChange(event)}
+              value={textValue}
+              returnKeyType="done"
+              onSubmitEditing={() => {
+                Keyboard.dismiss()
+              }}
             />
           )}
         </View>

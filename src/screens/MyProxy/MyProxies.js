@@ -9,6 +9,8 @@ import ProxyItem from '../../componets/UI/ProxyUI/ProxyItem'
 import FlagUseBig from '../../image/Svg/FlagUseBig'
 import BottomSheetForm from '../../componets/BottomSheetForm'
 import BottomSheetList from '../../componets/UI/ProxyUI/BottomSheetIist'
+import VectorOpen from '../../image/Svg/VectorOpen'
+import ViewIcon from '../../image/Svg/ViewIcon'
 
 const MyProxiesList = [
   {
@@ -111,7 +113,7 @@ const MyProxiesList = [
 
 const styles = StyleSheet.create({
   balanceIconFilter: {
-    marginRight: 15,
+    marginRight: 30,
   },
   balanceIconFilterDotts: {},
   container: {
@@ -183,7 +185,7 @@ function MyProxies({ navigation }) {
               handleSnapPress(0)
               setProxyItemPicked(true)
             }}
-            hitSlop={5}>
+            hitSlop={15}>
             <ProxiesDotts />
           </Pressable>
         </View>
@@ -194,25 +196,57 @@ function MyProxies({ navigation }) {
   return (
     <LayoutMain>
       <View style={{ alignItems: 'center', display: 'flex' }}>
-        <TextInput
+        <View style={{ width: '100%', alignItems: 'center' }}>
+          <TextInput
+            style={{
+              backgroundColor: '#1E2127',
+              color: '#CBCBCB',
+              height: 44,
+              width: '90%',
+              marginBottom: 14,
+              borderRadius: 8,
+              paddingLeft: 20,
+              paddingTop: 15,
+              paddingBottom: 15,
+              textAlign: 'center',
+              marginTop: 10,
+            }}
+            placeholder="Найти прокси"
+            placeholderTextColor="#CBCBCB"
+          />
+        </View>
+        <View
           style={{
             backgroundColor: '#1E2127',
             color: '#CBCBCB',
             height: 44,
-            width: '90%',
+            minWidth: '90%',
             marginBottom: 14,
             borderRadius: 8,
+            borderWidth: 1,
             paddingLeft: 20,
-            paddingTop: 15,
-            paddingBottom: 15,
-            textAlign: 'center',
-            marginTop: 10,
-          }}
-          placeholder="Найти прокси"
-          placeholderTextColor="#CBCBCB"
-        />
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'relative',
+          }}>
+          <TextInput
+            onFocus={() => {}}
+            onBlur={() => {}}
+            style={{ color: 'white', width: '80%', height: '100%', textAlign: 'center' }}
+            onChangeText={() => {}}
+            // value="dkfjdnlskjfs"
+            icon={<VectorOpen />}
+            iconPosition="right"
+            placeholder="Найти прокси"
+            placeholderTextColor="#CBCBCB"
+          />
+          <Pressable hitSlop={50} onPress={() => {}} style={{ position: 'absolute', left: '70%' }}>
+            {true && <ViewIcon />}
+          </Pressable>
+        </View>
         <SafeAreaView>
-          <ScrollView style={{ width: '100%' }}>
+          <ScrollView style={{ width: '100%', marginBottom: 100 }}>
             {MyProxiesList.map(proxy => (
               <ProxyItem
                 key={proxy.id}

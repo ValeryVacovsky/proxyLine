@@ -104,22 +104,39 @@ function BottomSheetList({ handleClosePress, navigation }) {
         <TouchableOpacity
           style={styles.centerTopButton}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('Change')}>
+          onPress={() => {
+            navigation.navigate('Change')
+            handleClosePress()
+          }}>
           <Text style={styles.centerTopButtonText}>Изменить тип</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.centerMiddleButton}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('Delete')}>
+          onPress={() => {
+            navigation.navigate('Delete')
+            handleClosePress()
+          }}>
           <Text style={styles.centerMiddleButtonText}>Удалить </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.centerBottomButton} activeOpacity={0.8}>
-          <Text style={styles.centerBottomButtonText} onPress={() => navigation.navigate('Extend')}>
+          <Text
+            style={styles.centerBottomButtonText}
+            onPress={() => {
+              navigation.navigate('Extend')
+              handleClosePress()
+            }}>
             Продлить
           </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => navigation.navigate('Info')}>
+      <TouchableOpacity
+        style={styles.topButton}
+        activeOpacity={0.8}
+        onPress={() => {
+          navigation.navigate('Info')
+          handleClosePress()
+        }}>
         <Text style={styles.topButtonText}>Подробнее</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.bottomButton} onPress={() => handleClosePress()} activeOpacity={0.8}>

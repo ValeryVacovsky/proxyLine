@@ -178,6 +178,13 @@ function Main({ navigation }) {
       shadowOpacity: 1,
       shadowRadius: 10,
     },
+    navContainer: {
+      // alignItems: 'center',
+      marginBottom: 25,
+      // margin: 'auto',
+      width: '95%',
+      // marginLeft: '25px',
+    },
   })
   return (
     <LayoutAuth>
@@ -434,8 +441,8 @@ function Main({ navigation }) {
           </View>
         </View>
       </View>
-      <View style={{ marginBottom: 25, width: '90%', alignItems: 'center' }}>
-        <UserNavigation style={{ marginBottom: 25 }} status="Main" navigation={navigation} />
+      <View style={styles.navContainer}>
+        <UserNavigation status="Main" navigation={navigation} />
       </View>
     </LayoutAuth>
   )

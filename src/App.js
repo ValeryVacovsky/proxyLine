@@ -34,6 +34,7 @@ import Filters from './screens/Filters'
 import DeleteProxies from './screens/MyProxy/DeleteProxies'
 import ExtendProxies from './screens/MyProxy/ExtendProxies'
 import ChangeProxies from './screens/MyProxy/ChangeProxies'
+import Ofert from './screens/Auth/Ofert'
 
 // eslint-disable-next-line no-unused-vars
 const styles = StyleSheet.create({})
@@ -132,16 +133,39 @@ function App({ navigation }) {
               },
             }}
           />
+          <Stack.Screen
+            name="Ofert"
+            component={Ofert}
+            options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
+              headerTitle: () => (
+                <View style={{ alignItems: 'center' }}>
+                  <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Публичная</Text>
+                  <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>оферта</Text>
+                </View>
+              ),
+              headerStyle: {
+                height: 300,
+                borderBottomLeftRadius: 50,
+                backgroundColor: '#0F1218',
+              },
+              headerTitleAlign: 'center',
+              headerTintColor: '#CBCBCB',
+              headerBackTitle: 'Назад',
+              headerBackTitleStyle: {
+                fontSize: 14,
+                color: 'white',
+              },
+            }}
+          />
           <Stack.Screen name="Test" component={TestScreen} options={{ headerShown: false }} />
           <Stack.Screen
             name="Order"
             component={Order}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
               headerTitle: () => (
                 <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Оформление заказа</Text>
               ),
-              // eslint-disable-next-line react/no-unstable-nested-components
               headerRight: () => (
                 <View style={{ marginLeft: 15 }}>
                   <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', fontSize: 15 }} activeOpacity={0.8}>
@@ -324,9 +348,7 @@ function App({ navigation }) {
             component={AnswerQuastion}
             options={{
               // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => (
-                <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Вопросы-ответы</Text>
-              ),
+              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Вопрос-ответ</Text>,
               // eslint-disable-next-line react/no-unstable-nested-components
               headerStyle: {
                 height: 300,
@@ -370,9 +392,7 @@ function App({ navigation }) {
             component={ChangePassword}
             options={{
               // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => (
-                <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Сменина пароля</Text>
-              ),
+              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Смена пароля</Text>,
               headerStyle: {
                 height: 300,
                 borderBottomLeftRadius: 50,

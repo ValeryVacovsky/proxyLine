@@ -40,10 +40,9 @@ function Filters({ navigation }) {
     },
     button: {
       alignItems: 'center',
-      width: '100%',
-      marginBottom: 40,
       position: 'absolute',
-      bottom: '4%',
+      width: '100%',
+      bottom: '8%',
       zIndex: 1,
     },
     buttonInner: {
@@ -138,13 +137,10 @@ function Filters({ navigation }) {
           marginHorizontal: 20,
           // eslint-disable-next-line no-use-before-define
           marginBottom: isOpen && 300,
+          marginTop: 15,
         }}>
         <SafeAreaView>
-          <ScrollView
-            style={{
-              width: '100%',
-              height: '100%',
-            }}>
+          <ScrollView style={{ width: '100%', height: selected ? '84%' : '100%' }}>
             <View style={styles.chipsContainer}>
               <Status status={fitlers.status} setFilters={setFilters} />
               <VersionIp version={fitlers.version} setFilters={setFilters} />

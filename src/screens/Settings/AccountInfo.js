@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import LayoutMain from '../../componets/LayoutMain'
 import ViewIcon from '../../image/Svg/ViewIcon'
 
@@ -42,6 +43,7 @@ const styles = StyleSheet.create({
 })
 
 function AccountInfo({ navigation }) {
+  const [passwordVisibiliti, setPasswordVisibiliti] = useState(false)
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -58,7 +60,7 @@ function AccountInfo({ navigation }) {
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>
         <View>
-          <Text style={styles.text}>Данные прокси</Text>
+          <Text style={styles.text}>Данные аккаунта</Text>
           <View style={styles.dataProxyes}>
             <View
               style={{
@@ -107,9 +109,11 @@ function AccountInfo({ navigation }) {
                       color: 'white',
                       marginRight: 10,
                     }}>
-                    ************
+                    {!passwordVisibiliti ? '************' : 12341234123}
                   </Text>
-                  <ViewIcon style={{ bottom: 2 }} />
+                  <Pressable activeOpacity={0.8} hitSlop={15}>
+                    <ViewIcon style={{ bottom: 2 }} onPress={() => setPasswordVisibiliti(prev => !prev)} />
+                  </Pressable>
                 </View>
               </View>
             </View>

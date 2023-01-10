@@ -1,7 +1,10 @@
 import React from 'react'
 import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Pressable } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
+import InfoCopyIcon from '../image/Svg/InfoCopyIcon'
+import ProxyInfoChange from '../image/Svg/ProxyInfoChange'
 import ReadTrash from '../image/Svg/ReadTrash'
+import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
 
 const styles = StyleSheet.create({
   container: {
@@ -102,7 +105,12 @@ function ProxyInfo({ navigation }) {
                     width: '90%',
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Страна</Text>
-                  <Text style={{ fontWeight: '600', fontSize: 13, color: 'white' }}>United States of America</Text>
+                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontWeight: '600', fontSize: 13, color: 'white', marginRight: 6 }}>
+                      United States of America
+                    </Text>
+                    <FlagUsaSmall width={16} height={13} />
+                  </View>
                 </View>
               </View>
               <View
@@ -144,7 +152,12 @@ function ProxyInfo({ navigation }) {
                     width: '90%',
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>IP</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>192.0.0.1</Text>
+                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>192.0.0.1</Text>
+                    <Pressable activeOpacity={0.8} hitSlop={15}>
+                      <InfoCopyIcon />
+                    </Pressable>
+                  </View>
                 </View>
               </View>
               <View
@@ -165,7 +178,12 @@ function ProxyInfo({ navigation }) {
                     width: '90%',
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Port</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>11594</Text>
+                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>11594</Text>
+                    <Pressable activeOpacity={0.8} hitSlop={15}>
+                      <InfoCopyIcon />
+                    </Pressable>
+                  </View>
                 </View>
               </View>
               <View
@@ -186,7 +204,12 @@ function ProxyInfo({ navigation }) {
                     width: '90%',
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Логин</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>gJgsaH</Text>
+                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>gJgsaH</Text>
+                    <Pressable activeOpacity={0.8} hitSlop={15}>
+                      <InfoCopyIcon />
+                    </Pressable>
+                  </View>
                 </View>
               </View>
               <View
@@ -207,7 +230,12 @@ function ProxyInfo({ navigation }) {
                     width: '90%',
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Пароль</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>MsUpsas62</Text>
+                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>MsUpsas62</Text>
+                    <Pressable activeOpacity={0.8} hitSlop={15}>
+                      <InfoCopyIcon />
+                    </Pressable>
+                  </View>
                 </View>
               </View>
               <View
@@ -321,7 +349,17 @@ function ProxyInfo({ navigation }) {
               </View>
             </View>
             <View style={styles.chipsContainer}>
-              <Text style={styles.text}>Разрешенные IP</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginRight: 20,
+                }}>
+                <Text style={styles.text}>Разрешенные IP</Text>
+                <ProxyInfoChange />
+              </View>
               <View style={styles.Chips}>
                 <View>
                   <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -394,7 +432,17 @@ function ProxyInfo({ navigation }) {
                   </View>
                 </View>
               </View>
-              <Text style={styles.text}>Теги</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginRight: 20,
+                }}>
+                <Text style={styles.text}>Теги</Text>
+                <ProxyInfoChange />
+              </View>
               <View style={styles.Chips}>
                 <View>
                   <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>

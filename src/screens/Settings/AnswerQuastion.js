@@ -150,7 +150,7 @@ function AnswerQuastion({ navigation }) {
         />
         <SafeAreaView>
           <ScrollView style={styles.container}>
-            <View style={{ width: '100%', alignItems: 'center' }}>
+            <View style={{ width: '100%', alignItems: 'center', marginBottom: 120 }}>
               {question.map(quest => (
                 // eslint-disable-next-line react/jsx-key
                 <AnswerLine navigation={navigation} quest={quest} setQuastion={setQuestion} />

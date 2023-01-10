@@ -111,7 +111,6 @@ function AuthAuthauthentification({ navigation }) {
     if (data.email === 1111) {
       navigation.push('Main')
     }
-    console.log('DNYpACG6KmEHglSx49aWozWWw' === 'DNYpACG6KmEHgISx49aWozWWw')
   }
 
   return (
@@ -197,7 +196,6 @@ function AuthAuthauthentification({ navigation }) {
                   <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
                     Пароль
                   </Text>
-                  <Text style={{ color: 'white', fontSize: 12 }}>Не существующий логин или пароль</Text>
                 </View>
               ) : (
                 <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
