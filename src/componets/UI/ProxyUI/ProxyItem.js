@@ -4,7 +4,8 @@ import { View, Text, StyleSheet, Pressable } from 'react-native'
 import ProxiesDotts from '../../../image/Svg/ProxiesDotts'
 import DarkRadioUncheked from '../../../image/Svg/DarkRadioUncheked'
 import LightRadioUncheked from '../../../image/Svg/LightRadioUncheked'
-import BottomSheetItem from './BottomSheetItem'
+import BottomSheetIist from './BottomSheetIist'
+// import BottomSheetItem from './BottomSheetItem'
 
 const styles = StyleSheet.create({
   container: {
@@ -116,7 +117,7 @@ function ProxyItem({
               setProxyItemPicked(proxy.id)
               childrenItem && handleSnapPress(0)
               setSelected(null)
-              setChildrenItem(<BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} />)
+              setChildrenItem(<BottomSheetIist handleClosePress={handleClosePress} navigation={navigation} />)
             }}>
             <ProxiesDotts style={{ marginRight: 8 }} />
           </Pressable>

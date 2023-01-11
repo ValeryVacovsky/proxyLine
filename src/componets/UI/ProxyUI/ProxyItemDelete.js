@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
-import VectorYellow from '../../../image/Svg/VectorYellow'
+import VectorYellowBig from '../../../image/Svg/VectorYellowBig'
 import BottomSheetItem from './BottomSheetItem'
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: '103%',
     paddingTop: 14,
     paddingBottom: 14,
     backgroundColor: 'rgba(255, 255, 255, 0.06)',
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '88%',
+    width: '100%',
     flexDirection: 'row',
   },
 })
@@ -36,7 +36,14 @@ function ProxyItemDelete({
 }) {
   return (
     <TouchableOpacity style={styles.container} onPress={() => onChange(proxy.id)} activeOpacity={0.8}>
-      <View style={styles.mainContainer}>
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '90%',
+          flexDirection: 'row',
+        }}>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
           <View style={{ top: 13, marginLeft: 0 }}>{proxy.flag}</View>
           <View style={{ marginLeft: 14 }}>
@@ -108,7 +115,7 @@ function ProxyItemDelete({
             </View>
           </View>
         </View>
-        <View style={{ display: 'flex', flexDirection: 'row' }}>
+        <View>
           <TouchableOpacity
             onPress={() => {
               setProxyItemPicked(proxy.id)
@@ -118,7 +125,8 @@ function ProxyItemDelete({
             }}
             activeOpacity={0.8}
           />
-          {selectedProxies.includes(Number(proxy.id)) && <VectorYellow />}
+          {selectedProxies.includes(Number(proxy.id)) && <VectorYellowBig style={{ right: 20 }} />}
+          {!selectedProxies.includes(Number(proxy.id)) && <View style={{ width: 20, height: 20 }} />}
         </View>
       </View>
     </TouchableOpacity>

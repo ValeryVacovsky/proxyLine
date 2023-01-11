@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Pressable } from 'react-native'
+import { StyleSheet, Pressable, View } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
 import DatabaseButtomOn from '../image/Svg/DatabaseButtomOn'
@@ -15,10 +15,6 @@ const styles = StyleSheet.create({
   active: {
     paddingTop: 20,
     paddingBottom: 20,
-    borderBottomWidth: 4,
-    borderTopLeftRadius: 4,
-    borderRightRadius: 4,
-    borderBottomColor: '#FAC637',
     shadowColor: '#FAC637',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.5,
@@ -42,34 +38,54 @@ function UserNavigation({ status, navigation }) {
         marginBottom: 15,
       }}
       radius={12}>
-      <Pressable
-        style={status === 'Main' && styles.active}
-        onPress={() => navigation.navigate('Main')}
-        hitSlop={25}
-        activeOpacity={0.8}>
-        {status === 'Main' ? <DatabaseButtomOn /> : <DatabaseButtonOff />}
-      </Pressable>
-      <Pressable
-        style={status === 'Proxy' && styles.active}
-        onPress={() => navigation.navigate('Proxy')}
-        hitSlop={25}
-        activeOpacity={0.8}>
-        {status === 'Proxy' ? <WalletButtonOn /> : <WalletButtonOff />}
-      </Pressable>
-      <Pressable
-        style={status === 'Orders' && styles.active}
-        onPress={() => navigation.navigate('Orders')}
-        hitSlop={25}
-        activeOpacity={0.8}>
-        {status === 'Orders' ? <OrdersButtonOn /> : <OrdersButtonOff />}
-      </Pressable>
-      <Pressable
-        style={status === 'Settings' && styles.active}
-        onPress={() => navigation.navigate('Settings')}
-        hitSlop={25}
-        activeOpacity={0.8}>
-        {status === 'Settings' ? <SettingsButtonOn /> : <SettingsButtonOff />}
-      </Pressable>
+      <View>
+        <Pressable
+          style={status === 'Main' && styles.active}
+          onPress={() => navigation.navigate('Main')}
+          hitSlop={25}
+          activeOpacity={0.8}>
+          {status === 'Main' ? <DatabaseButtomOn /> : <DatabaseButtonOff />}
+        </Pressable>
+        {status === 'Main' && (
+          <View style={{ width: 20, height: 5, backgroundColor: '#FAC637', borderRadius: 20, bottom: 1 }} />
+        )}
+      </View>
+      <View>
+        <Pressable
+          style={status === 'Proxy' && styles.active}
+          onPress={() => navigation.navigate('Proxy')}
+          hitSlop={25}
+          activeOpacity={0.8}>
+          {status === 'Proxy' ? <WalletButtonOn /> : <WalletButtonOff />}
+        </Pressable>
+        {status === 'Proxy' && (
+          <View style={{ width: 20, height: 5, backgroundColor: '#FAC637', borderRadius: 20, bottom: 1 }} />
+        )}
+      </View>
+      <View>
+        <Pressable
+          style={status === 'Orders' && styles.active}
+          onPress={() => navigation.navigate('Orders')}
+          hitSlop={25}
+          activeOpacity={0.8}>
+          {status === 'Orders' ? <OrdersButtonOn /> : <OrdersButtonOff />}
+        </Pressable>
+        {status === 'Orders' && (
+          <View style={{ width: 20, height: 5, backgroundColor: '#FAC637', borderRadius: 20, bottom: 1 }} />
+        )}
+      </View>
+      <View>
+        <Pressable
+          style={status === 'Settings' && styles.active}
+          onPress={() => navigation.navigate('Settings')}
+          hitSlop={25}
+          activeOpacity={0.8}>
+          {status === 'Settings' ? <SettingsButtonOn /> : <SettingsButtonOff />}
+        </Pressable>
+        {status === 'Settings' && (
+          <View style={{ width: 20, height: 5, backgroundColor: '#FAC637', borderRadius: 20, bottom: 1 }} />
+        )}
+      </View>
     </SuperEllipseMaskView>
   )
 }

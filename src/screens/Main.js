@@ -184,6 +184,7 @@ function Main({ navigation }) {
       // margin: 'auto',
       width: '95%',
       // marginLeft: '25px',
+      left: 10,
     },
   })
   return (

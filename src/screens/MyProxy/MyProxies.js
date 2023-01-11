@@ -8,9 +8,9 @@ import ProxiesDotts from '../../image/Svg/ProxiesDotts'
 import ProxyItem from '../../componets/UI/ProxyUI/ProxyItem'
 import FlagUseBig from '../../image/Svg/FlagUseBig'
 import BottomSheetForm from '../../componets/BottomSheetForm'
-import BottomSheetList from '../../componets/UI/ProxyUI/BottomSheetIist'
 import VectorOpen from '../../image/Svg/VectorOpen'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
+import BottomSheetItem from '../../componets/UI/ProxyUI/BottomSheetItem'
 
 const MyProxiesList = [
   {
@@ -182,7 +182,7 @@ function MyProxies({ navigation }) {
             style={styles.balanceIconFilterDotts}
             activeOpacity={0.8}
             onPress={() => {
-              setChildrenItem(<BottomSheetList handleClosePress={handleClosePress} navigation={navigation} />)
+              setChildrenItem(<BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} />)
               handleSnapPress(0)
               setProxyItemPicked(true)
             }}
@@ -226,7 +226,7 @@ function MyProxies({ navigation }) {
           {valueProxy.length === 0 && <ProxiesSearch style={{ position: 'absolute', left: '65%' }} />}
         </View>
         <SafeAreaView>
-          <ScrollView style={{ width: '100%', marginBottom: 100 }}>
+          <ScrollView style={{ width: '100%', marginBottom: 90 }}>
             {MyProxiesList.map(proxy => (
               <ProxyItem
                 key={proxy.id}

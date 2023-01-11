@@ -5,6 +5,7 @@ import SliderExample from './SliderExample'
 // import SliderExample from '../componets/SliderExample';
 import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
 import VectorRightSmall from '../image/Svg/VectorRightSmall'
+import Toggle from './UI/OrderUI/Toggle'
 
 const styles = StyleSheet.create({
   buttonInner: {
@@ -22,7 +23,6 @@ function OrderItem({ navigation, order, setScrolling }) {
   const totalPrice = Math.floor(amount * price * 100) / 100
   const [days, setDays] = useState(90)
   const [country, setCountry] = useState('United States of America')
-  const [typeServer, setTypeServer] = useState({ SOCKS5: true, 'HTTP(S)': false })
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -148,90 +148,15 @@ function OrderItem({ navigation, order, setScrolling }) {
             justifyContent: 'space-between',
             alignItems: 'center',
             marginBottom: 10,
+            marginTop: 10,
           }}>
           <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Тип</Text>
           <View
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              backgroundColor: '#1E2127',
-              padding: 4,
-              borderRadius: 40,
-              left: 5,
+              position: 'relative',
+              right: 80,
             }}>
-            <TouchableOpacity
-              style={
-                typeServer['HTTP(S)'] === false ? {} : { backgroundColor: 'rgba(51, 51, 51, 0.5)', borderRadius: 20 }
-              }
-              onPress={() =>
-                setTypeServer(prevState => ({
-                  ...prevState,
-                  'HTTP(S)': !prevState['HTTP(S)'],
-                  SOCKS5: prevState['HTTP(S)'],
-                }))
-              }
-              activeOpacity={0.8}>
-              <Text
-                style={
-                  typeServer['HTTP(S)'] === true
-                    ? {
-                        color: 'white',
-                        paddingTop: 10,
-                        paddingBottom: 10,
-                        paddingLeft: 15,
-                        paddingRight: 15,
-                        fontSize: 12,
-                        fontWeight: '600',
-                      }
-                    : {
-                        color: '#CBCBCB',
-                        paddingTop: 10,
-                        paddingBottom: 10,
-                        paddingLeft: 14,
-                        paddingRight: 14,
-                        fontSize: 12,
-                        fontWeight: '600',
-                      }
-                }>
-                {Object.keys(typeServer)[1]}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={typeServer.SOCKS5 === false ? {} : { backgroundColor: 'rgba(51, 51, 51, 0.5)', borderRadius: 50 }}
-              // eslint-disable-next-line no-return-assign
-              onPress={() =>
-                setTypeServer(prevState => ({
-                  ...prevState,
-                  SOCKS5: !prevState.SOCKS5,
-                  'HTTP(S)': prevState.SOCKS5,
-                }))
-              }
-              activeOpacity={0.8}>
-              <Text
-                style={
-                  typeServer.SOCKS5 === true
-                    ? {
-                        color: 'white',
-                        paddingTop: 10,
-                        paddingBottom: 10,
-                        paddingLeft: 15,
-                        paddingRight: 15,
-                        fontSize: 12,
-                        fontWeight: '600',
-                      }
-                    : {
-                        color: '#CBCBCB',
-                        paddingTop: 10,
-                        paddingBottom: 10,
-                        paddingLeft: 15,
-                        paddingRight: 15,
-                        fontSize: 12,
-                        fontWeight: '600',
-                      }
-                }>
-                {Object.keys(typeServer)[0]}
-              </Text>
-            </TouchableOpacity>
+            <Toggle />
           </View>
         </View>
         <View
@@ -266,7 +191,7 @@ function OrderItem({ navigation, order, setScrolling }) {
                   color: '#CBCBCB',
                   paddingTop: 10,
                   paddingBottom: 10,
-                  paddingLeft: 14,
+                  paddingLeft: 20,
                   paddingRight: 14,
                   fontSize: 14,
                   fontWeight: '600',
@@ -304,7 +229,7 @@ function OrderItem({ navigation, order, setScrolling }) {
                   paddingTop: 10,
                   paddingBottom: 10,
                   paddingLeft: 14,
-                  paddingRight: 14,
+                  paddingRight: 20,
                   fontSize: 14,
                   fontWeight: '600',
                 }}>

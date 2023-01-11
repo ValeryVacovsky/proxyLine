@@ -179,7 +179,7 @@ function ExtendProxies({ navigation }) {
         </TouchableOpacity>
       ),
     })
-  }, [navigation])
+  }, [arryId, navigation])
   return (
     <LayoutMain>
       <View style={{ alignItems: 'center', display: 'flex' }}>
@@ -214,7 +214,7 @@ function ExtendProxies({ navigation }) {
           <ScrollView
             style={{
               width: selectedProxies.length > 0 ? '90%' : '90%',
-              marginBottom: selectedProxies.length > 0 && 300,
+              marginBottom: selectedProxies.length > 0 ? 300 : 90,
             }}
             decelerationRate="fast">
             {MyProxiesList.map(proxy => (

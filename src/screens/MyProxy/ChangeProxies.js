@@ -214,7 +214,7 @@ function ChangeProxies({ navigation }) {
           <ScrollView
             style={{
               width: selectedProxies.length > 0 ? '90%' : '90%',
-              marginBottom: selectedProxies.length > 0 && 300,
+              marginBottom: selectedProxies.length > 0 ? 300 : 90,
             }}>
             {MyProxiesList.map(proxy => (
               <ProxyItemDelete
