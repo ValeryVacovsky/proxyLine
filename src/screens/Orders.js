@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 20,
+    marginBottom: 5,
   },
   text: {
     fontSize: 42,
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   },
   navContainer: {
     alignItems: 'center',
-    marginBottom: 25,
+    marginBottom: 23,
   },
 })
 

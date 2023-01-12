@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutAuth from '../componets/LayoutAuth'
@@ -187,6 +187,8 @@ function Main({ navigation }) {
       left: 10,
     },
   })
+
+  let heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutAuth>
       <View style={styles.header}>
