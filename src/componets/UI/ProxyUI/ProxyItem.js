@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native'
 import ProxiesDotts from '../../../image/Svg/ProxiesDotts'
 import DarkRadioUncheked from '../../../image/Svg/DarkRadioUncheked'
 import LightRadioUncheked from '../../../image/Svg/LightRadioUncheked'
@@ -23,6 +23,13 @@ const styles = StyleSheet.create({
     width: '88%',
     flexDirection: 'row',
   },
+  s_mainContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '93%',
+    flexDirection: 'row',
+  },
 })
 
 function ProxyItem({
@@ -36,11 +43,12 @@ function ProxyItem({
   navigation,
   childrenItem,
 }) {
+  let heightOffScreen = Dimensions.get('window').height
   return (
     <View style={styles.container}>
-      <View style={styles.mainContainer}>
+      <View style={heightOffScreen > 700 ? styles.mainContainer : styles.s_mainContainer}>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <View style={{ top: 13, marginLeft: 10 }}>{proxy.flag}</View>
+          <View style={{ top: 13, marginLeft: 12 }}>{proxy.flag}</View>
           <View style={{ marginLeft: 14 }}>
             <View
               style={{
@@ -128,7 +136,7 @@ function ProxyItem({
                 setSelected(null)
                 handleClosePress()
               }}>
-              <LightRadioUncheked style={{ marginLeft: 9, bottom: 3 }} />
+              <LightRadioUncheked style={{ marginLeft: 12, right: 5, bottom: 3 }} />
             </Pressable>
           ) : (
             <Pressable
@@ -137,7 +145,7 @@ function ProxyItem({
                 setSelected(proxy.id)
                 handleClosePress()
               }}>
-              <DarkRadioUncheked style={{ marginLeft: 9, bottom: 3 }} />
+              <DarkRadioUncheked style={{ marginLeft: 12, right: 5, bottom: 3 }} />
             </Pressable>
           )}
         </View>

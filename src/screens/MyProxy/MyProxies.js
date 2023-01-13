@@ -1,5 +1,15 @@
 import React, { useCallback, useRef, useMemo, useState } from 'react'
-import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput, Pressable } from 'react-native'
+import {
+  ScrollView,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  Text,
+  TextInput,
+  Pressable,
+  Dimensions,
+} from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import ProxiesFilter from '../../image/Svg/ProxiesFilter'
 
@@ -149,10 +159,11 @@ const styles = StyleSheet.create({
 })
 
 function MyProxies({ navigation }) {
+  let heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => ['50%'], [])
+  const snapPoints = useMemo(() => (heightOffScreen > 700 ? ['50%'] : ['61%']), [])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -192,10 +203,17 @@ function MyProxies({ navigation }) {
         </View>
       ),
     })
-  }, [navigation])
-
+  }, [handleClosePress, handleSnapPress, navigation])
   return (
     <LayoutMain>
+      {/* <View
+        style={{
+          position: 'absolute',
+          width: 5000,
+          height: 5000,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        }}
+      /> */}
       <View style={{ alignItems: 'center', display: 'flex' }}>
         <View
           style={{
@@ -223,7 +241,13 @@ function MyProxies({ navigation }) {
             placeholder="Найти прокси"
             placeholderTextColor="#CBCBCB"
           />
-          {valueProxy.length === 0 && <ProxiesSearch style={{ position: 'absolute', left: '65%' }} />}
+          {valueProxy.length === 0 && (
+            <ProxiesSearch
+              style={
+                heightOffScreen > 800 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '68%' }
+              }
+            />
+          )}
         </View>
         <SafeAreaView>
           <ScrollView style={{ width: '100%', marginBottom: 90 }}>

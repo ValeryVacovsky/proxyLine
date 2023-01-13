@@ -184,19 +184,19 @@ function OrderItem({ navigation, order, setScrolling }) {
                 borderBottomLeftRadius: 44,
                 borderTopLeftRadius: 44,
               }}
-              onPress={() => setAmount(amount + 1)}
+              onPress={() => amount > 0 && setAmount(amount - 1)}
               activeOpacity={0.8}>
               <Text
                 style={{
                   color: '#CBCBCB',
                   paddingTop: 10,
                   paddingBottom: 10,
-                  paddingLeft: 20,
-                  paddingRight: 14,
+                  paddingLeft: 22,
+                  paddingRight: 18,
                   fontSize: 14,
                   fontWeight: '600',
                 }}>
-                +
+                -
               </Text>
             </TouchableOpacity>
             <View
@@ -206,8 +206,8 @@ function OrderItem({ navigation, order, setScrolling }) {
                 backgroundColor: '#1E2127',
                 paddingTop: 10,
                 paddingBottom: 10,
-                paddingLeft: 14,
-                paddingRight: 14,
+                paddingLeft: 18,
+                paddingRight: 18,
                 marginRight: 1,
                 marginLeft: 1,
               }}>
@@ -220,7 +220,7 @@ function OrderItem({ navigation, order, setScrolling }) {
                 borderTopRightRadius: 44,
               }}
               onPress={() => {
-                amount > 1 && setAmount(amount - 1)
+                setAmount(amount + 1)
               }}
               activeOpacity={0.8}>
               <Text
@@ -228,12 +228,12 @@ function OrderItem({ navigation, order, setScrolling }) {
                   color: 'white',
                   paddingTop: 10,
                   paddingBottom: 10,
-                  paddingLeft: 14,
-                  paddingRight: 20,
+                  paddingLeft: 18,
+                  paddingRight: 22,
                   fontSize: 14,
                   fontWeight: '600',
                 }}>
-                -
+                +
               </Text>
             </TouchableOpacity>
           </View>

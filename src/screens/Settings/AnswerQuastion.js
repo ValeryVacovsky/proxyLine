@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView, View, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, Text } from 'react-native'
+import { ScrollView, View, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, Text, Dimensions } from 'react-native'
 
 import LayoutMain from '../../componets/LayoutMain'
 import AnswerLine from '../../componets/UI/Settings/AnswerLine'
@@ -130,7 +130,7 @@ function AnswerQuastion({ navigation }) {
       ),
     })
   }, [navigation])
-
+  let heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
       <View style={{ alignItems: 'center', display: 'flex' }}>
@@ -159,7 +159,13 @@ function AnswerQuastion({ navigation }) {
             placeholder="Найти ответы"
             placeholderTextColor="#CBCBCB"
           />
-          {valueProxy.length === 0 && <ProxiesSearch style={{ position: 'absolute', left: '65%' }} />}
+          {valueProxy.length === 0 && (
+            <ProxiesSearch
+              style={
+                heightOffScreen > 700 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '68%' }
+              }
+            />
+          )}
         </View>
         <SafeAreaView>
           <ScrollView style={styles.container}>

@@ -5,11 +5,12 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     backgroundColor: '#0F1218',
-    borderRadius: 10,
+    borderRadius: 14,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    bottom: 1,
   },
   topButton: {
     paddingTop: 18,
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     paddingBottom: 18,
     backgroundColor: '#1E2127',
     width: '90%',
-    marginBottom: 100,
+    marginBottom: 80,
     borderRadius: 12,
     alignItems: 'center',
     marginTop: 20,
@@ -40,14 +41,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 12,
     lineHeight: 15,
-  },
-  topTab: {
-    position: 'absolute',
-    width: 60,
-    height: 3,
-    backgroundColor: 'rgba(255,255,255, 0.5)',
-    marginTop: 10,
-    borderRadius: 100,
   },
 })
 

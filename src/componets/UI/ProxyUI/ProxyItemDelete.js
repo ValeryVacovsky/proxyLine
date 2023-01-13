@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native'
 import VectorYellowBig from '../../../image/Svg/VectorYellowBig'
 import BottomSheetItem from './BottomSheetItem'
 
@@ -34,18 +34,31 @@ function ProxyItemDelete({
   childrenItem,
   onChange,
 }) {
+  let heightOffScreen = Dimensions.get('window').height
   return (
     <TouchableOpacity style={styles.container} onPress={() => onChange(proxy.id)} activeOpacity={0.8}>
       <View
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '90%',
-          flexDirection: 'row',
-        }}>
+        style={
+          heightOffScreen > 900
+            ? {
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '90%',
+                flexDirection: 'row',
+              }
+            : {
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '96.5%',
+                flexDirection: 'row',
+              }
+        }>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <View style={{ top: 13, marginLeft: 0 }}>{proxy.flag}</View>
+          <View style={heightOffScreen > 900 ? { top: 13, marginLeft: 0 } : { top: 13, marginLeft: 12 }}>
+            {proxy.flag}
+          </View>
           <View style={{ marginLeft: 14 }}>
             <View
               style={{

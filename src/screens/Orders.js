@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native'
+import { View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity, Dimensions } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
 import UserNavigation from '../componets/UserNavigation'
 import OrdersList from '../componets/OrdersList'
@@ -77,9 +77,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 23,
   },
+  s_navContainer: {
+    alignItems: 'center',
+    width: '95%',
+    left: 10,
+  },
 })
 
 function Orders({ navigation }) {
+  let heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
@@ -106,7 +112,7 @@ function Orders({ navigation }) {
           )}
         </View>
       </SafeAreaView>
-      <View style={styles.navContainer}>
+      <View style={heightOffScreen > 700 ? styles.navContainer : styles.s_navContainer}>
         <UserNavigation status="Orders" navigation={navigation} />
       </View>
     </LayoutMain>

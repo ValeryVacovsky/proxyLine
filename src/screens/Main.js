@@ -33,6 +33,11 @@ function Main({ navigation }) {
       paddingTop: 50,
       marginTop: 25,
     },
+    S_header: {
+      marginBottom: 35,
+      paddingTop: 50,
+      marginTop: 5,
+    },
     authForm: {
       flex: 1,
       paddingLeft: 30,
@@ -84,6 +89,18 @@ function Main({ navigation }) {
       backgroundColor: 'rgba(99, 99, 99, 0.30)',
       width: '40%',
       left: '30%',
+      borderBottomLeftRadius: 8,
+      borderBottomRightRadius: 8,
+    },
+    s_timeCalendar: {
+      alignItems: 'center',
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingTop: 3,
+      paddingBottom: 4,
+      backgroundColor: 'rgba(99, 99, 99, 0.30)',
+      width: '60%',
+      left: '20%',
       borderBottomLeftRadius: 8,
       borderBottomRightRadius: 8,
     },
@@ -179,11 +196,12 @@ function Main({ navigation }) {
       shadowRadius: 10,
     },
     navContainer: {
-      // alignItems: 'center',
       marginBottom: 25,
-      // margin: 'auto',
       width: '95%',
-      // marginLeft: '25px',
+      left: 10,
+    },
+    s_navContainer: {
+      width: '95%',
       left: 10,
     },
   })
@@ -191,11 +209,11 @@ function Main({ navigation }) {
   let heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutAuth>
-      <View style={styles.header}>
+      <View style={heightOffScreen > 700 ? styles.header : styles.S_header}>
         <LogoIntroWhite width={88} height={16} style={styles.mainLogo} />
       </View>
       <View style={styles.authForm}>
-        <View style={{ marginBottom: 40, display: 'flex' }}>
+        <View style={{ marginBottom: 0, display: 'flex' }}>
           <View style={{ alignItems: 'center' }}>
             <Text style={styles.yourIP} onPress={() => navigation.navigate('Auth')}>
               Ваш IP
@@ -224,12 +242,17 @@ function Main({ navigation }) {
               {statusConect === 'none' && <FlagRusSmall width={16} height={13} style={{ bottom: 7, left: 5 }} />}
             </View>
           </View>
-          <View style={{ marginBottom: 60, alignItems: 'center', marginTop: 40 }}>
+          <View
+            style={
+              heightOffScreen > 700
+                ? { marginBottom: 60, alignItems: 'center', marginTop: 40 }
+                : { marginBottom: 20, alignItems: 'center' }
+            }>
             {statusConect === 'on' && (
               <TouchableOpacity onPress={() => setStatusConect('off')} activeOpacity={0.8}>
                 <Image
                   source={ButtonOff}
-                  style={{ width: 200, height: 200, alignItems: 'center' }}
+                  style={{ width: 200, height: 200, alignItems: 'center', bottom: heightOffScreen < 700 && 12 }}
                   onPress={() => setStatusConect('on')}
                 />
               </TouchableOpacity>
@@ -238,7 +261,7 @@ function Main({ navigation }) {
               <TouchableOpacity onPress={() => setStatusConect('on')} activeOpacity={0.8}>
                 <Image
                   source={ButtonOn}
-                  style={{ width: 200, height: 200, alignItems: 'center' }}
+                  style={{ width: 200, height: 200, alignItems: 'center', bottom: heightOffScreen < 700 && 12 }}
                   onPress={() => setStatusConect('on')}
                 />
               </TouchableOpacity>
@@ -253,6 +276,8 @@ function Main({ navigation }) {
                     alignItems: 'center',
                     padding: 40,
                     marginTop: 30,
+                    marginBottom: 10,
+                    bottom: heightOffScreen < 700 && 12,
                   }}
                 />
               </TouchableOpacity>
@@ -428,23 +453,19 @@ function Main({ navigation }) {
               )}
             </View>
             {statusConect === 'on' && (
-              <View style={styles.timeCalendar}>
-                <Text
-                  style={{ fontWeight: '600', fontSize: 12, color: '#F5F5F5' }}
-                  onPress={() => navigation.navigate('Test')}>
-                  5 дней 6 часов
-                </Text>
+              <View style={heightOffScreen > 700 ? styles.timeCalendar : styles.s_timeCalendar}>
+                <Text style={{ fontWeight: '600', fontSize: 12, color: '#F5F5F5' }}>5 дней 6 часов</Text>
               </View>
             )}
             {statusConect === 'off' && (
-              <View style={styles.timeCalendar}>
+              <View style={heightOffScreen > 700 ? styles.timeCalendar : styles.s_timeCalendar}>
                 <Text style={{ fontWeight: '600', fontSize: 12, color: '#F5F5F5' }}>5 дней 6 часов</Text>
               </View>
             )}
           </View>
         </View>
       </View>
-      <View style={styles.navContainer}>
+      <View style={heightOffScreen > 700 ? styles.navContainer : styles.s_navContainer}>
         <UserNavigation status="Main" navigation={navigation} />
       </View>
     </LayoutAuth>

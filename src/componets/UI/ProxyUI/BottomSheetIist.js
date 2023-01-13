@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     backgroundColor: '#0F1218',
-    borderRadius: 10,
+    borderRadius: 14,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     paddingBottom: 18,
     backgroundColor: '#1E2127',
     width: '90%',
-    marginBottom: 110,
+    marginBottom: 90,
     borderRadius: 12,
     alignItems: 'center',
   },

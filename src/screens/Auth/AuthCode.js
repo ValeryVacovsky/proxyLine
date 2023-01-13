@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useForm, Controller } from 'react-hook-form'
 
@@ -8,6 +8,8 @@ import LayoutAuth from '../../componets/LayoutAuth'
 
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
 import postRegister from '../../api/postRegister'
+
+let heightOffScreen = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontWeight: '600',
-    fontSize: 22,
+    fontSize: heightOffScreen > 700 ? 22 : 20,
   },
 })
 

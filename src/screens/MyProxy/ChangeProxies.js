@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
-import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput } from 'react-native'
+import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput, Dimensions } from 'react-native'
 
 import LayoutMain from '../../componets/LayoutMain'
 import FlagUseBig from '../../image/Svg/FlagUseBig'
@@ -145,10 +145,11 @@ const styles = StyleSheet.create({
 })
 
 function ChangeProxies({ navigation }) {
+  let heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => ['30%'], [])
+  const snapPoints = useMemo(() => (heightOffScreen > 700 ? ['30%'] : ['33']), [])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -208,7 +209,13 @@ function ChangeProxies({ navigation }) {
             placeholder="Найти прокси"
             placeholderTextColor="#CBCBCB"
           />
-          {valueProxy.length === 0 && <ProxiesSearch style={{ position: 'absolute', left: '65%' }} />}
+          {valueProxy.length === 0 && (
+            <ProxiesSearch
+              style={
+                heightOffScreen > 700 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '68%' }
+              }
+            />
+          )}
         </View>
         <SafeAreaView>
           <ScrollView

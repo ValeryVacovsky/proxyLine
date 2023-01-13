@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 
 import { useForm, Controller } from 'react-hook-form'
 
@@ -9,6 +9,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import postResetCode from '../../api/postResetCode'
+
+let heightOffScreen = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontWeight: '600',
-    fontSize: 22,
+    fontSize: heightOffScreen > 700 ? 22 : 20,
   },
 })
 

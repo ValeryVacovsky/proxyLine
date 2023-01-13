@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Dimensions } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutMain from '../../componets/LayoutMain'
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
 })
 
 function MessageForm({ navigation }) {
+  let heightOffScreen = Dimensions.get('window').height
   const [textValue, setTextValue] = useState('')
   return (
     <LayoutMain style={{ width: '100%' }}>
@@ -134,7 +135,7 @@ function MessageForm({ navigation }) {
                   paddingTop: 14,
                   paddingBottom: 14,
                   borderColor: '#333842',
-                  height: 200,
+                  height: heightOffScreen > 700 ? 200 : 150,
                 }}
                 multiline
                 numberOfLines={4}
@@ -143,9 +144,13 @@ function MessageForm({ navigation }) {
               />
             </View>
           </View>
-          <Text style={styles.textSmall}>Если у вас публичные прокси (без логина и пароля), то IP:PORT</Text>
+          <Text style={styles.textSmall}>
+            Пишите нам в онлайн чат, он находиться с правой стороны в углу. Онлайн чат работает каждый день
+            круглосуточно.
+          </Text>
           <Text style={styles.textSmall2}>
-            Если у вас Индивидуальные/Приватные (авторизация по логину и паролю), тогда IP:PORT:LOGIN:PASW
+            Если вопросы связаны: {'\n'} Заменой адреса {'\n'} Возвратом заказов на баланс аккаунта Пишите только в
+            онлайн чат, поддержка отвечает в течение 1 минуты, ответ на тикет может задержаться до 72ч.
           </Text>
         </View>
       </SafeAreaView>

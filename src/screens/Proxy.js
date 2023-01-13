@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, StyleSheet, SafeAreaView, Text, Pressable } from 'react-native'
+import { View, ScrollView, StyleSheet, SafeAreaView, Text, Pressable, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LayoutMain from '../componets/LayoutMain'
 import ProxyTariff from '../componets/ProxyTariff'
@@ -54,6 +54,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 25,
   },
+  s_navContainer: {
+    alignItems: 'center',
+    width: '95%',
+    left: 10,
+  },
   balanceIcon: {
     display: 'flex',
     flexDirection: 'row',
@@ -90,6 +95,7 @@ function Proxy({ navigation }) {
       ),
     })
   }, [navigation, balance])
+  let heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
@@ -99,7 +105,7 @@ function Proxy({ navigation }) {
           ))}
         </ScrollView>
       </SafeAreaView>
-      <View style={styles.navContainer}>
+      <View style={heightOffScreen > 700 ? styles.navContainer : styles.s_navContainer}>
         <UserNavigation status="Proxy" navigation={navigation} />
       </View>
     </LayoutMain>

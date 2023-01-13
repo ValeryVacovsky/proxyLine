@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-nativ
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    // height: '100%',
     backgroundColor: '#0F1218',
     borderRadius: 10,
     display: 'flex',
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     marginBottom: 100,
     borderRadius: 12,
     alignItems: 'center',
-    marginTop: 20,
   },
   bottomButtonText: {
     color: '#FAC637',
@@ -51,6 +50,7 @@ function BottomSheetIP({ handleClosePress, setIsOpen, setIpaddress }) {
             paddingTop: 14,
             paddingBottom: 14,
             borderColor: '#333842',
+            marginTop: 50,
           }}
           value={value}
           onChange={setValue}

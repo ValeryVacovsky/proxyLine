@@ -64,7 +64,7 @@ function Filters({ navigation }) {
   })
   const sheetRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => ['35%'], [])
+  const snapPoints = useMemo(() => ['25%'], [])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -136,7 +136,7 @@ function Filters({ navigation }) {
           flex: 1,
           marginHorizontal: 20,
           // eslint-disable-next-line no-use-before-define
-          marginBottom: isOpen && 300,
+          // marginBottom: isOpen && 300,
           marginTop: 15,
         }}>
         <SafeAreaView>

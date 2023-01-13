@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Pressable } from 'react-native'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Pressable, Dimensions } from 'react-native'
 
 import { useForm, Controller } from 'react-hook-form'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -15,7 +15,7 @@ import ViewIconOff from '../../image/Svg/ViewIconOff'
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/g
-
+let heightOffScreen = Dimensions.get('window').height
 // const PASSWOR_REGEX;
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontWeight: '600',
-    fontSize: 22,
+    fontSize: heightOffScreen < 700 ? 22 : 20,
   },
 })
 

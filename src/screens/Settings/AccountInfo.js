@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-na
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import LayoutMain from '../../componets/LayoutMain'
 import ViewIcon from '../../image/Svg/ViewIcon'
+import ViewIconOff from '../../image/Svg/ViewIconOff'
 
 const styles = StyleSheet.create({
   container: {
@@ -112,7 +113,11 @@ function AccountInfo({ navigation }) {
                     {!passwordVisibiliti ? '************' : 12341234123}
                   </Text>
                   <Pressable activeOpacity={0.8} hitSlop={15}>
-                    <ViewIcon style={{ bottom: 2 }} onPress={() => setPasswordVisibiliti(prev => !prev)} />
+                    {!passwordVisibiliti ? (
+                      <ViewIcon style={{ bottom: 2 }} onPress={() => setPasswordVisibiliti(prev => !prev)} />
+                    ) : (
+                      <ViewIconOff style={{ bottom: 2 }} onPress={() => setPasswordVisibiliti(prev => !prev)} />
+                    )}
                   </Pressable>
                 </View>
               </View>

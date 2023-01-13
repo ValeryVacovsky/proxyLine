@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, SafeAreaView, TouchableOpacity, Text, Dimensions } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import UserNavigation from '../../componets/UserNavigation'
 import CheckProxy from '../../image/Svg/CheckProxy'
@@ -65,6 +65,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
   },
+  s_navContainer: {
+    alignItems: 'center',
+    width: '95%',
+    left: 10,
+  },
 })
 
 function Settgings({ navigation }) {
@@ -83,6 +88,7 @@ function Settgings({ navigation }) {
       ),
     })
   }, [navigation])
+  let heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container} activeOpacity={0.8}>
@@ -130,7 +136,7 @@ function Settgings({ navigation }) {
           </View>
         </TouchableOpacity>
       </SafeAreaView>
-      <View style={styles.navContainer}>
+      <View style={heightOffScreen > 700 ? styles.navContainer : styles.s_navContainer}>
         <UserNavigation status="Settings" navigation={navigation} />
       </View>
     </LayoutMain>

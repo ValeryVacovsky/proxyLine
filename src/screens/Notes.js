@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 40,
     position: 'absolute',
-    bottom: '8%',
+    bottom: 45,
     zIndex: 1,
   },
   buttonInner: {
@@ -135,7 +135,7 @@ function Notes({ navigation }) {
             width: '100%',
             marginBottom: 40,
             position: 'absolute',
-            bottom: '8%',
+            bottom: '5%',
             zIndex: 1,
           }}>
           <TouchableOpacity
@@ -209,6 +209,7 @@ function Notes({ navigation }) {
               alignItems: 'center',
               width: '100%',
               marginTop: 20,
+              marginBottom: 20,
             }}
             activeOpacity={0.8}
             onLongPress={() => {}}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 
 import { useForm, Controller } from 'react-hook-form'
 
@@ -12,6 +12,8 @@ import postReset from '../../api/postReset'
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+let heightOffScreen = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontWeight: '600',
-    fontSize: 22,
+    fontSize: heightOffScreen > 700 ? 22 : 20,
   },
 })
 
