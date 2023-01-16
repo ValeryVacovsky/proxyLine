@@ -116,40 +116,30 @@ function AuthAuthauthentification({ navigation }) {
   return (
     <LayoutAuth>
       <View style={styles.header}>
-        <LogoIntroSmall width={132} height={24} style={styles.mainLogo} />
+        <LogoIntroSmall style={styles.mainLogo} />
       </View>
       <View style={styles.authForm}>
         <View>
           <Text onPress={() => navigation.navigate('Main')} style={styles.authLogo}>
             Авторизация
           </Text>
-          {/* {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>} */}
           {errors.email ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
-                Email
-              </Text>
+              <Text style={styles.label}>Email</Text>
               <Text style={{ color: 'white', fontSize: 12 }}>Введите логин</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
-                    Email
-                  </Text>
+                  <Text style={styles.label}>Email</Text>
                   <Text style={{ color: 'white', fontSize: 12 }}>Не существующий логин или пароль</Text>
                 </View>
               ) : (
-                <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
-                  Email
-                </Text>
+                <Text style={styles.label}>Email</Text>
               )}
             </View>
           )}
-          {/* <Input name="email" control={control} /> */}
-          {/* <TextInput {...register("email")} style={styles.input}></TextInput> */}
-
           <Controller
             control={control}
             rules={{
@@ -184,28 +174,20 @@ function AuthAuthauthentification({ navigation }) {
           />
           {errors.password ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.label} onPress={() => navigation.navigate('Test')}>
-                Пароль
-              </Text>
+              <Text style={styles.label}>Пароль</Text>
               <Text style={{ color: 'white', fontSize: 12 }}>Введите пароль</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
-                    Пароль
-                  </Text>
+                  <Text style={styles.label}>Пароль</Text>
                 </View>
               ) : (
-                <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
-                  Пароль
-                </Text>
+                <Text style={styles.label}>Пароль</Text>
               )}
             </View>
           )}
-          {/* <Input name="password" control={control} /> */}
-          {/* <TextInput {...register("password")} style={styles.input}></TextInput> */}
           <Controller
             control={control}
             rules={{

@@ -140,30 +140,22 @@ function AuthRegister({ navigation }) {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text style={styles.authLogo} onPress={() => navigation.navigate('Code')}>
-            Регистрация
-          </Text>
+          <Text style={styles.authLogo}>Регистрация</Text>
           <Text style={styles.authUnderLogo}>Пароль будет отправлен на Ваш email</Text>
           {errors.email ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
-                Email
-              </Text>
+              <Text style={styles.label}>Email</Text>
               <Text style={{ color: 'white', fontSize: 12 }}>Введите ваш email</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
-                    Email
-                  </Text>
+                  <Text style={styles.label}>Email</Text>
                   <Text style={{ color: 'white', fontSize: 12 }}>Данный email уже зарегерстрированна</Text>
                 </View>
               ) : (
-                <Text style={styles.label} onPress={() => navigation.navigate('Notes')}>
-                  Email
-                </Text>
+                <Text style={styles.label}>Email</Text>
               )}
             </View>
           )}

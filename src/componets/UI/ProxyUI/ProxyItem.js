@@ -5,7 +5,6 @@ import ProxiesDotts from '../../../image/Svg/ProxiesDotts'
 import DarkRadioUncheked from '../../../image/Svg/DarkRadioUncheked'
 import LightRadioUncheked from '../../../image/Svg/LightRadioUncheked'
 import BottomSheetIist from './BottomSheetIist'
-// import BottomSheetItem from './BottomSheetItem'
 
 const styles = StyleSheet.create({
   container: {
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '91%',
+    width: '92%',
     flexDirection: 'row',
   },
   s_mainContainer: {

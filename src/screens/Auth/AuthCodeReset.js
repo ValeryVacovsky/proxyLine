@@ -103,16 +103,6 @@ function AuthCodeReset({ navigation }) {
     } else {
       setCommonFormError('Invalid email_code')
     }
-    // try {
-    //   if (res.data.success === true) {
-    //     await AsyncStorage.setItem('@auth_token', resesult.data.token)
-    //     console.log('Успех')
-    //     navigation.navigate('Auth')
-    //   }
-    // } catch (error) {
-    //   setCommonFormError('Invalid email_code')
-    //   // console.log(error)
-    // }
   }
   return (
     <LayoutAuth>
@@ -125,10 +115,6 @@ function AuthCodeReset({ navigation }) {
           <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
             На Ваш email будует выслан новый пароль
           </Text>
-          {/* {commonFormError && (
-            <Text style={{ color: 'white', textAlign: 'center', bottom: 10 }}>Введен не верный код</Text>
-          )}
-          <Text style={styles.label}>Код подтверждения</Text> */}
           {errors.code ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={styles.label} onPress={() => {}}>
