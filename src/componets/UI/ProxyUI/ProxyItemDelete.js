@@ -56,7 +56,7 @@ function ProxyItemDelete({
               }
         }>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <View style={heightOffScreen > 900 ? { top: 13, marginLeft: 0 } : { top: 13, marginLeft: 12 }}>
+          <View style={heightOffScreen > 900 ? { top: 13, marginLeft: 0 } : { top: 13, marginLeft: 19 }}>
             {proxy.flag}
           </View>
           <View style={{ marginLeft: 14 }}>

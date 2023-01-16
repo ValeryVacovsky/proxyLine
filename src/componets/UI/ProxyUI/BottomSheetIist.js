@@ -1,5 +1,7 @@
 import React from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-native'
+
+let heightOffScreen = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
   container: {
@@ -20,8 +22,8 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   topButton: {
-    paddingTop: 18,
-    paddingBottom: 18,
+    paddingTop: heightOffScreen > 800 ? 20 : 18,
+    paddingBottom: heightOffScreen > 800 ? 20 : 18,
     backgroundColor: '#1E2127',
     width: '90%',
     borderRadius: 12,
@@ -34,8 +36,8 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
   centerTopButton: {
-    paddingTop: 18,
-    paddingBottom: 18,
+    paddingTop: heightOffScreen > 800 ? 20 : 18,
+    paddingBottom: heightOffScreen > 800 ? 20 : 18,
     backgroundColor: '#1E2127',
     width: '90%',
     marginBottom: 1,
@@ -51,8 +53,8 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
   centerMiddleButton: {
-    paddingTop: 18,
-    paddingBottom: 18,
+    paddingTop: heightOffScreen > 800 ? 20 : 18,
+    paddingBottom: heightOffScreen > 800 ? 20 : 18,
     backgroundColor: '#1E2127',
     width: '90%',
     marginBottom: 1,
@@ -65,8 +67,8 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
   centerBottomButton: {
-    paddingTop: 18,
-    paddingBottom: 18,
+    paddingTop: heightOffScreen > 800 ? 20 : 18,
+    paddingBottom: heightOffScreen > 800 ? 20 : 18,
     backgroundColor: '#1E2127',
     width: '90%',
     borderBottomLeftRadius: 12,
@@ -80,8 +82,8 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
   bottomButton: {
-    paddingTop: 18,
-    paddingBottom: 18,
+    paddingTop: heightOffScreen > 800 ? 20 : 18,
+    paddingBottom: heightOffScreen > 800 ? 20 : 18,
     backgroundColor: '#1E2127',
     width: '90%',
     marginBottom: 90,

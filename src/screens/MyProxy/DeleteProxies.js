@@ -149,7 +149,7 @@ function DeleteProxies({ navigation }) {
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => (heightOffScreen > 700 ? ['30%'] : ['33']), [])
+  const snapPoints = useMemo(() => (heightOffScreen > 850 ? ['30%'] : ['33']), [])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -212,7 +212,7 @@ function DeleteProxies({ navigation }) {
           {valueProxy.length === 0 && (
             <ProxiesSearch
               style={
-                heightOffScreen > 700 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '68%' }
+                heightOffScreen > 850 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '68%' }
               }
             />
           )}

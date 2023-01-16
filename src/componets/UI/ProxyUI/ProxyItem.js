@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '88%',
+    width: '91%',
     flexDirection: 'row',
   },
   s_mainContainer: {

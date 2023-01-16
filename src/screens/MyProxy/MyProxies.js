@@ -163,7 +163,7 @@ function MyProxies({ navigation }) {
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => (heightOffScreen > 700 ? ['50%'] : ['61%']), [])
+  const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['52%'] : ['61%']), [])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -244,7 +244,7 @@ function MyProxies({ navigation }) {
           {valueProxy.length === 0 && (
             <ProxiesSearch
               style={
-                heightOffScreen > 800 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '68%' }
+                heightOffScreen > 850 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '68%' }
               }
             />
           )}

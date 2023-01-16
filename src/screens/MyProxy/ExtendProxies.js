@@ -149,7 +149,7 @@ function ExtendProxies({ navigation }) {
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => (heightOffScreen > 700 ? ['30%'] : ['33']), [])
+  const snapPoints = useMemo(() => (heightOffScreen > 850 ? ['30%'] : ['33']), [])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -221,7 +221,7 @@ function ExtendProxies({ navigation }) {
           <ScrollView
             style={{
               width: selectedProxies.length > 0 ? '90%' : '90%',
-              marginBottom: selectedProxies.length > 0 ? 300 : 90,
+              // marginBottom: selectedProxies.length > 0 ? 300 : 90,
             }}
             decelerationRate="fast">
             {MyProxiesList.map(proxy => (
