@@ -9,7 +9,7 @@ import LayoutAuth from '../../componets/LayoutAuth'
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
 import postRegister from '../../api/postRegister'
 
-let heightOffScreen = Dimensions.get('window').height
+const heightOffScreen = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
   sectionContainer: {

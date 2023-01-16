@@ -34,7 +34,7 @@ function ProxyItemDelete({
   childrenItem,
   onChange,
 }) {
-  let heightOffScreen = Dimensions.get('window').height
+  const heightOffScreen = Dimensions.get('window').height
   return (
     <TouchableOpacity style={styles.container} onPress={() => onChange(proxy.id)} activeOpacity={0.8}>
       <View

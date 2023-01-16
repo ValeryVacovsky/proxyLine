@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-native'
 
-let heightOffScreen = Dimensions.get('window').height
+const heightOffScreen = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
   container: {

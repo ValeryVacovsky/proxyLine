@@ -88,7 +88,7 @@ function Settgings({ navigation }) {
       ),
     })
   }, [navigation])
-  let heightOffScreen = Dimensions.get('window').height
+  const heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container} activeOpacity={0.8}>

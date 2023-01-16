@@ -130,7 +130,7 @@ function AnswerQuastion({ navigation }) {
       ),
     })
   }, [navigation])
-  let heightOffScreen = Dimensions.get('window').height
+  const heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
       <View style={{ alignItems: 'center', display: 'flex' }}>

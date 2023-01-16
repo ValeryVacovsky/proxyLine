@@ -42,7 +42,7 @@ function ProxyItem({
   navigation,
   childrenItem,
 }) {
-  let heightOffScreen = Dimensions.get('window').height
+  const heightOffScreen = Dimensions.get('window').height
   return (
     <View style={styles.container}>
       <View style={heightOffScreen > 700 ? styles.mainContainer : styles.s_mainContainer}>

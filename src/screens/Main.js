@@ -206,7 +206,7 @@ function Main({ navigation }) {
     },
   })
 
-  let heightOffScreen = Dimensions.get('window').height
+  const heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutAuth>
       <View style={heightOffScreen > 700 ? styles.header : styles.S_header}>

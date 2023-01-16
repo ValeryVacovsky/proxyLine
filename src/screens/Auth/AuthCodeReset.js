@@ -10,7 +10,7 @@ import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import postResetCode from '../../api/postResetCode'
 
-let heightOffScreen = Dimensions.get('window').height
+const heightOffScreen = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
   sectionContainer: {

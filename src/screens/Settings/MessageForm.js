@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
 })
 
 function MessageForm({ navigation }) {
-  let heightOffScreen = Dimensions.get('window').height
+  const heightOffScreen = Dimensions.get('window').height
   const [textValue, setTextValue] = useState('')
   return (
     <LayoutMain style={{ width: '100%' }}>

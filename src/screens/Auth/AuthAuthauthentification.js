@@ -15,7 +15,7 @@ import ViewIconOff from '../../image/Svg/ViewIconOff'
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/g
-let heightOffScreen = Dimensions.get('window').height
+const heightOffScreen = Dimensions.get('window').height
 // const PASSWOR_REGEX;
 const styles = StyleSheet.create({
   sectionContainer: {

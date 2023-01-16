@@ -95,7 +95,7 @@ function Proxy({ navigation }) {
       ),
     })
   }, [navigation, balance])
-  let heightOffScreen = Dimensions.get('window').height
+  const heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>

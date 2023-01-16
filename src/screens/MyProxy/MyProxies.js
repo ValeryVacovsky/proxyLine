@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
 })
 
 function MyProxies({ navigation }) {
-  let heightOffScreen = Dimensions.get('window').height
+  const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
