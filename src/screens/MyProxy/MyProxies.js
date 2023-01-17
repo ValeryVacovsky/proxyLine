@@ -185,7 +185,10 @@ function MyProxies({ navigation }) {
           <Pressable
             style={styles.balanceIconFilter}
             activeOpacity={0.8}
-            onPress={() => navigation.navigate('Filters')}
+            onPress={() => {
+              navigation.navigate('Filters')
+              setTimeout(() => handleClosePress(), 1000)
+            }}
             hitSlop={15}>
             <ProxiesFilter />
           </Pressable>
