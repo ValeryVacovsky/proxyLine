@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import SliderExample from './SliderExample'
-// import SliderExample from '../componets/SliderExample';
 import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
 import VectorRightSmall from '../image/Svg/VectorRightSmall'
 import Toggle from './UI/OrderUI/Toggle'
+import postOrderAmount from '../api/postOrderAmount'
+import postCreateOrder from '../api/postCreateOrder'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const styles = StyleSheet.create({
   buttonInner: {
@@ -17,11 +19,43 @@ const styles = StyleSheet.create({
   },
 })
 
-function OrderItem({ navigation, order, setScrolling }) {
-  const [amount, setAmount] = useState(0)
-  const { price } = order
-  const totalPrice = Math.floor(amount * price * 100) / 100
+function OrderItem({ navigation, order, setScrolling, price }) {
+  const [amount, setAmount] = useState(1)
+  const [totalPrice, setTotalPrice] = useState(100)
   const [days, setDays] = useState(90)
+  useEffect(() => {
+    async function name() {
+      await postOrderAmount({
+        quantity: amount,
+        ip_type: order.ip_type,
+        ip_version: order.ip_version,
+        country: 'ru',
+        period: days,
+        coupon: '',
+      }).then(data => setTotalPrice(data.data.amount / 100))
+    }
+    name()
+  }, [days, amount, order.ip_type, order.ip_version])
+  const onSubmit = async () => {
+    const token = await AsyncStorage.getItem('@token')
+    const id = await AsyncStorage.getItem('@id')
+    const data = `${id}_${token}`
+    const res = await postCreateOrder({
+      token: data,
+      data: {
+        quantity: amount,
+        ip_type: order.ip_type,
+        ip_version: order.ip_version,
+        country: 'ru',
+        period: days,
+        selected_ips: [],
+        tags: [0],
+        unique_credentials: false,
+        coupon: 'string',
+      },
+    })
+    console.log(res.data)
+  }
   const [country, setCountry] = useState('United States of America')
   return (
     <View style={{ flex: 1 }}>
@@ -127,7 +161,19 @@ function OrderItem({ navigation, order, setScrolling }) {
           <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 12 }}>5 дней</Text>
           <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 12 }}>360 дней</Text>
         </View>
-        <SliderExample days={days} setDays={setDays} setScrolling={setScrolling} />
+        <View
+          style={{ width: '100%', right: 10 }}
+          onTouchStart={() => {
+            setScrolling(false)
+            console.log('scroll')
+          }}
+          onTouchEnd={() => {}}>
+          <SliderExample
+            days={days}
+            setDays={value => setDays(Array.isArray(value) ? value[0] : value)}
+            setScrolling={setScrolling}
+          />
+        </View>
         <View
           style={{
             display: 'flex',
@@ -265,7 +311,7 @@ function OrderItem({ navigation, order, setScrolling }) {
           <Text style={{ color: 'white', fontWeight: '700', fontSize: 18 }}>$ {totalPrice}</Text>
         </View>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => onSubmit()}
           style={{ alignItems: 'center', width: '100%', marginBottom: 20 }}
           activeOpacity={0.8}>
           <SuperEllipseMaskView radius={12} style={styles.buttonInner}>

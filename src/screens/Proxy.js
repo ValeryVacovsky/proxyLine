@@ -9,6 +9,7 @@ import HeaderProxy from '../image/Svg/HeaderProxy'
 import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
 import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
 import getBalance from '../api/getBalance'
+import postOrderAmount from '../api/postOrderAmount'
 
 const ProxyList = [
   {
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollView: {
-    marginHorizontal: 20,
+    marginHorizontal: 0,
   },
   text: {
     fontSize: 42,
@@ -68,6 +69,41 @@ const styles = StyleSheet.create({
 })
 
 function Proxy({ navigation }) {
+  const [iPtypes, setIpTypes] = useState([10, 10, 10])
+
+  useEffect(() => {
+    async function name() {
+      const ipTypes = []
+      await postOrderAmount({
+        quantity: 1,
+        ip_type: 2,
+        ip_version: 4,
+        country: 'ru',
+        period: 5,
+        coupon: '',
+      }).then(data => ipTypes.push(data?.data.amount))
+      await postOrderAmount({
+        quantity: 1,
+        ip_type: 1,
+        ip_version: 4,
+        country: 'ru',
+        period: 5,
+        coupon: '',
+      }).then(data => ipTypes.push(data?.data.amount))
+      await postOrderAmount({
+        quantity: 1,
+        ip_type: 1,
+        ip_version: 6,
+        country: 'ru',
+        period: 5,
+        coupon: '',
+      }).then(data => ipTypes.push(data?.data.amount))
+      setIpTypes(ipTypes)
+    }
+    name()
+  }, [])
+  console.log(iPtypes)
+
   const [balance, setBalance] = useState({ balance: null })
   useEffect(() => {
     const fetchData = async () => {
@@ -88,7 +124,7 @@ function Proxy({ navigation }) {
             activeOpacity={0.8}
             hitSlop={50}
             onPress={() => navigation.navigate('Balance')}>
-            <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance}</Text>
+            <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance / 100}</Text>
             <HeaderProxy style={{ bottom: 1, marginLeft: 3 }} />
           </Pressable>
         </View>
@@ -100,8 +136,14 @@ function Proxy({ navigation }) {
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          {ProxyList.map(proxy => (
-            <ProxyTariff key={proxy.id} proxy={proxy} ProxyList={ProxyList} navigation={navigation} />
+          {ProxyList.map((proxy, index) => (
+            <ProxyTariff
+              key={proxy.id}
+              proxy={proxy}
+              ProxyList={ProxyList}
+              navigation={navigation}
+              iPtype={iPtypes[index]}
+            />
           ))}
         </ScrollView>
       </SafeAreaView>

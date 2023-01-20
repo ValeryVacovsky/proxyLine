@@ -253,7 +253,7 @@ function MyProxies({ navigation }) {
           )}
         </View>
         <SafeAreaView>
-          <ScrollView style={{ width: '100%', marginBottom: 90 }}>
+          <ScrollView style={{ width: '100%', marginBottom: selected ? 200 : 90 }}>
             {MyProxiesList.map(proxy => (
               <ProxyItem
                 key={proxy.id}

@@ -24,7 +24,7 @@ export default function Toggle() {
     }).start()
   }
 
-  const positionInterPol = positionButton.interpolate({ inputRange: [0, 1], outputRange: [0, 60] })
+  const positionInterPol = positionButton.interpolate({ inputRange: [0, 1], outputRange: [0, 70] })
   const leftToggleColor = positionButton.interpolate({ inputRange: [0, 1], outputRange: ['white', '#CBCBCB'] })
   const rightToggleColor = positionButton.interpolate({ inputRange: [0, 1], outputRange: ['#CBCBCB', 'white'] })
 
@@ -41,7 +41,7 @@ export default function Toggle() {
   }
 
   return (
-    <TouchableOpacity style={{ height: 30, width: 60 }} activeOpacity={0.9} onPress={onPress}>
+    <TouchableOpacity style={{ height: 50, width: 60, right: 5 }} activeOpacity={0.9} onPress={onPress}>
       <Animated.View
         style={[
           styles.mainStyes,
@@ -86,7 +86,7 @@ export default function Toggle() {
 
 const styles = StyleSheet.create({
   basicStyle: {
-    height: 24,
+    height: 31,
     width: 70,
     borderRadius: 50,
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#FFFFFF',
     position: 'absolute',
-    top: 8,
+    top: 12,
     left: 14,
     zIndex: 1,
   },
@@ -106,14 +106,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#FFFFFF',
     position: 'absolute',
-    top: 8,
+    top: 12,
     right: 16,
     zIndex: 1,
   },
   mainStyes: {
     borderRadius: 40,
     backgroundColor: '#81b0ff',
-    height: 32,
-    width: 141,
+    height: 40,
+    width: 150,
   },
 })

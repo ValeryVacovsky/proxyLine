@@ -113,7 +113,7 @@ function Settgings({ navigation }) {
           activeOpacity={0.8}
           onPress={() => navigation.navigate('AnwserQuaction')}>
           <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Вопросы и ответы</Text>
+            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Вопрос ответ</Text>
             <SettingsVector />
           </View>
         </TouchableOpacity>

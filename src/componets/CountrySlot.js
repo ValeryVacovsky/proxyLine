@@ -30,7 +30,7 @@ function CountrySlot() {
         />
         <View style={{ display: 'flex', flexDirection: 'row' }}>
           <FlagUsaSmall width={16} height={13} style={{ top: 2, marginLeft: 5, marginRight: 5 }} />
-          <Text style={{ color: 'white', fontWeight: '600' }}>United States of America</Text>
+          <Text style={{ color: 'white', fontWeight: '600', width: '75%' }}>United States of America</Text>
         </View>
         <RadioUncheked width={21} height={20} />
       </TouchableOpacity>

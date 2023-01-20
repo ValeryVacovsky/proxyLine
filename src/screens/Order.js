@@ -18,7 +18,7 @@ function Order({ navigation, route }) {
       const token = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
       const data = await getBalance(`${id}_${token}`)
-      await setBalance(data.data)
+      await setBalance(data?.data)
     }
     fetchData()
   }, [])
@@ -32,7 +32,7 @@ function Order({ navigation, route }) {
             activeOpacity={0.8}
             hitSlop={50}
             onPress={() => navigation.navigate('Balance')}>
-            <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance}</Text>
+            <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance / 100}</Text>
             <HeaderProxy style={{ marginLeft: 3 }} />
           </Pressable>
         </View>
@@ -48,6 +48,8 @@ function Order({ navigation, route }) {
       price: 0.6,
       handDesription: 'Используется до 3-х человек',
       icon: <PeopleIconProxy />,
+      ip_type: 2,
+      ip_version: 4,
     },
     {
       id: 2,
@@ -57,6 +59,8 @@ function Order({ navigation, route }) {
       price: 0.88,
       handDesription: 'Выдается в одни руки',
       icon: <CloudProxyIcon />,
+      ip_type: 1,
+      ip_version: 4,
     },
     {
       id: 3,
@@ -66,9 +70,13 @@ function Order({ navigation, route }) {
       price: 1.22,
       handDesription: 'Выдается в одни руки',
       icon: <ServerProxyIcon />,
+      ip_type: 1,
+      ip_version: 6,
     },
   ]
   const startPos = currentProxyId * (route.params.proxy.id - 1)
+  const iPtypes = route.params.iPtypes
+  console.log(iPtypes)
   return (
     <LayoutMain>
       <ScrollView
@@ -76,7 +84,6 @@ function Order({ navigation, route }) {
         contentContainerStyle={{ width: `${ProxyList.length * 100}%` }}
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={100}
-        // decelerationRate="fast"
         pagingEnabled
         contentOffset={{ x: startPos }}
         disableIntervalMomentum
@@ -85,9 +92,14 @@ function Order({ navigation, route }) {
           setCurrentProxyId(layout.width)
         }}
         scrollEnabled={scrolling}>
-        {ProxyList.map(order => (
-          // eslint-disable-next-line react/jsx-key
-          <OrderItem navigation={navigation} order={order} setScrolling={setScrolling} />
+        {ProxyList.map((order, index) => (
+          <OrderItem
+            key={order.key}
+            navigation={navigation}
+            order={order}
+            setScrolling={setScrolling}
+            price={iPtypes[index] / 100}
+          />
         ))}
       </ScrollView>
     </LayoutMain>

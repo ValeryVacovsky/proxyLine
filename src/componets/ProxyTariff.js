@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
@@ -58,6 +58,8 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 21,
     paddingBottom: 14,
+    borderTopRightRadius: 14,
+    borderTopLeftRadius: 14,
   },
   proxyTypeText: {
     color: 'white',
@@ -110,19 +112,48 @@ const styles = StyleSheet.create({
   },
 })
 
-function ProxyTariff({ navigation, proxy }) {
+function ProxyTariff({ navigation, proxy, iPtype }) {
+  const [iPtypes, setIpTypes] = useState([10, 10, 10])
+
+  useEffect(() => {
+    async function name() {
+      const ipTypes = []
+      await postOrderAmount({
+        quantity: 1,
+        ip_type: 2,
+        ip_version: 4,
+        country: 'ru',
+        period: 5,
+        coupon: '',
+      }).then(data => ipTypes.push(data?.data.amount))
+      await postOrderAmount({
+        quantity: 1,
+        ip_type: 1,
+        ip_version: 4,
+        country: 'ru',
+        period: 5,
+        coupon: '',
+      }).then(data => ipTypes.push(data?.data.amount))
+      await postOrderAmount({
+        quantity: 1,
+        ip_type: 1,
+        ip_version: 6,
+        country: 'ru',
+        period: 5,
+        coupon: '',
+      }).then(data => ipTypes.push(data?.data.amount))
+      setIpTypes(ipTypes)
+    }
+    name()
+  }, [])
+  console.log(iPtypes)
   return (
     <View style={styles.container}>
       <View style={styles.container2}>
         <SuperEllipseMaskView radius={8} style={styles.handDesription}>
           <Text style={styles.handDesriptionText}>{proxy.handDesription}</Text>
         </SuperEllipseMaskView>
-        <SuperEllipseMaskView
-          radius={{
-            topLeft: 12,
-            topRight: 12,
-          }}
-          style={styles.topBlock}>
+        <View style={styles.topBlock}>
           <View>
             <Text style={styles.proxyTypeText}>
               IP
@@ -131,7 +162,7 @@ function ProxyTariff({ navigation, proxy }) {
             <Text style={styles.discriptionText}>{proxy.discription}</Text>
           </View>
           <View>{proxy.icon}</View>
-        </SuperEllipseMaskView>
+        </View>
         <View style={styles.centerBlock}>
           <View>
             <Text style={styles.daysText}>{proxy.days}</Text>
@@ -142,12 +173,12 @@ function ProxyTariff({ navigation, proxy }) {
               onPress={() => {
                 navigation.navigate('Balance')
               }}>
-              $ {proxy.price}
+              $ {iPtype / 100}
             </Text>
           </View>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Order', { proxy })}
+          onPress={() => navigation.navigate('Order', { proxy, iPtypes })}
           style={styles.buttomInner}
           activeOpacity={0.8}>
           <Text style={styles.buttomInnerText}>Подробнее</Text>

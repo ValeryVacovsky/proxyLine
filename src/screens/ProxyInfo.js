@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useMemo, useRef, useState, useCallback } from 'react'
 import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Pressable } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
 import InfoCopyIcon from '../image/Svg/InfoCopyIcon'
 import ProxyInfoChange from '../image/Svg/ProxyInfoChange'
 import ReadTrash from '../image/Svg/ReadTrash'
 import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
+import BottomSheetForm from '../componets/BottomSheetForm'
+import BottomSheetCopy from '../componets/UI/ProxyUI/BottomSheetCopy'
 
 const styles = StyleSheet.create({
   container: {
@@ -49,6 +51,29 @@ const styles = StyleSheet.create({
 })
 
 function ProxyInfo({ navigation }) {
+  const sheetRef = useRef(null)
+  const [, setIsOpen] = useState(false)
+  const snapPoints = useMemo(() => ['15%'], [])
+  const [copy] = useState(false)
+
+  const handleSnapPress = useCallback(index => {
+    sheetRef.current?.snapToIndex(index)
+    setIsOpen(false)
+  }, [])
+  const handleClosePress = useCallback(() => {
+    sheetRef.current?.close()
+  }, [])
+  const handelOpenCopy = text => {
+    // eslint-disable-next-line react/no-unescaped-entities
+    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>Скопировано "{text}"</BottomSheetCopy>)
+    handleSnapPress(0)
+    setTimeout(() => {
+      handleClosePress()
+    }, 3000)
+  }
+  const [childrenItem, setChildrenItem] = useState(
+    <BottomSheetCopy handleClosePress={handleClosePress}>Скопировано</BottomSheetCopy>,
+  )
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -154,7 +179,12 @@ function ProxyInfo({ navigation }) {
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>IP</Text>
                   <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>192.0.0.1</Text>
-                    <Pressable activeOpacity={0.8} hitSlop={15}>
+                    <Pressable
+                      activeOpacity={0.8}
+                      hitSlop={15}
+                      onPress={() => {
+                        handelOpenCopy('192.0.0.1')
+                      }}>
                       <InfoCopyIcon />
                     </Pressable>
                   </View>
@@ -180,7 +210,12 @@ function ProxyInfo({ navigation }) {
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Port</Text>
                   <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>11594</Text>
-                    <Pressable activeOpacity={0.8} hitSlop={15}>
+                    <Pressable
+                      activeOpacity={0.8}
+                      hitSlop={15}
+                      onPress={() => {
+                        handelOpenCopy('11594')
+                      }}>
                       <InfoCopyIcon />
                     </Pressable>
                   </View>
@@ -206,7 +241,12 @@ function ProxyInfo({ navigation }) {
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Логин</Text>
                   <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>gJgsaH</Text>
-                    <Pressable activeOpacity={0.8} hitSlop={15}>
+                    <Pressable
+                      activeOpacity={0.8}
+                      hitSlop={15}
+                      onPress={() => {
+                        handelOpenCopy('gJgsaH')
+                      }}>
                       <InfoCopyIcon />
                     </Pressable>
                   </View>
@@ -232,7 +272,12 @@ function ProxyInfo({ navigation }) {
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Пароль</Text>
                   <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>MsUpsas62</Text>
-                    <Pressable activeOpacity={0.8} hitSlop={15}>
+                    <Pressable
+                      activeOpacity={0.8}
+                      hitSlop={15}
+                      onPress={() => {
+                        handelOpenCopy('MsUpsas62')
+                      }}>
                       <InfoCopyIcon />
                     </Pressable>
                   </View>
@@ -541,6 +586,16 @@ function ProxyInfo({ navigation }) {
           </View>
         </ScrollView>
       </SafeAreaView>
+      {copy && (
+        <BottomSheetForm
+          navigation={navigation}
+          sheetRef={sheetRef}
+          snapPoints={snapPoints}
+          setIsOpen={setIsOpen}
+          handleClosePress={handleClosePress}>
+          {childrenItem}
+        </BottomSheetForm>
+      )}
     </LayoutMain>
   )
 }
