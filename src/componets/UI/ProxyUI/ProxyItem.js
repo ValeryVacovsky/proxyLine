@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '92%',
+    width: '88%',
     flexDirection: 'row',
   },
   s_mainContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '93%',
+    width: '88%',
     flexDirection: 'row',
   },
 })
@@ -49,7 +49,7 @@ function ProxyItem({
     <View style={styles.container}>
       <View style={heightOffScreen > 700 ? styles.mainContainer : styles.s_mainContainer}>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <View style={{ top: 13, marginLeft: 12 }}>{proxy.flag}</View>
+          <View style={{ top: 13, marginLeft: 12 }}>{proxy?.flag}</View>
           <View style={{ marginLeft: 14 }}>
             <View
               style={{
@@ -88,7 +88,7 @@ function ProxyItem({
                     color: '#CBCBCB',
                     lineHeight: 15,
                   }}>
-                  {proxy.days} дней
+                  {proxy?.days} дней
                 </Text>
               </View>
             </View>
@@ -129,7 +129,7 @@ function ProxyItem({
           <Pressable
             hitSlop={5}
             onPress={() => {
-              setProxyItemPicked(proxy.id)
+              setProxyItemPicked(proxy?.id)
               childrenItem && handleSnapPress(0)
               setSelected(null)
               setChildrenItem(
@@ -143,7 +143,7 @@ function ProxyItem({
             }}>
             <ProxiesDotts style={{ marginRight: 8 }} />
           </Pressable>
-          {selected === proxy.id ? (
+          {selected === proxy?.id ? (
             <Pressable
               hitSlop={3}
               onPress={() => {

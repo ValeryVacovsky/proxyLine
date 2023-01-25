@@ -37,7 +37,7 @@ function ProxyItemDelete({
 }) {
   const heightOffScreen = Dimensions.get('window').height
   return (
-    <TouchableOpacity style={styles.container} onPress={() => onChange(proxy.id)} activeOpacity={0.8}>
+    <TouchableOpacity style={styles.container} onPress={() => onChange(proxy?.id)} activeOpacity={0.8}>
       <View
         style={
           heightOffScreen > 900
@@ -58,7 +58,7 @@ function ProxyItemDelete({
         }>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
           <View style={heightOffScreen > 900 ? { top: 13, marginLeft: 0 } : { top: 13, marginLeft: 19 }}>
-            {proxy.flag}
+            {proxy?.flag}
           </View>
           <View style={{ marginLeft: 14 }}>
             <View
@@ -97,7 +97,7 @@ function ProxyItemDelete({
                     color: '#CBCBCB',
                     lineHeight: 15,
                   }}>
-                  {proxy.days} дней
+                  {proxy?.days} дней
                 </Text>
               </View>
             </View>
@@ -136,15 +136,15 @@ function ProxyItemDelete({
         <View>
           <TouchableOpacity
             onPress={() => {
-              setProxyItemPicked(proxy.id)
+              setProxyItemPicked(proxy?.id)
               childrenItem && handleSnapPress(0)
               setSelected(null)
               setChildrenItem(<BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} />)
             }}
             activeOpacity={0.8}
           />
-          {selectedProxies.includes(Number(proxy.id)) && <VectorYellowBig style={{ right: 20 }} />}
-          {!selectedProxies.includes(Number(proxy.id)) && <View style={{ width: 20, height: 20 }} />}
+          {selectedProxies.includes(Number(proxy?.id)) && <VectorYellowBig style={{ right: 20 }} />}
+          {!selectedProxies.includes(Number(proxy?.id)) && <View style={{ width: 20, height: 20 }} />}
         </View>
       </View>
     </TouchableOpacity>

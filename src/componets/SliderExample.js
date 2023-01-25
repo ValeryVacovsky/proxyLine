@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Slider } from '@miblanchard/react-native-slider'
 import { StyleSheet, View } from 'react-native'
 
@@ -12,19 +12,23 @@ const styles = StyleSheet.create({
   },
 })
 
-function SliderExample({ days, setDays, setScrolling }) {
-  const trackMarks = [
-    30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 285, 300, 315, 330, 345, 360,
-  ]
-  const [step] = useState(30)
+function SliderExample({ setDays, setScrolling }) {
+  const trackMarks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+  const validDays = [5, 10, 20, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
+  const [value, setValue] = useState(1)
+  useEffect(() => {
+    setDays(validDays[value - 1])
+  }, [value])
+
+  const [step] = useState(1)
   return (
     <View style={styles.container}>
       <Slider
         trackMarks={trackMarks}
-        value={days}
-        onValueChange={setDays}
-        maximumValue={360}
-        minimumValue={30}
+        value={value}
+        onValueChange={setValue}
+        maximumValue={15}
+        minimumValue={1}
         maximumTrackTintColor="#1E2127"
         minimumTrackTintColor="#FAC637"
         thumbTintColor="#FAC637"
@@ -45,7 +49,7 @@ function SliderExample({ days, setDays, setScrolling }) {
             style={{
               width: index === 0 ? 4 : 2,
               height: 14,
-              backgroundColor: days < trackMarks[index] ? '#1E2127' : '#FAC637',
+              backgroundColor: value < trackMarks[index] ? '#1E2127' : '#FAC637',
               borderRadius: 2,
               shadowColor: '#FAC637',
               shadowOffset: { width: 0, height: 10 },

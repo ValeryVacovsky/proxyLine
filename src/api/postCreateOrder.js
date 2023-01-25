@@ -15,14 +15,3 @@ const postCreateOrder = ({ token, data }) =>
   })
 
 export default postCreateOrder
-// {
-//     "quantity": 2,
-//     "ip_type": 1,
-//     "ip_version": 6,
-//     "country": "us",
-//     "period": 5,
-//     "selected_ips": [],
-//     "tags": [],
-//     "unique_credentials": false,
-//     "coupon": "string"
-//   }

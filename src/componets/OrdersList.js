@@ -10,9 +10,6 @@ import { updateObject } from '../store/reducers/orderReducer'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function OrdersList({ data }) {
-  const token = AsyncStorage.getItem('@token')
-  const id = AsyncStorage.getItem('@id')
-  const user_token = `${id}_${token}`
   const dispatch = useDispatch()
   const [received, setReceived] = useState(data.data.statusActive)
   const [dateCreate, setDateCreate] = useState(new Date())
@@ -22,10 +19,40 @@ function OrdersList({ data }) {
     setDateCreate(new Date())
   }
   const createOrderRequest = async () => {
+    console.log('запрос', {
+      quantity: 1,
+      ip_type: data.data.ip_type,
+      ip_version: data.data.ip_version,
+      country: 'ru',
+      period: data.data.period,
+      selected_ips: [],
+      tags: [0],
+      unique_credentials: false,
+      coupon: 'string',
+    })
     try {
-      const res = await postCreateOrder(user_token)
-    } catch (error) {}
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const user_token = `${id}_${token}`
+      const res = await postCreateOrder(user_token, {
+        quantity: 1,
+        ip_type: data.data.ip_type,
+        ip_version: data.data.ip_version,
+        country: 'ru',
+        period: data.data.period,
+        selected_ips: [],
+        tags: [0],
+        unique_credentials: false,
+        coupon: 'string',
+      })
+      onHandleSuccess()
+      console.log('res', res)
+    } catch (error) {
+      console.log('ошибка', error)
+      console.log('token', id)
+    }
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.container1}>

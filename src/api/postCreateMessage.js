@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const baseUrl = 'https://proxydbtest.proxyline.net'
 
-const postCreateMessage = ({ token, data }) =>
+const postCreateMessage = (data, token) =>
   axios({
     method: 'post',
     url: `${baseUrl}/projectapi/v1/1/user/${token}/message`,

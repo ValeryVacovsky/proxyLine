@@ -321,7 +321,10 @@ function OrderItem({ navigation, order, setScrolling, price }) {
           <Text style={{ color: 'white', fontWeight: '700', fontSize: 18 }}>$ {totalPrice}</Text>
         </View>
         <TouchableOpacity
-          onPress={() => onSubmit()}
+          onPress={() => {
+            onSubmit()
+            navigation.navigate('Orders')
+          }}
           style={{ alignItems: 'center', width: '100%', marginBottom: 20 }}
           activeOpacity={0.8}>
           <SuperEllipseMaskView radius={12} style={styles.buttonInner}>
