@@ -7,71 +7,6 @@ import CheckSpeed from '../../image/Svg/CheckSpeed'
 import SettingsVector from '../../image/Svg/SettingsVector'
 import SettingsVector2 from '../../image/Svg/SettingsVector2'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 15,
-  },
-  scrollContainer: {
-    alignItems: 'center',
-    top: '35%',
-  },
-  navContainer: {
-    alignItems: 'center',
-    marginBottom: 25,
-  },
-  checker: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '90%',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  check: {
-    display: 'flex',
-    backgroundColor: 'rgba(255, 255, 255, 0.06)',
-    width: '47%',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
-    borderRadius: 14,
-  },
-  textTop: {
-    color: '#FAC637',
-    fontWeight: '600',
-    fontSize: 14,
-  },
-  settingLine: {
-    alignItems: 'center',
-    width: '100%',
-    backgroundColor: '#1E2127',
-    marginBottom: 1,
-  },
-  settingLineBottom: {
-    alignItems: 'center',
-    width: '100%',
-    backgroundColor: '#1E2127',
-    marginTop: 10,
-  },
-  setting: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingBottom: 17,
-    paddingTop: 17,
-    alignItems: 'center',
-    width: '90%',
-  },
-  s_navContainer: {
-    alignItems: 'center',
-    width: '95%',
-    left: 10,
-  },
-})
-
 function Settgings({ navigation }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -142,5 +77,70 @@ function Settgings({ navigation }) {
     </LayoutMain>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 15,
+  },
+  scrollContainer: {
+    alignItems: 'center',
+    top: '35%',
+  },
+  navContainer: {
+    alignItems: 'center',
+    marginBottom: 25,
+  },
+  checker: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  check: {
+    display: 'flex',
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    width: '47%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20,
+    borderRadius: 14,
+  },
+  textTop: {
+    color: '#FAC637',
+    fontWeight: '600',
+    fontSize: 14,
+  },
+  settingLine: {
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#1E2127',
+    marginBottom: 1,
+  },
+  settingLineBottom: {
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#1E2127',
+    marginTop: 10,
+  },
+  setting: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 17,
+    paddingTop: 17,
+    alignItems: 'center',
+    width: '90%',
+  },
+  s_navContainer: {
+    alignItems: 'center',
+    width: '95%',
+    left: 10,
+  },
+})
 
 export default Settgings

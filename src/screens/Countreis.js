@@ -4,6 +4,39 @@ import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import CountrySlot from '../componets/CountrySlot'
 import LayoutMain from '../componets/LayoutMain'
 
+function Countreis({ navigation }) {
+  return (
+    <LayoutMain>
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+          <CountrySlot />
+        </ScrollView>
+      </SafeAreaView>
+      <TouchableOpacity onPress={() => navigation.navigate('Order')} style={styles.button} activeOpacity={0.8}>
+        <SuperEllipseMaskView
+          radius={{
+            topLeft: 12,
+            topRight: 12,
+            bottomRight: 12,
+            bottomLeft: 12,
+          }}
+          style={styles.buttonInner}>
+          <Text style={styles.buttonText}>Подтвердить</Text>
+        </SuperEllipseMaskView>
+      </TouchableOpacity>
+    </LayoutMain>
+  )
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -38,37 +71,5 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
 })
-function Countreis({ navigation }) {
-  return (
-    <LayoutMain>
-      <SafeAreaView style={styles.container}>
-        <ScrollView style={styles.scrollView}>
-          <CountrySlot />
-          <CountrySlot />
-          <CountrySlot />
-          <CountrySlot />
-          <CountrySlot />
-          <CountrySlot />
-          <CountrySlot />
-          <CountrySlot />
-          <CountrySlot />
-          <CountrySlot />
-        </ScrollView>
-      </SafeAreaView>
-      <TouchableOpacity onPress={() => navigation.navigate('Order')} style={styles.button} activeOpacity={0.8}>
-        <SuperEllipseMaskView
-          radius={{
-            topLeft: 12,
-            topRight: 12,
-            bottomRight: 12,
-            bottomLeft: 12,
-          }}
-          style={styles.buttonInner}>
-          <Text style={styles.buttonText}>Подтвердить</Text>
-        </SuperEllipseMaskView>
-      </TouchableOpacity>
-    </LayoutMain>
-  )
-}
 
 export default Countreis

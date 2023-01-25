@@ -1,8 +1,98 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import dateFormat from 'dateformat'
+import postCreateOrder from '../api/postCreateOrder'
 // import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
 
 import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
+import { useDispatch } from 'react-redux'
+import { updateObject } from '../store/reducers/orderReducer'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+function OrdersList({ data }) {
+  const token = AsyncStorage.getItem('@token')
+  const id = AsyncStorage.getItem('@id')
+  const user_token = `${id}_${token}`
+  const dispatch = useDispatch()
+  const [received, setReceived] = useState(data.data.statusActive)
+  const [dateCreate, setDateCreate] = useState(new Date())
+  const onHandleSuccess = () => {
+    dispatch(updateObject({ statusActive: true, dateActive: new Date() }))
+    setReceived(true)
+    setDateCreate(new Date())
+  }
+  const createOrderRequest = async () => {
+    try {
+      const res = await postCreateOrder(user_token)
+    } catch (error) {}
+  }
+  return (
+    <View style={styles.container}>
+      <View style={styles.container1}>
+        <View style={styles.topContainer}>
+          <View>
+            <Text style={styles.IpTitle}>IPv{data.data.ip_version} Shared</Text>
+            <Text style={styles.data}>От {dateFormat(data.data.dateActive, 'd.mm.yyyy HH:MM')}</Text>
+          </View>
+          <View>
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+              <Text style={styles.IdNumberSmall}>ID </Text>
+              <Text style={styles.IdNumber}> 4829002398</Text>
+            </View>
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+              <Text style={styles.calenderTimeSmall}>Осталось </Text>
+              <Text style={styles.calenderTime}> 5 дней 6 часов</Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={{
+            backgroundColor: 'rgba(51, 51, 51, 0.3)',
+            marginBottom: 1,
+            width: '100%',
+            borderBottomLeftRadius: received && 14,
+            borderBottomRightRadius: received && 14,
+          }}>
+          <View style={styles.blockContainer}>
+            <Text style={styles.leftText}>Страна</Text>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={styles.rightText}>Russian Federation</Text>
+              <FlagUsaSmall width={16} height={13} style={{ top: 2, marginLeft: 5, marginRight: 5 }} />
+            </View>
+          </View>
+          <View style={styles.centerBlock}>
+            <Text style={styles.leftText}>Дней</Text>
+            <Text style={styles.rightText}>{data.data.period}</Text>
+          </View>
+          <View style={styles.blockContainer}>
+            <Text style={styles.leftText}>Количество IP</Text>
+            <Text style={styles.rightText}>{data.data.quantity}</Text>
+          </View>
+          <View style={styles.blockContainer}>
+            <Text style={styles.leftText}>Сумма</Text>
+            <Text style={styles.rightText}>$ {data.data.totalPrice}</Text>
+          </View>
+          {received && (
+            <View style={styles.blockContainer}>
+              <Text style={styles.leftText}>Получено</Text>
+              <Text style={styles.rightText}>{dateFormat(dateCreate, 'd.mm.yyyy HH:MM')}</Text>
+            </View>
+          )}
+        </View>
+        {!received && (
+          <TouchableOpacity
+            style={styles.buttonInner}
+            onPress={() => {
+              createOrderRequest()
+            }}
+            activeOpacity={0.8}>
+            <Text style={styles.buttonInnerText}>Получить</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -118,77 +208,5 @@ const styles = StyleSheet.create({
     paddingBottom: 14,
   },
 })
-
-function OrdersList() {
-  const [received, setReceived] = useState(true)
-  return (
-    <View style={styles.container}>
-      <View style={styles.container1}>
-        <View style={styles.topContainer}>
-          <View>
-            <Text style={styles.IpTitle}>IPv4 Shared</Text>
-            <Text style={styles.data}>От 19.03.2022 19:04</Text>
-          </View>
-          <View>
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-              <Text style={styles.IdNumberSmall}>ID </Text>
-              <Text style={styles.IdNumber}> 4829002398</Text>
-            </View>
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-              <Text style={styles.calenderTimeSmall}>Осталось </Text>
-              <Text style={styles.calenderTime}> 5 дней 6 часов</Text>
-            </View>
-          </View>
-        </View>
-        <View
-          style={{
-            backgroundColor: 'rgba(51, 51, 51, 0.3)',
-            marginBottom: 1,
-            width: '100%',
-            borderBottomLeftRadius: !received && 14,
-            borderBottomRightRadius: !received && 14,
-          }}>
-          <View style={styles.blockContainer}>
-            <Text style={styles.leftText}>Страна</Text>
-            <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={styles.rightText}>United States of America</Text>
-              <FlagUsaSmall width={16} height={13} style={{ top: 2, marginLeft: 5, marginRight: 5 }} />
-            </View>
-          </View>
-          <View style={styles.centerBlock}>
-            <Text style={styles.leftText}>Дней</Text>
-            <Text style={styles.rightText}>90</Text>
-          </View>
-          <View style={styles.blockContainer}>
-            <Text style={styles.leftText}>Количество IP</Text>
-            <Text style={styles.rightText}>5</Text>
-          </View>
-          <View style={styles.blockContainer}>
-            <Text style={styles.leftText}>Сумма</Text>
-            <Text style={styles.rightText}>$ 10.00</Text>
-          </View>
-          {!received && (
-            <View style={styles.blockContainer}>
-              <Text style={styles.leftText} onPress={() => setReceived(true)}>
-                Получено
-              </Text>
-              <Text style={styles.rightText}>20.03.2022</Text>
-            </View>
-          )}
-        </View>
-        {received && (
-          <TouchableOpacity
-            style={styles.buttonInner}
-            onPress={() => {
-              setReceived(false)
-            }}
-            activeOpacity={0.8}>
-            <Text style={styles.buttonInnerText}>Получить</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    </View>
-  )
-}
 
 export default OrdersList

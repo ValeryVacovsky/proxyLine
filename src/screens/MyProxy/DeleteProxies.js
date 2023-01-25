@@ -7,6 +7,7 @@ import BottomSheetForm from '../../componets/BottomSheetForm'
 import ProxyItemDelete from '../../componets/UI/ProxyUI/ProxyItemDelete'
 import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectForm'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
+import { useSelector } from 'react-redux'
 
 const MyProxiesList = [
   {
@@ -107,44 +108,8 @@ const MyProxiesList = [
   },
 ]
 
-const styles = StyleSheet.create({
-  balanceIconFilter: {
-    marginRight: 15,
-  },
-  balanceIconFilterDotts: {},
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    marginHorizontal: 20,
-    marginTop: 20,
-  },
-  text: {
-    fontSize: 42,
-  },
-  button: {
-    alignItems: 'center',
-    width: '100%',
-    marginBottom: 40,
-    position: 'absolute',
-    bottom: '8%',
-    zIndex: 1,
-  },
-  buttonInner: {
-    backgroundColor: '#FAC637',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    width: '90%',
-  },
-  buttonText: {
-    color: 'black',
-    fontWeight: '600',
-    fontSize: 13,
-  },
-})
-
 function DeleteProxies({ navigation }) {
+  const proxyRes = useSelector(data => data?.proxy?.authStatus)
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
@@ -223,15 +188,16 @@ function DeleteProxies({ navigation }) {
               width: selectedProxies.length > 0 ? '90%' : '90%',
               marginBottom: selectedProxies.length > 0 ? 300 : 90,
             }}>
-            {MyProxiesList.map(proxy => (
+            {proxyRes.map((proxy, index) => (
               <ProxyItemDelete
                 key={proxy.id}
-                proxy={proxy}
+                proxy={MyProxiesList[index]}
                 handleSnapPress={handleSnapPress}
                 handleClosePress={handleClosePress}
                 onChange={onChange}
                 selectedProxies={selectedProxies}
                 navigation={navigation}
+                proxyRes={proxy}
               />
             ))}
           </ScrollView>
@@ -256,5 +222,42 @@ function DeleteProxies({ navigation }) {
     </LayoutMain>
   )
 }
+
+const styles = StyleSheet.create({
+  balanceIconFilter: {
+    marginRight: 15,
+  },
+  balanceIconFilterDotts: {},
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
+  text: {
+    fontSize: 42,
+  },
+  button: {
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 40,
+    position: 'absolute',
+    bottom: '8%',
+    zIndex: 1,
+  },
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '90%',
+  },
+  buttonText: {
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+})
 
 export default DeleteProxies

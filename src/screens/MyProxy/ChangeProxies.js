@@ -4,9 +4,10 @@ import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, Tex
 import LayoutMain from '../../componets/LayoutMain'
 import FlagUseBig from '../../image/Svg/FlagUseBig'
 import BottomSheetForm from '../../componets/BottomSheetForm'
-import ProxyItemDelete from '../../componets/UI/ProxyUI/ProxyItemDelete'
 import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectForm'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
+import { useSelector } from 'react-redux'
+import ProxyItemChange from '../../componets/UI/ProxyUI/ProxyItemChange'
 
 const MyProxiesList = [
   {
@@ -107,44 +108,8 @@ const MyProxiesList = [
   },
 ]
 
-const styles = StyleSheet.create({
-  balanceIconFilter: {
-    marginRight: 15,
-  },
-  balanceIconFilterDotts: {},
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    marginHorizontal: 20,
-    marginTop: 20,
-  },
-  text: {
-    fontSize: 42,
-  },
-  button: {
-    alignItems: 'center',
-    width: '100%',
-    marginBottom: 40,
-    position: 'absolute',
-    bottom: '8%',
-    zIndex: 1,
-  },
-  buttonInner: {
-    backgroundColor: '#FAC637',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    width: '90%',
-  },
-  buttonText: {
-    color: 'black',
-    fontWeight: '600',
-    fontSize: 13,
-  },
-})
-
 function ChangeProxies({ navigation }) {
+  const proxyRes = useSelector(data => data?.proxy?.authStatus)
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
@@ -223,15 +188,16 @@ function ChangeProxies({ navigation }) {
               width: selectedProxies.length > 0 ? '90%' : '90%',
               marginBottom: selectedProxies.length > 0 ? 300 : 90,
             }}>
-            {MyProxiesList.map(proxy => (
-              <ProxyItemDelete
+            {proxyRes.map((proxy, index) => (
+              <ProxyItemChange
                 key={proxy.id}
-                proxy={proxy}
+                proxy={MyProxiesList[index]}
                 handleSnapPress={handleSnapPress}
                 handleClosePress={handleClosePress}
                 onChange={onChange}
                 selectedProxies={selectedProxies}
                 navigation={navigation}
+                proxyRes={proxy}
               />
             ))}
           </ScrollView>
@@ -256,5 +222,42 @@ function ChangeProxies({ navigation }) {
     </LayoutMain>
   )
 }
+
+const styles = StyleSheet.create({
+  balanceIconFilter: {
+    marginRight: 15,
+  },
+  balanceIconFilterDotts: {},
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
+  text: {
+    fontSize: 42,
+  },
+  button: {
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 40,
+    position: 'absolute',
+    bottom: '8%',
+    zIndex: 1,
+  },
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '90%',
+  },
+  buttonText: {
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+})
 
 export default ChangeProxies

@@ -1,37 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
 
-const styles = StyleSheet.create({
-  container: {
-    // height: '100%',
-    backgroundColor: '#0F1218',
-    borderRadius: 10,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  topContainer: {
-    alignItems: 'center',
-    width: '100%',
-  },
-  bottomButton: {
-    paddingTop: 18,
-    paddingBottom: 18,
-    backgroundColor: '#1E2127',
-    width: '90%',
-    marginBottom: 100,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  bottomButtonText: {
-    color: '#FAC637',
-    fontWeight: '600',
-    fontSize: 12,
-    lineHeight: 15,
-  },
-})
-
 function BottomSheetIP({ handleClosePress, setIsOpen, setIpaddress }) {
   const [value, setValue] = useState('')
   return (
@@ -75,5 +44,36 @@ function BottomSheetIP({ handleClosePress, setIsOpen, setIpaddress }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    // height: '100%',
+    backgroundColor: '#0F1218',
+    borderRadius: 10,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  topContainer: {
+    alignItems: 'center',
+    width: '100%',
+  },
+  bottomButton: {
+    paddingTop: 18,
+    paddingBottom: 18,
+    backgroundColor: '#1E2127',
+    width: '90%',
+    marginBottom: 100,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  bottomButtonText: {
+    color: '#FAC637',
+    fontWeight: '600',
+    fontSize: 12,
+    lineHeight: 15,
+  },
+})
 
 export default BottomSheetIP

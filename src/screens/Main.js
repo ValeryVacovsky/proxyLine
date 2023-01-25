@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
@@ -207,6 +207,7 @@ function Main({ navigation }) {
   })
 
   const heightOffScreen = Dimensions.get('window').height
+  useEffect(() => {}, [])
   return (
     <LayoutAuth>
       <View style={heightOffScreen > 700 ? styles.header : styles.S_header}>
@@ -215,7 +216,11 @@ function Main({ navigation }) {
       <View style={styles.authForm}>
         <View style={{ marginBottom: 0, display: 'flex' }}>
           <View style={{ alignItems: 'center' }}>
-            <Text style={styles.yourIP} onPress={() => navigation.navigate('Auth')}>
+            <Text
+              style={styles.yourIP}
+              onPress={() => {
+                navigation.navigate('Auth')
+              }}>
               Ваш IP
             </Text>
             {statusConect === 'on' && <Text style={styles.IpAdress}>136.117.121.183</Text>}

@@ -6,26 +6,6 @@ import { useForm } from 'react-hook-form'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutAuth from '../../componets/LayoutAuth'
 
-const styles = StyleSheet.create({
-  buttonInner: {
-    backgroundColor: '#FAC637',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    width: '88%',
-    borderRadius: 12,
-  },
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    marginHorizontal: 20,
-  },
-  text: {
-    fontSize: 42,
-  },
-})
-
 function Ofert({ navigation }) {
   const { handleSubmit } = useForm({
     defaultValues: {
@@ -119,5 +99,25 @@ function Ofert({ navigation }) {
     </LayoutAuth>
   )
 }
+
+const styles = StyleSheet.create({
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '88%',
+    borderRadius: 12,
+  },
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    marginHorizontal: 20,
+  },
+  text: {
+    fontSize: 42,
+  },
+})
 
 export default Ofert

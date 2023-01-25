@@ -102,7 +102,6 @@ function Proxy({ navigation }) {
     }
     name()
   }, [])
-  console.log(iPtypes)
 
   const [balance, setBalance] = useState({ balance: null })
   useEffect(() => {

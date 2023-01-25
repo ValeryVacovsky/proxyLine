@@ -5,27 +5,6 @@ import LayoutMain from '../../componets/LayoutMain'
 import AnswerLine from '../../componets/UI/Settings/AnswerLine'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  setting: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingBottom: 17,
-    paddingTop: 17,
-    alignItems: 'center',
-    width: '90%',
-  },
-  settingLine: {
-    alignItems: 'center',
-    width: '90%',
-    backgroundColor: '#1E2127',
-    marginBottom: 1,
-  },
-})
-
 function AnswerQuastion({ navigation }) {
   const [valueProxy, setValueProxy] = useState('')
   const [question, setQuestion] = useState([
@@ -181,5 +160,26 @@ function AnswerQuastion({ navigation }) {
     </LayoutMain>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  setting: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 17,
+    paddingTop: 17,
+    alignItems: 'center',
+    width: '90%',
+  },
+  settingLine: {
+    alignItems: 'center',
+    width: '90%',
+    backgroundColor: '#1E2127',
+    marginBottom: 1,
+  },
+})
 
 export default AnswerQuastion

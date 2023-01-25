@@ -7,6 +7,7 @@ import ReadTrash from '../image/Svg/ReadTrash'
 import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
 import BottomSheetForm from '../componets/BottomSheetForm'
 import BottomSheetCopy from '../componets/UI/ProxyUI/BottomSheetCopy'
+import dateFormat from 'dateformat'
 
 const styles = StyleSheet.create({
   container: {
@@ -50,7 +51,8 @@ const styles = StyleSheet.create({
   },
 })
 
-function ProxyInfo({ navigation }) {
+function ProxyInfo({ navigation, route }) {
+  const proxyInfo = route.params.proxyRes
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
   const snapPoints = useMemo(() => ['15%'], [])
@@ -109,7 +111,7 @@ function ProxyInfo({ navigation }) {
                     width: '90%',
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>ID заказа</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>4829002398</Text>
+                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>{proxyInfo.id}</Text>
                 </View>
               </View>
               <View
@@ -132,7 +134,7 @@ function ProxyInfo({ navigation }) {
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Страна</Text>
                   <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ fontWeight: '600', fontSize: 13, color: 'white', marginRight: 6 }}>
-                      United States of America
+                      Russian Federation
                     </Text>
                     <FlagUsaSmall width={16} height={13} />
                   </View>
@@ -156,7 +158,7 @@ function ProxyInfo({ navigation }) {
                     width: '90%',
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Версия</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>IPv6</Text>
+                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>IPv{proxyInfo.ip_version}</Text>
                 </View>
               </View>
               <View
@@ -178,12 +180,14 @@ function ProxyInfo({ navigation }) {
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>IP</Text>
                   <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>192.0.0.1</Text>
+                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>
+                      {proxyInfo.ip}
+                    </Text>
                     <Pressable
                       activeOpacity={0.8}
                       hitSlop={15}
                       onPress={() => {
-                        handelOpenCopy('192.0.0.1')
+                        handelOpenCopy(`${proxyInfo.ip}`)
                       }}>
                       <InfoCopyIcon />
                     </Pressable>
@@ -209,7 +213,9 @@ function ProxyInfo({ navigation }) {
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Port</Text>
                   <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>11594</Text>
+                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>
+                      {proxyInfo.port_socks5}
+                    </Text>
                     <Pressable
                       activeOpacity={0.8}
                       hitSlop={15}
@@ -240,12 +246,14 @@ function ProxyInfo({ navigation }) {
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Логин</Text>
                   <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>gJgsaH</Text>
+                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>
+                      {proxyInfo.username}
+                    </Text>
                     <Pressable
                       activeOpacity={0.8}
                       hitSlop={15}
                       onPress={() => {
-                        handelOpenCopy('gJgsaH')
+                        handelOpenCopy(`${proxyInfo.username}`)
                       }}>
                       <InfoCopyIcon />
                     </Pressable>
@@ -271,12 +279,14 @@ function ProxyInfo({ navigation }) {
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Пароль</Text>
                   <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>MsUpsas62</Text>
+                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>
+                      {proxyInfo.password}
+                    </Text>
                     <Pressable
                       activeOpacity={0.8}
                       hitSlop={15}
                       onPress={() => {
-                        handelOpenCopy('MsUpsas62')
+                        handelOpenCopy(`${proxyInfo.password}`)
                       }}>
                       <InfoCopyIcon />
                     </Pressable>
@@ -347,7 +357,9 @@ function ProxyInfo({ navigation }) {
                     width: '90%',
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Заказ от</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>09.09.2022, 12:33</Text>
+                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>
+                    {dateFormat(proxyInfo.date_start, 'd.mm.yyyy HH:MM')}
+                  </Text>
                 </View>
               </View>
               <View
@@ -368,7 +380,9 @@ function ProxyInfo({ navigation }) {
                     width: '90%',
                   }}>
                   <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Окончание</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>09.12.2022, 12:33</Text>
+                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>
+                    {dateFormat(proxyInfo.date_end, 'd.mm.yyyy HH:MM')}
+                  </Text>
                 </View>
               </View>
               <View

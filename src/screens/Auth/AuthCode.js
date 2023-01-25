@@ -11,75 +11,6 @@ import postRegister from '../../api/postRegister'
 
 const heightOffScreen = Dimensions.get('window').height
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#0F1218',
-  },
-  backgroundImage: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-  },
-  mainLogo: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 132,
-    height: 24,
-    marginTop: 25,
-  },
-  header: {
-    flex: 1,
-    paddingTop: 20,
-    marginTop: 25,
-  },
-  authForm: {
-    flex: 2,
-    paddingLeft: 30,
-    paddingRight: 30,
-    justifyContent: 'space-between',
-  },
-  label: {
-    color: 'white',
-    marginBottom: 8,
-    fontSize: 16,
-    lineHeight: 15,
-    fontWeight: '500',
-  },
-  buttonInner: {
-    backgroundColor: '#FAC637',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-  },
-  buttonInnerBack: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-  },
-  input: {
-    backgroundColor: '#1E2127',
-    color: 'white',
-    height: 44,
-    minWidth: '100%',
-    marginBottom: 14,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#333842',
-    paddingLeft: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
-  },
-  authLogo: {
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: '600',
-    fontSize: heightOffScreen > 700 ? 22 : 20,
-  },
-})
-
 function AuthCode({ navigation }) {
   const {
     control,
@@ -90,7 +21,6 @@ function AuthCode({ navigation }) {
   const [focusOnCode, setFocusOnCode] = useState(false)
   const onSubmit = async data => {
     const email = await AsyncStorage.getItem('@sign_up_email')
-    console.log(email)
     try {
       const res = await postRegister({ ...data, email })
       await AsyncStorage.setItem('@auth_token', res.data.token)
@@ -110,8 +40,6 @@ function AuthCode({ navigation }) {
           <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
             На Ваш email будует выслан код подтверждения
           </Text>
-          {/* {commonFormError && <Text style={{ color: 'white', textAlign: 'center' }}>{commonFormError}</Text>} */}
-          {/* <Text style={styles.label}>Код подтверждения</Text> */}
           {errors.email_code ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={styles.label} onPress={() => {}}>
@@ -198,5 +126,63 @@ function AuthCode({ navigation }) {
     </LayoutAuth>
   )
 }
+
+const styles = StyleSheet.create({
+  mainLogo: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 132,
+    height: 24,
+    marginTop: 25,
+  },
+  header: {
+    flex: 1,
+    paddingTop: 20,
+    marginTop: 25,
+  },
+  authForm: {
+    flex: 2,
+    paddingLeft: 30,
+    paddingRight: 30,
+    justifyContent: 'space-between',
+  },
+  label: {
+    color: 'white',
+    marginBottom: 8,
+    fontSize: 16,
+    lineHeight: 15,
+    fontWeight: '500',
+  },
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+  },
+  buttonInnerBack: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+  },
+  input: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '100%',
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#333842',
+    paddingLeft: 20,
+    paddingTop: 14,
+    paddingBottom: 14,
+  },
+  authLogo: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: '600',
+    fontSize: heightOffScreen > 700 ? 22 : 20,
+  },
+})
 
 export default AuthCode

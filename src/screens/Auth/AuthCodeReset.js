@@ -12,81 +12,6 @@ import postResetCode from '../../api/postResetCode'
 
 const heightOffScreen = Dimensions.get('window').height
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#0F1218',
-  },
-  backgroundImage: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-  },
-  mainLogo: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 132,
-    height: 24,
-    marginTop: 25,
-  },
-  header: {
-    flex: 1,
-    paddingTop: 20,
-    marginTop: 25,
-  },
-  authForm: {
-    flex: 2,
-    paddingLeft: 30,
-    paddingRight: 30,
-    justifyContent: 'space-between',
-  },
-  label: {
-    color: 'white',
-    marginBottom: 8,
-    fontSize: 16,
-    lineHeight: 15,
-    fontWeight: '500',
-  },
-  buttonInner: {
-    backgroundColor: '#FAC637',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-  },
-  buttonInnerText: {
-    color: '#0F1218',
-    fontWeight: '600',
-    fontSize: 13,
-  },
-  buttonInnerBack: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    marginBottom: 20,
-  },
-  input: {
-    backgroundColor: '#1E2127',
-    color: 'white',
-    height: 44,
-    minWidth: '100%',
-    marginBottom: 14,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#333842',
-    paddingLeft: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
-  },
-  authLogo: {
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: '600',
-    fontSize: heightOffScreen > 700 ? 22 : 20,
-  },
-})
-
 function AuthCodeReset({ navigation }) {
   const {
     control,
@@ -196,5 +121,69 @@ function AuthCodeReset({ navigation }) {
     </LayoutAuth>
   )
 }
+
+const styles = StyleSheet.create({
+  mainLogo: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 132,
+    height: 24,
+    marginTop: 25,
+  },
+  header: {
+    flex: 1,
+    paddingTop: 20,
+    marginTop: 25,
+  },
+  authForm: {
+    flex: 2,
+    paddingLeft: 30,
+    paddingRight: 30,
+    justifyContent: 'space-between',
+  },
+  label: {
+    color: 'white',
+    marginBottom: 8,
+    fontSize: 16,
+    lineHeight: 15,
+    fontWeight: '500',
+  },
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+  },
+  buttonInnerText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  buttonInnerBack: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    marginBottom: 20,
+  },
+  input: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '100%',
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#333842',
+    paddingLeft: 20,
+    paddingTop: 14,
+    paddingBottom: 14,
+  },
+  authLogo: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: '600',
+    fontSize: heightOffScreen > 700 ? 22 : 20,
+  },
+})
 
 export default AuthCodeReset

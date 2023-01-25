@@ -15,85 +15,6 @@ const EMAIL_REGEX =
 
 const heightOffScreen = Dimensions.get('window').height
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#0F1218',
-  },
-  backgroundImage: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-  },
-  mainLogo: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 132,
-    height: 24,
-    marginTop: 25,
-  },
-  header: {
-    flex: 1,
-    paddingTop: 20,
-    marginTop: 25,
-  },
-  authForm: {
-    flex: 2,
-    paddingLeft: 30,
-    paddingRight: 30,
-    justifyContent: 'space-between',
-  },
-  label: {
-    color: 'white',
-    marginBottom: 8,
-    fontSize: 16,
-    lineHeight: 15,
-    fontWeight: '500',
-  },
-  buttonInner: {
-    backgroundColor: '#FAC637',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-  },
-  buttonInnerText: {
-    color: '#0F1218',
-    fontWeight: '600',
-    fontSize: 13,
-  },
-  buttonInnerBack: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-  },
-  buttonInnerBackText: {
-    color: 'white',
-    fontWeight: '600',
-    fontSize: 13,
-  },
-  input: {
-    backgroundColor: '#1E2127',
-    color: 'white',
-    height: 44,
-    minWidth: '100%',
-    marginBottom: 14,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#333842',
-    paddingLeft: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
-  },
-  authLogo: {
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: '600',
-    fontSize: heightOffScreen > 700 ? 22 : 20,
-  },
-})
-
 function AuthRecover({ navigation }) {
   const [focusOnEmail, setFocusOnEmail] = useState(false)
   const {
@@ -108,10 +29,8 @@ function AuthRecover({ navigation }) {
   })
   const onSubmit = async data => {
     const res = await postReset(data)
-    console.log(res.data)
     if (res?.data?.success === true) {
       await AsyncStorage.setItem('@sign_up_email_reset', data.email)
-      console.log(res.data)
       navigation.navigate('CodeReset')
     } else {
       // setCommonFormError('Invalid email or password');
@@ -193,5 +112,84 @@ function AuthRecover({ navigation }) {
     </LayoutAuth>
   )
 }
+
+const styles = StyleSheet.create({
+  sectionContainer: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#0F1218',
+  },
+  backgroundImage: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+  },
+  mainLogo: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 132,
+    height: 24,
+    marginTop: 25,
+  },
+  header: {
+    flex: 1,
+    paddingTop: 20,
+    marginTop: 25,
+  },
+  authForm: {
+    flex: 2,
+    paddingLeft: 30,
+    paddingRight: 30,
+    justifyContent: 'space-between',
+  },
+  label: {
+    color: 'white',
+    marginBottom: 8,
+    fontSize: 16,
+    lineHeight: 15,
+    fontWeight: '500',
+  },
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+  },
+  buttonInnerText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  buttonInnerBack: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+  },
+  buttonInnerBackText: {
+    color: 'white',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  input: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '100%',
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#333842',
+    paddingLeft: 20,
+    paddingTop: 14,
+    paddingBottom: 14,
+  },
+  authLogo: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: '600',
+    fontSize: heightOffScreen > 700 ? 22 : 20,
+  },
+})
 
 export default AuthRecover

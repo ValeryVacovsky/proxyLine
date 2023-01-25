@@ -4,6 +4,7 @@ import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutMain from '../componets/LayoutMain'
 import NotesTab from '../image/Svg/NotesTab'
 import { TextInput } from 'react-native-gesture-handler'
+import postUserComment from '../api/postUserComment'
 
 const styles = StyleSheet.create({
   textAreaContainer: {
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
 })
 function Notes({ navigation }) {
   const [textValue, setTextValue] = useState('')
+  const [pretextValue, setPreTextValue] = useState(textValue)
   const [openStatus, setOpenStatus] = useState(true)
   const [openStatusItem, setOpenStatusItem] = useState(
     <View style={{ marginLeft: 15 }}>
@@ -76,8 +78,16 @@ function Notes({ navigation }) {
     })
   }, [navigation])
   const onChange = event => {
-    setTextValue(event)
+    setPreTextValue(event)
   }
+
+  const saveChanges = text => {
+    const fun = async () => {
+      await postUserComment({ data: { content: text, token: '116_EkPyrFRIkRWUW2Klh3dQTzQC1XSrlC' } }).then(res => res)
+    }
+    fun()
+  }
+
   return (
     <LayoutMain>
       <View
@@ -106,7 +116,7 @@ function Notes({ navigation }) {
               multiline
               numberOfLines={4}
               onChangeText={event => onChange(event)}
-              value={textValue}
+              value={pretextValue}
               returnKeyType="done"
               onSubmitEditing={() => {
                 Keyboard.dismiss()
@@ -190,6 +200,8 @@ function Notes({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
+              saveChanges(textValue)
+              setTextValue(pretextValue)
               setOpenStatus(true)
               setOpenStatusItem(
                 <View style={{ marginLeft: 15 }}>
@@ -197,6 +209,7 @@ function Notes({ navigation }) {
                     style={styles.balanceIcon}
                     activeOpacity={0.8}
                     onPress={() => {
+                      setTextValue(pretextValue)
                       setOpenStatus(false)
                       setOpenStatusItem(<View />)
                     }}>

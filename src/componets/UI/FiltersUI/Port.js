@@ -3,29 +3,6 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
 import BottomSheetPort from './BottomSheet/BottomSheetPort'
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 18,
-    color: 'white',
-    fontWeight: '700',
-  },
-  textInfo: {
-    fontWeight: '600',
-    fontSize: 14,
-    color: 'white',
-  },
-  topMenu: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Chips: {
-    width: '100%',
-    marginBottom: 20,
-  },
-})
-
 function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
   const [prots, setPorts] = useState(['58654', '23234', '67956'])
   return (
@@ -81,5 +58,28 @@ function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapP
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '700',
+  },
+  textInfo: {
+    fontWeight: '600',
+    fontSize: 14,
+    color: 'white',
+  },
+  topMenu: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  Chips: {
+    width: '100%',
+    marginBottom: 20,
+  },
+})
 
 export default Port

@@ -1,29 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 18,
-    color: 'white',
-    fontWeight: '700',
-  },
-  textInfo: {
-    fontWeight: '600',
-    fontSize: 14,
-    color: 'white',
-  },
-  topMenu: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Chips: {
-    width: '100%',
-    marginBottom: 20,
-  },
-})
-
 function DateOver({ dateOver, setFilters }) {
   return (
     <View style={styles.Chips}>
@@ -125,5 +102,28 @@ function DateOver({ dateOver, setFilters }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '700',
+  },
+  textInfo: {
+    fontWeight: '600',
+    fontSize: 14,
+    color: 'white',
+  },
+  topMenu: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  Chips: {
+    width: '100%',
+    marginBottom: 20,
+  },
+})
 
 export default DateOver

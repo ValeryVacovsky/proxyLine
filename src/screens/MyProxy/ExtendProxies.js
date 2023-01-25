@@ -1,10 +1,11 @@
 import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput, Dimensions } from 'react-native'
+import { useSelector } from 'react-redux'
 
 import LayoutMain from '../../componets/LayoutMain'
 import FlagUseBig from '../../image/Svg/FlagUseBig'
 import BottomSheetForm from '../../componets/BottomSheetForm'
-import ProxyItemDelete from '../../componets/UI/ProxyUI/ProxyItemDelete'
+import ProxyItemExtend from '../../componets/UI/ProxyUI/ProxyItemExtend'
 import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectForm'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
@@ -107,44 +108,8 @@ const MyProxiesList = [
   },
 ]
 
-const styles = StyleSheet.create({
-  balanceIconFilter: {
-    marginRight: 15,
-  },
-  balanceIconFilterDotts: {},
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    marginHorizontal: 20,
-    marginTop: 20,
-  },
-  text: {
-    fontSize: 42,
-  },
-  button: {
-    alignItems: 'center',
-    width: '100%',
-    marginBottom: 40,
-    position: 'absolute',
-    bottom: '8%',
-    zIndex: 1,
-  },
-  buttonInner: {
-    backgroundColor: '#FAC637',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    width: '90%',
-  },
-  buttonText: {
-    color: 'black',
-    fontWeight: '600',
-    fontSize: 13,
-  },
-})
-
 function ExtendProxies({ navigation }) {
+  const proxyRes = useSelector(data => data?.proxy?.authStatus)
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
@@ -221,18 +186,19 @@ function ExtendProxies({ navigation }) {
           <ScrollView
             style={{
               width: selectedProxies.length > 0 ? '90%' : '90%',
-              // marginBottom: selectedProxies.length > 0 ? 300 : 90,
+              marginBottom: selectedProxies.length > 0 ? 300 : 90,
             }}
             decelerationRate="fast">
-            {MyProxiesList.map(proxy => (
-              <ProxyItemDelete
+            {proxyRes.map((proxy, index) => (
+              <ProxyItemExtend
                 key={proxy.id}
-                proxy={proxy}
+                proxy={MyProxiesList[index]}
                 handleSnapPress={handleSnapPress}
                 handleClosePress={handleClosePress}
                 onChange={onChange}
                 selectedProxies={selectedProxies}
                 navigation={navigation}
+                proxyRes={proxy}
               />
             ))}
           </ScrollView>
@@ -257,5 +223,42 @@ function ExtendProxies({ navigation }) {
     </LayoutMain>
   )
 }
+
+const styles = StyleSheet.create({
+  balanceIconFilter: {
+    marginRight: 15,
+  },
+  balanceIconFilterDotts: {},
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
+  text: {
+    fontSize: 42,
+  },
+  button: {
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 40,
+    position: 'absolute',
+    bottom: '8%',
+    zIndex: 1,
+  },
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '90%',
+  },
+  buttonText: {
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+})
 
 export default ExtendProxies

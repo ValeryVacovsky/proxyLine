@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
 })
 
-function BottomSheetList({ handleClosePress, navigation }) {
+function BottomSheetList({ handleClosePress, navigation, proxyRes }) {
   return (
     <View style={styles.container}>
       <View style={styles.topTab} />
@@ -135,7 +135,7 @@ function BottomSheetList({ handleClosePress, navigation }) {
         style={styles.topButton}
         activeOpacity={0.8}
         onPress={() => {
-          navigation.navigate('Info')
+          navigation.navigate('Info', { proxyRes })
           handleClosePress()
         }}>
         <Text style={styles.topButtonText}>Подробнее</Text>

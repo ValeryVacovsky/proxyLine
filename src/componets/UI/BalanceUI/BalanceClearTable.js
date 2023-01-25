@@ -1,6 +1,23 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
+function BalanceClearTable() {
+  return (
+    <View style={styles.mainContainer}>
+      <View style={styles.secondContainer}>
+        <View style={styles.calendarBlock}>
+          <View style={styles.calendarCenter}>
+            <Text style={styles.mainText}>Нет ни одной операции</Text>
+            <Text style={styles.smallText}>
+              На данный момент вы не совершали никаких операций или операция в обработке
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  )
+}
+
 const styles = StyleSheet.create({
   mainContainer: {
     alignItems: 'center',
@@ -40,22 +57,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 })
-
-function BalanceClearTable() {
-  return (
-    <View style={styles.mainContainer}>
-      <View style={styles.secondContainer}>
-        <View style={styles.calendarBlock}>
-          <View style={styles.calendarCenter}>
-            <Text style={styles.mainText}>Нет ни одной операции</Text>
-            <Text style={styles.smallText}>
-              На данный момент вы не совершали никаких операций или операция в обработке
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  )
-}
 
 export default BalanceClearTable

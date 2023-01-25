@@ -4,19 +4,6 @@ import BottomSheet from '@gorhom/bottom-sheet'
 
 const handleComponent = () => <View />
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     paddingTop: 200,
-//   },
-//   contentContainer: {
-//     backgroundColor: 'black',
-//   },
-//   itemContainer: {
-//     backgroundColor: '#eee',
-//   },
-// });
-
 function BottomSheetForm({ sheetRef, snapPoints, setIsOpen, children }) {
   return (
     <BottomSheet

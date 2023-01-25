@@ -4,90 +4,6 @@ import { TextInput } from 'react-native-gesture-handler'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutMain from '../../componets/LayoutMain'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 10,
-  },
-  scrollView: {
-    width: '100%',
-  },
-  text: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '700',
-    paddingLeft: 20,
-    marginBottom: 10,
-    marginTop: 20,
-  },
-  textSmall2: {
-    color: '#CBCBCB',
-    fontSize: 14,
-    fontWeight: '400',
-    paddingLeft: 20,
-    marginTop: 20,
-  },
-  textSmall: {
-    color: '#CBCBCB',
-    fontSize: 14,
-    fontWeight: '400',
-    paddingLeft: 20,
-    marginTop: 20,
-  },
-  circleGradient: {
-    backgroundColor: 'white',
-    borderRadius: 5,
-  },
-  visit: {
-    margin: 4,
-    paddingHorizontal: 6,
-    textAlign: 'center',
-    backgroundColor: 'white',
-    color: '#008f68',
-    fontSize: 12,
-  },
-  dataProxyes: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  dataProxyesButton: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  textInput: {
-    padding: 20,
-    flex: 1,
-    backgroundColor: '#1E2127',
-    borderWidth: 1,
-    borderColor: '#333842',
-    borderRadius: 8,
-    color: 'white',
-    fontWeight: '400',
-    fontSize: 14,
-  },
-  button: {
-    alignItems: 'center',
-    width: '100%',
-    marginBottom: 40,
-    position: 'absolute',
-    bottom: '8%',
-    zIndex: 1,
-  },
-  buttonInner: {
-    backgroundColor: '#FAC637',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    width: '90%',
-    position: 'absolute',
-  },
-  buttonText: {
-    color: 'black',
-    fontWeight: '600',
-    fontSize: 13,
-  },
-})
-
 function MessageForm({ navigation }) {
   const heightOffScreen = Dimensions.get('window').height
   const [textValue, setTextValue] = useState('')
@@ -173,5 +89,88 @@ function MessageForm({ navigation }) {
     </LayoutMain>
   )
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 10,
+  },
+  scrollView: {
+    width: '100%',
+  },
+  text: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    paddingLeft: 20,
+    marginBottom: 10,
+    marginTop: 20,
+  },
+  textSmall2: {
+    color: '#CBCBCB',
+    fontSize: 14,
+    fontWeight: '400',
+    paddingLeft: 20,
+    marginTop: 20,
+  },
+  textSmall: {
+    color: '#CBCBCB',
+    fontSize: 14,
+    fontWeight: '400',
+    paddingLeft: 20,
+    marginTop: 20,
+  },
+  circleGradient: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  visit: {
+    margin: 4,
+    paddingHorizontal: 6,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    color: '#008f68',
+    fontSize: 12,
+  },
+  dataProxyes: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  dataProxyesButton: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  textInput: {
+    padding: 20,
+    flex: 1,
+    backgroundColor: '#1E2127',
+    borderWidth: 1,
+    borderColor: '#333842',
+    borderRadius: 8,
+    color: 'white',
+    fontWeight: '400',
+    fontSize: 14,
+  },
+  button: {
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 40,
+    position: 'absolute',
+    bottom: '8%',
+    zIndex: 1,
+  },
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '90%',
+    position: 'absolute',
+  },
+  buttonText: {
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+})
 
 export default MessageForm

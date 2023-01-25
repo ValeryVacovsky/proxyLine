@@ -11,33 +11,10 @@ import SettingsButtonOn from '../image/Svg/SettingsButtonOn'
 import WalletButtonOff from '../image/Svg/WalletButtonOff'
 import WalletButtonOn from '../image/Svg/WalletButtonOn'
 
-const styles = StyleSheet.create({
-  active: {
-    paddingTop: 20,
-    paddingBottom: 20,
-    shadowColor: '#FAC637',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-  },
-})
-
 function UserNavigation({ status, navigation }) {
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
-    <SuperEllipseMaskView
-      style={{
-        alignItems: 'center',
-        width: '95%',
-        height: 60,
-        backgroundColor: 'rgba(255, 255, 255, 0.07)',
-        borderRadius: 14,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginBottom: 15,
-      }}
-      radius={12}>
+    <SuperEllipseMaskView style={styles.container} radius={12}>
       <View>
         <Pressable
           style={status === 'Main' && styles.active}
@@ -89,5 +66,27 @@ function UserNavigation({ status, navigation }) {
     </SuperEllipseMaskView>
   )
 }
+
+const styles = StyleSheet.create({
+  active: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    shadowColor: '#FAC637',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+  },
+  container: {
+    alignItems: 'center',
+    width: '95%',
+    height: 60,
+    backgroundColor: 'rgba(255, 255, 255, 0.07)',
+    borderRadius: 14,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 15,
+  },
+})
 
 export default UserNavigation

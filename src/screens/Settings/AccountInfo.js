@@ -5,44 +5,6 @@ import LayoutMain from '../../componets/LayoutMain'
 import ViewIcon from '../../image/Svg/ViewIcon'
 import ViewIconOff from '../../image/Svg/ViewIconOff'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    width: '100%',
-  },
-  text: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '700',
-    paddingLeft: 20,
-    marginBottom: 10,
-    marginTop: 20,
-  },
-  circleGradient: {
-    backgroundColor: 'white',
-    borderRadius: 5,
-  },
-  visit: {
-    margin: 4,
-    paddingHorizontal: 6,
-    textAlign: 'center',
-    backgroundColor: 'white',
-    color: '#008f68',
-    fontSize: 12,
-  },
-  dataProxyes: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  dataProxyesButton: {
-    width: '100%',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-})
-
 function AccountInfo({ navigation }) {
   const [passwordVisibiliti, setPasswordVisibiliti] = useState(false)
   React.useLayoutEffect(() => {
@@ -151,5 +113,43 @@ function AccountInfo({ navigation }) {
     </LayoutMain>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    width: '100%',
+  },
+  text: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    paddingLeft: 20,
+    marginBottom: 10,
+    marginTop: 20,
+  },
+  circleGradient: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  visit: {
+    margin: 4,
+    paddingHorizontal: 6,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    color: '#008f68',
+    fontSize: 12,
+  },
+  dataProxyes: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  dataProxyesButton: {
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+})
 
 export default AccountInfo

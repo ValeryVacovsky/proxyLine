@@ -1,10 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity, Dimensions } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
 import UserNavigation from '../componets/UserNavigation'
 import OrdersList from '../componets/OrdersList'
+import { useSelector } from 'react-redux'
 
-const OrdersListTotal = [1, 2, 4, 5]
+function Orders({ navigation }) {
+  const [ordersListTotal, setOrdersListTotal] = useState([])
+  const heightOffScreen = Dimensions.get('window').height
+  const ordersRes = useSelector(data => data.orderReducer)
+  useEffect(() => {
+    setOrdersListTotal(ordersRes)
+  }, [ordersRes])
+  return (
+    <LayoutMain>
+      <SafeAreaView style={styles.container}>
+        {ordersListTotal?.length > 0 && (
+          <ScrollView style={styles.scrollView}>
+            {ordersListTotal?.map(data => (
+              <OrdersList key={data.data.id} navigation={navigation} data={data} />
+            ))}
+          </ScrollView>
+        )}
+        <View style={styles.scrollContainer}>
+          {ordersListTotal?.length === 0 && (
+            <View style={styles.ElementContainer}>
+              <View style={styles.infoContainer}>
+                <View style={styles.infoBlock}>
+                  <Text style={styles.textH1}>Нет ни одного заказа</Text>
+                  <Text style={styles.textDiscription}>На данный момент вы не совершали ни одного заказа</Text>
+                </View>
+              </View>
+              <TouchableOpacity style={styles.Button} activeOpacity={0.8}>
+                <Text style={styles.buttonText}>Получить</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      </SafeAreaView>
+      <View style={heightOffScreen > 700 ? styles.navContainer : styles.s_navContainer}>
+        <UserNavigation status="Orders" navigation={navigation} />
+      </View>
+    </LayoutMain>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -83,40 +122,5 @@ const styles = StyleSheet.create({
     left: 10,
   },
 })
-
-function Orders({ navigation }) {
-  const heightOffScreen = Dimensions.get('window').height
-  return (
-    <LayoutMain>
-      <SafeAreaView style={styles.container}>
-        {OrdersListTotal.length > 0 && (
-          <ScrollView style={styles.scrollView}>
-            {OrdersListTotal.map(key => (
-              <OrdersList key={key} navigation={navigation} />
-            ))}
-          </ScrollView>
-        )}
-        <View style={styles.scrollContainer}>
-          {OrdersListTotal.length === 0 && (
-            <View style={styles.ElementContainer}>
-              <View style={styles.infoContainer}>
-                <View style={styles.infoBlock}>
-                  <Text style={styles.textH1}>Нет ни одного заказа</Text>
-                  <Text style={styles.textDiscription}>На данный момент вы не совершали ни одного заказа</Text>
-                </View>
-              </View>
-              <TouchableOpacity style={styles.Button} activeOpacity={0.8}>
-                <Text style={styles.buttonText}>Получить</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
-      </SafeAreaView>
-      <View style={heightOffScreen > 700 ? styles.navContainer : styles.s_navContainer}>
-        <UserNavigation status="Orders" navigation={navigation} />
-      </View>
-    </LayoutMain>
-  )
-}
 
 export default Orders

@@ -2,29 +2,6 @@ import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import BottomSheetIP from './BottomSheet/BottomSheetIP'
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 18,
-    color: 'white',
-    fontWeight: '700',
-  },
-  textInfo: {
-    fontWeight: '600',
-    fontSize: 14,
-    color: 'white',
-  },
-  topMenu: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Chips: {
-    width: '100%',
-    marginBottom: 20,
-  },
-})
-
 function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
   const [Ipaddress, setIpaddress] = useState(['192.168.0.2', '192.168.0.3', '192.168.0.4'])
   return (
@@ -86,5 +63,28 @@ function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSn
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '700',
+  },
+  textInfo: {
+    fontWeight: '600',
+    fontSize: 14,
+    color: 'white',
+  },
+  topMenu: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  Chips: {
+    width: '100%',
+    marginBottom: 20,
+  },
+})
 
 export default IPAddress

@@ -33,6 +33,7 @@ function ProxyItemDelete({
   navigation,
   childrenItem,
   onChange,
+  proxyRes,
 }) {
   const heightOffScreen = Dimensions.get('window').height
   return (
@@ -66,15 +67,19 @@ function ProxyItemDelete({
                 flexDirection: 'row',
                 alignItems: 'center',
               }}>
-              <Text
-                style={{
-                  fontWeight: '600',
-                  fontSize: 14,
-                  color: 'white',
-                  lineHeight: 15,
-                }}>
-                {proxy.name}
-              </Text>
+              <View>
+                <Text
+                  style={{
+                    fontWeight: '600',
+                    fontSize: 14,
+                    color: 'white',
+                    lineHeight: 15,
+                    maxWidth: 168,
+                  }}>
+                  Russian Federation
+                </Text>
+                <View style={{ width: 168, height: 1, backgroundColor: 'none' }}></View>
+              </View>
               <View
                 style={{
                   paddingTop: 4,
@@ -113,7 +118,7 @@ function ProxyItemDelete({
                     fontSize: 11,
                     lineHeight: 15,
                   }}>
-                  {proxy.IP}
+                  IPv{proxyRes.ip_version}
                 </Text>
               </View>
               <Text
@@ -123,7 +128,7 @@ function ProxyItemDelete({
                   fontWeight: '400',
                   marginLeft: 6,
                 }}>
-                {proxy.IpAdress}
+                {proxyRes.ip}
               </Text>
             </View>
           </View>

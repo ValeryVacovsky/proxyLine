@@ -76,7 +76,6 @@ function Order({ navigation, route }) {
   ]
   const startPos = currentProxyId * (route.params.proxy.id - 1)
   const iPtypes = route.params.iPtypes
-  console.log(iPtypes)
   return (
     <LayoutMain>
       <ScrollView

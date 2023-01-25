@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useMemo, useState } from 'react'
+import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
 import {
   ScrollView,
   View,
@@ -12,6 +12,7 @@ import {
 } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import ProxiesFilter from '../../image/Svg/ProxiesFilter'
+import { setProxy } from '../../store/reducers/proxyReducer'
 
 import LayoutMain from '../../componets/LayoutMain'
 import ProxiesDotts from '../../image/Svg/ProxiesDotts'
@@ -21,6 +22,9 @@ import BottomSheetForm from '../../componets/BottomSheetForm'
 import VectorOpen from '../../image/Svg/VectorOpen'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import BottomSheetItem from '../../componets/UI/ProxyUI/BottomSheetItem'
+import getListProxies from '../../api/getListProxies'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useDispatch, useSelector } from 'react-redux'
 
 const MyProxiesList = [
   {
@@ -121,49 +125,15 @@ const MyProxiesList = [
   },
 ]
 
-const styles = StyleSheet.create({
-  balanceIconFilter: {
-    marginRight: 30,
-  },
-  balanceIconFilterDotts: {},
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    marginHorizontal: 20,
-    marginTop: 20,
-  },
-  text: {
-    fontSize: 42,
-  },
-  button: {
-    alignItems: 'center',
-    width: '100%',
-    marginBottom: 40,
-    position: 'absolute',
-    bottom: '8%',
-    zIndex: 1,
-  },
-  buttonInner: {
-    backgroundColor: '#FAC637',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    width: '90%',
-  },
-  buttonText: {
-    color: 'black',
-    fontWeight: '600',
-    fontSize: 13,
-  },
-})
-
 function MyProxies({ navigation }) {
+  const [proxyItems, setProxyItems] = useState([])
+  const dispatch = useDispatch()
+  const proxyRes = useSelector(data => data?.proxy?.authStatus)
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['52%'] : ['61%']), [])
+  const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['52%'] : ['61%']), [heightOffScreen])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -174,6 +144,18 @@ function MyProxies({ navigation }) {
     sheetRef.current?.close()
   }, [])
 
+  useEffect(() => {
+    const listProxies = async () => {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const dataProps = `${id}_${token}`
+      const data = await getListProxies({ token: dataProps, limit: '100', offset: '0' })
+      dispatch(setProxy(data.data))
+      setProxyItems(data.data)
+    }
+    listProxies()
+    setProxyItems(proxyRes)
+  }, [dispatch])
   const [selected, setSelected] = useState(null)
   const [proxyItemPicked, setProxyItemPicked] = useState(null)
   const [childrenItem, setChildrenItem] = useState()
@@ -209,14 +191,6 @@ function MyProxies({ navigation }) {
   }, [handleClosePress, handleSnapPress, navigation])
   return (
     <LayoutMain>
-      {/* <View
-        style={{
-          position: 'absolute',
-          width: 5000,
-          height: 5000,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        }}
-      /> */}
       <View style={{ alignItems: 'center', display: 'flex' }}>
         <View
           style={{
@@ -254,10 +228,11 @@ function MyProxies({ navigation }) {
         </View>
         <SafeAreaView>
           <ScrollView style={{ width: '100%', marginBottom: selected ? 200 : 90 }}>
-            {MyProxiesList.map(proxy => (
+            {proxyItems?.map((proxy, index) => (
               <ProxyItem
                 key={proxy.id}
-                proxy={proxy}
+                proxy={MyProxiesList[index]}
+                proxyRes={proxy}
                 selected={selected}
                 setSelected={setSelected}
                 setProxyItemPicked={setProxyItemPicked}
@@ -266,6 +241,7 @@ function MyProxies({ navigation }) {
                 handleClosePress={handleClosePress}
                 childrenItem={childrenItem}
                 navigation={navigation}
+                index={index}
               />
             ))}
           </ScrollView>
@@ -304,5 +280,42 @@ function MyProxies({ navigation }) {
     </LayoutMain>
   )
 }
+
+const styles = StyleSheet.create({
+  balanceIconFilter: {
+    marginRight: 30,
+  },
+  balanceIconFilterDotts: {},
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
+  text: {
+    fontSize: 42,
+  },
+  button: {
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 40,
+    position: 'absolute',
+    bottom: '8%',
+    zIndex: 1,
+  },
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '90%',
+  },
+  buttonText: {
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+})
 
 export default MyProxies

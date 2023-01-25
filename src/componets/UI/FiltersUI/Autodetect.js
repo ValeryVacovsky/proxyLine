@@ -1,18 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 18,
-    color: 'white',
-    fontWeight: '700',
-  },
-  Chips: {
-    width: '90%',
-    marginBottom: 20,
-  },
-})
-
 function Autodetect({ autodetect, setFilters }) {
   return (
     <View style={styles.Chips}>
@@ -138,5 +126,17 @@ function Autodetect({ autodetect, setFilters }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '700',
+  },
+  Chips: {
+    width: '90%',
+    marginBottom: 20,
+  },
+})
 
 export default Autodetect

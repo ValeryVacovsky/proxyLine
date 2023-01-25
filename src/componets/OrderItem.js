@@ -6,23 +6,21 @@ import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
 import VectorRightSmall from '../image/Svg/VectorRightSmall'
 import Toggle from './UI/OrderUI/Toggle'
 import postOrderAmount from '../api/postOrderAmount'
-import postCreateOrder from '../api/postCreateOrder'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-
-const styles = StyleSheet.create({
-  buttonInner: {
-    backgroundColor: '#FAC637',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    width: '90%',
-  },
-})
+import { useDispatch } from 'react-redux'
+import { addObject } from '../store/reducers/orderReducer'
 
 function OrderItem({ navigation, order, setScrolling, price }) {
+  function generate(str) {
+    return str.replace(/[xy]/g, function (c) {
+      const r = (Math.random() * 16) | 0
+      return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16)
+    })
+  }
+  const dispatch = useDispatch()
   const [amount, setAmount] = useState(1)
   const [totalPrice, setTotalPrice] = useState(100)
-  const [days, setDays] = useState(90)
+  const [days, setDays] = useState(30)
   useEffect(() => {
     async function name() {
       await postOrderAmount({
@@ -34,27 +32,40 @@ function OrderItem({ navigation, order, setScrolling, price }) {
         coupon: '',
       }).then(data => setTotalPrice(data.data.amount / 100))
     }
+    console.log({
+      quantity: amount,
+      ip_type: order.ip_type,
+      ip_version: order.ip_version,
+      country: 'ru',
+      period: days,
+      coupon: '',
+    })
     name()
   }, [days, amount, order.ip_type, order.ip_version])
   const onSubmit = async () => {
     const token = await AsyncStorage.getItem('@token')
     const id = await AsyncStorage.getItem('@id')
     const data = `${id}_${token}`
-    const res = await postCreateOrder({
-      token: data,
-      data: {
-        quantity: amount,
-        ip_type: order.ip_type,
-        ip_version: order.ip_version,
-        country: 'ru',
-        period: days,
-        selected_ips: [],
-        tags: [0],
-        unique_credentials: false,
-        coupon: 'string',
-      },
-    })
-    console.log(res.data)
+    await dispatch(
+      addObject({
+        token: data,
+        data: {
+          quantity: amount,
+          ip_type: order.ip_type,
+          ip_version: order.ip_version,
+          country: 'ru',
+          period: days,
+          selected_ips: [],
+          tags: [0],
+          unique_credentials: false,
+          coupon: 'string',
+          statusActive: false,
+          dateActive: new Date(),
+          totalPrice: totalPrice,
+          id: generate('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'),
+        },
+      }),
+    )
   }
   const [country, setCountry] = useState('United States of America')
   return (
@@ -165,7 +176,6 @@ function OrderItem({ navigation, order, setScrolling, price }) {
           style={{ width: '100%', right: 10 }}
           onTouchStart={() => {
             setScrolling(false)
-            console.log('scroll')
           }}
           onTouchEnd={() => {}}>
           <SliderExample
@@ -322,5 +332,15 @@ function OrderItem({ navigation, order, setScrolling, price }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '90%',
+  },
+})
 
 export default OrderItem

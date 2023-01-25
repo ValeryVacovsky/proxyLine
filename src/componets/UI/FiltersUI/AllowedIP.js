@@ -2,30 +2,6 @@ import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import VectorRightSmall from '../../../image/Svg/VectorRight'
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 18,
-    color: 'white',
-    fontWeight: '700',
-  },
-  textInfo: {
-    fontWeight: '600',
-    fontSize: 14,
-    color: 'white',
-    marginRight: 10,
-  },
-  topMenu: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Chips: {
-    width: '100%',
-    marginBottom: 20,
-  },
-})
-
 function AllowedIP({ allowedIP, setFilters }) {
   const [prots] = useState(['192.168.0.1', '192.168.0.2', '192.168.0.3'])
   return (
@@ -79,5 +55,29 @@ function AllowedIP({ allowedIP, setFilters }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '700',
+  },
+  textInfo: {
+    fontWeight: '600',
+    fontSize: 14,
+    color: 'white',
+    marginRight: 10,
+  },
+  topMenu: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  Chips: {
+    width: '100%',
+    marginBottom: 20,
+  },
+})
 
 export default AllowedIP

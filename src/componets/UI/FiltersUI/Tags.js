@@ -2,30 +2,6 @@ import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import VectorRightSmall from '../../../image/Svg/VectorRightSmall'
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 18,
-    color: 'white',
-    fontWeight: '700',
-  },
-  textInfo: {
-    fontWeight: '600',
-    fontSize: 14,
-    color: 'white',
-    marginRight: 10,
-  },
-  topMenu: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Chips: {
-    width: '100%',
-    marginBottom: 20,
-  },
-})
-
 function Tags({ tags, setFilters }) {
   const [prots] = useState(['Тестовые', 'Лучшие прокси', 'Новые', 'Разные'])
   return (
@@ -79,5 +55,29 @@ function Tags({ tags, setFilters }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '700',
+  },
+  textInfo: {
+    fontWeight: '600',
+    fontSize: 14,
+    color: 'white',
+    marginRight: 10,
+  },
+  topMenu: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  Chips: {
+    width: '100%',
+    marginBottom: 20,
+  },
+})
 
 export default Tags

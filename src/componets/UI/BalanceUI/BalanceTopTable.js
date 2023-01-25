@@ -1,5 +1,28 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
+
+function BalanceTopTable({ balance }) {
+  return (
+    <View style={styles.mainContainer}>
+      <LinearGradient
+        style={styles.secondContainer}
+        colors={['#383e4a', '#191c20', '#191c20']}
+        start={{ x: 0.1, y: 0.2 }}
+        end={{ x: 0.2, y: 0.9 }}>
+        <View style={styles.topBlockContainer}>
+          <View style={styles.topBlockInfo}>
+            <Text style={styles.topBlockDollarText}>$</Text>
+            <Text style={styles.topBlockBalanceText}>{balance / 100}</Text>
+          </View>
+        </View>
+        <TouchableOpacity style={styles.bottomBlockContainer} activeOpacity={0.8}>
+          <Text style={styles.bottomBlockText}>Пополнить</Text>
+        </TouchableOpacity>
+      </LinearGradient>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -11,10 +34,15 @@ const styles = StyleSheet.create({
     width: '90%',
     zIndex: 0,
     marginTop: 11,
+    backgroundColor: 'white',
+    borderRadius: 14,
+    borderWidth: 1,
+    padding: 1,
   },
   topBlockContainer: {
-    backgroundColor: 'rgba(51, 51, 51, 0.3)',
-    marginBottom: 1,
+    backgroundColor: '#191c20',
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
     width: '100%',
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
@@ -23,7 +51,7 @@ const styles = StyleSheet.create({
   bottomBlockContainer: {
     width: '100%',
     alignItems: 'center',
-    backgroundColor: 'rgba(51, 51, 51, 0.3)',
+    backgroundColor: '#191c20',
     paddingLeft: 20,
     paddingRight: 20,
     borderBottomLeftRadius: 14,
@@ -57,23 +85,5 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 })
-
-function BalanceTopTable({ balance }) {
-  return (
-    <View style={styles.mainContainer}>
-      <View style={styles.secondContainer}>
-        <View style={styles.topBlockContainer}>
-          <View style={styles.topBlockInfo}>
-            <Text style={styles.topBlockDollarText}>$</Text>
-            <Text style={styles.topBlockBalanceText}>{balance}</Text>
-          </View>
-        </View>
-        <TouchableOpacity style={styles.bottomBlockContainer} activeOpacity={0.8}>
-          <Text style={styles.bottomBlockText}>Пополнить</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  )
-}
 
 export default BalanceTopTable

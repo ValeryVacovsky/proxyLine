@@ -17,58 +17,6 @@ const EMAIL_REGEX =
 const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/g
 const heightOffScreen = Dimensions.get('window').height
 // const PASSWOR_REGEX;
-const styles = StyleSheet.create({
-  sectionContainer: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#0F1218',
-  },
-  backgroundImage: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-  },
-  mainLogo: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 25,
-  },
-  header: {
-    flex: 1,
-    paddingTop: 20,
-    marginTop: 25,
-  },
-  authForm: {
-    flex: 2,
-    paddingLeft: 30,
-    paddingRight: 30,
-    justifyContent: 'space-between',
-  },
-  label: {
-    color: 'white',
-    marginBottom: 8,
-    fontSize: 16,
-    lineHeight: 15,
-    fontWeight: '500',
-  },
-  buttonInner: {
-    backgroundColor: '#FAC637',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    fontFamily: 'Rubik',
-    // backgroundColor: "rgba(250, 198, 55, 0.9)"
-  },
-
-  authLogo: {
-    paddingBottom: 30,
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: '600',
-    fontSize: heightOffScreen < 700 ? 22 : 20,
-  },
-})
 
 function AuthAuthauthentification({ navigation }) {
   const [commonFormError, setCommonFormError] = useState('')
@@ -95,7 +43,6 @@ function AuthAuthauthentification({ navigation }) {
 
   const onSubmit = async data => {
     const res = await postAuth(data)
-    console.log(res.data)
     if (res.data.success === true) {
       await AsyncStorage.setItem('@token', String(res.data.user.token))
       await AsyncStorage.setItem('@id', String(res.data.user.id))
@@ -280,5 +227,58 @@ function AuthAuthauthentification({ navigation }) {
     </LayoutAuth>
   )
 }
+
+const styles = StyleSheet.create({
+  sectionContainer: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#0F1218',
+  },
+  backgroundImage: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+  },
+  mainLogo: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 25,
+  },
+  header: {
+    flex: 1,
+    paddingTop: 20,
+    marginTop: 25,
+  },
+  authForm: {
+    flex: 2,
+    paddingLeft: 30,
+    paddingRight: 30,
+    justifyContent: 'space-between',
+  },
+  label: {
+    color: 'white',
+    marginBottom: 8,
+    fontSize: 16,
+    lineHeight: 15,
+    fontWeight: '500',
+  },
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    fontFamily: 'Rubik',
+    // backgroundColor: "rgba(250, 198, 55, 0.9)"
+  },
+
+  authLogo: {
+    paddingBottom: 30,
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: '600',
+    fontSize: heightOffScreen < 700 ? 22 : 20,
+  },
+})
 
 export default AuthAuthauthentification

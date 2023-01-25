@@ -6,8 +6,46 @@ import BalanceList from '../componets/BalanceList'
 import BalanceTopTable from '../componets/UI/BalanceUI/BalanceTopTable'
 import BalanceClearTable from '../componets/UI/BalanceUI/BalanceClearTable'
 import getBalance from '../api/getBalance'
+import getListBalanceLogs from '../api/getListBalanceLogs'
 
-const BalanceListTotal = [1, 2, 3, 4]
+function Balance({ navigation }) {
+  const [balance, setBalance] = useState({ balance: null })
+  const [operations, setOperations] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const dataProps = `${id}_${token}`
+      const data = await getBalance(dataProps)
+      await setBalance(data.data)
+    }
+    fetchData()
+    const listOrders = async () => {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const dataProps = `${id}_${token}`
+      const data = await getListBalanceLogs({ token: dataProps, limit: '100', offset: '0' })
+      setOperations(data.data)
+    }
+    listOrders()
+  }, [])
+  return (
+    <LayoutMain>
+      <SafeAreaView style={styles.container}>
+        <BalanceTopTable balance={balance.balance} navigation={navigation} />
+        <Text style={styles.text}>Операции</Text>
+        {operations.length > 0 && (
+          <ScrollView style={styles.scrollView}>
+            {operations.map(key => (
+              <BalanceList key={key?.create_date} navigation={navigation} data={key} />
+            ))}
+          </ScrollView>
+        )}
+        {operations.length === 0 && <BalanceClearTable />}
+      </SafeAreaView>
+    </LayoutMain>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -37,35 +75,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 })
-
-function Balance({ navigation }) {
-  const [balance, setBalance] = useState({ balance: null })
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const dataProps = `${id}_${token}`
-      const data = await getBalance(dataProps)
-      await setBalance(data.data)
-    }
-    fetchData()
-  }, [])
-  return (
-    <LayoutMain>
-      <SafeAreaView style={styles.container}>
-        <BalanceTopTable balance={balance.balance} navigation={navigation} />
-        <Text style={styles.text}>Операции</Text>
-        {BalanceListTotal.length > 0 && (
-          <ScrollView style={styles.scrollView}>
-            {BalanceListTotal.map(key => (
-              <BalanceList key={key} navigation={navigation} />
-            ))}
-          </ScrollView>
-        )}
-        {BalanceListTotal.length === 0 && <BalanceClearTable />}
-      </SafeAreaView>
-    </LayoutMain>
-  )
-}
 
 export default Balance

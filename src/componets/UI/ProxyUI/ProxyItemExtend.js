@@ -1,14 +1,12 @@
 import React from 'react'
 
-import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native'
-import ProxiesDotts from '../../../image/Svg/ProxiesDotts'
-import DarkRadioUncheked from '../../../image/Svg/DarkRadioUncheked'
-import LightRadioUncheked from '../../../image/Svg/LightRadioUncheked'
-import BottomSheetIist from './BottomSheetIist'
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native'
+import VectorYellowBig from '../../../image/Svg/VectorYellowBig'
+import BottomSheetItem from './BottomSheetItem'
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: '103%',
     paddingTop: 14,
     paddingBottom: 14,
     backgroundColor: 'rgba(255, 255, 255, 0.06)',
@@ -19,22 +17,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '92%',
-    flexDirection: 'row',
-  },
-  s_mainContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '93%',
+    width: '100%',
     flexDirection: 'row',
   },
 })
 
-function ProxyItem({
+function ProxyItemExtend({
   proxy,
-  proxyRes,
-  selected,
+  selectedProxies,
   setSelected,
   setProxyItemPicked,
   handleSnapPress,
@@ -42,14 +32,34 @@ function ProxyItem({
   handleClosePress,
   navigation,
   childrenItem,
-  index,
+  onChange,
+  proxyRes,
 }) {
   const heightOffScreen = Dimensions.get('window').height
   return (
-    <View style={styles.container}>
-      <View style={heightOffScreen > 700 ? styles.mainContainer : styles.s_mainContainer}>
+    <TouchableOpacity style={styles.container} onPress={() => onChange(proxy.id)} activeOpacity={0.8}>
+      <View
+        style={
+          heightOffScreen > 900
+            ? {
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '90%',
+                flexDirection: 'row',
+              }
+            : {
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '96.5%',
+                flexDirection: 'row',
+              }
+        }>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <View style={{ top: 13, marginLeft: 12 }}>{proxy.flag}</View>
+          <View style={heightOffScreen > 900 ? { top: 13, marginLeft: 0 } : { top: 13, marginLeft: 19 }}>
+            {proxy.flag}
+          </View>
           <View style={{ marginLeft: 14 }}>
             <View
               style={{
@@ -66,11 +76,10 @@ function ProxyItem({
                     lineHeight: 15,
                     maxWidth: 168,
                   }}>
-                  Ressian Federation
+                  Russian Federation
                 </Text>
                 <View style={{ width: 168, height: 1, backgroundColor: 'none' }}></View>
               </View>
-
               <View
                 style={{
                   paddingTop: 4,
@@ -109,8 +118,7 @@ function ProxyItem({
                     fontSize: 11,
                     lineHeight: 15,
                   }}>
-                  IPv
-                  {proxyRes.ip_version}
+                  IPv{proxyRes.ip_version}
                 </Text>
               </View>
               <Text
@@ -125,47 +133,22 @@ function ProxyItem({
             </View>
           </View>
         </View>
-        <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <Pressable
-            hitSlop={5}
+        <View>
+          <TouchableOpacity
             onPress={() => {
               setProxyItemPicked(proxy.id)
               childrenItem && handleSnapPress(0)
               setSelected(null)
-              setChildrenItem(
-                <BottomSheetIist
-                  handleClosePress={handleClosePress}
-                  navigation={navigation}
-                  proxyRes={proxyRes}
-                  index={index}
-                />,
-              )
-            }}>
-            <ProxiesDotts style={{ marginRight: 8 }} />
-          </Pressable>
-          {selected === proxy.id ? (
-            <Pressable
-              hitSlop={3}
-              onPress={() => {
-                setSelected(null)
-                handleClosePress()
-              }}>
-              <LightRadioUncheked style={{ marginLeft: 12, right: 5, bottom: 3 }} />
-            </Pressable>
-          ) : (
-            <Pressable
-              hitSlop={3}
-              onPress={() => {
-                setSelected(proxy.id)
-                handleClosePress()
-              }}>
-              <DarkRadioUncheked style={{ marginLeft: 12, right: 5, bottom: 3 }} />
-            </Pressable>
-          )}
+              setChildrenItem(<BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} />)
+            }}
+            activeOpacity={0.8}
+          />
+          {selectedProxies.includes(Number(proxy.id)) && <VectorYellowBig style={{ right: 20 }} />}
+          {!selectedProxies.includes(Number(proxy.id)) && <View style={{ width: 20, height: 20 }} />}
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
-export default ProxyItem
+export default ProxyItemExtend
