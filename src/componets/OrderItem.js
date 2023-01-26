@@ -21,9 +21,11 @@ function OrderItem({ navigation, order, setScrolling, price }) {
   const [amount, setAmount] = useState(1)
   const [totalPrice, setTotalPrice] = useState(100)
   const [days, setDays] = useState(30)
+  const [selectedCountryShort, setSelectedCountryShort] = useState('ru')
+  const [selectedCountry, setSelectedCountry] = useState('Russian Federation')
   useEffect(() => {
     async function name() {
-      await postOrderAmount({
+      postOrderAmount({
         quantity: amount,
         ip_type: order.ip_type,
         ip_version: order.ip_version,
@@ -32,14 +34,6 @@ function OrderItem({ navigation, order, setScrolling, price }) {
         coupon: '',
       }).then(data => setTotalPrice(data.data.amount / 100))
     }
-    console.log({
-      quantity: amount,
-      ip_type: order.ip_type,
-      ip_version: order.ip_version,
-      country: 'ru',
-      period: days,
-      coupon: '',
-    })
     name()
   }, [days, amount, order.ip_type, order.ip_version])
   const onSubmit = async () => {
@@ -67,7 +61,6 @@ function OrderItem({ navigation, order, setScrolling, price }) {
       }),
     )
   }
-  const [country, setCountry] = useState('United States of America')
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -143,7 +136,14 @@ function OrderItem({ navigation, order, setScrolling, price }) {
             paddingTop: 13,
             paddingBottom: 13,
           }}
-          onPress={() => navigation.navigate('Countries', { params: setCountry })}
+          onPress={() =>
+            navigation.navigate('Countries', {
+              selectedCountryShort,
+              setSelectedCountryShort,
+              selectedCountry,
+              setSelectedCountry,
+            })
+          }
           activeOpacity={0.8}>
           <View>
             <Text style={{ color: '#CBCBCB', fontSize: 15, fontWeight: '600' }}>Страна</Text>
@@ -155,7 +155,7 @@ function OrderItem({ navigation, order, setScrolling, price }) {
                 fontWeight: '600',
                 fontSize: 13,
               }}>
-              {country}
+              {selectedCountry}
             </Text>
             <FlagUsaSmall width={16} height={13} style={{ top: 2, marginLeft: 5, marginRight: 5 }} />
             <VectorRightSmall width={6} height={12} style={{ top: 5, marginLeft: 10 }} />

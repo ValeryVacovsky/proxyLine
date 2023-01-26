@@ -12,6 +12,7 @@ function Orders({ navigation }) {
   useEffect(() => {
     setOrdersListTotal(ordersRes)
   }, [ordersRes])
+  console.log('все ордеры', ordersListTotal)
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
@@ -31,7 +32,7 @@ function Orders({ navigation }) {
                   <Text style={styles.textDiscription}>На данный момент вы не совершали ни одного заказа</Text>
                 </View>
               </View>
-              <TouchableOpacity style={styles.Button} activeOpacity={0.8}>
+              <TouchableOpacity style={styles.Button} activeOpacity={0.8} onPress={() => navigation.navigate('Proxy')}>
                 <Text style={styles.buttonText}>Получить</Text>
               </TouchableOpacity>
             </View>

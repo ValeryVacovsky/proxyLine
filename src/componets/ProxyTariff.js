@@ -8,7 +8,7 @@ function ProxyTariff({ navigation, proxy, iPtype }) {
   useEffect(() => {
     async function name() {
       const ipTypes = []
-      await postOrderAmount({
+      postOrderAmount({
         quantity: 1,
         ip_type: 2,
         ip_version: 4,
@@ -16,7 +16,7 @@ function ProxyTariff({ navigation, proxy, iPtype }) {
         period: 5,
         coupon: '',
       }).then(data => ipTypes.push(data?.data.amount))
-      await postOrderAmount({
+      postOrderAmount({
         quantity: 1,
         ip_type: 1,
         ip_version: 4,
@@ -24,7 +24,7 @@ function ProxyTariff({ navigation, proxy, iPtype }) {
         period: 5,
         coupon: '',
       }).then(data => ipTypes.push(data?.data.amount))
-      await postOrderAmount({
+      postOrderAmount({
         quantity: 1,
         ip_type: 1,
         ip_version: 6,

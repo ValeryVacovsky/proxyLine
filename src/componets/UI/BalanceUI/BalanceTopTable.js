@@ -8,7 +8,7 @@ function BalanceTopTable({ balance }) {
       <LinearGradient
         style={styles.secondContainer}
         colors={['#383e4a', '#191c20', '#191c20']}
-        start={{ x: 0.1, y: 0.2 }}
+        start={{ x: 0.15, y: 0.3 }}
         end={{ x: 0.2, y: 0.9 }}>
         <View style={styles.topBlockContainer}>
           <View style={styles.topBlockInfo}>
@@ -16,6 +16,12 @@ function BalanceTopTable({ balance }) {
             <Text style={styles.topBlockBalanceText}>{balance / 100}</Text>
           </View>
         </View>
+      </LinearGradient>
+      <LinearGradient
+        style={{ width: '90%', borderBottomLeftRadius: 14, borderBottomRightRadius: 14, padding: 1, marginTop: 1 }}
+        colors={['#383e4a', '#191c20', '#191c20']}
+        start={{ x: 0.2, y: 2.6 }}
+        end={{ x: 0.1, y: 0.2 }}>
         <TouchableOpacity style={styles.bottomBlockContainer} activeOpacity={0.8}>
           <Text style={styles.bottomBlockText}>Пополнить</Text>
         </TouchableOpacity>
@@ -35,23 +41,22 @@ const styles = StyleSheet.create({
     zIndex: 0,
     marginTop: 11,
     backgroundColor: 'white',
-    borderRadius: 14,
-    borderWidth: 1,
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
     padding: 1,
   },
   topBlockContainer: {
     backgroundColor: '#191c20',
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
     width: '100%',
+    alignItems: 'center',
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
-    alignItems: 'center',
   },
   bottomBlockContainer: {
-    width: '100%',
+    marginTop: 2,
     alignItems: 'center',
     backgroundColor: '#191c20',
+    width: '100%',
     paddingLeft: 20,
     paddingRight: 20,
     borderBottomLeftRadius: 14,

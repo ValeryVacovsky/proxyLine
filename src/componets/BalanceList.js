@@ -8,7 +8,7 @@ function BalanceList({ data }) {
   const date = dateFormat(data.create_date, 'd.mm.yyyy HH:MM')
   useEffect(() => {
     async function name() {
-      await postOrderAmount({
+      postOrderAmount({
         quantity: 1,
         ip_type: 2,
         ip_version: 4,

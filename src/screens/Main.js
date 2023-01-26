@@ -70,6 +70,7 @@ function Main({ navigation }) {
       marginTop: 1,
       alignItems: 'center',
       justifyContent: 'space-between',
+      textAlign: 'center',
       // borderBottomRightRadius: 14,
       // borderBottomStartRadius: 14,
     },
@@ -448,6 +449,8 @@ function Main({ navigation }) {
                     <View
                       style={{
                         alignItems: 'center',
+                        textAlign: 'center',
+                        width: '100%',
                       }}>
                       <Text style={styles.buyProxyText}>Купить прокси</Text>
                     </View>

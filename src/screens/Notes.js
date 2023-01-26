@@ -83,7 +83,7 @@ function Notes({ navigation }) {
 
   const saveChanges = text => {
     const fun = async () => {
-      await postUserComment({ data: { content: text, token: '116_EkPyrFRIkRWUW2Klh3dQTzQC1XSrlC' } }).then(res => res)
+      postUserComment({ data: { content: text, token: '116_EkPyrFRIkRWUW2Klh3dQTzQC1XSrlC' } }).then(res => res)
     }
     fun()
   }

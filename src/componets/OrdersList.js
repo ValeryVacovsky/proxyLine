@@ -1,55 +1,55 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import dateFormat from 'dateformat'
 import postCreateOrder from '../api/postCreateOrder'
-// import SuperEllipseMaskView from 'react-native-super-ellipse-mask';
 
 import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
 import { useDispatch } from 'react-redux'
-import { updateObject } from '../store/reducers/orderReducer'
+import { deleteObject } from '../store/reducers/orderReducer'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function OrdersList({ data }) {
   const dispatch = useDispatch()
   const [received, setReceived] = useState(data.data.statusActive)
   const [dateCreate, setDateCreate] = useState(new Date())
+
+  const dateStart = data.data.dateActive
+  const dateNow = new Date()
+  let diff = (dateStart - dateNow) / 1000
+  const hours = Math.abs(Math.round(diff))
+  console.log('hourse', hours)
+
   const onHandleSuccess = () => {
-    dispatch(updateObject({ statusActive: true, dateActive: new Date() }))
+    dispatch(deleteObject({ statusActive: true, dateActive: new Date() }))
     setReceived(true)
     setDateCreate(new Date())
   }
+  useEffect(() => {
+    console.log('data', data.data)
+  }, [])
+
   const createOrderRequest = async () => {
-    console.log('запрос', {
-      quantity: 1,
-      ip_type: data.data.ip_type,
-      ip_version: data.data.ip_version,
-      country: 'ru',
-      period: data.data.period,
-      selected_ips: [],
-      tags: [0],
-      unique_credentials: false,
-      coupon: 'string',
-    })
     try {
       const token = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
       const user_token = `${id}_${token}`
-      const res = await postCreateOrder(user_token, {
-        quantity: 1,
-        ip_type: data.data.ip_type,
-        ip_version: data.data.ip_version,
-        country: 'ru',
-        period: data.data.period,
-        selected_ips: [],
-        tags: [0],
-        unique_credentials: false,
-        coupon: 'string',
+      await postCreateOrder({
+        data: {
+          quantity: 1,
+          ip_type: data.data.ip_type,
+          ip_version: data.data.ip_version,
+          country: 'ru',
+          period: data.data.period,
+          selected_ips: [],
+          tags: [0],
+          unique_credentials: false,
+          coupon: 'string',
+        },
+        token: user_token,
       })
       onHandleSuccess()
-      console.log('res', res)
     } catch (error) {
       console.log('ошибка', error)
-      console.log('token', id)
     }
   }
 
@@ -67,8 +67,8 @@ function OrdersList({ data }) {
               <Text style={styles.IdNumber}> 4829002398</Text>
             </View>
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-              <Text style={styles.calenderTimeSmall}>Осталось </Text>
-              <Text style={styles.calenderTime}> 5 дней 6 часов</Text>
+              {/* <Text style={styles.calenderTimeSmall}>Осталось </Text> */}
+              {/* <Text style={styles.calenderTime}> 5 дней 6 часов</Text> */}
             </View>
           </View>
         </View>
