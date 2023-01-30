@@ -5,31 +5,34 @@ import LayoutMain from '../../componets/LayoutMain'
 import getBalance from '../../api/getBalance'
 import BalanceTopTableSystems from '../../componets/UI/BalanceUI/BalanceTopTableSystems'
 import BalanceListSystem from '../../componets/Balance/BalanceListSystem'
-import { setBalance } from '../../store/reducers/balanceSystems'
 import { useSelector } from 'react-redux'
 
 function BalanceSystems({ navigation }) {
-  const [balanceSystem, setBalanceSystem] = useState([])
-  const [balanceCount, setBalanceCount] = useState(0)
-  useSelector(data => console.log(data))
+  const systems = useSelector(res => res.BalanceSystems.BalanceSystems)
+  const [balanceSystems, setBalanceSystems] = useState([])
+  const [balance, setBalance] = useState({ balance: null })
   useEffect(() => {
     const fetchData = async () => {
       const token = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
       const dataProps = `${id}_${token}`
       const data = await getBalance(dataProps)
-      await setBalanceCount('data', data.data)
+      await setBalance(data.data)
     }
     fetchData()
   }, [])
-  return ( 
+  useEffect(() => {
+    console.log('eff', systems[0].name)
+    setBalanceSystems(systems)
+  }, [systems])
+  return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
-        <BalanceTopTableSystems balance={balanceCount.balance} navigation={navigation} />
+        <BalanceTopTableSystems balance={balance.balance} navigation={navigation} />
         <Text style={styles.text}>Платежные системы</Text>
         <ScrollView style={styles.scrollView}>
-          {balanceSystem.map(key => (
-            <BalanceListSystem key={key?.name} navigation={navigation} name={key.name} />
+          {balanceSystems.map(data => (
+            <BalanceListSystem key={data?.name} navigation={navigation} name={data.name} data={data} />
           ))}
         </ScrollView>
       </SafeAreaView>

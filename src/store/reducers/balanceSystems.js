@@ -11,7 +11,7 @@ export const BalanceSystems = (state = initialState, action) => {
   }
 }
 
-export function setBalance(payload) {
+export function setBalanceSystems(payload) {
   return {
     type: 'SET_BALANCE',
     payload,

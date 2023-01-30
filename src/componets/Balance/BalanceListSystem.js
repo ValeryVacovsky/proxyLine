@@ -2,9 +2,10 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { StyleSheet } from 'react-native'
 
-function BalanceListSystem({ name }) {
+function BalanceListSystem({ name, data, navigation }) {
+  console.log(data)
   return (
-    <TouchableOpacity style={styles.mainContainer} activeOpacity={0.8}>
+    <TouchableOpacity style={styles.mainContainer} activeOpacity={0.8} onPress={() => navigation.navigate('Balance')}>
       <View style={styles.container}>
         <View style={styles.summeContainer}>
           <View style={styles.summe}>
