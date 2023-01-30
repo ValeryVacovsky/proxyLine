@@ -21,7 +21,7 @@ import Agreement from './screens/Auth/Agreement'
 import Order from './screens/Order'
 import Countreis from './screens/Countreis'
 import Orders from './screens/Orders'
-import Balance from './screens/Balance'
+import Balance from './screens/Balance/Balance'
 import MyProxies from './screens/MyProxy/MyProxies'
 import Notes from './screens/Notes'
 import ProxyInfo from './screens/ProxyInfo'
@@ -35,6 +35,7 @@ import DeleteProxies from './screens/MyProxy/DeleteProxies'
 import ExtendProxies from './screens/MyProxy/ExtendProxies'
 import ChangeProxies from './screens/MyProxy/ChangeProxies'
 import Ofert from './screens/Auth/Ofert'
+import BalanceSystems from './screens/Balance/BalanceSystems'
 
 // eslint-disable-next-line no-unused-vars
 const styles = StyleSheet.create({})
@@ -239,6 +240,28 @@ function App({ navigation }) {
             options={{
               // eslint-disable-next-line react/no-unstable-nested-components
               headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Ваш баланс</Text>,
+              headerStyle: {
+                height: 300,
+                borderBottomLeftRadius: 50,
+                backgroundColor: '#0F1218',
+              },
+              headerTintColor: '#CBCBCB',
+              headerTitleAlign: 'center',
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {
+                fontSize: 14,
+                color: 'white',
+              },
+              gestureEnabled: false,
+              headerBackTitle: 'Назад',
+            }}
+          />
+          <Stack.Screen
+            name="BalanceSystems"
+            component={BalanceSystems}
+            options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
+              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Оплата</Text>,
               headerStyle: {
                 height: 300,
                 borderBottomLeftRadius: 50,

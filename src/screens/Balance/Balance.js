@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { ScrollView, StyleSheet, SafeAreaView, Text } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import LayoutMain from '../componets/LayoutMain'
-import BalanceList from '../componets/BalanceList'
-import BalanceTopTable from '../componets/UI/BalanceUI/BalanceTopTable'
-import BalanceClearTable from '../componets/UI/BalanceUI/BalanceClearTable'
-import getBalance from '../api/getBalance'
-import getListBalanceLogs from '../api/getListBalanceLogs'
+import LayoutMain from '../../componets/LayoutMain'
+import BalanceList from '../../componets/Balance/BalanceList'
+import BalanceTopTable from '../../componets/UI/BalanceUI/BalanceTopTable'
+import BalanceClearTable from '../../componets/UI/BalanceUI/BalanceClearTable'
+import getBalance from '../../api/getBalance'
+import getListBalanceLogs from '../../api/getListBalanceLogs'
+import getPaymentSystems from '../../api/getPaymentSystem'
+import { useDispatch } from 'react-redux'
+import { setBalanceSystems } from '../../store/reducers/balanceSystems'
 
 function Balance({ navigation }) {
+  const dispatch = useDispatch()
   const [balance, setBalance] = useState({ balance: null })
   const [operations, setOperations] = useState([])
   useEffect(() => {
@@ -28,7 +32,12 @@ function Balance({ navigation }) {
       setOperations(data.data)
     }
     listOrders()
-  }, [])
+    const listPayments = async () => {
+      const res = await getPaymentSystems()
+      dispatch(setBalanceSystems(res.data))
+    }
+    listPayments()
+  }, [dispatch])
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>

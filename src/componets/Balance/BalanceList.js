@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { View, Text } from 'react-native'
 import dateFormat from 'dateformat'
-import postOrderAmount from '../api/postOrderAmount'
+import postOrderAmount from '../../api/postOrderAmount'
 import { StyleSheet } from 'react-native'
 
 function BalanceList({ data }) {

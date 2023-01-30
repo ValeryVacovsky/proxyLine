@@ -17,7 +17,9 @@ import UserNavigation from '../componets/UserNavigation'
 import ButtonOn from '../image/ButtonOn.png'
 import ButtonNone from '../image/ButtonNone.png'
 import ButtonOff from '../image/ButtonOff.png'
+import getMainText from '../api/adminQuery/getMainText'
 // import postAuth from "../api";
+// import axios from 'axios'
 
 function Main({ navigation }) {
   const [statusConect, setStatusConect] = useState('off')
@@ -206,7 +208,34 @@ function Main({ navigation }) {
       left: 10,
     },
   })
-
+  useEffect(() => {
+    function getText() {
+      getMainText()
+        .then(response => {
+          // handle success
+          console.log('0', response.data)
+        })
+        .catch(error => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log('1', error.response.data)
+            console.log('2', error.response.status)
+            console.log('3', error.response.headers)
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log('4', error.request)
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error1', error.message)
+          }
+          console.log('5', error.config)
+        })
+    }
+    getText()
+  }, [])
   const heightOffScreen = Dimensions.get('window').height
   useEffect(() => {}, [])
   return (
