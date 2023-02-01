@@ -316,6 +316,8 @@ PODS:
     - React
   - react-native-super-ellipse-mask (1.0.7):
     - React
+  - react-native-webview (11.26.1):
+    - React-Core
   - React-perflogger (0.70.1)
   - React-RCTActionSheet (0.70.1):
     - React-Core/RCTActionSheetHeaders (= 0.70.1)
@@ -477,6 +479,7 @@ DEPENDENCIES:
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-simple-openvpn (from `../node_modules/react-native-simple-openvpn`)
   - react-native-super-ellipse-mask (from `../node_modules/react-native-super-ellipse-mask`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -568,6 +571,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-simple-openvpn"
   react-native-super-ellipse-mask:
     :path: "../node_modules/react-native-super-ellipse-mask"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -647,6 +652,7 @@ SPEC CHECKSUMS:
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   react-native-simple-openvpn: b3b63ccf07a29b8c53642d5111cecfc55f5445c2
   react-native-super-ellipse-mask: 950abe130db6203b75e31f007e8568ac4c355a25
+  react-native-webview: 9f111dfbcfc826084d6c507f569e5e03342ee1c1
   React-perflogger: 48c6b363e867d64b682e84f80ca45636bd65e19c
   React-RCTActionSheet: 33c74fe5c754835e3715c300618da9aa2f7203fa
   React-RCTAnimation: 2dbf0120d4d1ab7716079b4180f2ca89c465e46b

@@ -3,10 +3,10 @@ import axios from 'axios'
 const baseUrl = 'https://proxydbtest.proxyline.net'
 
 // Passing configuration object to axios
-const postCreateOrder = ({ data }) =>
+const postCreateOrder = ({ data, token }) =>
   axios({
     method: 'post',
-    url: `${baseUrl}/projectapi/v1/1/user/116_EkPyrFRIkRWUW2Klh3dQTzQC1XSrlC/order/`,
+    url: `${baseUrl}/projectapi/v1/1/user/${token}/order/`,
     headers: {
       'Content-Type': 'application/json',
       apikey: 'project-1-apikey',

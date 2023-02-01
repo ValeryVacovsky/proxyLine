@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
 })
 
-function BottomSheetCopy({ handleClosePress, navigation, children }) {
+function BottomSheetCopy({ handleClosePress, children }) {
   return (
     <View style={styles.container}>
       <View style={styles.topTab} />

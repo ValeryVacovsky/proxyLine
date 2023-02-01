@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const baseUrl = 'https://proxydbtest.proxyline.net'
 
-const postCreatePayment = ({ token, data }) =>
+const postCreatePayment = (token, data) =>
   axios({
     method: 'post',
     url: `${baseUrl}/projectapi/v1/1/user/${token}/payment/`,
@@ -10,7 +10,7 @@ const postCreatePayment = ({ token, data }) =>
       'Content-Type': 'application/json',
       apikey: 'project-1-apikey',
     },
-    data,
+    data: data,
   })
 
 export default postCreatePayment

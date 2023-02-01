@@ -65,16 +65,16 @@ function ProxyInfo({ navigation, route }) {
   const handleClosePress = useCallback(() => {
     sheetRef.current?.close()
   }, [])
-  const handelOpenCopy = text => {
+  const handelOpenCopy = () => {
     // eslint-disable-next-line react/no-unescaped-entities
-    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>Скопировано "{text}"</BottomSheetCopy>)
+    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>Укажите баланс</BottomSheetCopy>)
     handleSnapPress(0)
     setTimeout(() => {
       handleClosePress()
     }, 3000)
   }
   const [childrenItem, setChildrenItem] = useState(
-    <BottomSheetCopy handleClosePress={handleClosePress}>Скопировано</BottomSheetCopy>,
+    <BottomSheetCopy handleClosePress={handleClosePress}>Укажите баланс</BottomSheetCopy>,
   )
   React.useLayoutEffect(() => {
     navigation.setOptions({

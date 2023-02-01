@@ -1,16 +1,48 @@
-import React, { useState, useEffect } from 'react'
-import { ScrollView, StyleSheet, SafeAreaView, Text } from 'react-native'
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
+import { ScrollView, StyleSheet, SafeAreaView, Text, View, TextInput } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LayoutMain from '../../componets/LayoutMain'
 import getBalance from '../../api/getBalance'
 import BalanceTopTableSystems from '../../componets/UI/BalanceUI/BalanceTopTableSystems'
 import BalanceListSystem from '../../componets/Balance/BalanceListSystem'
 import { useSelector } from 'react-redux'
+import BottomSheetForm from '../../componets/BottomSheetForm'
+import BottomSheetCopy from '../../componets/UI/ProxyUI/BottomSheetCopy'
 
 function BalanceSystems({ navigation }) {
+  const [amount, setAmount] = useState(null)
   const systems = useSelector(res => res.BalanceSystems.BalanceSystems)
   const [balanceSystems, setBalanceSystems] = useState([])
   const [balance, setBalance] = useState({ balance: null })
+  const sheetRef = useRef(null)
+  const snapPoints = useMemo(() => ['15%'], [])
+  const [, setIsOpen] = useState(false)
+
+  const handleSnapPress = useCallback(index => {
+    sheetRef.current?.snapToIndex(index)
+    setIsOpen(false)
+  }, [])
+  const handleClosePress = useCallback(() => {
+    sheetRef.current?.close()
+  }, [])
+
+  const [error, setError] = useState(false)
+  const [mayGo, setMayGo] = useState(false)
+  const handelOpenCopy = () => {
+    // eslint-disable-next-line react/no-unescaped-entities
+    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>Введите сумму</BottomSheetCopy>)
+    handleSnapPress(0)
+    setError(true)
+    setTimeout(() => {
+      handleClosePress()
+    }, 3000)
+  }
+  const [childrenItem, setChildrenItem] = useState(
+    <BottomSheetCopy handleClosePress={handleClosePress}>Введите сумму</BottomSheetCopy>,
+  )
+  handlePressRequest = () => {
+    navigation.navigate('BalanceMethod', { dataNav })
+  }
   useEffect(() => {
     const fetchData = async () => {
       const token = await AsyncStorage.getItem('@token')
@@ -25,17 +57,84 @@ function BalanceSystems({ navigation }) {
     console.log('eff', systems[0].name)
     setBalanceSystems(systems)
   }, [systems])
+  useEffect(() => {
+    if (amount == 0) {
+      setMayGo(false)
+    } else {
+      setMayGo(true)
+    }
+  }, [amount])
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         <BalanceTopTableSystems balance={balance.balance} navigation={navigation} />
         <Text style={styles.text}>Платежные системы</Text>
+        <View
+          style={{
+            backgroundColor: '#1E2127',
+            color: '#CBCBCB',
+            height: 44,
+            minWidth: '90%',
+            marginBottom: 14,
+            borderRadius: 8,
+            borderWidth: 1,
+            paddingLeft: 20,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'relative',
+            marginHorizontal: 20,
+          }}>
+          <TextInput
+            onFocus={() => {}}
+            onBlur={() => {}}
+            style={{ color: 'white', width: '80%', height: '100%', paddingLeft: 10 }}
+            onChangeText={setAmount}
+            value={amount}
+            iconPosition="right"
+            placeholder=""
+            placeholderTextColor="#CBCBCB"
+            type="number"
+            keyboardType="numeric"
+            returnKeyType="done"
+          />
+          <Text
+            style={{
+              position: 'absolute',
+              left: '4%',
+              fontSize: 20,
+              fontWeight: '600',
+              lineHeight: 25,
+              color: '#4F4F4F',
+            }}>
+            $
+          </Text>
+        </View>
         <ScrollView style={styles.scrollView}>
           {balanceSystems.map(data => (
-            <BalanceListSystem key={data?.name} navigation={navigation} name={data.name} data={data} />
+            <BalanceListSystem
+              key={data?.name}
+              navigation={navigation}
+              name={data.name}
+              data={data}
+              amount={amount}
+              error={error}
+              handelOpenCopy={handelOpenCopy}
+              mayGo={mayGo}
+            />
           ))}
         </ScrollView>
       </SafeAreaView>
+      {error && (
+        <BottomSheetForm
+          navigation={navigation}
+          sheetRef={sheetRef}
+          snapPoints={snapPoints}
+          setIsOpen={setIsOpen}
+          handleClosePress={handleClosePress}>
+          {childrenItem}
+        </BottomSheetForm>
+      )}
     </LayoutMain>
   )
 }

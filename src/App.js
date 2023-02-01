@@ -36,6 +36,8 @@ import ExtendProxies from './screens/MyProxy/ExtendProxies'
 import ChangeProxies from './screens/MyProxy/ChangeProxies'
 import Ofert from './screens/Auth/Ofert'
 import BalanceSystems from './screens/Balance/BalanceSystems'
+import WebPayment from './screens/WebView/WeBPayment'
+import BalanceMethod from './screens/Balance/BalanceMethod'
 
 // eslint-disable-next-line no-unused-vars
 const styles = StyleSheet.create({})
@@ -259,6 +261,28 @@ function App({ navigation }) {
           <Stack.Screen
             name="BalanceSystems"
             component={BalanceSystems}
+            options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
+              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Оплата</Text>,
+              headerStyle: {
+                height: 300,
+                borderBottomLeftRadius: 50,
+                backgroundColor: '#0F1218',
+              },
+              headerTintColor: '#CBCBCB',
+              headerTitleAlign: 'center',
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {
+                fontSize: 14,
+                color: 'white',
+              },
+              gestureEnabled: false,
+              headerBackTitle: 'Назад',
+            }}
+          />
+          <Stack.Screen
+            name="BalanceMethod"
+            component={BalanceMethod}
             options={{
               // eslint-disable-next-line react/no-unstable-nested-components
               headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Оплата</Text>,
@@ -541,6 +565,11 @@ function App({ navigation }) {
               gestureEnabled: false,
               headerBackTitle: 'Мои прокси',
             }}
+          />
+          <Stack.Screen
+            name="WebPayment"
+            component={WebPayment}
+            // options={{ headerShown: false, gestureEnabled: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>
