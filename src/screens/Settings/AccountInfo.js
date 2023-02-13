@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import LayoutMain from '../../componets/LayoutMain'
@@ -6,6 +7,11 @@ import ViewIcon from '../../image/Svg/ViewIcon'
 import ViewIconOff from '../../image/Svg/ViewIconOff'
 
 function AccountInfo({ navigation }) {
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.settings)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
   const [passwordVisibiliti, setPasswordVisibiliti] = useState(false)
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -13,7 +19,7 @@ function AccountInfo({ navigation }) {
       headerRight: () => (
         <TouchableOpacity activeOpacity={0.7}>
           <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => navigation.navigate('Main')}>
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Выйти</Text>
+            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.texts?.t6 && 'Выйти'}</Text>
           </TouchableOpacity>
         </TouchableOpacity>
       ),
@@ -23,7 +29,7 @@ function AccountInfo({ navigation }) {
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>
         <View>
-          <Text style={styles.text}>Данные аккаунта</Text>
+          <Text style={styles.text}>{text?.texts?.t7 && 'Данные аккаунта'}</Text>
           <View style={styles.dataProxyes}>
             <View
               style={{
@@ -42,7 +48,7 @@ function AccountInfo({ navigation }) {
                   alignItems: 'center',
                   width: '90%',
                 }}>
-                <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Логин</Text>
+                <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t8 && 'Логин'}</Text>
                 <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>4829002398</Text>
               </View>
             </View>
@@ -63,7 +69,7 @@ function AccountInfo({ navigation }) {
                   alignItems: 'center',
                   width: '90%',
                 }}>
-                <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Пароль</Text>
+                <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t9 && 'Пароль'}</Text>
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                   <Text
                     style={{
@@ -104,7 +110,7 @@ function AccountInfo({ navigation }) {
                   paddingBottom: 18,
                   paddingTop: 18,
                 }}>
-                Сменить пароль
+                {text?.buttons?.b0 && 'Сменить пароль'}
               </Text>
             </TouchableOpacity>
           </View>

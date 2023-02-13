@@ -4,7 +4,7 @@ import dateFormat from 'dateformat'
 import postOrderAmount from '../../api/postOrderAmount'
 import { StyleSheet } from 'react-native'
 
-function BalanceList({ data }) {
+function BalanceList({ data, text }) {
   const date = dateFormat(data.create_date, 'd.mm.yyyy HH:MM')
   useEffect(() => {
     async function name() {
@@ -24,19 +24,21 @@ function BalanceList({ data }) {
       <View style={styles.container}>
         <View style={styles.dateStart}>
           <View>
-            <Text style={styles.dateStartText}>От {date}</Text>
+            <Text style={styles.dateStartText}>
+              {text?.texts?.t3} {date}
+            </Text>
           </View>
         </View>
         <View style={styles.summeContainer}>
           <View style={styles.summe}>
-            <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 13 }}>Сумма</Text>
+            <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 13 }}>{text?.texts?.t4}</Text>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ {-data.amount}</Text>
+              <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ {Math.abs(data.amount)}</Text>
             </View>
           </View>
         </View>
         <View style={styles.order}>
-          <Text style={styles.orderText}>Заказ 1234812348123</Text>
+          <Text style={styles.orderText}>{text?.texts?.t5} 1234812348123</Text>
         </View>
       </View>
     </View>

@@ -38,6 +38,7 @@ import Ofert from './screens/Auth/Ofert'
 import BalanceSystems from './screens/Balance/BalanceSystems'
 import WebPayment from './screens/WebView/WeBPayment'
 import BalanceMethod from './screens/Balance/BalanceMethod'
+import ChangeLanguage from './screens/Settings/ChangeLanguage'
 
 // eslint-disable-next-line no-unused-vars
 const styles = StyleSheet.create({})
@@ -564,6 +565,28 @@ function App({ navigation }) {
               },
               gestureEnabled: false,
               headerBackTitle: 'Мои прокси',
+            }}
+          />
+          <Stack.Screen
+            name="Language"
+            component={ChangeLanguage}
+            options={{
+              // eslint-disable-next-line react/no-unstable-nested-components
+              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Выбор языка</Text>,
+              headerStyle: {
+                height: 300,
+                borderBottomLeftRadius: 50,
+                backgroundColor: '#0F1218',
+              },
+              headerTintColor: '#CBCBCB',
+              headerTitleAlign: 'center',
+              headerBackTitleVisible: true,
+              headerBackTitleStyle: {
+                fontSize: 14,
+                color: 'white',
+              },
+              gestureEnabled: false,
+              headerBackTitle: 'Настройки',
             }}
           />
           <Stack.Screen

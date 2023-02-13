@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, TouchableOpacity, Text, View, Pressable, Keyboard } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutMain from '../componets/LayoutMain'
 import NotesTab from '../image/Svg/NotesTab'
 import { TextInput } from 'react-native-gesture-handler'
 import postUserComment from '../api/postUserComment'
+import { useSelector } from 'react-redux'
 
 const styles = StyleSheet.create({
   textAreaContainer: {
@@ -54,6 +55,11 @@ const styles = StyleSheet.create({
   },
 })
 function Notes({ navigation }) {
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.notes)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
   const [textValue, setTextValue] = useState('')
   const [pretextValue, setPreTextValue] = useState(textValue)
   const [openStatus, setOpenStatus] = useState(true)
@@ -135,7 +141,7 @@ function Notes({ navigation }) {
               bottomLeft: 12,
             }}
             style={styles.buttonInner}>
-            <Text style={styles.buttonText}>Закрыть</Text>
+            <Text style={styles.buttonText}>{text?.buttons?.b0}</Text>
           </SuperEllipseMaskView>
         </TouchableOpacity>
       ) : (
@@ -194,7 +200,7 @@ function Notes({ navigation }) {
                   fontWeight: '600',
                   fontSize: 13,
                 }}>
-                Отменить
+                {text?.buttons?.b2}
               </Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>

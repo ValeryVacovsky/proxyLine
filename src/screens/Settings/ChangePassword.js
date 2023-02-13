@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import LayoutMain from '../../componets/LayoutMain'
 
 function ChangePassword({ navigation }) {
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.settings)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
   return (
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View>
-            <Text style={styles.text}>Новый пароль</Text>
+            <Text style={styles.text}>{text?.texts?.t16 && 'Новый пароль'}</Text>
             <View style={styles.dataProxyes}>
               <View
                 style={{
@@ -33,7 +39,7 @@ function ChangePassword({ navigation }) {
                 />
               </View>
             </View>
-            <Text style={styles.text}>Повторите новый пароль</Text>
+            <Text style={styles.text}>{text?.texts?.t17 && 'Повторите новый пароль'}</Text>
             <View style={styles.dataProxyes}>
               <View
                 style={{
@@ -75,19 +81,19 @@ function ChangePassword({ navigation }) {
                     paddingBottom: 18,
                     paddingTop: 18,
                   }}>
-                  Применить
+                  {text?.texts?.t18 && 'Применить'}
                 </Text>
               </TouchableOpacity>
             </View>
-            <Text style={styles.textSmallh1}>Требования к паролю:</Text>
+            <Text style={styles.textSmallh1}>{text?.texts?.t19 && 'Требования к паролю'}</Text>
             <Text style={styles.textSmall}>
-              1. 8 и более символов.
+              {text?.texts?.t20 && '1. 8 и более символов.'}
               {'\n'}
-              2. Непохож на email.
+              {text?.texts?.t21 && '2. Непохож на email.'}
               {'\n'}
-              3. Прописные и строчые буквы.
+              {text?.texts?.t22 && '3. Прописные и строчые буквы.'}
               {'\n'}
-              4. Хотя бы одна цифра.
+              {text?.texts?.t23 && '4. Хотя бы одна цифра.'}
             </Text>
           </View>
         </ScrollView>

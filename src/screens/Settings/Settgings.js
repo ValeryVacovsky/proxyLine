@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { View, StyleSheet, SafeAreaView, TouchableOpacity, Text, Dimensions } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import UserNavigation from '../../componets/UserNavigation'
@@ -8,6 +9,11 @@ import SettingsVector from '../../image/Svg/SettingsVector'
 import SettingsVector2 from '../../image/Svg/SettingsVector2'
 
 function Settgings({ navigation }) {
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.settings)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -17,7 +23,7 @@ function Settgings({ navigation }) {
             style={styles.balanceIcon}
             activeOpacity={0.8}
             onPress={() => navigation.navigate('Account')}>
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Аккаунт</Text>
+            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.texts?.t1 && 'Аккаунт'}</Text>
           </TouchableOpacity>
         </View>
       ),
@@ -30,15 +36,15 @@ function Settgings({ navigation }) {
         <View style={styles.checker}>
           <TouchableOpacity style={styles.check} activeOpacity={0.8}>
             <View>
-              <Text style={styles.textTop}>Проверка</Text>
-              <Text style={styles.textTop}>скорости</Text>
+              <Text style={styles.textTop}>{text?.texts?.t1 && 'проверка'}</Text>
+              <Text style={styles.textTop}>{text?.texts?.t1_1 && 'скорости'}</Text>
             </View>
             <CheckSpeed />
           </TouchableOpacity>
           <TouchableOpacity style={styles.check} activeOpacity={0.8}>
             <View>
-              <Text style={styles.textTop}>Проверка</Text>
-              <Text style={styles.textTop}>прокси</Text>
+              <Text style={styles.textTop}>{text?.texts?.t1 && 'проверка'}</Text>
+              <Text style={styles.textTop}>{text?.texts?.t1_2 && 'прокси'}</Text>
             </View>
             <CheckProxy />
           </TouchableOpacity>
@@ -48,25 +54,40 @@ function Settgings({ navigation }) {
           activeOpacity={0.8}
           onPress={() => navigation.navigate('AnwserQuaction')}>
           <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Вопрос ответ</Text>
+            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t2}</Text>
             <SettingsVector />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => navigation.navigate('Message')}>
           <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Написать нам</Text>
+            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>
+              {text?.texts?.t3 && 'Написать нам'}
+            </Text>
+            <SettingsVector />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.settingLine}
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate('Language')}>
+          <View style={styles.setting}>
+            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t6 && 'Язык'}</Text>
             <SettingsVector />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => {}}>
           <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Больше возможностей</Text>
+            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>
+              {text?.texts?.t4 && 'Больше возможностей'}
+            </Text>
             <SettingsVector2 />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingLineBottom} activeOpacity={0.8}>
           <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Версия Proxy Line</Text>
+            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>
+              {text?.texts?.t5 && 'Версия'} Proxy Line
+            </Text>
             <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>1.0.1</Text>
           </View>
         </TouchableOpacity>

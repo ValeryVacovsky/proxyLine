@@ -1,39 +1,55 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity, Dimensions } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
 import UserNavigation from '../componets/UserNavigation'
 import OrdersList from '../componets/OrdersList'
-import { useSelector } from 'react-redux'
+import getListOrders from '../api/getListOrders'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function Orders({ navigation }) {
-  const [ordersListTotal, setOrdersListTotal] = useState([])
+  const [dataOrders, setDataOrders] = useState()
+  useEffect(() => {
+    const listProxies = async () => {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const dataProps = `${id}_${token}`
+      const data = await getListOrders({ token: dataProps, limit: '100', offset: '0' })
+      setDataOrders(data.data)
+    }
+    listProxies()
+  }, [])
+  const proxyText = useSelector(res => res.textReducer.orders.payload)
   const heightOffScreen = Dimensions.get('window').height
   const ordersRes = useSelector(data => data.orderReducer)
-  useEffect(() => {
-    setOrdersListTotal(ordersRes)
-  }, [ordersRes])
-  console.log('все ордеры', ordersListTotal)
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
-        {ordersListTotal?.length > 0 && (
+        {ordersRes?.length > 0 && (
           <ScrollView style={styles.scrollView}>
-            {ordersListTotal?.map(data => (
-              <OrdersList key={data.data.id} navigation={navigation} data={data} />
+            {ordersRes?.map(data => (
+              <OrdersList key={data.data.id} navigation={navigation} data={data} text={proxyText} />
             ))}
+            {/* {dataOrders?.map(data => {
+              return (
+                <View key={data.id} style={{ width: '90%', height: 200, backgroundColor: 'rgba(51, 51, 51, 0.3)' }}>
+                  <Text>adasd</Text>
+                </View>
+              )
+            })} */}
           </ScrollView>
         )}
         <View style={styles.scrollContainer}>
-          {ordersListTotal?.length === 0 && (
+          {ordersRes?.length === 0 && (
             <View style={styles.ElementContainer}>
               <View style={styles.infoContainer}>
                 <View style={styles.infoBlock}>
-                  <Text style={styles.textH1}>Нет ни одного заказа</Text>
-                  <Text style={styles.textDiscription}>На данный момент вы не совершали ни одного заказа</Text>
+                  <Text style={styles.textH1}>{proxyText?.texts?.t0}</Text>
+                  <Text style={styles.textDiscription}>{proxyText?.texts?.t1}</Text>
                 </View>
               </View>
               <TouchableOpacity style={styles.Button} activeOpacity={0.8} onPress={() => navigation.navigate('Proxy')}>
-                <Text style={styles.buttonText}>Получить</Text>
+                <Text style={styles.buttonText}>{proxyText?.buttons?.b0}</Text>
               </TouchableOpacity>
             </View>
           )}

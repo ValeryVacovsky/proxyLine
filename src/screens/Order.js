@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { ScrollView, View, StyleSheet, Text, Pressable } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LayoutMain from '../componets/LayoutMain'
@@ -10,6 +11,11 @@ import getBalance from '../api/getBalance'
 import HeaderProxy from '../image/Svg/HeaderProxy'
 
 function Order({ navigation, route }) {
+  const [text, setText] = useState({})
+  const proxyText = useSelector(res => res.textReducer)
+  useEffect(() => {
+    setText(proxyText)
+  }, [proxyText, text])
   const [scrolling, setScrolling] = useState(true)
   const [currentProxyId, setCurrentProxyId] = useState(390)
   const [balance, setBalance] = useState({ balance: null })
@@ -42,40 +48,40 @@ function Order({ navigation, route }) {
   const ProxyList = [
     {
       id: 1,
-      proxyType: 'v4 Shared',
-      discription: 'Подходит для любых целей и сайтов',
-      days: '5 дней',
+      proxyType: proxyText.proxy.payload?.texts?.t7,
+      discription: proxyText.proxy.payload?.texts?.t0,
+      days: '5',
       price: 0.6,
-      handDesription: 'Используется до 3-х человек',
+      handDesription: proxyText.proxy.payload?.texts?.t3,
       icon: <PeopleIconProxy />,
       ip_type: 2,
       ip_version: 4,
     },
     {
       id: 2,
-      proxyType: 'v4 Индвидуальные',
-      discription: 'Подходит для любых целей и сайтов',
-      days: '5 дней',
+      proxyType: proxyText.proxy.payload?.texts?.t8,
+      discription: proxyText.proxy.payload?.texts?.t1,
+      days: '5',
       price: 0.88,
-      handDesription: 'Выдается в одни руки',
+      handDesription: proxyText.proxy.payload?.texts?.t4,
       icon: <CloudProxyIcon />,
       ip_type: 1,
       ip_version: 4,
     },
     {
       id: 3,
-      proxyType: 'v6 / 32',
-      discription: 'Подходит для любых целей и сайтов',
-      days: '5 дней',
+      proxyType: proxyText.proxy.payload?.texts?.t9,
+      discription: proxyText.proxy.payload?.texts?.t2,
+      days: '5',
       price: 1.22,
-      handDesription: 'Выдается в одни руки',
+      handDesription: proxyText.proxy.payload?.texts?.t5,
       icon: <ServerProxyIcon />,
       ip_type: 1,
       ip_version: 6,
     },
   ]
-  const startPos = currentProxyId * (route.params.proxy.id - 1)
-  const iPtypes = route.params.iPtypes
+  const startPos = currentProxyId * (route?.params?.proxy?.id - 1)
+  const iPtypes = route?.params?.iPtypes
   return (
     <LayoutMain>
       <ScrollView
@@ -97,7 +103,8 @@ function Order({ navigation, route }) {
             navigation={navigation}
             order={order}
             setScrolling={setScrolling}
-            price={iPtypes[index] / 100}
+            price={iPtypes[index] / 100 && 0.1}
+            proxyText={proxyText.order.payload}
           />
         ))}
       </ScrollView>

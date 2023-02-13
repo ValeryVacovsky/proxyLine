@@ -4,9 +4,8 @@ import { StyleSheet } from 'react-native'
 import LightRadioUncheked from '../image/Svg/LightRadioUncheked'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 
-import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
-
 import RadioUncheked from '../image/Svg/RadioUncheked'
+import { flagByShortName } from '../common/flagByShortName'
 
 function CountrySlot({
   country,
@@ -16,12 +15,13 @@ function CountrySlot({
   setSelectedCountryOff,
   setSelectedCountryShortOff,
 }) {
+  console.log(country)
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.containerOpacity} activeOpacity={0.8}>
         <Text style={styles.mockText} />
         <View style={styles.countryInfo}>
-          <FlagUsaSmall width={16} height={13} style={styles.flagIcon} />
+          <View style={styles.flagIcon}>{flagByShortName[country.code]}</View>
           <Text style={styles.mainText}>{country.name_local}</Text>
         </View>
         <Pressable
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   countryInfo: { display: 'flex', flexDirection: 'row' },
-  flagIcon: { top: 2, marginLeft: 5, marginRight: 5 },
+  flagIcon: { top: 2, marginLeft: 5, marginRight: 5, width: 16, height: 13 },
   mainText: { color: 'white', fontWeight: '600', width: '75%' },
 })
 

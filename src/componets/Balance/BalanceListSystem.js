@@ -2,13 +2,13 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { StyleSheet } from 'react-native'
 
-function BalanceListSystem({ name, data, navigation, amount, error, handelOpenCopy, mayGo }) {
+function BalanceListSystem({ name, data, navigation, amount, handelOpenCopy, mayGo }) {
   const dataNav = { ...data, amount: amount }
   const handlePress = () => {
     mayGo ? navigation.navigate('BalanceMethod', { dataNav }) : handelOpenCopy()
   }
   return (
-    <TouchableOpacity style={styles.mainContainer} activeOpacity={0.8} onPress={() => handlePress()}>
+    <TouchableOpacity style={styles.mainContainer} activeOpacity={0.8} onPress={handlePress}>
       <View style={styles.container}>
         <View style={styles.summeContainer}>
           <View style={styles.summe}>

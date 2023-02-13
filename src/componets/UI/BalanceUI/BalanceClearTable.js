@@ -1,16 +1,14 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
-function BalanceClearTable() {
+function BalanceClearTable({ text }) {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.secondContainer}>
         <View style={styles.calendarBlock}>
           <View style={styles.calendarCenter}>
-            <Text style={styles.mainText}>Нет ни одной операции</Text>
-            <Text style={styles.smallText}>
-              На данный момент вы не совершали никаких операций или операция в обработке
-            </Text>
+            <Text style={styles.mainText}>{text?.texts?.t1}</Text>
+            <Text style={styles.smallText}>{text?.texts?.t2}</Text>
           </View>
         </View>
       </View>

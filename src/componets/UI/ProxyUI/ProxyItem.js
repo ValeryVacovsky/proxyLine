@@ -5,6 +5,7 @@ import ProxiesDotts from '../../../image/Svg/ProxiesDotts'
 import DarkRadioUncheked from '../../../image/Svg/DarkRadioUncheked'
 import LightRadioUncheked from '../../../image/Svg/LightRadioUncheked'
 import BottomSheetIist from './BottomSheetIist'
+import { flagByShortName } from '../../../common/flagByShortName'
 
 const styles = StyleSheet.create({
   container: {
@@ -26,13 +27,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '88%',
+    width: '92%',
     flexDirection: 'row',
   },
 })
 
 function ProxyItem({
-  proxy,
   proxyRes,
   selected,
   setSelected,
@@ -43,13 +43,20 @@ function ProxyItem({
   navigation,
   childrenItem,
   index,
+  text,
 }) {
   const heightOffScreen = Dimensions.get('window').height
+  const dateStart = new Date(proxyRes.date_start)
+  const dateEnd = new Date()
+  const dateNeed = (dateEnd - dateStart) / 1000 / (60 * 60 * 24)
+  console.log('proxyitem', proxyRes)
   return (
     <View style={styles.container}>
-      <View style={heightOffScreen > 700 ? styles.mainContainer : styles.s_mainContainer}>
+      <View style={heightOffScreen > 800 ? styles.mainContainer : styles.s_mainContainer}>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <View style={{ top: 13, marginLeft: 12 }}>{proxy?.flag}</View>
+          <View style={{ width: 35, height: 35, top: 10 }}>
+            <View style={{ width: '100%', height: '100%' }}>{flagByShortName[proxyRes.country_id]}</View>
+          </View>
           <View style={{ marginLeft: 14 }}>
             <View
               style={{
@@ -79,7 +86,7 @@ function ProxyItem({
                   paddingRight: 6,
                   backgroundColor: '#333842',
                   borderRadius: 4,
-                  marginLeft: 6,
+                  // marginLeft: 6,
                 }}>
                 <Text
                   style={{
@@ -87,8 +94,9 @@ function ProxyItem({
                     fontSize: 11,
                     color: '#CBCBCB',
                     lineHeight: 15,
+                    width: 50,
                   }}>
-                  {proxy?.days} дней
+                  {Math.abs(Math.round(dateNeed))} {text?.texts?.t5}
                 </Text>
               </View>
             </View>
@@ -110,7 +118,7 @@ function ProxyItem({
                     lineHeight: 15,
                   }}>
                   IPv
-                  {proxyRes.ip_version}
+                  {proxyRes?.ip_version}
                 </Text>
               </View>
               <Text
@@ -120,7 +128,7 @@ function ProxyItem({
                   fontWeight: '400',
                   marginLeft: 6,
                 }}>
-                {proxyRes.ip}
+                {proxyRes?.ip}
               </Text>
             </View>
           </View>
@@ -129,7 +137,7 @@ function ProxyItem({
           <Pressable
             hitSlop={5}
             onPress={() => {
-              setProxyItemPicked(proxy?.id)
+              setProxyItemPicked(proxyRes?.id)
               childrenItem && handleSnapPress(0)
               setSelected(null)
               setChildrenItem(
@@ -138,12 +146,13 @@ function ProxyItem({
                   navigation={navigation}
                   proxyRes={proxyRes}
                   index={index}
+                  text={text}
                 />,
               )
             }}>
             <ProxiesDotts style={{ marginRight: 8 }} />
           </Pressable>
-          {selected === proxy?.id ? (
+          {selected === proxyRes?.id ? (
             <Pressable
               hitSlop={3}
               onPress={() => {
@@ -156,7 +165,7 @@ function ProxyItem({
             <Pressable
               hitSlop={3}
               onPress={() => {
-                setSelected(proxy.id)
+                setSelected(proxyRes.id)
                 handleClosePress()
               }}>
               <DarkRadioUncheked style={{ marginLeft: 12, right: 5, bottom: 3 }} />

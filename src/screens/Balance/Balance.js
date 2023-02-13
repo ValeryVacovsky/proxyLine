@@ -8,10 +8,15 @@ import BalanceClearTable from '../../componets/UI/BalanceUI/BalanceClearTable'
 import getBalance from '../../api/getBalance'
 import getListBalanceLogs from '../../api/getListBalanceLogs'
 import getPaymentSystems from '../../api/getPaymentSystem'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setBalanceSystems } from '../../store/reducers/balanceSystems'
 
 function Balance({ navigation }) {
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.balance)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
   const dispatch = useDispatch()
   const [balance, setBalance] = useState({ balance: null })
   const [operations, setOperations] = useState([])
@@ -41,16 +46,16 @@ function Balance({ navigation }) {
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
-        <BalanceTopTable balance={balance.balance} navigation={navigation} />
-        <Text style={styles.text}>Операции</Text>
+        <BalanceTopTable balance={balance.balance} navigation={navigation} text={text} />
+        <Text style={styles.text}>{text?.texts?.t0}</Text>
         {operations.length > 0 && (
           <ScrollView style={styles.scrollView}>
             {operations.map(key => (
-              <BalanceList key={key?.create_date} navigation={navigation} data={key} />
+              <BalanceList key={key?.create_date} navigation={navigation} data={key} text={text} />
             ))}
           </ScrollView>
         )}
-        {operations.length === 0 && <BalanceClearTable />}
+        {operations.length === 0 && <BalanceClearTable text={text} />}
       </SafeAreaView>
     </LayoutMain>
   )

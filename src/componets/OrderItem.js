@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import SliderExample from './SliderExample'
-import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
 import VectorRightSmall from '../image/Svg/VectorRightSmall'
 import Toggle from './UI/OrderUI/Toggle'
 import postOrderAmount from '../api/postOrderAmount'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
 import { addObject } from '../store/reducers/orderReducer'
+import { flagByShortName } from '../common/flagByShortName'
 
-function OrderItem({ navigation, order, setScrolling, price }) {
+function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
   function generate(str) {
     return str.replace(/[xy]/g, function (c) {
       const r = (Math.random() * 16) | 0
@@ -63,16 +63,7 @@ function OrderItem({ navigation, order, setScrolling, price }) {
   }
   return (
     <View style={{ flex: 1 }}>
-      <View
-        style={{
-          alignItems: 'center',
-          width: '100%',
-          paddingLeft: 20,
-          paddingRight: 20,
-          zIndex: 0,
-          marginTop: 11,
-          flex: 1,
-        }}>
+      <View style={styles.center_container}>
         <View
           style={{
             backgroundColor: '#FAC637',
@@ -124,7 +115,7 @@ function OrderItem({ navigation, order, setScrolling, price }) {
               IP
               {order.proxyType}
             </Text>
-            <Text style={{ color: '#CBCBCB', fontSize: 12, fontWeight: '400' }}>Подходят для любых целей и сайтов</Text>
+            <Text style={{ color: '#CBCBCB', fontSize: 12, fontWeight: '400' }}>{order.discription}</Text>
           </View>
           <View>{order.icon}</View>
         </View>
@@ -146,7 +137,7 @@ function OrderItem({ navigation, order, setScrolling, price }) {
           }
           activeOpacity={0.8}>
           <View>
-            <Text style={{ color: '#CBCBCB', fontSize: 15, fontWeight: '600' }}>Страна</Text>
+            <Text style={{ color: '#CBCBCB', fontSize: 15, fontWeight: '600' }}>{proxyText?.texts?.t0}</Text>
           </View>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
             <Text
@@ -157,7 +148,9 @@ function OrderItem({ navigation, order, setScrolling, price }) {
               }}>
               {selectedCountry}
             </Text>
-            <FlagUsaSmall width={16} height={13} style={{ top: 2, marginLeft: 5, marginRight: 5 }} />
+            <View style={{ width: 16, height: 16, top: 2, marginLeft: 5, marginRight: 5 }}>
+              {flagByShortName[selectedCountryShort]}
+            </View>
             <VectorRightSmall width={6} height={12} style={{ top: 5, marginLeft: 10 }} />
           </View>
         </TouchableOpacity>
@@ -169,8 +162,8 @@ function OrderItem({ navigation, order, setScrolling, price }) {
             justifyContent: 'space-between',
             paddingTop: 10,
           }}>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 12 }}>5 дней</Text>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 12 }}>360 дней</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 12 }}>5 {proxyText?.texts?.t6}</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 12 }}>360 {proxyText?.texts?.t6}</Text>
         </View>
         <View
           style={{ width: '100%', right: 10 }}
@@ -193,8 +186,10 @@ function OrderItem({ navigation, order, setScrolling, price }) {
             paddingTop: 13,
             paddingBottom: 13,
           }}>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Период</Text>
-          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>{days} дней</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t3}</Text>
+          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>
+            {days} {proxyText?.texts?.t6}
+          </Text>
         </View>
         <View
           style={{
@@ -206,7 +201,7 @@ function OrderItem({ navigation, order, setScrolling, price }) {
             marginBottom: 10,
             marginTop: 10,
           }}>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Тип</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t2}</Text>
           <View
             style={{
               position: 'relative',
@@ -224,7 +219,7 @@ function OrderItem({ navigation, order, setScrolling, price }) {
             alignItems: 'center',
             marginBottom: 10,
           }}>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Колличество</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t4}</Text>
           <View
             style={{
               display: 'flex',
@@ -303,7 +298,7 @@ function OrderItem({ navigation, order, setScrolling, price }) {
             paddingTop: 13,
             paddingBottom: 13,
           }}>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Цена за штуку</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t4}</Text>
           <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ {price}</Text>
         </View>
       </View>
@@ -317,7 +312,7 @@ function OrderItem({ navigation, order, setScrolling, price }) {
             paddingTop: 13,
             paddingBottom: 13,
           }}>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>Итого к оплате</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t7}</Text>
           <Text style={{ color: 'white', fontWeight: '700', fontSize: 18 }}>$ {totalPrice}</Text>
         </View>
         <TouchableOpacity
@@ -328,7 +323,7 @@ function OrderItem({ navigation, order, setScrolling, price }) {
           style={{ alignItems: 'center', width: '100%', marginBottom: 20 }}
           activeOpacity={0.8}>
           <SuperEllipseMaskView radius={12} style={styles.buttonInner}>
-            <Text style={{ color: 'black', fontWeight: '600', fontSize: 13 }}>Купить прокси</Text>
+            <Text style={{ color: 'black', fontWeight: '600', fontSize: 13 }}>{proxyText.buttons.b0}</Text>
           </SuperEllipseMaskView>
         </TouchableOpacity>
       </View>
@@ -343,6 +338,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
     width: '90%',
+  },
+  center_container: {
+    alignItems: 'center',
+    width: '100%',
+    paddingLeft: 20,
+    paddingRight: 20,
+    zIndex: 0,
+    marginTop: 11,
+    flex: 1,
   },
 })
 

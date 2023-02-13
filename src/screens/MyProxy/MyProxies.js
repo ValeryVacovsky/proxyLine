@@ -12,123 +12,22 @@ import {
 } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import ProxiesFilter from '../../image/Svg/ProxiesFilter'
-import { setProxy } from '../../store/reducers/proxyReducer'
 
 import LayoutMain from '../../componets/LayoutMain'
 import ProxiesDotts from '../../image/Svg/ProxiesDotts'
 import ProxyItem from '../../componets/UI/ProxyUI/ProxyItem'
-import FlagUseBig from '../../image/Svg/FlagUseBig'
 import BottomSheetForm from '../../componets/BottomSheetForm'
 import VectorOpen from '../../image/Svg/VectorOpen'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import BottomSheetItem from '../../componets/UI/ProxyUI/BottomSheetItem'
-import getListProxies from '../../api/getListProxies'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useDispatch, useSelector } from 'react-redux'
-
-const MyProxiesList = [
-  {
-    id: 1,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 2,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 3,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 4,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 5,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 6,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 8,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 9,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 10,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 11,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 12,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 13,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-]
+import { useSelector } from 'react-redux'
 
 function MyProxies({ navigation }) {
-  const [proxyItems, setProxyItems] = useState([])
-  const dispatch = useDispatch()
-  const proxyRes = useSelector(data => data?.proxy?.authStatus)
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.myproxies)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
@@ -143,19 +42,8 @@ function MyProxies({ navigation }) {
   const handleClosePress = useCallback(() => {
     sheetRef.current?.close()
   }, [])
-
-  useEffect(() => {
-    const listProxies = async () => {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const dataProps = `${id}_${token}`
-      const data = await getListProxies({ token: dataProps, limit: '100', offset: '0' })
-      dispatch(setProxy(data.data))
-      setProxyItems(data.data)
-    }
-    listProxies()
-    setProxyItems(proxyRes)
-  }, [dispatch])
+  const proxyLisStore = useSelector(data => data.proxy.proxyList)
+  console.log(proxyLisStore)
   const [selected, setSelected] = useState(null)
   const [proxyItemPicked, setProxyItemPicked] = useState(null)
   const [childrenItem, setChildrenItem] = useState()
@@ -178,7 +66,9 @@ function MyProxies({ navigation }) {
             style={styles.balanceIconFilterDotts}
             activeOpacity={0.8}
             onPress={() => {
-              setChildrenItem(<BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} />)
+              setChildrenItem(
+                <BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} text={text} />,
+              )
               handleSnapPress(0)
               setProxyItemPicked(true)
             }}
@@ -215,7 +105,7 @@ function MyProxies({ navigation }) {
             value={valueProxy}
             icon={<VectorOpen />}
             iconPosition="right"
-            placeholder="Найти прокси"
+            placeholder={text?.texts?.t1}
             placeholderTextColor="#CBCBCB"
           />
           {valueProxy.length === 0 && (
@@ -228,10 +118,9 @@ function MyProxies({ navigation }) {
         </View>
         <SafeAreaView>
           <ScrollView style={{ width: '100%', marginBottom: selected ? 200 : 90 }}>
-            {proxyItems?.map((proxy, index) => (
+            {proxyLisStore.data?.map((proxy, index) => (
               <ProxyItem
                 key={proxy.id}
-                proxy={MyProxiesList[index]}
                 proxyRes={proxy}
                 selected={selected}
                 setSelected={setSelected}
@@ -242,6 +131,7 @@ function MyProxies({ navigation }) {
                 childrenItem={childrenItem}
                 navigation={navigation}
                 index={index}
+                text={text}
               />
             ))}
           </ScrollView>
@@ -262,7 +152,7 @@ function MyProxies({ navigation }) {
                 bottomLeft: 12,
               }}
               style={styles.buttonInner}>
-              <Text style={styles.buttonText}>Купить прокси</Text>
+              <Text style={styles.buttonText}>{text?.buttons?.b0}</Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
         )}

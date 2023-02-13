@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, ScrollView, StyleSheet, SafeAreaView, Text, Pressable, Dimensions } from 'react-native'
+import { useSelector } from 'react-redux'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LayoutMain from '../componets/LayoutMain'
 import ProxyTariff from '../componets/ProxyTariff'
@@ -10,36 +12,6 @@ import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
 import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
 import getBalance from '../api/getBalance'
 import postOrderAmount from '../api/postOrderAmount'
-
-const ProxyList = [
-  {
-    id: 1,
-    proxyType: 'v4 Shared',
-    discription: 'Подходит для любых целей и сайтов',
-    days: '5 дней',
-    price: 0.6,
-    handDesription: 'Используется до 3-х человек',
-    icon: <PeopleIconProxy />,
-  },
-  {
-    id: 2,
-    proxyType: 'v4 Индвидуальные',
-    discription: 'Подходит для любых целей и сайтов',
-    days: '5 дней',
-    price: 0.88,
-    handDesription: 'Выдается в одни руки',
-    icon: <CloudProxyIcon />,
-  },
-  {
-    id: 3,
-    proxyType: 'v6 / 32',
-    discription: 'Подходит для любых целей и сайтов',
-    days: '5 дней',
-    price: 1.22,
-    handDesription: 'Выдается в одни руки',
-    icon: <ServerProxyIcon />,
-  },
-]
 
 const styles = StyleSheet.create({
   container: {
@@ -70,8 +42,13 @@ const styles = StyleSheet.create({
 })
 
 function Proxy({ navigation }) {
-  const [iPtypes, setIpTypes] = useState([10, 10, 10])
+  const [text, setText] = useState({})
+  const proxyText = useSelector(res => res.textReducer)
+  useEffect(() => {
+    setText(proxyText)
+  }, [proxyText, text])
 
+  const [iPtypes, setIpTypes] = useState([10, 10, 10])
   useEffect(() => {
     async function name() {
       const ipTypes = []
@@ -114,6 +91,35 @@ function Proxy({ navigation }) {
     }
     fetchData()
   }, [])
+  const ProxyList = [
+    {
+      id: 1,
+      proxyType: proxyText.proxy.payload?.texts?.t7,
+      discription: proxyText.proxy.payload?.texts?.t0,
+      days: '5',
+      price: 0.6,
+      handDesription: proxyText.proxy.payload?.texts?.t3,
+      icon: <PeopleIconProxy />,
+    },
+    {
+      id: 2,
+      proxyType: proxyText.proxy.payload?.texts?.t8,
+      discription: proxyText.proxy.payload?.texts?.t1,
+      days: '5',
+      price: 0.88,
+      handDesription: proxyText.proxy.payload?.texts?.t4,
+      icon: <CloudProxyIcon />,
+    },
+    {
+      id: 3,
+      proxyType: proxyText.proxy.payload?.texts?.t9,
+      discription: proxyText.proxy.payload?.texts?.t2,
+      days: '5',
+      price: 1.22,
+      handDesription: proxyText.proxy.payload?.texts?.t5,
+      icon: <ServerProxyIcon />,
+    },
+  ]
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -143,6 +149,7 @@ function Proxy({ navigation }) {
               ProxyList={ProxyList}
               navigation={navigation}
               iPtype={iPtypes[index]}
+              proxyText={proxyText}
             />
           ))}
         </ScrollView>

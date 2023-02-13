@@ -44,12 +44,12 @@ const styles = StyleSheet.create({
   },
 })
 
-function BottomSheetSelectForm({ handleClosePress, setSelectedProxies, move, selected }) {
+function BottomSheetSelectForm({ handleClosePress, setSelectedProxies, move, selected, text }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => {}}>
         <Text style={styles.topButtonText}>
-          {move} выбранные ({selected})
+          {move} {text} ({selected})
         </Text>
       </TouchableOpacity>
       <TouchableOpacity

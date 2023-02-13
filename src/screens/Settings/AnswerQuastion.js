@@ -1,100 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, Text, Dimensions } from 'react-native'
+import { useSelector } from 'react-redux'
 
 import LayoutMain from '../../componets/LayoutMain'
 import AnswerLine from '../../componets/UI/Settings/AnswerLine'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
 function AnswerQuastion({ navigation }) {
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.settings)
+  const general = useSelector(res => res.textReducer.general.payload.texts)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
   const [valueProxy, setValueProxy] = useState('')
-  const [question, setQuestion] = useState([
-    {
-      id: 1,
-      title: 'что такое прокси словыми словами',
-      discripton: 'описание',
-      status: false,
-    },
-    {
-      id: 2,
-      title: 'В ЧЕМ ОТЛИЧИЕ IPV4 И IPV6 ПРОКСИ? \nЧТО ЛУЧШЕ?',
-      discripton: 'описание',
-      status: false,
-    },
-    {
-      id: 3,
-      title: 'Что такое прокси простыми словами',
-      discripton: 'описание',
-      status: false,
-    },
-    {
-      id: 4,
-      title: 'В ЧЕМ ОТЛИЧИЕ IPV4 И IPV6 ПРОКСИ? \n ЧТО ЛУЧШЕ?',
-      discripton:
-        'Отличие IPv4 тем что все сайты работают с данным протоколом. А с IPv6 работают не все сайты. Вы можете проверить работу сайта на IPv6 подключение пройдя по этой ссылки: https://proxy-checker.net/site-IPv6 -support/ iPv6 более подвергается банам. В основном все берут IPv4.',
-      status: false,
-    },
-    {
-      id: 5,
-      title: 'Что такое прокси простыми словами',
-      discripton: 'описание',
-      status: false,
-    },
-    {
-      id: 6,
-      title: 'В ЧЕМ ОТЛИЧИЕ IPV4 И IPV6 ПРОКСИ?\nЧТО ЛУЧШЕ?',
-      discripton: 'описание',
-      status: false,
-    },
-    {
-      id: 7,
-      title: 'Что такое прокси простыми словами',
-      discripton: 'описание',
-      status: false,
-    },
-    {
-      id: 8,
-      title: 'В ЧЕМ ОТЛИЧИЕ IPV4 И IPV6 ПРОКСИ?\nЧТО ЛУЧШЕ?',
-      discripton: 'описание',
-      status: false,
-    },
-    {
-      id: 9,
-      title: 'Что такое прокси простыми словами',
-      discripton: 'описание',
-      status: false,
-    },
-    {
-      id: 10,
-      title: 'В ЧЕМ ОТЛИЧИЕ IPV4 И IPV6 ПРОКСИ? \n ЧТО ЛУЧШЕ?',
-      discripton:
-        'Отличие IPv4 тем что все сайты работают с данным протоколом. А с IPv6 работают не все сайты. Вы можете проверить работу сайта на IPv6 подключение пройдя по этой ссылки: https://proxy-checker.net/site-IPv6 -support/ iPv6 более подвергается банам. В основном все берут IPv4.',
-      status: false,
-    },
-    {
-      id: 11,
-      title: 'Что такое прокси простыми словами',
-      discripton: 'описание',
-      status: false,
-    },
-    {
-      id: 12,
-      title: 'В ЧЕМ ОТЛИЧИЕ IPV4 И IPV6 ПРОКСИ?\nЧТО ЛУЧШЕ?',
-      discripton: 'описание',
-      status: false,
-    },
-    {
-      id: 13,
-      title: 'Что такое прокси простыми словами',
-      discripton: 'описание',
-      status: false,
-    },
-    {
-      id: 14,
-      title: 'В ЧЕМ ОТЛИЧИЕ IPV4 И IPV6 ПРОКСИ?\nЧТО ЛУЧШЕ?',
-      discripton: 'описание',
-      status: false,
-    },
-  ])
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -103,7 +22,9 @@ function AnswerQuastion({ navigation }) {
             style={styles.balanceIcon}
             activeOpacity={0.8}
             onPress={() => navigation.navigate('Message')}>
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Написать нам</Text>
+            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>
+              {text?.texts?.t3 && 'Написать нам'}
+            </Text>
           </TouchableOpacity>
         </View>
       ),
@@ -135,7 +56,7 @@ function AnswerQuastion({ navigation }) {
             onChangeText={setValueProxy}
             value={valueProxy}
             iconPosition="right"
-            placeholder="Найти ответы"
+            placeholder={text?.texts?.t8 && 'Найти ответ'}
             placeholderTextColor="#CBCBCB"
           />
           {valueProxy.length === 0 && (
@@ -149,9 +70,9 @@ function AnswerQuastion({ navigation }) {
         <SafeAreaView>
           <ScrollView style={styles.container}>
             <View style={{ width: '100%', alignItems: 'center', marginBottom: 120 }}>
-              {question.map(quest => (
+              {Object.values(general).map(quest => (
                 // eslint-disable-next-line react/jsx-key
-                <AnswerLine navigation={navigation} quest={quest} setQuastion={setQuestion} />
+                <AnswerLine navigation={navigation} quest={quest} />
               ))}
             </View>
           </ScrollView>

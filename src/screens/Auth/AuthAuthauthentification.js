@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Pressable, Dimensions } from 'react-native'
 
 import { useForm, Controller } from 'react-hook-form'
@@ -11,6 +11,7 @@ import postAuth from '../../api/postAuth'
 import VectorOpen from '../../image/Svg/VectorOpen'
 import ViewIcon from '../../image/Svg/ViewIcon'
 import ViewIconOff from '../../image/Svg/ViewIconOff'
+import { useSelector } from 'react-redux'
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -19,10 +20,15 @@ const heightOffScreen = Dimensions.get('window').height
 // const PASSWOR_REGEX;
 
 function AuthAuthauthentification({ navigation }) {
+  const [text, setText] = useState({})
   const [commonFormError, setCommonFormError] = useState('')
   const [focusOnEmail, setFocusOnEmail] = useState(false)
   const [focusOnPassword, setFocusOnPassword] = useState(false)
   const [showPassword, setShowPassword] = useState(true)
+  const authText = useSelector(res => res.textReducer.auth.payload)
+  useEffect(() => {
+    setText(authText)
+  }, [authText, text])
   const {
     control,
     handleSubmit,
@@ -68,22 +74,22 @@ function AuthAuthauthentification({ navigation }) {
       <View style={styles.authForm}>
         <View>
           <Text onPress={() => navigation.navigate('Main')} style={styles.authLogo}>
-            Авторизация
+            {text?.texts?.t16}
           </Text>
           {errors.email ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.label}>Email</Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>Введите логин</Text>
+              <Text style={styles.label}>{text?.texts?.t1}</Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>{text?.texts?.t19}</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={styles.label}>Email</Text>
-                  <Text style={{ color: 'white', fontSize: 12 }}>Не существующий логин или пароль</Text>
+                  <Text style={styles.label}>{text?.texts?.t1}</Text>
+                  <Text style={{ color: 'white', fontSize: 12 }}>{text?.texts?.t20}</Text>
                 </View>
               ) : (
-                <Text style={styles.label}>Email</Text>
+                <Text style={styles.label}>{text?.texts?.t1}</Text>
               )}
             </View>
           )}
@@ -121,17 +127,17 @@ function AuthAuthauthentification({ navigation }) {
           />
           {errors.password ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.label}>Пароль</Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>Введите пароль</Text>
+              <Text style={styles.label}>{text?.texts?.t2}</Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>{text?.texts?.t21}</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={styles.label}>Пароль</Text>
+                  <Text style={styles.label}>{text?.texts?.t1}</Text>
                 </View>
               ) : (
-                <Text style={styles.label}>Пароль</Text>
+                <Text style={styles.label}>{text?.texts?.t2}</Text>
               )}
             </View>
           )}
@@ -186,18 +192,18 @@ function AuthAuthauthentification({ navigation }) {
                   fontWeight: '600',
                 }}
                 onPress={() => navigation.navigate('Recover')}>
-                Забыли пароль?
+                {text?.texts?.t22}
               </Text>
             </View>
           </TouchableOpacity>
         </View>
         <View style={{ marginBottom: 25 }}>
           <Text style={{ color: 'white', textAlign: 'center', marginBottom: 24 }}>
-            Нет аккаунта? &#160;
+            {text?.texts?.t13} &#160;
             <Text
               style={{ color: 'white', textDecorationLine: 'underline', fontWeight: '600' }}
               onPress={() => navigation.push('Register')}>
-              Регистрация
+              {text?.texts?.t14}
             </Text>
           </Text>
           <TouchableOpacity
@@ -219,7 +225,7 @@ function AuthAuthauthentification({ navigation }) {
                 height: 50,
                 marginBottom: 20,
               }}>
-              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Войти</Text>
+              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>{text?.buttons?.b0}</Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
         </View>

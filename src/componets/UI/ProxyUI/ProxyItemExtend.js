@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native'
+import { flagByShortName } from '../../../common/flagByShortName'
 import VectorYellowBig from '../../../image/Svg/VectorYellowBig'
 import BottomSheetItem from './BottomSheetItem'
+import { useSelector } from 'react-redux'
 
 const styles = StyleSheet.create({
   container: {
@@ -36,6 +38,11 @@ function ProxyItemExtend({
   proxyRes,
 }) {
   const heightOffScreen = Dimensions.get('window').height
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.myproxies)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
   return (
     <TouchableOpacity style={styles.container} onPress={() => onChange(proxy?.id)} activeOpacity={0.8}>
       <View
@@ -57,8 +64,8 @@ function ProxyItemExtend({
               }
         }>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <View style={heightOffScreen > 900 ? { top: 13, marginLeft: 0 } : { top: 13, marginLeft: 19 }}>
-            {proxy?.flag}
+          <View style={{ width: 35, height: 35, top: 10 }}>
+            <View style={{ width: '100%', height: '100%' }}>{flagByShortName[proxyRes.country_id]}</View>
           </View>
           <View style={{ marginLeft: 14 }}>
             <View
@@ -139,7 +146,9 @@ function ProxyItemExtend({
               setProxyItemPicked(proxy?.id)
               childrenItem && handleSnapPress(0)
               setSelected(null)
-              setChildrenItem(<BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} />)
+              setChildrenItem(
+                <BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} text={text} />,
+              )
             }}
             activeOpacity={0.8}
           />

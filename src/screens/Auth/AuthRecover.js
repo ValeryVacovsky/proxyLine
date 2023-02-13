@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 
 import { useForm, Controller } from 'react-hook-form'
@@ -16,6 +17,11 @@ const EMAIL_REGEX =
 const heightOffScreen = Dimensions.get('window').height
 
 function AuthRecover({ navigation }) {
+  const [text, setText] = useState({})
+  const authText = useSelector(res => res.textReducer.auth.payload)
+  useEffect(() => {
+    setText(authText)
+  }, [authText, text])
   const [focusOnEmail, setFocusOnEmail] = useState(false)
   const {
     control,
@@ -43,17 +49,15 @@ function AuthRecover({ navigation }) {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text style={styles.authLogo}>Восстановление пароля</Text>
-          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
-            На Ваш email будет выслан проверочный код для сброса текущего пароля
-          </Text>
+          <Text style={styles.authLogo}>{authText?.texts?.t9}</Text>
+          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>{authText?.texts?.t10}</Text>
           {errors.email ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.label}>Email</Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>Введите логин</Text>
+              <Text style={styles.label}>{authText?.texts?.t1}</Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t21}</Text>
             </View>
           ) : (
-            <Text style={styles.label}>Email</Text>
+            <Text style={styles.label}>{authText?.texts?.t1}</Text>
           )}
           <Controller
             control={control}
@@ -98,13 +102,13 @@ function AuthRecover({ navigation }) {
                 bottomRight: 12,
               }}>
               <View style={styles.buttonInner}>
-                <Text style={styles.buttonInnerText}>Отправить</Text>
+                <Text style={styles.buttonInnerText}>{authText?.buttons?.b0}</Text>
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
             <View style={styles.buttonInnerBack}>
-              <Text style={styles.buttonInnerBackText}>Отменить</Text>
+              <Text style={styles.buttonInnerBackText}>{authText?.buttons?.b3}</Text>
             </View>
           </TouchableOpacity>
         </View>

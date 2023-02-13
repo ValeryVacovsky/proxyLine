@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
-function ProxyTariff({ navigation, proxy, iPtype }) {
+function ProxyTariff({ navigation, proxy, iPtype, proxyText }) {
   const [iPtypes, setIpTypes] = useState([10, 10, 10])
-
   useEffect(() => {
     async function name() {
       const ipTypes = []
@@ -54,7 +53,9 @@ function ProxyTariff({ navigation, proxy, iPtype }) {
         </View>
         <View style={styles.centerBlock}>
           <View>
-            <Text style={styles.daysText}>{proxy.days}</Text>
+            <Text style={styles.daysText}>
+              {proxy.days} {proxyText.proxy.payload?.texts?.t6}
+            </Text>
           </View>
           <View>
             <Text
@@ -70,7 +71,7 @@ function ProxyTariff({ navigation, proxy, iPtype }) {
           onPress={() => navigation.navigate('Order', { proxy, iPtypes })}
           style={styles.buttomInner}
           activeOpacity={0.8}>
-          <Text style={styles.buttomInnerText}>Подробнее</Text>
+          <Text style={styles.buttomInnerText}>{proxyText.proxy.payload.buttons.b0}</Text>
         </TouchableOpacity>
       </View>
     </View>

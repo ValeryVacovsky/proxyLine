@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
+import { useSelector } from 'react-redux'
 
 import { useForm, Controller } from 'react-hook-form'
 
@@ -13,6 +14,11 @@ import postResetCode from '../../api/postResetCode'
 const heightOffScreen = Dimensions.get('window').height
 
 function AuthCodeReset({ navigation }) {
+  const [text, setText] = useState({})
+  const authText = useSelector(res => res.textReducer.auth.payload)
+  useEffect(() => {
+    setText(authText)
+  }, [authText, text])
   const {
     control,
     handleSubmit,
@@ -36,29 +42,27 @@ function AuthCodeReset({ navigation }) {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text style={styles.authLogo}>Проверочный код</Text>
-          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
-            На Ваш email будует выслан новый пароль
-          </Text>
+          <Text style={styles.authLogo}>{authText?.texts?.t11}</Text>
+          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>{authText?.texts?.t12}</Text>
           {errors.code ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={styles.label} onPress={() => {}}>
-                Код
+                {authText?.texts?.t30}
               </Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>Введите код подтверждения</Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t27}</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Text style={styles.label} onPress={() => {}}>
-                    Код
+                    {authText?.texts?.t30}
                   </Text>
-                  <Text style={{ color: 'white', fontSize: 12 }}>Не верный код подтверждения</Text>
+                  <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t28}</Text>
                 </View>
               ) : (
                 <Text style={styles.label} onPress={() => {}}>
-                  Код
+                  {authText?.texts?.t30}
                 </Text>
               )}
             </View>
@@ -95,7 +99,7 @@ function AuthCodeReset({ navigation }) {
             )}
             name="code"
           />
-          {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>Введите код</Text>}
+          {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>{authText?.texts?.t31}</Text>}
         </View>
         <View style={{ marginBottom: 25 }}>
           <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
@@ -107,13 +111,13 @@ function AuthCodeReset({ navigation }) {
                 bottomLeft: 12,
               }}>
               <View style={styles.buttonInner}>
-                <Text style={styles.buttonInnerText}>Отправить</Text>
+                <Text style={styles.buttonInnerText}>{authText?.buttons?.b0}</Text>
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
             <View style={styles.buttonInnerBack}>
-              <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>Отменить</Text>
+              <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>{authText?.buttons?.b3}</Text>
             </View>
           </TouchableOpacity>
         </View>

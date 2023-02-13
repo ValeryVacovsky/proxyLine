@@ -109,7 +109,12 @@ const MyProxiesList = [
 ]
 
 function ChangeProxies({ navigation }) {
-  const proxyRes = useSelector(data => data?.proxy?.authStatus)
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.myproxies)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
+  const proxyLisStore = useSelector(data => data.proxy.proxyList.data)
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
@@ -141,7 +146,7 @@ function ChangeProxies({ navigation }) {
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => setSelectedProxies(arryId)}>
-          <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Выбрать все</Text>
+          <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.buttons?.b14}</Text>
         </TouchableOpacity>
       ),
     })
@@ -188,7 +193,7 @@ function ChangeProxies({ navigation }) {
               width: selectedProxies.length > 0 ? '90%' : '90%',
               marginBottom: selectedProxies.length > 0 ? 300 : 90,
             }}>
-            {proxyRes.map((proxy, index) => (
+            {proxyLisStore?.map((proxy, index) => (
               <ProxyItemChange
                 key={proxy.id}
                 proxy={MyProxiesList[index]}
@@ -214,7 +219,8 @@ function ChangeProxies({ navigation }) {
               navigation={navigation}
               setSelectedProxies={setSelectedProxies}
               selected={selectedProxies.length}
-              move="Изменить"
+              move={text?.buttons?.b15}
+              text={text?.buttons?.b10}
             />
           </BottomSheetForm>
         )}

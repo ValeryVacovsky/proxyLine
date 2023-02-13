@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useForm, Controller } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutAuth from '../../componets/LayoutAuth'
@@ -12,6 +13,11 @@ import postRegister from '../../api/postRegister'
 const heightOffScreen = Dimensions.get('window').height
 
 function AuthCode({ navigation }) {
+  const [text, setText] = useState({})
+  const authText = useSelector(res => res.textReducer.auth.payload)
+  useEffect(() => {
+    setText(authText)
+  }, [authText, text])
   const {
     control,
     handleSubmit,
@@ -29,6 +35,7 @@ function AuthCode({ navigation }) {
       setCommonFormError('Invalid email_code')
     }
   }
+  console.log(authText?.texts?.t25)
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -36,28 +43,26 @@ function AuthCode({ navigation }) {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text style={styles.authLogo}>Проверочный код</Text>
-          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>
-            На Ваш email будует выслан код подтверждения
-          </Text>
+          <Text style={styles.authLogo}>{authText?.texts?.t11}</Text>
+          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>{authText?.texts?.t25}</Text>
           {errors.email_code ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={styles.label} onPress={() => {}}>
-                Код подтверждения
+                {authText?.texts?.t26}
               </Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>Введите код подтверждения</Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t27}</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Text style={styles.label} onPress={() => {}}>
-                    Код подтверждения
+                    {authText?.texts?.t26}
                   </Text>
-                  <Text style={{ color: 'white', fontSize: 12 }}>Не верный код подтверждения</Text>
+                  <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t28}</Text>
                 </View>
               ) : (
-                <Text style={{ color: 'white', fontSize: 12 }}>Введите проверочный код</Text>
+                <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t29}</Text>
               )}
             </View>
           )}
@@ -103,7 +108,7 @@ function AuthCode({ navigation }) {
                 bottomRight: 12,
               }}>
               <View style={styles.buttonInner}>
-                <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>Отправить</Text>
+                <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>{authText?.buttons?.b0}</Text>
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>
@@ -117,7 +122,7 @@ function AuthCode({ navigation }) {
                 marginBottom: 20,
               }}>
               <View style={styles.buttonInnerBack}>
-                <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>Отменить</Text>
+                <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>{authText?.buttons?.b3}</Text>
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useSelector } from 'react-redux'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutAuth from '../../componets/LayoutAuth'
@@ -17,6 +18,13 @@ const EMAIL_REGEX =
 function AuthRegister({ navigation }) {
   const [commonFormError, setCommonFormError] = useState('')
   const [focusOnEmail, setFocusOnEmail] = useState(false)
+  const [text, setText] = useState({})
+  const authText = useSelector(res => res.textReducer.auth.payload)
+  useEffect(() => {
+    setText(authText)
+  }, [authText, text])
+
+  console.log('reg', authText?.texts?.t4)
   const {
     control,
     handleSubmit,
@@ -46,22 +54,22 @@ function AuthRegister({ navigation }) {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text style={styles.authLogo}>Регистрация</Text>
-          <Text style={styles.authUnderLogo}>Пароль будет отправлен на Ваш email</Text>
+          <Text style={styles.authLogo}>{authText?.texts?.t14}</Text>
+          <Text style={styles.authUnderLogo}>{authText?.texts?.t4}</Text>
           {errors.email ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.label}>Email</Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>Введите ваш email</Text>
+              <Text style={styles.label}>{authText?.texts?.t1}</Text>
+              <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t23}</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={styles.label}>Email</Text>
-                  <Text style={{ color: 'white', fontSize: 12 }}>Данный email уже зарегерстрированна</Text>
+                  <Text style={styles.label}>{authText?.texts?.t1}</Text>
+                  <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t24}</Text>
                 </View>
               ) : (
-                <Text style={styles.label}>Email</Text>
+                <Text style={styles.label}>{authText?.texts?.t1}</Text>
               )}
             </View>
           )}
@@ -98,22 +106,22 @@ function AuthRegister({ navigation }) {
             name="email"
           />
           <Text style={styles.publickOfferText}>
-            Регистрируясь вы принимаете{' '}
+            {authText?.texts?.t5}{' '}
             <Text onPress={() => navigation.navigate('Ofert')} style={styles.publickOfferTextUnderline}>
-              публичную оферту
+              {authText?.texts?.t6}
             </Text>
-            <Text> и </Text>
+            <Text> {authText?.texts?.t7} </Text>
             <Text onPress={() => navigation.navigate('Agrement')} style={styles.publickOfferTextUnderline}>
-              политику конфиденциальности
+              {authText?.texts?.t8}
             </Text>
           </Text>
         </View>
         <View style={{ marginBottom: 25 }}>
           <Text style={styles.haveAcc}>
             {' '}
-            Уже есть аккаунт? &#160;
+            {authText?.texts?.t15} &#160;
             <Text style={styles.auth} onPress={() => navigation.navigate('Auth')}>
-              Авторизация
+              {authText?.texts?.t16}
             </Text>
           </Text>
           <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
@@ -126,7 +134,7 @@ function AuthRegister({ navigation }) {
                 marginBottom: 20,
               }}>
               <View style={styles.buttonInner}>
-                <Text style={styles.buttonInnerText}>Зарегистрироваться</Text>
+                <Text style={styles.buttonInnerText}>{authText?.buttons?.b1}</Text>
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>

@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
-
 import LayoutAuth from '../../componets/LayoutAuth'
-
 import LogoIntroBig from '../../image/Svg/LogoIntroBig'
+import { useDispatch } from 'react-redux'
+import getAllTexts from '../../common/getAllTexts'
+import { useSelector } from 'react-redux'
 
 function AuthIntro({ navigation }) {
-  setTimeout(() => navigation.navigate('Auth'), 1000)
   React.useEffect(
     () =>
       navigation.addListener('beforeRemove', e => {
@@ -14,6 +14,18 @@ function AuthIntro({ navigation }) {
       }),
     [navigation],
   )
+  const language = useSelector(res => res.textReducer.languages_get.language)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    try {
+      getAllTexts(dispatch, language)
+    } catch {
+      getAllTexts(dispatch)
+    } finally {
+      setTimeout(() => navigation.navigate('Auth'), 5000)
+    }
+  }, [dispatch, language, navigation])
+
   return (
     <LayoutAuth>
       <View style={styles.header}>

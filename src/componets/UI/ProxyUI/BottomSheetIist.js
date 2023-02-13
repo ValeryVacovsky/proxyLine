@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
 })
 
-function BottomSheetList({ handleClosePress, navigation, proxyRes }) {
+function BottomSheetList({ handleClosePress, navigation, proxyRes, text }) {
   return (
     <View style={styles.container}>
       <View style={styles.topTab} />
@@ -110,7 +110,7 @@ function BottomSheetList({ handleClosePress, navigation, proxyRes }) {
             navigation.navigate('Change')
             handleClosePress()
           }}>
-          <Text style={styles.centerTopButtonText}>Изменить тип</Text>
+          <Text style={styles.centerTopButtonText}>{text?.buttons?.b5}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.centerMiddleButton}
@@ -119,7 +119,7 @@ function BottomSheetList({ handleClosePress, navigation, proxyRes }) {
             navigation.navigate('Delete')
             handleClosePress()
           }}>
-          <Text style={styles.centerMiddleButtonText}>Удалить</Text>
+          <Text style={styles.centerMiddleButtonText}>{text?.buttons?.b6}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.centerBottomButton}
@@ -128,7 +128,7 @@ function BottomSheetList({ handleClosePress, navigation, proxyRes }) {
             handleClosePress()
           }}
           activeOpacity={0.8}>
-          <Text style={styles.centerBottomButtonText}>Продлить</Text>
+          <Text style={styles.centerBottomButtonText}>{text?.buttons?.b7}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity
@@ -138,10 +138,10 @@ function BottomSheetList({ handleClosePress, navigation, proxyRes }) {
           navigation.navigate('Info', { proxyRes })
           handleClosePress()
         }}>
-        <Text style={styles.topButtonText}>Подробнее</Text>
+        <Text style={styles.topButtonText}>{text.buttons.b8}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.bottomButton} onPress={() => handleClosePress()} activeOpacity={0.8}>
-        <Text style={styles.bottomButtonText}>Отменить</Text>
+        <Text style={styles.bottomButtonText}>{text?.buttons?.b9}</Text>
       </TouchableOpacity>
     </View>
   )

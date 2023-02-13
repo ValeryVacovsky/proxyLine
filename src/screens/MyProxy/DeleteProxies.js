@@ -109,7 +109,12 @@ const MyProxiesList = [
 ]
 
 function DeleteProxies({ navigation }) {
-  const proxyRes = useSelector(data => data?.proxy?.authStatus)
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.myproxies)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
+  const proxyLisStore = useSelector(data => data.proxy.proxyList.data)
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
@@ -141,7 +146,7 @@ function DeleteProxies({ navigation }) {
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => setSelectedProxies(arryId)}>
-          <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Выбрать все</Text>
+          <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.texts?.b14}</Text>
         </TouchableOpacity>
       ),
     })
@@ -188,7 +193,7 @@ function DeleteProxies({ navigation }) {
               width: selectedProxies.length > 0 ? '90%' : '90%',
               marginBottom: selectedProxies.length > 0 ? 300 : 90,
             }}>
-            {proxyRes.map((proxy, index) => (
+            {proxyLisStore?.map((proxy, index) => (
               <ProxyItemDelete
                 key={proxy.id}
                 proxy={MyProxiesList[index]}
@@ -214,7 +219,8 @@ function DeleteProxies({ navigation }) {
               navigation={navigation}
               setSelectedProxies={setSelectedProxies}
               selected={selectedProxies.length}
-              move="Удалить"
+              move={text?.buttons?.b10}
+              text={text?.texts?.b14}
             />
           </BottomSheetForm>
         )}

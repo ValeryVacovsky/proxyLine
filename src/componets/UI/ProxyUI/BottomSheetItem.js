@@ -98,26 +98,27 @@ const styles = StyleSheet.create({
   },
 })
 
-function BottomSheetItem({ handleClosePress, navigation }) {
+function BottomSheetItem({ handleClosePress, navigation, text }) {
+  console.log('bsh', text)
   return (
     <View style={styles.container}>
       <View style={styles.topTab} />
       <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => navigation.navigate('Notes')}>
-        <Text style={styles.topButtonText}>Заметки</Text>
+        <Text style={styles.topButtonText}>{text?.buttons?.b1}</Text>
       </TouchableOpacity>
       <View style={{ width: '100%', alignItems: 'center' }}>
         <TouchableOpacity style={styles.centerTopButton} activeOpacity={0.8}>
-          <Text style={styles.centerTopButtonText}>Изменить тип</Text>
+          <Text style={styles.centerTopButtonText}>{text?.buttons?.b2}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.centerMiddleButton} activeOpacity={0.8}>
-          <Text style={styles.centerMiddleButtonText}>Удалить прокси</Text>
+          <Text style={styles.centerMiddleButtonText}>{text?.buttons?.b3}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.centerBottomButton} activeOpacity={0.8}>
-          <Text style={styles.centerBottomButtonText}>Продлить прокси</Text>
+          <Text style={styles.centerBottomButtonText}>{text?.buttons?.b7}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.bottomButton} onPress={() => handleClosePress()} activeOpacity={0.8}>
-        <Text style={styles.bottomButtonText}>Отменить</Text>
+        <Text style={styles.bottomButtonText}>{text?.buttons?.b9}</Text>
       </TouchableOpacity>
     </View>
   )

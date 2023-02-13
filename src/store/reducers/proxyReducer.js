@@ -1,11 +1,11 @@
 const initialState = {
-  ProxyList: [],
+  proxyList: [],
 }
 
 export const proxyReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_PROXY':
-      return { authStatus: action.payload }
+      return { proxyList: action.payload }
     default:
       return state
   }

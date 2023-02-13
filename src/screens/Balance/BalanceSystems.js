@@ -10,6 +10,11 @@ import BottomSheetForm from '../../componets/BottomSheetForm'
 import BottomSheetCopy from '../../componets/UI/ProxyUI/BottomSheetCopy'
 
 function BalanceSystems({ navigation }) {
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.balance)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
   const [amount, setAmount] = useState(null)
   const systems = useSelector(res => res.BalanceSystems.BalanceSystems)
   const [balanceSystems, setBalanceSystems] = useState([])
@@ -30,7 +35,7 @@ function BalanceSystems({ navigation }) {
   const [mayGo, setMayGo] = useState(false)
   const handelOpenCopy = () => {
     // eslint-disable-next-line react/no-unescaped-entities
-    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>Введите сумму</BottomSheetCopy>)
+    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>{text?.texts?.t8}</BottomSheetCopy>)
     handleSnapPress(0)
     setError(true)
     setTimeout(() => {
@@ -38,7 +43,7 @@ function BalanceSystems({ navigation }) {
     }, 3000)
   }
   const [childrenItem, setChildrenItem] = useState(
-    <BottomSheetCopy handleClosePress={handleClosePress}>Введите сумму</BottomSheetCopy>,
+    <BottomSheetCopy handleClosePress={handleClosePress}>{text?.texts?.t8}</BottomSheetCopy>,
   )
   handlePressRequest = () => {
     navigation.navigate('BalanceMethod', { dataNav })
@@ -54,7 +59,6 @@ function BalanceSystems({ navigation }) {
     fetchData()
   }, [])
   useEffect(() => {
-    console.log('eff', systems[0].name)
     setBalanceSystems(systems)
   }, [systems])
   useEffect(() => {
@@ -68,14 +72,13 @@ function BalanceSystems({ navigation }) {
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         <BalanceTopTableSystems balance={balance.balance} navigation={navigation} />
-        <Text style={styles.text}>Платежные системы</Text>
+        <Text style={styles.text}>{text?.texts?.t7}</Text>
         <View
           style={{
             backgroundColor: '#1E2127',
             color: '#CBCBCB',
             height: 44,
             minWidth: '90%',
-            marginBottom: 14,
             borderRadius: 8,
             borderWidth: 1,
             paddingLeft: 20,
@@ -110,6 +113,7 @@ function BalanceSystems({ navigation }) {
             $
           </Text>
         </View>
+        <Text style={styles.text}>{text?.texts?.t6}</Text>
         <ScrollView style={styles.scrollView}>
           {balanceSystems.map(data => (
             <BalanceListSystem

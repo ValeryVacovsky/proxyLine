@@ -23,23 +23,9 @@ const styles = StyleSheet.create({
   },
 })
 
-function AnswerLine({ navigation, quest }) {
+function AnswerLine({ quest }) {
   const [status, setStatus] = useState(false)
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
-      headerRight: () => (
-        <View style={{ marginLeft: 15 }}>
-          <TouchableOpacity
-            style={styles.balanceIcon}
-            activeOpacity={0.8}
-            onPress={() => navigation.navigate('Balance')}>
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>Аккаунт</Text>
-          </TouchableOpacity>
-        </View>
-      ),
-    })
-  }, [navigation])
+  console.log(quest)
 
   return (
     <View
@@ -51,7 +37,7 @@ function AnswerLine({ navigation, quest }) {
       }}>
       <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => setStatus(!status)}>
         <View style={styles.setting}>
-          <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{quest.title}</Text>
+          <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{quest.split('/')[0]}</Text>
           {!status ? <VectorClose /> : <VectorOpen />}
         </View>
       </TouchableOpacity>
@@ -62,7 +48,7 @@ function AnswerLine({ navigation, quest }) {
             paddingBottom: 14,
             paddingRight: 20,
           }}>
-          <Text style={{ fontWeight: '400', fontSize: 13, color: 'white' }}>{quest.discripton}</Text>
+          <Text style={{ fontWeight: '400', fontSize: 13, color: 'white' }}>{quest.split('/')[1]}</Text>
         </View>
       )}
     </View>

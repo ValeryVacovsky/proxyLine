@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
-function BalanceTopTable({ balance, navigation }) {
+function BalanceTopTable({ balance, navigation, text }) {
   return (
     <View style={styles.mainContainer}>
       <LinearGradient
@@ -26,7 +26,7 @@ function BalanceTopTable({ balance, navigation }) {
           style={styles.bottomBlockContainer}
           activeOpacity={0.8}
           onPress={() => navigation.navigate('BalanceSystems')}>
-          <Text style={styles.bottomBlockText}>Пополнить</Text>
+          <Text style={styles.bottomBlockText}>{text?.buttons?.b0}</Text>
         </TouchableOpacity>
       </LinearGradient>
     </View>

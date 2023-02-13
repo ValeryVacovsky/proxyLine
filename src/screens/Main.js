@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import getListProxies from '../api/getListProxies'
+import { setProxy } from '../store/reducers/proxyReducer'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutAuth from '../componets/LayoutAuth'
@@ -13,15 +16,32 @@ import FlagRusSmall from '../image/Svg/FlagRusSmall'
 import LogoIntroWhite from '../image/Svg/LogoIntroWhite'
 import VectorRight from '../image/Svg/VectorRight'
 import UserNavigation from '../componets/UserNavigation'
+import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonOn from '../image/ButtonOn.png'
 import ButtonNone from '../image/ButtonNone.png'
 import ButtonOff from '../image/ButtonOff.png'
-import getMainText from '../api/adminQuery/getMainText'
 // import postAuth from "../api";
 // import axios from 'axios'
 
 function Main({ navigation }) {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const listProxies = async () => {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const dataProps = `${id}_${token}`
+      const data = await getListProxies({ token: dataProps, limit: '100', offset: '0' })
+      dispatch(setProxy(data))
+    }
+    listProxies()
+  }, [dispatch])
+
+  const [text, setText] = useState({})
+  const mainText = useSelector(res => res.textReducer.main.payload)
+  useEffect(() => {
+    setText(mainText)
+  }, [mainText, text])
   const [statusConect, setStatusConect] = useState('off')
   const styles = StyleSheet.create({
     mainLogo: {
@@ -208,34 +228,6 @@ function Main({ navigation }) {
       left: 10,
     },
   })
-  useEffect(() => {
-    function getText() {
-      getMainText()
-        .then(response => {
-          // handle success
-          console.log('0', response.data)
-        })
-        .catch(error => {
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log('1', error.response.data)
-            console.log('2', error.response.status)
-            console.log('3', error.response.headers)
-          } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            console.log('4', error.request)
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error1', error.message)
-          }
-          console.log('5', error.config)
-        })
-    }
-    getText()
-  }, [])
   const heightOffScreen = Dimensions.get('window').height
   useEffect(() => {}, [])
   return (
@@ -251,7 +243,7 @@ function Main({ navigation }) {
               onPress={() => {
                 navigation.navigate('Auth')
               }}>
-              Ваш IP
+              {mainText?.texts?.t0}
             </Text>
             {statusConect === 'on' && <Text style={styles.IpAdress}>136.117.121.183</Text>}
             {statusConect === 'off' && <Text style={styles.IpAdress}>192.0.0.1</Text>}
@@ -351,7 +343,7 @@ function Main({ navigation }) {
                           fontWeight: '600',
                           fontSize: 15,
                         }}>
-                        Подключено
+                        {mainText?.texts?.t1}
                       </Text>
                     )}
                     {statusConect === 'off' && (
@@ -362,7 +354,7 @@ function Main({ navigation }) {
                           fontWeight: '600',
                           fontSize: 15,
                         }}>
-                        Нет подключения
+                        {mainText?.texts?.t3}
                       </Text>
                     )}
                     {statusConect === 'none' && (
@@ -373,17 +365,13 @@ function Main({ navigation }) {
                           fontWeight: '600',
                           fontSize: 15,
                         }}>
-                        Нет подключения
+                        {mainText?.texts?.t3}
                       </Text>
                     )}
                   </View>
-                  {statusConect === 'on' && <Text style={styles.statusConect}>Скорость подключения</Text>}
-                  {statusConect === 'off' && (
-                    <Text style={styles.statusConect}>Нажмите на кнопку чтобы подключить</Text>
-                  )}
-                  {statusConect === 'none' && (
-                    <Text style={styles.statusConect}>Нажмите на кнопку чтобы подключить</Text>
-                  )}
+                  {statusConect === 'on' && <Text style={styles.statusConect}>{mainText?.texts?.t2}</Text>}
+                  {statusConect === 'off' && <Text style={styles.statusConect}>{mainText?.texts?.t4}</Text>}
+                  {statusConect === 'none' && <Text style={styles.statusConect}>{mainText?.texts?.t4}</Text>}
                 </View>
                 {statusConect === 'on' && (
                   <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
@@ -481,7 +469,7 @@ function Main({ navigation }) {
                         textAlign: 'center',
                         width: '100%',
                       }}>
-                      <Text style={styles.buyProxyText}>Купить прокси</Text>
+                      <Text style={styles.buyProxyText}>{mainText.buttons.b0}</Text>
                     </View>
                     {statusConect === 'on' && <VectorRight color="#636363" />}
                     {statusConect === 'off' && <VectorRight color="#636363" />}

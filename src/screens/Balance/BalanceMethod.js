@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity, TextInput, Dimensions } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -13,9 +14,14 @@ import postCreatePayment from '../../api/postCreatePayment'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
 function BalanceMethod({ navigation, route }) {
+  const [text, setText] = useState({})
+  const balanceText = useSelector(res => res.textReducer.balance)
+  useEffect(() => {
+    setText(balanceText.payload)
+  }, [balanceText])
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
-  const [amount, setAmount] = useState(route.params?.dataNav.amount)
+  const amount = route.params?.dataNav.amount
   const [balance, setBalance] = useState({ balance: null })
   const [methods] = useState(route.params?.dataNav?.methods)
   const [filtredMethods, setFiltredMethods] = useState(route.params?.dataNav?.methods)
@@ -39,11 +45,8 @@ function BalanceMethod({ navigation, route }) {
     }
     fetchData()
   }, [])
-  console.log('fm', amount)
+  console.log('fm', route.params?.dataNav?.name)
 
-  // useEffect(() => {
-  //   setFiltredMethods(methods.filter(contact => contact?.name_en.includes(methods)))
-  // }, [valueProxy, methods])
   useEffect(() => {
     setFiltredMethods(methods?.filter(meth => meth?.name_en.toLowerCase()?.includes(valueProxy?.toLowerCase())))
   }, [valueProxy])
@@ -68,7 +71,7 @@ function BalanceMethod({ navigation, route }) {
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         <BalanceTopTableSystems balance={balance.balance} navigation={navigation} />
-        <Text style={styles.text}>Платежные системы</Text>
+        <Text style={styles.text}>{route.params?.dataNav?.name}</Text>
         <View
           style={{
             backgroundColor: '#1E2127',
@@ -92,13 +95,13 @@ function BalanceMethod({ navigation, route }) {
             onChangeText={setValueProxy}
             value={valueProxy}
             iconPosition="right"
-            placeholder="Найти прокси"
+            placeholder={text?.texts?.t9}
             placeholderTextColor="#CBCBCB"
           />
           {valueProxy.length === 0 && (
             <ProxiesSearch
               style={
-                heightOffScreen > 850 ? { position: 'absolute', left: '66%' } : { position: 'absolute', left: '63%' }
+                heightOffScreen > 850 ? { position: 'absolute', left: '20%' } : { position: 'absolute', right: '25%' }
               }
             />
           )}
@@ -157,7 +160,9 @@ function BalanceMethod({ navigation, route }) {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13, lineHeight: 15 }}>Оплатить</Text>
+              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13, lineHeight: 15 }}>
+                {text?.buttons?.b1}
+              </Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
         )}

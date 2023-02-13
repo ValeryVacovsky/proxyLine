@@ -106,6 +106,7 @@ function Filters({ navigation }) {
     tags: [],
     allowedIP: [],
   })
+  console.log(fitlers)
   useEffect(() => {
     // eslint-disable-next-line array-callback-return
     let count = 0

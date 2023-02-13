@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import CountrySlot from '../componets/CountrySlot'
@@ -36,7 +37,9 @@ const countreisList = [
 ]
 
 function Countreis({ navigation, route }) {
-  console.log(route.params.setSelectedCountry)
+  const [text, setText] = useState({})
+  const proxyText = useSelector(res => res.textReducer)
+  console.log('country', proxyText.order.payload)
   const [selectedCountryShort, setSelectedCountryShort] = useState(route.params.selectedCountryShort)
   const [selectedCountry, setSelectedCountry] = useState(route.params.selectedCountry)
   return (
@@ -59,7 +62,7 @@ function Countreis({ navigation, route }) {
           })}
         </ScrollView>
       </SafeAreaView>
-      <TouchableOpacity onPress={() => navigation.navigate('Order')} style={styles.button} activeOpacity={0.8}>
+      <TouchableOpacity onPress={() => navigation.navigate('Proxy')} style={styles.button} activeOpacity={0.8}>
         <SuperEllipseMaskView
           radius={{
             topLeft: 12,
@@ -68,7 +71,7 @@ function Countreis({ navigation, route }) {
             bottomLeft: 12,
           }}
           style={styles.buttonInner}>
-          <Text style={styles.buttonText}>Подтвердить</Text>
+          <Text style={styles.buttonText}>{proxyText?.order?.payload?.buttons?.b1}</Text>
         </SuperEllipseMaskView>
       </TouchableOpacity>
     </LayoutMain>
