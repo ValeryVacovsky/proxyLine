@@ -1,36 +1,37 @@
 import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
-import VectorRightSmall from '../../../image/Svg/VectorRightSmall'
+import BottomSheetId from './BottomSheet/BottomSheetId'
 
-function Tags({ tags, setFilters }) {
-  const [prots] = useState(['Тестовые', 'Лучшие прокси', 'Новые', 'Разные'])
+function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
+  const [idDefault, setIdDefault] = useState(['58654', '23234', '67956'])
   const handlePress = item => {
     setFilters(prevState =>
-      prevState.tags.includes(item)
-        ? {
-            ...prevState,
-            tags: prevState.tags.filter(active => active !== item),
-          }
-        : { ...prevState, tags: prevState.tags.concat(item) },
+      prevState.id.includes(item)
+        ? { ...prevState, id: prevState.id.filter(active => active !== item) }
+        : { ...prevState, id: prevState.id.concat(item) },
     )
+  }
+  const handleOpenBottomSheet = () => {
+    setChildrenItem(
+      <BottomSheetId handleClosePress={handleClosePress} setIsOpen={setIsOpen} setIdDefault={setIdDefault} />,
+    )
+    handleSnapPress(0)
+    setIsOpen(true)
   }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
-        <Text style={styles.text}>Теги</Text>
-        <TouchableOpacity activeOpacity={0.8}>
-          <View style={styles.topContainer}>
-            <Text style={styles.textInfo}>Выбрать</Text>
-            <VectorRightSmall />
-          </View>
+        <Text style={styles.text}>Id прокси</Text>
+        <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
+          <Text style={styles.textInfo}>Выбрать</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
-        {prots.map(item => (
+        {idDefault.map(item => (
           <TouchableOpacity
             key={item}
             style={{
-              backgroundColor: tags.includes(item) ? '#FAC637' : '#333842',
+              backgroundColor: id.includes(item) ? '#FAC637' : '#333842',
               alignItems: 'center',
               borderRadius: 30,
               marginTop: 10,
@@ -42,7 +43,7 @@ function Tags({ tags, setFilters }) {
               style={{
                 fontWeight: '600',
                 fontSize: 13,
-                color: tags.includes(item) ? '#0F1218' : 'white',
+                color: id.includes(item) ? '#0F1218' : 'white',
                 paddingBottom: 6,
                 paddingTop: 6,
                 paddingRight: 12,
@@ -63,11 +64,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '700',
   },
-  topContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -77,7 +73,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     color: 'white',
-    marginRight: 10,
   },
   topMenu: {
     display: 'flex',
@@ -91,4 +86,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Tags
+export default IdProxy

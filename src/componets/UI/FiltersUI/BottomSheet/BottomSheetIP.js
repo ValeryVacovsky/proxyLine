@@ -3,41 +3,20 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-nativ
 
 function BottomSheetIP({ handleClosePress, setIsOpen, setIpaddress }) {
   const [value, setValue] = useState('')
+  const handlePress = () => {
+    handleClosePress()
+    setIsOpen(false)
+    value.length > 0 &&
+      setIpaddress(prevState =>
+        prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
+      )
+  }
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <TextInput
-          style={{
-            backgroundColor: '#1E2127',
-            color: 'white',
-            height: 44,
-            minWidth: '90%',
-            marginBottom: 14,
-            borderRadius: 8,
-            borderWidth: 1,
-            paddingLeft: 20,
-            paddingTop: 14,
-            paddingBottom: 14,
-            borderColor: '#333842',
-            marginTop: 50,
-          }}
-          value={value}
-          onChange={setValue}
-        />
+        <TextInput style={styles.containerInput} value={value} onChange={setValue} />
       </View>
-      <TouchableOpacity
-        style={styles.bottomButton}
-        onPress={() => {
-          handleClosePress()
-          setIsOpen(false)
-          {
-            value.length > 0 &&
-              setIpaddress(prevState =>
-                prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
-              )
-          }
-        }}
-        activeOpacity={0.8}>
+      <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>Добавить</Text>
       </TouchableOpacity>
     </View>
@@ -46,7 +25,6 @@ function BottomSheetIP({ handleClosePress, setIsOpen, setIpaddress }) {
 
 const styles = StyleSheet.create({
   container: {
-    // height: '100%',
     backgroundColor: '#0F1218',
     borderRadius: 10,
     display: 'flex',
@@ -57,6 +35,20 @@ const styles = StyleSheet.create({
   topContainer: {
     alignItems: 'center',
     width: '100%',
+  },
+  containerInput: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '90%',
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    paddingTop: 14,
+    paddingBottom: 14,
+    borderColor: '#333842',
+    marginTop: 50,
   },
   bottomButton: {
     paddingTop: 18,

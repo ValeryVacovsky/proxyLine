@@ -4,25 +4,8 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 function InfoCheckButton({ text }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={{
-          backgroundColor: '#1E2127',
-          width: '90%',
-          alignItems: 'center',
-          borderRadius: 12,
-          marginTop: 20,
-        }}
-        activeOpacity={0.8}>
-        <Text
-          style={{
-            fontWeight: '600',
-            fontSize: 13,
-            color: '#FAC637',
-            paddingBottom: 18,
-            paddingTop: 18,
-          }}>
-          {text?.b0}
-        </Text>
+      <TouchableOpacity style={styles.textContainer} activeOpacity={0.8}>
+        <Text style={styles.text}>{text?.b0}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -42,6 +25,20 @@ const styles = StyleSheet.create({
     paddingTop: 17,
     alignItems: 'center',
     width: '90%',
+  },
+  textContainer: {
+    backgroundColor: '#1E2127',
+    width: '90%',
+    alignItems: 'center',
+    borderRadius: 12,
+    marginTop: 20,
+  },
+  text: {
+    fontWeight: '600',
+    fontSize: 13,
+    color: '#FAC637',
+    paddingBottom: 18,
+    paddingTop: 18,
   },
 })
 

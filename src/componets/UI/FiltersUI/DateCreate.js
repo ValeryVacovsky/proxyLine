@@ -3,21 +3,27 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import BottomSheetDateCreate from './BottomSheet/BottomSheetDateCreate'
 
 function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
+  const handlePress = item => {
+    setFilters(prevState =>
+      prevState.dateCreate.includes(item)
+        ? { ...prevState, dateCreate: prevState.dateCreate.filter(active => active !== item) }
+        : { ...prevState, dateCreate: prevState.dateCreate.concat(item) },
+    )
+  }
+  const handleOpenBottomSheet = () => {
+    setChildrenItem(<BottomSheetDateCreate handleClosePress={handleClosePress} setIsOpen={setIsOpen} />)
+    handleSnapPress(1)
+    setIsOpen(true)
+  }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
         <Text style={styles.text}>Дата создания</Text>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => {
-            setChildrenItem(<BottomSheetDateCreate handleClosePress={handleClosePress} setIsOpen={setIsOpen} />)
-            handleSnapPress(1)
-            setIsOpen(true)
-          }}>
+        <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
           <Text style={styles.textInfo}>Выбрать дату</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <View style={styles.containder}>
         <TouchableOpacity
           style={{
             backgroundColor: dateCreate.includes('today') ? '#FAC637' : '#333842',
@@ -27,13 +33,7 @@ function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress,
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => {
-            setFilters(prevState =>
-              prevState.dateCreate.includes('today')
-                ? { ...prevState, dateCreate: prevState.dateCreate.filter(active => active !== 'today') }
-                : { ...prevState, dateCreate: prevState.dateCreate.concat('today') },
-            )
-          }}>
+          onPress={() => handlePress('today')}>
           <Text
             style={{
               fontWeight: '600',
@@ -57,11 +57,7 @@ function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress,
           }}
           activeOpacity={0.8}
           onPress={() => {
-            setFilters(prevState =>
-              prevState.dateCreate.includes('toweek')
-                ? { ...prevState, dateCreate: prevState.dateCreate.filter(active => active !== 'toweek') }
-                : { ...prevState, dateCreate: prevState.dateCreate.concat('toweek') },
-            )
+            handlePress('toweek')
           }}>
           <Text
             style={{
@@ -86,11 +82,7 @@ function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress,
           }}
           activeOpacity={0.8}
           onPress={() => {
-            setFilters(prevState =>
-              prevState.dateCreate.includes('tomonth')
-                ? { ...prevState, dateCreate: prevState.dateCreate.filter(active => active !== 'tomonth') }
-                : { ...prevState, dateCreate: prevState.dateCreate.concat('tomonth') },
-            )
+            handlePress('tomonth')
           }}>
           <Text
             style={{
@@ -111,6 +103,11 @@ function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress,
 }
 
 const styles = StyleSheet.create({
+  containder: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   text: {
     fontSize: 18,
     color: 'white',

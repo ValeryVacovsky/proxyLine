@@ -20,6 +20,8 @@ import CountriesItem from '../componets/UI/FiltersUI/CountriesItem'
 import Tags from '../componets/UI/FiltersUI/Tags'
 import AllowedIP from '../componets/UI/FiltersUI/AllowedIP'
 import { setFilter } from '../store/reducers/filterReducer'
+import IdProxy from '../componets/UI/FiltersUI/IdProxy'
+import FilterOrders from '../componets/UI/FiltersUI/FilterOrders'
 
 function Filters({ navigation }) {
   const sheetRef = useRef(null)
@@ -42,11 +44,13 @@ function Filters({ navigation }) {
     status: [],
     ip_version: [],
     typesIP: [],
+    id: [],
     auto_renewal: [],
     dateCreate: [],
     dateOver: [],
     ip: [],
     port: [],
+    orders: [],
     countries: [],
     tags: [],
     allowedIP: [],
@@ -59,11 +63,13 @@ function Filters({ navigation }) {
     status: [],
     ip_version: [],
     typesIP: [],
+    id: [],
     auto_renewal: [],
     dateCreate: [],
     dateOver: [],
     ip: [],
     port: [],
+    orders: [],
     countries: [],
     tags: [],
     allowedIP: [],
@@ -72,7 +78,6 @@ function Filters({ navigation }) {
   useEffect(() => {
     setFilters(filterStore)
   }, [])
-  console.log(fitlers)
   let params = new URLSearchParams()
 
   Object.keys(fitlers).map(filterName => {
@@ -80,8 +85,6 @@ function Filters({ navigation }) {
   })
 
   const endpoint = `${params.toString()}`
-  console.log('url', endpoint)
-  console.log(new Date())
   useEffect(() => {
     let count = 0
     Object.values(fitlers).map(item => {
@@ -104,7 +107,6 @@ function Filters({ navigation }) {
       const dataProps = `${id}_${token}`
       const data = await getListProxies({ token: dataProps, limit: '100', offset: '0', endpoint })
       dispatch(setProxy(data))
-      console.log(data.data)
     }
     listProxies()
   }
@@ -136,9 +138,9 @@ function Filters({ navigation }) {
           <ScrollView style={{ width: '100%', height: selected ? '84%' : '100%' }}>
             <View style={styles.chipsContainer}>
               <Status status={fitlers.status} setFilters={setFilters} />
-              <VersionIp ip_version={fitlers.ip_version} setFilters={setFilters} />
-              <Types ip_type={fitlers.ip_type} setFilters={setFilters} />
-              <Autodetect auto_renewal={fitlers.auto_renewal} setFilters={setFilters} />
+              <VersionIp ipVersion={fitlers.ip_version} setFilters={setFilters} />
+              <Types ipType={fitlers.ip_type} setFilters={setFilters} />
+              <Autodetect autoRenewal={fitlers.auto_renewal} setFilters={setFilters} />
               <DateCreate
                 dateCreate={fitlers.dateCreate}
                 setFilters={setFilters}
@@ -150,6 +152,22 @@ function Filters({ navigation }) {
               <DateOver dateOver={fitlers.dateOver} setFilters={setFilters} />
               <IPAddress
                 ip={fitlers.ip}
+                setFilters={setFilters}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+                setIsOpen={setIsOpen}
+              />
+              <IdProxy
+                id={fitlers.id}
+                setFilters={setFilters}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+                setIsOpen={setIsOpen}
+              />
+              <FilterOrders
+                orders={fitlers.orders}
                 setFilters={setFilters}
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}

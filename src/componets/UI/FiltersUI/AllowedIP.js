@@ -3,19 +3,30 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import VectorRightSmall from '../../../image/Svg/VectorRight'
 
 function AllowedIP({ allowedIP, setFilters }) {
+  //позже добавлю хандлер
   const [prots] = useState(['192.168.0.1', '192.168.0.2', '192.168.0.3'])
+  const handlePress = item => {
+    setFilters(prevState =>
+      prevState.allowedIP.includes(item)
+        ? {
+            ...prevState,
+            allowedIP: prevState.allowedIP.filter(active => active !== item),
+          }
+        : { ...prevState, allowedIP: prevState.allowedIP.concat(item) },
+    )
+  }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
         <Text style={styles.text}>Разрешенные IP</Text>
         <TouchableOpacity activeOpacity={0.8}>
-          <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <View style={styles.textInfoContainer}>
             <Text style={styles.textInfo}>Выбрать</Text>
             <VectorRightSmall />
           </View>
         </TouchableOpacity>
       </View>
-      <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <View style={styles.portsContainer}>
         {prots.map(item => (
           <TouchableOpacity
             key={item}
@@ -27,16 +38,7 @@ function AllowedIP({ allowedIP, setFilters }) {
               marginRight: 10,
             }}
             activeOpacity={0.8}
-            onPress={() => {
-              setFilters(prevState =>
-                prevState.allowedIP.includes(item)
-                  ? {
-                      ...prevState,
-                      allowedIP: prevState.allowedIP.filter(active => active !== item),
-                    }
-                  : { ...prevState, allowedIP: prevState.allowedIP.concat(item) },
-              )
-            }}>
+            onPress={() => handlePress(item)}>
             <Text
               style={{
                 fontWeight: '600',
@@ -62,11 +64,21 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '700',
   },
+  textInfoContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   textInfo: {
     fontWeight: '600',
     fontSize: 14,
     color: 'white',
     marginRight: 10,
+  },
+  portsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   topMenu: {
     display: 'flex',

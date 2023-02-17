@@ -3,25 +3,6 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-nativ
 import { CalendarList } from 'react-native-calendars'
 import { LocaleConfig } from 'react-native-calendars'
 
-LocaleConfig.locales['ru'] = {
-  monthNames: [
-    'Январь',
-    'Февраль',
-    'Март',
-    'Апрель',
-    'Май',
-    'Июнь',
-    'Июль',
-    'Август',
-    'Сентябрь',
-    'Октябрь',
-    'Ноябрь',
-    'Декабрь',
-  ],
-  monthNamesShort: ['Янв.', 'Фев.', 'Мар.', 'Апр.', 'Май', 'Июн.', 'Июл.', 'Авг.', 'Сен.', 'Окт.', 'Ноя.', 'Дек.'],
-  dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-  dayNamesShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-}
 LocaleConfig.defaultLocale = 'ru'
 
 function BottomSheetDateCreate({ handleClosePress, setIsOpen, setPorts }) {
@@ -30,34 +11,20 @@ function BottomSheetDateCreate({ handleClosePress, setIsOpen, setPorts }) {
   const onDayPress = day => {
     setSelectedDate(day.dateString)
   }
+  const handlePress = () => {
+    handleClosePress()
+    setIsOpen(false)
+    value.length > 0 &&
+      setPorts(prevState =>
+        prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
+      )
+  }
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          alignItems: 'center',
-          width: '100%',
-        }}>
-        <TextInput
-          textContentType="date"
-          style={{
-            backgroundColor: '#1E2127',
-            color: 'white',
-            height: 44,
-            minWidth: '90%',
-            marginBottom: 14,
-            borderRadius: 8,
-            borderWidth: 1,
-            paddingLeft: 20,
-            paddingTop: 14,
-            paddingBottom: 14,
-            borderColor: '#333842',
-            marginTop: 33,
-          }}
-          value={selectedDate}
-          onChangeText={setValue}
-        />
+      <View style={styles.topContainer}>
+        <TextInput textContentType="date" style={styles.topInput} value={selectedDate} onChangeText={setValue} />
       </View>
-      <View style={{ height: '50%', width: '100%', marginBottom: 140 }}>
+      <View style={styles.calendarContainer}>
         <CalendarList
           onDayPress={onDayPress}
           style={{
@@ -72,19 +39,7 @@ function BottomSheetDateCreate({ handleClosePress, setIsOpen, setPorts }) {
           }}
         />
       </View>
-      <TouchableOpacity
-        style={styles.bottomButton}
-        onPress={() => {
-          handleClosePress()
-          setIsOpen(false)
-          {
-            value.length > 0 &&
-              setPorts(prevState =>
-                prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
-              )
-          }
-        }}
-        activeOpacity={0.8}>
+      <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>Добавить</Text>
       </TouchableOpacity>
     </View>
@@ -105,6 +60,25 @@ const styles = StyleSheet.create({
   topContainer: {
     alignItems: 'center',
     width: '100%',
+  },
+  topInput: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '90%',
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    paddingTop: 14,
+    paddingBottom: 14,
+    borderColor: '#333842',
+    marginTop: 33,
+  },
+  calendarContainer: {
+    height: '50%',
+    width: '100%',
+    marginBottom: 140,
   },
   bottomButton: {
     paddingTop: 18,

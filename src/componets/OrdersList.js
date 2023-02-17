@@ -13,10 +13,10 @@ function OrdersList({ data, text }) {
   const [received, setReceived] = useState(data.data.statusActive)
   const [dateCreate, setDateCreate] = useState(new Date())
 
-  const dateStart = data.data.dateActive
-  const dateNow = new Date()
-  let diff = (dateStart - dateNow) / 1000
-  const hours = Math.abs(Math.round(diff))
+  // const dateStart = data.data.dateActive
+  // const dateNow = new Date()
+  // let diff = (dateStart - dateNow) / 1000
+  // const hours = Math.abs(Math.round(diff))
 
   const onHandleSuccess = () => {
     dispatch(deleteObject({ statusActive: true, dateActive: new Date() }))
@@ -60,11 +60,11 @@ function OrdersList({ data, text }) {
             </Text>
           </View>
           <View>
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <View style={styles.idContainer}>
               <Text style={styles.IdNumberSmall}>ID </Text>
               <Text style={styles.IdNumber}> 4829002398</Text>
             </View>
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <View style={styles.idContainer}>
               <Text style={styles.calenderTimeSmall}>{text?.texts?.t3}</Text>
               <Text style={styles.calenderTime}>
                 {' '}
@@ -215,6 +215,11 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 14,
     paddingBottom: 14,
+  },
+  idContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   leftText: {
     color: '#CBCBCB',

@@ -6,9 +6,9 @@ function InfoLogin({ login, text, handelOpenCopy }) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
-        <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.t6}</Text>
-        <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>{login}</Text>
+        <Text style={styles.bitText}>{text?.t6}</Text>
+        <View style={styles.smallTextConatiner}>
+          <Text style={styles.smallText}>{login}</Text>
           <Pressable
             activeOpacity={0.8}
             hitSlop={15}
@@ -38,6 +38,22 @@ const styles = StyleSheet.create({
     paddingTop: 17,
     alignItems: 'center',
     width: '90%',
+  },
+  bitText: {
+    fontWeight: '600',
+    fontSize: 15,
+    color: '#CBCBCB',
+  },
+  smallTextConatiner: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  smallText: {
+    fontWeight: '700',
+    fontSize: 14,
+    color: 'white',
+    marginRight: 10,
   },
 })
 

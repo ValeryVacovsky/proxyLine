@@ -2,10 +2,17 @@ import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
 function Price({ price, setFilters }) {
+  const handlePress = item => {
+    setFilters(prevState =>
+      prevState.price.includes(item)
+        ? { ...prevState, price: prevState.price.filter(active => active !== item) }
+        : { ...prevState, price: prevState.price.concat(item) },
+    )
+  }
   return (
     <View style={styles.Chips}>
       <Text style={styles.text}>Цена</Text>
-      <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <View style={styles.conatainer}>
         <TouchableOpacity
           style={{
             backgroundColor: price.includes('fix') ? '#FAC637' : '#333842',
@@ -15,13 +22,7 @@ function Price({ price, setFilters }) {
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => {
-            setFilters(prevState =>
-              prevState.price.includes('fix')
-                ? { ...prevState, price: prevState.price.filter(active => active !== 'fix') }
-                : { ...prevState, price: prevState.price.concat('fix') },
-            )
-          }}>
+          onPress={() => handlePress('fix')}>
           <Text
             style={{
               fontWeight: '600',
@@ -44,13 +45,7 @@ function Price({ price, setFilters }) {
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => {
-            setFilters(prevState =>
-              prevState.price.includes('course')
-                ? { ...prevState, price: prevState.price.filter(active => active !== 'course') }
-                : { ...prevState, price: prevState.price.concat('course') },
-            )
-          }}>
+          onPress={() => handlePress('center')}>
           <Text
             style={{
               fontWeight: '600',
@@ -70,6 +65,11 @@ function Price({ price, setFilters }) {
 }
 
 const styles = StyleSheet.create({
+  conatainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   text: {
     fontSize: 18,
     color: 'white',

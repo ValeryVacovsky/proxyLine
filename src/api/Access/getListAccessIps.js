@@ -2,7 +2,6 @@ import axios from 'axios'
 
 const baseUrl = 'https://proxydbtest.proxyline.net'
 
-// Passing configuration object to axios
 const getListAccessIps = ({ data, limit, offset, token }) =>
   axios({
     method: 'get',

@@ -5,8 +5,8 @@ function OrderCount({ count, text }) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
-        <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.t12}</Text>
-        <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>{count}</Text>
+        <Text style={styles.bigText}>{text?.t12}</Text>
+        <Text style={styles.smallText}>{count}</Text>
       </View>
     </View>
   )
@@ -27,6 +27,16 @@ const styles = StyleSheet.create({
     paddingTop: 17,
     alignItems: 'center',
     width: '90%',
+  },
+  bigText: {
+    fontWeight: '600',
+    fontSize: 15,
+    color: '#CBCBCB',
+  },
+  smallText: {
+    fontWeight: '700',
+    fontSize: 14,
+    color: 'white',
   },
 })
 

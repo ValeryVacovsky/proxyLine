@@ -2,6 +2,13 @@ import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
 function DateOver({ dateOver, setFilters }) {
+  const handlePress = item => {
+    setFilters(prevState =>
+      prevState.dateOver.includes(item)
+        ? { ...prevState, dateOver: prevState.dateOver.filter(active => active !== item) }
+        : { ...prevState, dateOver: prevState.dateOver.concat(item) },
+    )
+  }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
@@ -10,7 +17,7 @@ function DateOver({ dateOver, setFilters }) {
           <Text style={styles.textInfo}>Выбрать дату</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <View style={styles.container}>
         <TouchableOpacity
           style={{
             backgroundColor: dateOver.includes('today') ? '#FAC637' : '#333842',
@@ -20,13 +27,7 @@ function DateOver({ dateOver, setFilters }) {
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => {
-            setFilters(prevState =>
-              prevState.dateOver.includes('today')
-                ? { ...prevState, dateOver: prevState.dateOver.filter(active => active !== 'today') }
-                : { ...prevState, dateOver: prevState.dateOver.concat('today') },
-            )
-          }}>
+          onPress={() => handlePress('today')}>
           <Text
             style={{
               fontWeight: '600',
@@ -49,13 +50,7 @@ function DateOver({ dateOver, setFilters }) {
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => {
-            setFilters(prevState =>
-              prevState.dateOver.includes('toweek')
-                ? { ...prevState, dateOver: prevState.dateOver.filter(active => active !== 'toweek') }
-                : { ...prevState, dateOver: prevState.dateOver.concat('toweek') },
-            )
-          }}>
+          onPress={() => handlePress('toweek')}>
           <Text
             style={{
               fontWeight: '600',
@@ -78,13 +73,7 @@ function DateOver({ dateOver, setFilters }) {
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => {
-            setFilters(prevState =>
-              prevState.dateOver.includes('tomonth')
-                ? { ...prevState, dateOver: prevState.dateOver.filter(active => active !== 'tomonth') }
-                : { ...prevState, dateOver: prevState.dateOver.concat('tomonth') },
-            )
-          }}>
+          onPress={() => handlePress('tomonth')}>
           <Text
             style={{
               fontWeight: '600',
@@ -108,6 +97,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     fontWeight: '700',
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   textInfo: {
     fontWeight: '600',

@@ -4,7 +4,20 @@ import BottomSheetIP from './BottomSheet/BottomSheetIP'
 
 function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
   const [Ipaddress, setIpaddress] = useState(['209.139.71.222', '192.168.0.3', '192.168.0.4'])
-  console.log(Ipaddress)
+  const handlePress = item => {
+    setFilters(prevState =>
+      prevState.ip.includes(item)
+        ? { ...prevState, ip: prevState.ip.filter(active => active !== item) }
+        : { ...prevState, ip: prevState.ip.concat(item) },
+    )
+  }
+  const handleOpenBottomSheet = () => {
+    setChildrenItem(
+      <BottomSheetIP handleClosePress={handleClosePress} setIsOpen={setIsOpen} setIpaddress={setIpaddress} />,
+    )
+    handleSnapPress(0)
+    setIsOpen(true)
+  }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
@@ -15,19 +28,11 @@ function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSn
           }}>
           IP
         </Text>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => {
-            setChildrenItem(
-              <BottomSheetIP handleClosePress={handleClosePress} setIsOpen={setIsOpen} setIpaddress={setIpaddress} />,
-            )
-            handleSnapPress(0)
-            setIsOpen(true)
-          }}>
+        <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
           <Text style={styles.textInfo}>Выбрать</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <View style={styles.container}>
         {Ipaddress.map(item => (
           <TouchableOpacity
             key={item}
@@ -40,11 +45,7 @@ function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSn
             }}
             activeOpacity={0.8}
             onPress={() => {
-              setFilters(prevState =>
-                prevState.ip.includes(item)
-                  ? { ...prevState, ip: prevState.ip.filter(active => active !== item) }
-                  : { ...prevState, ip: prevState.ip.concat(item) },
-              )
+              handlePress(item)
             }}>
             <Text
               style={{
@@ -70,6 +71,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     fontWeight: '700',
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   textInfo: {
     fontWeight: '600',

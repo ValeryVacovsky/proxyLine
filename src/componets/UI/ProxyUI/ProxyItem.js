@@ -7,31 +7,6 @@ import LightRadioUncheked from '../../../image/Svg/LightRadioUncheked'
 import BottomSheetIist from './BottomSheetIist'
 import { flagByShortName } from '../../../common/flagByShortName'
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    paddingTop: 14,
-    paddingBottom: 14,
-    backgroundColor: 'rgba(255, 255, 255, 0.06)',
-    alignItems: 'center',
-    marginBottom: 5,
-  },
-  mainContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '88%',
-    flexDirection: 'row',
-  },
-  s_mainContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '92%',
-    flexDirection: 'row',
-  },
-})
-
 function ProxyItem({
   proxyRes,
   selected,
@@ -175,5 +150,30 @@ function ProxyItem({
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    paddingTop: 14,
+    paddingBottom: 14,
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  mainContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '88%',
+    flexDirection: 'row',
+  },
+  s_mainContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '92%',
+    flexDirection: 'row',
+  },
+})
 
 export default ProxyItem

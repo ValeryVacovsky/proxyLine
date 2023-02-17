@@ -2,7 +2,6 @@ import axios from 'axios'
 
 const baseUrl = 'https://proxydbtest.proxyline.net'
 
-// Passing configuration object to axios
 const postCommonAccessIps = ({ data, token }) =>
   axios({
     method: 'post',

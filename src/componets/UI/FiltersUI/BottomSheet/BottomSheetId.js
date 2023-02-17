@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
 
-function BottomSheetPort({ handleClosePress, setIsOpen, setPorts }) {
+function BottomSheetId({ handleClosePress, setIsOpen, setIdDefault }) {
   const [value, setValue] = useState('')
   const handlePress = () => {
     handleClosePress()
     setIsOpen(false)
     value.length > 0 &&
-      setPorts(prevState =>
+      setIdDefault(prevState =>
         prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
       )
   }
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default BottomSheetPort
+export default BottomSheetId

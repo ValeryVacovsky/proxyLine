@@ -5,23 +5,27 @@ import BottomSheetPort from './BottomSheet/BottomSheetPort'
 
 function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
   const [prots, setPorts] = useState(['58654', '23234', '67956'])
+  const handlePress = item => {
+    setFilters(prevState =>
+      prevState.port.includes(item)
+        ? { ...prevState, port: prevState.port.filter(active => active !== item) }
+        : { ...prevState, port: prevState.port.concat(item) },
+    )
+  }
+  const handleOpenBottomSheet = () => {
+    setChildrenItem(<BottomSheetPort handleClosePress={handleClosePress} setIsOpen={setIsOpen} setPorts={setPorts} />)
+    handleSnapPress(0)
+    setIsOpen(true)
+  }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
         <Text style={styles.text}>Порт</Text>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => {
-            setChildrenItem(
-              <BottomSheetPort handleClosePress={handleClosePress} setIsOpen={setIsOpen} setPorts={setPorts} />,
-            )
-            handleSnapPress(0)
-            setIsOpen(true)
-          }}>
+        <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
           <Text style={styles.textInfo}>Выбрать</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <View style={styles.container}>
         {prots.map(item => (
           <TouchableOpacity
             key={item}
@@ -33,13 +37,7 @@ function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapP
               marginRight: 10,
             }}
             activeOpacity={0.8}
-            onPress={() => {
-              setFilters(prevState =>
-                prevState.port.includes(item)
-                  ? { ...prevState, port: prevState.port.filter(active => active !== item) }
-                  : { ...prevState, port: prevState.port.concat(item) },
-              )
-            }}>
+            onPress={() => handlePress(item)}>
             <Text
               style={{
                 fontWeight: '600',
@@ -64,6 +62,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     fontWeight: '700',
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   textInfo: {
     fontWeight: '600',

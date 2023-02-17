@@ -6,9 +6,9 @@ function IpAdress({ IP, text, handelOpenCopy }) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
-        <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.t4}</Text>
-        <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>{IP}</Text>
+        <Text style={styles.bigText}>{text?.t4}</Text>
+        <View style={styles.smallTextContainer}>
+          <Text style={styles.smallText}>{IP}</Text>
           <Pressable
             activeOpacity={0.8}
             hitSlop={15}
@@ -38,6 +38,22 @@ const styles = StyleSheet.create({
     paddingTop: 17,
     alignItems: 'center',
     width: '90%',
+  },
+  bigText: {
+    fontWeight: '600',
+    fontSize: 15,
+    color: '#CBCBCB',
+  },
+  smallTextContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  smallText: {
+    fontWeight: '700',
+    fontSize: 14,
+    color: 'white',
+    marginRight: 10,
   },
 })
 

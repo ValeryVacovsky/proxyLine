@@ -31,9 +31,9 @@ function BalanceList({ data, text }) {
         </View>
         <View style={styles.summeContainer}>
           <View style={styles.summe}>
-            <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 13 }}>{text?.texts?.t4}</Text>
-            <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ {Math.abs(data.amount)}</Text>
+            <Text style={styles.summeText}>{text?.texts?.t4}</Text>
+            <View style={styles.summePriceContainer}>
+              <Text style={styles.summePriceText}>$ {Math.abs(data.amount)}</Text>
             </View>
           </View>
         </View>
@@ -93,6 +93,20 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 14,
     paddingBottom: 14,
+  },
+  summeText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  summePriceContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  summePriceText: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 14,
   },
   order: {
     width: '100%',

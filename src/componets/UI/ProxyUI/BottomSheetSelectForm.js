@@ -1,6 +1,27 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 
+function BottomSheetSelectForm({ handleClosePress, setSelectedProxies, move, selected, text }) {
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => {}}>
+        <Text style={styles.topButtonText}>
+          {move} {text} ({selected})
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.bottomButton}
+        onPress={() => {
+          handleClosePress()
+          setSelectedProxies([])
+        }}
+        activeOpacity={0.8}>
+        <Text style={styles.bottomButtonText}>Отменить</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
 const styles = StyleSheet.create({
   container: {
     height: '100%',
@@ -43,26 +64,5 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
 })
-
-function BottomSheetSelectForm({ handleClosePress, setSelectedProxies, move, selected, text }) {
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => {}}>
-        <Text style={styles.topButtonText}>
-          {move} {text} ({selected})
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.bottomButton}
-        onPress={() => {
-          handleClosePress()
-          setSelectedProxies([])
-        }}
-        activeOpacity={0.8}>
-        <Text style={styles.bottomButtonText}>Отменить</Text>
-      </TouchableOpacity>
-    </View>
-  )
-}
 
 export default BottomSheetSelectForm

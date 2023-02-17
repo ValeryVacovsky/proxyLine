@@ -3,6 +3,7 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import VectorRightSmall from '../../../image/Svg/VectorRightSmall'
 import BottomSheetDateCountries from './BottomSheet/BottomSheetDateCountries'
 
+//Он временно пока бэк допиливается позже я удалю
 const countreisList = [
   {
     code: 'ru',
@@ -35,31 +36,42 @@ const countreisList = [
 ]
 
 function CountriesItem({ countries, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
-  const [country, setPorts] = useState(['ru', 'en', 'ch'])
+  // Здесь чуть позже использую setCountry
+  const [country] = useState(['ru', 'en', 'ch'])
+  const handlePress = item => {
+    setFilters(prevState =>
+      prevState.countries.includes(item)
+        ? {
+            ...prevState,
+            countries: prevState.countries.filter(active => active !== item),
+          }
+        : { ...prevState, countries: prevState.countries.concat(item) },
+    )
+    handleClosePress()
+  }
+  const handleOpenBottomSheet = () => {
+    handleSnapPress(1)
+    setIsOpen(true)
+    setChildrenItem(
+      <BottomSheetDateCountries
+        countreisList={countreisList}
+        handleClosePress={handleClosePress}
+        setIsOpen={setIsOpen}
+      />,
+    )
+  }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
         <Text style={styles.text}>Страны</Text>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => {
-            handleSnapPress(1)
-            setIsOpen(true)
-            setChildrenItem(
-              <BottomSheetDateCountries
-                countreisList={countreisList}
-                handleClosePress={handleClosePress}
-                setIsOpen={setIsOpen}
-              />,
-            )
-          }}>
-          <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
+          <View style={styles.textInfpContainer}>
             <Text style={styles.textInfo}>Выбрать</Text>
             <VectorRightSmall />
           </View>
         </TouchableOpacity>
       </View>
-      <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <View style={styles.conuntryContainer}>
         {country.map(item => (
           <TouchableOpacity
             key={item}
@@ -71,17 +83,7 @@ function CountriesItem({ countries, setFilters, setChildrenItem, handleClosePres
               marginRight: 10,
             }}
             activeOpacity={0.8}
-            onPress={() => {
-              setFilters(prevState =>
-                prevState.countries.includes(item)
-                  ? {
-                      ...prevState,
-                      countries: prevState.countries.filter(active => active !== item),
-                    }
-                  : { ...prevState, countries: prevState.countries.concat(item) },
-              )
-              handleClosePress()
-            }}>
+            onPress={() => handlePress(item)}>
             <Text
               style={{
                 fontWeight: '600',
@@ -113,6 +115,11 @@ const styles = StyleSheet.create({
     color: 'white',
     marginRight: 10,
   },
+  textInfpContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   topMenu: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -122,6 +129,11 @@ const styles = StyleSheet.create({
   Chips: {
     width: '100%',
     marginBottom: 20,
+  },
+  conuntryContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 })
 

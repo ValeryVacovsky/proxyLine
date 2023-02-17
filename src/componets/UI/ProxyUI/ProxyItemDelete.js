@@ -6,24 +6,6 @@ import VectorYellowBig from '../../../image/Svg/VectorYellowBig'
 import BottomSheetItem from './BottomSheetItem'
 import { useSelector } from 'react-redux'
 
-const styles = StyleSheet.create({
-  container: {
-    width: '103%',
-    paddingTop: 14,
-    paddingBottom: 14,
-    backgroundColor: 'rgba(255, 255, 255, 0.06)',
-    alignItems: 'center',
-    marginBottom: 5,
-  },
-  mainContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    flexDirection: 'row',
-  },
-})
-
 function ProxyItemDelete({
   proxy,
   selectedProxies,
@@ -159,5 +141,23 @@ function ProxyItemDelete({
     </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '103%',
+    paddingTop: 14,
+    paddingBottom: 14,
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  mainContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    flexDirection: 'row',
+  },
+})
 
 export default ProxyItemDelete

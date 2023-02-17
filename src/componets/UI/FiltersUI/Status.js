@@ -2,6 +2,13 @@ import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
 function Status({ status, setFilters }) {
+  const handlePress = item => {
+    setFilters(prevState =>
+      prevState.status.includes(item)
+        ? { ...prevState, status: prevState.status.filter(active => active !== item) }
+        : { ...prevState, status: prevState.status.concat(item) },
+    )
+  }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
@@ -10,7 +17,7 @@ function Status({ status, setFilters }) {
           <Text style={styles.textInfo}>Показать все</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <View style={styles.container}>
         <TouchableOpacity
           style={{
             backgroundColor: status.includes('active') ? '#FAC637' : '#333842',
@@ -20,13 +27,7 @@ function Status({ status, setFilters }) {
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => {
-            setFilters(prevState =>
-              prevState.status.includes('active')
-                ? { ...prevState, status: prevState.status.filter(active => active !== 'active') }
-                : { ...prevState, status: prevState.status.concat('active') },
-            )
-          }}>
+          onPress={() => handlePress('active')}>
           <Text
             style={{
               fontWeight: '600',
@@ -49,13 +50,7 @@ function Status({ status, setFilters }) {
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => {
-            setFilters(prevState =>
-              prevState.status.includes('inactive')
-                ? { ...prevState, status: prevState.status.filter(active => active !== 'inactive') }
-                : { ...prevState, status: prevState.status.concat('inactive') },
-            )
-          }}>
+          onPress={() => handlePress('inactive')}>
           <Text
             style={{
               fontWeight: '600',
@@ -78,13 +73,7 @@ function Status({ status, setFilters }) {
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => {
-            setFilters(prevState =>
-              prevState.status.includes('expired')
-                ? { ...prevState, status: prevState.status.filter(active => active !== 'expired') }
-                : { ...prevState, status: prevState.status.concat('expired') },
-            )
-          }}>
+          onPress={() => handlePress('expired')}>
           <Text
             style={{
               fontWeight: '600',
@@ -107,13 +96,7 @@ function Status({ status, setFilters }) {
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => {
-            setFilters(prevState =>
-              prevState.status.includes('deleted')
-                ? { ...prevState, status: prevState.status.filter(active => active !== 'deleted') }
-                : { ...prevState, status: prevState.status.concat('deleted') },
-            )
-          }}>
+          onPress={() => handlePress('deleted')}>
           <Text
             style={{
               fontWeight: '600',
@@ -137,6 +120,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     fontWeight: '700',
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   textInfo: {
     fontWeight: '600',

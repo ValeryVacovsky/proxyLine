@@ -6,10 +6,10 @@ function Country({ countryName, text }) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
-        <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.t2}</Text>
-        <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={{ fontWeight: '600', fontSize: 13, color: 'white', marginRight: 6 }}>{countryName}</Text>
-          <View style={{ width: 16, height: 13 }}>{flagByShortName[countryName]}</View>
+        <Text style={styles.bigText}>{text?.t2}</Text>
+        <View style={styles.smallTextContainer}>
+          <Text style={styles.smallText}>{countryName}</Text>
+          <View style={styles.flagIcon}>{flagByShortName[countryName]}</View>
         </View>
       </View>
     </View>
@@ -31,6 +31,26 @@ const styles = StyleSheet.create({
     paddingTop: 17,
     alignItems: 'center',
     width: '90%',
+  },
+  bigText: {
+    fontWeight: '600',
+    fontSize: 15,
+    color: '#CBCBCB',
+  },
+  smallTextContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  smallText: {
+    fontWeight: '600',
+    fontSize: 13,
+    color: 'white',
+    marginRight: 6,
+  },
+  flagIcon: {
+    width: 16,
+    height: 13,
   },
 })
 

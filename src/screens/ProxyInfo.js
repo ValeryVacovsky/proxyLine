@@ -25,7 +25,6 @@ import InfoTag from '../componets/UI/InfoUI/InfoTag'
 function ProxyInfo({ navigation, route }) {
   const proxyInfoText = useSelector(res => res.textReducer.proxy_info.payload)
   const proxyInfo = route.params.proxyRes
-  console.log(proxyInfo)
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
   const snapPoints = useMemo(() => ['15%'], [])
@@ -83,40 +82,26 @@ function ProxyInfo({ navigation, route }) {
               <OrderCount count="1 месяц 10 дней" text={proxyInfoText?.texts} />
             </View>
             <View style={styles.chipsContainer}>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginRight: 20,
-                }}>
+              <View style={styles.textContainer}>
                 <Text style={styles.text}>{proxyInfoText?.texts?.t13}</Text>
                 <ProxyInfoChange />
               </View>
               <View style={styles.Chips}>
                 <View>
-                  <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+                  <View style={styles.itemContainer}>
                     {proxyInfo?.access_ips?.map(ips => {
                       return <ConfirnIP key={ips?.id} ips="192.168.0.1" />
                     })}
                   </View>
                 </View>
               </View>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginRight: 20,
-                }}>
+              <View style={styles.textContainer}>
                 <Text style={styles.text}>{proxyInfoText?.texts?.t14}</Text>
                 <ProxyInfoChange />
               </View>
               <View style={styles.Chips}>
                 <View>
-                  <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+                  <View style={styles.itemContainer}>
                     {proxyInfo?.tags?.map(tag => {
                       return <InfoTag key={tag.id} tag={tag} />
                     })}
@@ -175,6 +160,19 @@ const styles = StyleSheet.create({
   Chips: {
     width: '90%',
     marginLeft: 20,
+  },
+  chipsTextContainer: {},
+  textContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginRight: 20,
+  },
+  itemContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 })
 

@@ -3,6 +3,55 @@ import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-nati
 
 const heightOffScreen = Dimensions.get('window').height
 
+function BottomSheetList({ handleClosePress, navigation, proxyRes, text }) {
+  return (
+    <View style={styles.container}>
+      <View style={styles.topTab} />
+      <View style={{ width: '100%', alignItems: 'center' }}>
+        <TouchableOpacity
+          style={styles.centerTopButton}
+          activeOpacity={0.8}
+          onPress={() => {
+            navigation.navigate('Change')
+            handleClosePress()
+          }}>
+          <Text style={styles.centerTopButtonText}>{text?.buttons?.b5}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.centerMiddleButton}
+          activeOpacity={0.8}
+          onPress={() => {
+            navigation.navigate('Delete')
+            handleClosePress()
+          }}>
+          <Text style={styles.centerMiddleButtonText}>{text?.buttons?.b6}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.centerBottomButton}
+          onPress={() => {
+            navigation.navigate('Extend')
+            handleClosePress()
+          }}
+          activeOpacity={0.8}>
+          <Text style={styles.centerBottomButtonText}>{text?.buttons?.b7}</Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity
+        style={styles.topButton}
+        activeOpacity={0.8}
+        onPress={() => {
+          navigation.navigate('Info', { proxyRes })
+          handleClosePress()
+        }}>
+        <Text style={styles.topButtonText}>{text.buttons.b8}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.bottomButton} onPress={() => handleClosePress()} activeOpacity={0.8}>
+        <Text style={styles.bottomButtonText}>{text?.buttons?.b9}</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
 const styles = StyleSheet.create({
   container: {
     height: '100%',
@@ -97,54 +146,5 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
 })
-
-function BottomSheetList({ handleClosePress, navigation, proxyRes, text }) {
-  return (
-    <View style={styles.container}>
-      <View style={styles.topTab} />
-      <View style={{ width: '100%', alignItems: 'center' }}>
-        <TouchableOpacity
-          style={styles.centerTopButton}
-          activeOpacity={0.8}
-          onPress={() => {
-            navigation.navigate('Change')
-            handleClosePress()
-          }}>
-          <Text style={styles.centerTopButtonText}>{text?.buttons?.b5}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.centerMiddleButton}
-          activeOpacity={0.8}
-          onPress={() => {
-            navigation.navigate('Delete')
-            handleClosePress()
-          }}>
-          <Text style={styles.centerMiddleButtonText}>{text?.buttons?.b6}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.centerBottomButton}
-          onPress={() => {
-            navigation.navigate('Extend')
-            handleClosePress()
-          }}
-          activeOpacity={0.8}>
-          <Text style={styles.centerBottomButtonText}>{text?.buttons?.b7}</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={styles.topButton}
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.navigate('Info', { proxyRes })
-          handleClosePress()
-        }}>
-        <Text style={styles.topButtonText}>{text.buttons.b8}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.bottomButton} onPress={() => handleClosePress()} activeOpacity={0.8}>
-        <Text style={styles.bottomButtonText}>{text?.buttons?.b9}</Text>
-      </TouchableOpacity>
-    </View>
-  )
-}
 
 export default BottomSheetList

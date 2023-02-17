@@ -4,21 +4,17 @@ import CountryFilterSlot from '../CountriesUI/CountryFilterSlot'
 
 function BottomSheetDateCountries({ handleClosePress, setIsOpen, countreisList }) {
   const [selectedCountryShort, setSelectedCountryShort] = useState('ru')
+  const handlePress = () => {
+    handleClosePress()
+    setIsOpen(false)
+  }
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          width: '90%',
-          marginTop: 33,
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          display: 'flex',
-          flexDirection: 'row',
-        }}>
-        <Text style={{ color: 'white', fontWeight: '600', fontSize: 20 }}>Страны</Text>
-        <Text style={{ color: 'white', fontWeight: '400', fontSize: 14 }}>Исключить</Text>
+      <View style={styles.topContainer}>
+        <Text style={styles.topTextLeft}>Страны</Text>
+        <Text style={styles.topTextRight}>Исключить</Text>
       </View>
-      <ScrollView style={{ height: '100%', width: '100%', marginBottom: 140 }}>
+      <ScrollView style={styles.scrollViewContainer}>
         {countreisList.map(item => {
           return (
             <CountryFilterSlot
@@ -30,13 +26,7 @@ function BottomSheetDateCountries({ handleClosePress, setIsOpen, countreisList }
           )
         })}
       </ScrollView>
-      <TouchableOpacity
-        style={styles.bottomButton}
-        onPress={() => {
-          handleClosePress()
-          setIsOpen(false)
-        }}
-        activeOpacity={0.8}>
+      <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>Добавить</Text>
       </TouchableOpacity>
     </View>
@@ -55,8 +45,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   topContainer: {
+    width: '90%',
+    marginTop: 33,
     alignItems: 'center',
+    justifyContent: 'space-between',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  topTextLeft: {
+    color: 'white',
+    fontWeight: '600',
+    fontSize: 20,
+  },
+  topTextRight: {
+    color: 'white',
+    fontWeight: '400',
+    fontSize: 14,
+  },
+  scrollViewContainer: {
+    height: '100%',
     width: '100%',
+    marginBottom: 140,
   },
   bottomButton: {
     paddingTop: 18,

@@ -3,6 +3,16 @@ import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-nati
 
 let heightOffScreen = Dimensions.get('window').height
 
+function BottomSheetCopy({ handleClosePress, children }) {
+  return (
+    <View style={styles.container}>
+      <View style={styles.topTab} />
+      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => handleClosePress()}>
+        <Text style={styles.topButtonText}>{children}</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
 const styles = StyleSheet.create({
   container: {
     height: '100%',
@@ -99,16 +109,4 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
 })
-
-function BottomSheetCopy({ handleClosePress, children }) {
-  return (
-    <View style={styles.container}>
-      <View style={styles.topTab} />
-      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => handleClosePress()}>
-        <Text style={styles.topButtonText}>{children}</Text>
-      </TouchableOpacity>
-    </View>
-  )
-}
-
 export default BottomSheetCopy

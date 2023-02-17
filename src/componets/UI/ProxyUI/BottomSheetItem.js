@@ -3,6 +3,31 @@ import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-nati
 
 let heightOffScreen = Dimensions.get('window').height
 
+function BottomSheetItem({ handleClosePress, navigation, text }) {
+  return (
+    <View style={styles.container}>
+      <View style={styles.topTab} />
+      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => navigation.navigate('Notes')}>
+        <Text style={styles.topButtonText}>{text?.buttons?.b1}</Text>
+      </TouchableOpacity>
+      <View style={{ width: '100%', alignItems: 'center' }}>
+        <TouchableOpacity style={styles.centerTopButton} activeOpacity={0.8}>
+          <Text style={styles.centerTopButtonText}>{text?.buttons?.b2}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.centerMiddleButton} activeOpacity={0.8}>
+          <Text style={styles.centerMiddleButtonText}>{text?.buttons?.b3}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.centerBottomButton} activeOpacity={0.8}>
+          <Text style={styles.centerBottomButtonText}>{text?.buttons?.b7}</Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity style={styles.bottomButton} onPress={() => handleClosePress()} activeOpacity={0.8}>
+        <Text style={styles.bottomButtonText}>{text?.buttons?.b9}</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
 const styles = StyleSheet.create({
   container: {
     height: '100%',
@@ -97,30 +122,5 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
 })
-
-function BottomSheetItem({ handleClosePress, navigation, text }) {
-  return (
-    <View style={styles.container}>
-      <View style={styles.topTab} />
-      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => navigation.navigate('Notes')}>
-        <Text style={styles.topButtonText}>{text?.buttons?.b1}</Text>
-      </TouchableOpacity>
-      <View style={{ width: '100%', alignItems: 'center' }}>
-        <TouchableOpacity style={styles.centerTopButton} activeOpacity={0.8}>
-          <Text style={styles.centerTopButtonText}>{text?.buttons?.b2}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.centerMiddleButton} activeOpacity={0.8}>
-          <Text style={styles.centerMiddleButtonText}>{text?.buttons?.b3}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.centerBottomButton} activeOpacity={0.8}>
-          <Text style={styles.centerBottomButtonText}>{text?.buttons?.b7}</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity style={styles.bottomButton} onPress={() => handleClosePress()} activeOpacity={0.8}>
-        <Text style={styles.bottomButtonText}>{text?.buttons?.b9}</Text>
-      </TouchableOpacity>
-    </View>
-  )
-}
 
 export default BottomSheetItem

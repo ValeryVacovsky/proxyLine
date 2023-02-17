@@ -8,6 +8,9 @@ import RadioUncheked from '../../../../image/Svg/RadioUncheked'
 import { flagByShortName } from '../../../../common/flagByShortName'
 
 function CountryFilterSlot({ country, selectedCountryShort, setSelectedCountryShort }) {
+  const handlePress = () => {
+    setSelectedCountryShort(country.code)
+  }
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.containerOpacity} activeOpacity={0.8}>
@@ -16,12 +19,7 @@ function CountryFilterSlot({ country, selectedCountryShort, setSelectedCountrySh
           <View style={styles.flagIcon}>{flagByShortName[country.code]}</View>
           <Text style={styles.mainText}>{country.name_local}</Text>
         </View>
-        <Pressable
-          hitSlop={25}
-          activeOpacity={0.8}
-          onPress={() => {
-            setSelectedCountryShort(country.code)
-          }}>
+        <Pressable hitSlop={25} activeOpacity={0.8} onPress={handlePress}>
           {selectedCountryShort === country.code ? <LightRadioUncheked /> : <RadioUncheked width={21} height={20} />}
         </Pressable>
       </TouchableOpacity>

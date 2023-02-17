@@ -42,9 +42,6 @@ import ChangeLanguage from './screens/Settings/ChangeLanguage'
 import ConfirmIps from './screens/Settings/ConfirmIps'
 import Tags from './screens/Settings/Tags'
 
-// eslint-disable-next-line no-unused-vars
-const styles = StyleSheet.create({})
-
 const store = configureStore()
 
 const Stack = createNativeStackNavigator()
@@ -88,9 +85,7 @@ function App({ navigation }) {
             name="Proxy"
             component={Proxy}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Прокси</Text>,
-              // eslint-disable-next-line react/no-unstable-nested-components
+              headerTitle: () => <Text style={styles.headerTitle}>Прокси</Text>,
               headerRight: () => (
                 <View style={{ marginLeft: 15 }}>
                   <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', fontSize: 15 }} activeOpacity={0.8}>
@@ -99,18 +94,11 @@ function App({ navigation }) {
                   </TouchableOpacity>
                 </View>
               ),
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitle: 'Назад',
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
             }}
           />
@@ -118,50 +106,34 @@ function App({ navigation }) {
             name="Agrement"
             component={Agreement}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
               headerTitle: () => (
                 <View style={{ alignItems: 'center' }}>
-                  <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Политика</Text>
-                  <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>конфиденциальности</Text>
+                  <Text style={styles.headerTitle}>Политика</Text>
+                  <Text style={styles.headerTitle}>конфиденциальности</Text>
                 </View>
               ),
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerStyle: styles.headerStyle,
               headerTitleAlign: 'center',
               headerTintColor: '#CBCBCB',
               headerBackTitle: 'Назад',
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
             }}
           />
           <Stack.Screen
             name="Ofert"
             component={Ofert}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
               headerTitle: () => (
                 <View style={{ alignItems: 'center' }}>
-                  <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Публичная</Text>
-                  <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>оферта</Text>
+                  <Text style={styles.headerTitle}>Публичная</Text>
+                  <Text style={styles.headerTitle}>оферта</Text>
                 </View>
               ),
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerStyle: styles.headerStyle,
               headerTitleAlign: 'center',
               headerTintColor: '#CBCBCB',
               headerBackTitle: 'Назад',
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
             }}
           />
           <Stack.Screen name="Test" component={TestScreen} options={{ headerShown: false }} />
@@ -169,9 +141,7 @@ function App({ navigation }) {
             name="Order"
             component={Order}
             options={{
-              headerTitle: () => (
-                <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Оформление заказа</Text>
-              ),
+              headerTitle: () => <Text style={styles.headerTitle}>Оформление заказа</Text>,
               headerRight: () => (
                 <View style={{ marginLeft: 15 }}>
                   <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', fontSize: 15 }} activeOpacity={0.8}>
@@ -180,18 +150,11 @@ function App({ navigation }) {
                   </TouchableOpacity>
                 </View>
               ),
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerStyle: styles.headerStyle,
               headerTitleAlign: 'center',
               headerTintColor: '#CBCBCB',
               headerBackTitle: 'Прокси',
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
             }}
           />
@@ -199,21 +162,13 @@ function App({ navigation }) {
             name="Orders"
             component={Orders}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Заказы</Text>,
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Заказы</Text>,
+
+              headerStyle: styles.headerStyle,
               headerTitleAlign: 'center',
               headerTintColor: '#CBCBCB',
               headerBackTitle: 'Назад',
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
             }}
           />
@@ -221,14 +176,9 @@ function App({ navigation }) {
             name="Countries"
             component={Countreis}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Выбор страны</Text>,
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Выбор страны</Text>,
+
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitle: 'Заказ',
@@ -243,20 +193,12 @@ function App({ navigation }) {
             name="Balance"
             component={Balance}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Ваш баланс</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Ваш баланс</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Назад',
             }}
@@ -265,20 +207,12 @@ function App({ navigation }) {
             name="BalanceSystems"
             component={BalanceSystems}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Оплата</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Оплата</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Назад',
             }}
@@ -287,20 +221,12 @@ function App({ navigation }) {
             name="BalanceMethod"
             component={BalanceMethod}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Оплата</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Оплата</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Назад',
             }}
@@ -309,20 +235,12 @@ function App({ navigation }) {
             name="Proxies"
             component={MyProxies}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Мои прокси</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Мои прокси</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Назад',
             }}
@@ -331,20 +249,12 @@ function App({ navigation }) {
             name="Notes"
             component={Notes}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Заметки</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Заметки</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Мои прокси',
             }}
@@ -353,20 +263,12 @@ function App({ navigation }) {
             name="Info"
             component={ProxyInfo}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>О прокси</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>О прокси</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Мои прокси',
             }}
@@ -375,21 +277,13 @@ function App({ navigation }) {
             name="Settings"
             component={Settgings}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Настройки</Text>,
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Настройки</Text>,
+
+              headerStyle: styles.headerStyle,
               headerTitleAlign: 'center',
               headerTintColor: '#CBCBCB',
               headerBackTitle: 'Назад',
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
             }}
           />
@@ -397,21 +291,13 @@ function App({ navigation }) {
             name="AnwserQuaction"
             component={AnswerQuastion}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Вопрос-ответ</Text>,
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Вопрос-ответ</Text>,
+
+              headerStyle: styles.headerStyle,
               headerTitleAlign: 'center',
               headerTintColor: '#CBCBCB',
               headerBackTitle: 'Настройки',
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
             }}
           />
@@ -419,20 +305,12 @@ function App({ navigation }) {
             name="Account"
             component={AccountInfo}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Аккаунт</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Аккаунт</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Настройки',
             }}
@@ -441,20 +319,12 @@ function App({ navigation }) {
             name="Resset"
             component={ChangePassword}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Смена пароля</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Смена пароля</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Назад',
             }}
@@ -463,20 +333,12 @@ function App({ navigation }) {
             name="Message"
             component={MessageForm}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Написать нам</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Написать нам</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Настройки',
             }}
@@ -485,20 +347,12 @@ function App({ navigation }) {
             name="Filters"
             component={Filters}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Фильтр</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Фильтр</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Мои прокси',
             }}
@@ -507,20 +361,12 @@ function App({ navigation }) {
             name="Delete"
             component={DeleteProxies}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Удалить</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Удалить</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Мои прокси',
             }}
@@ -529,20 +375,12 @@ function App({ navigation }) {
             name="Extend"
             component={ExtendProxies}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Продлить</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Продлить</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Мои прокси',
             }}
@@ -551,20 +389,12 @@ function App({ navigation }) {
             name="Change"
             component={ChangeProxies}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Изменить</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Изменить</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Мои прокси',
             }}
@@ -573,20 +403,12 @@ function App({ navigation }) {
             name="Language"
             component={ChangeLanguage}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Выбор языка</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Выбор языка</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Настройки',
             }}
@@ -595,22 +417,12 @@ function App({ navigation }) {
             name="Confirm"
             component={ConfirmIps}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => (
-                <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Разрешенные IP</Text>
-              ),
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Разрешенные IP</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Настройки',
             }}
@@ -619,33 +431,38 @@ function App({ navigation }) {
             name="Tags"
             component={Tags}
             options={{
-              // eslint-disable-next-line react/no-unstable-nested-components
-              headerTitle: () => <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Теги</Text>,
-              headerStyle: {
-                height: 300,
-                borderBottomLeftRadius: 50,
-                backgroundColor: '#0F1218',
-              },
+              headerTitle: () => <Text style={styles.headerTitle}>Теги</Text>,
+              headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitleVisible: true,
-              headerBackTitleStyle: {
-                fontSize: 14,
-                color: 'white',
-              },
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               gestureEnabled: false,
               headerBackTitle: 'Настройки',
             }}
           />
-          <Stack.Screen
-            name="WebPayment"
-            component={WebPayment}
-            // options={{ headerShown: false, gestureEnabled: false }}
-          />
+          <Stack.Screen name="WebPayment" component={WebPayment} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   )
 }
+
+const styles = StyleSheet.create({
+  headerStyle: {
+    height: 300,
+    borderBottomLeftRadius: 50,
+    backgroundColor: '#0F1218',
+  },
+  headerBackTitleStyle: {
+    fontSize: 14,
+    color: 'white',
+  },
+  headerTitle: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+  },
+})
 
 export default App
