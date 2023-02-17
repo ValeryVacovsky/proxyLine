@@ -7,7 +7,7 @@ function BottomSheetCopy({ handleClosePress, children }) {
   return (
     <View style={styles.container}>
       <View style={styles.topTab} />
-      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => handleClosePress()}>
+      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={handleClosePress}>
         <Text style={styles.topButtonText}>{children}</Text>
       </TouchableOpacity>
     </View>

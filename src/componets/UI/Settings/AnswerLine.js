@@ -5,10 +5,12 @@ import VectorOpen from '../../../image/Svg/VectorOpen'
 
 function AnswerLine({ quest }) {
   const [status, setStatus] = useState(false)
-
+  const handlePress = () => {
+    setStatus(!status)
+  }
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => setStatus(!status)}>
+      <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={handlePress}>
         <View style={styles.setting}>
           <Text style={styles.mainText}>{quest.split('/')[0]}</Text>
           {!status ? <VectorClose /> : <VectorOpen />}

@@ -4,35 +4,25 @@ import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-nati
 const heightOffScreen = Dimensions.get('window').height
 
 function BottomSheetList({ handleClosePress, navigation, proxyRes, text }) {
+  const handlePress = item => {
+    navigation.navigate(item)
+    handleClosePress()
+  }
   return (
     <View style={styles.container}>
       <View style={styles.topTab} />
       <View style={{ width: '100%', alignItems: 'center' }}>
         <TouchableOpacity
           style={styles.centerTopButton}
+          change
           activeOpacity={0.8}
-          onPress={() => {
-            navigation.navigate('Change')
-            handleClosePress()
-          }}>
+          onPress={() => handlePress('Change')}>
           <Text style={styles.centerTopButtonText}>{text?.buttons?.b5}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.centerMiddleButton}
-          activeOpacity={0.8}
-          onPress={() => {
-            navigation.navigate('Delete')
-            handleClosePress()
-          }}>
+        <TouchableOpacity style={styles.centerMiddleButton} activeOpacity={0.8} onPress={() => handlePress('Delete')}>
           <Text style={styles.centerMiddleButtonText}>{text?.buttons?.b6}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.centerBottomButton}
-          onPress={() => {
-            navigation.navigate('Extend')
-            handleClosePress()
-          }}
-          activeOpacity={0.8}>
+        <TouchableOpacity style={styles.centerBottomButton} onPress={() => handlePress('Extend')} activeOpacity={0.8}>
           <Text style={styles.centerBottomButtonText}>{text?.buttons?.b7}</Text>
         </TouchableOpacity>
       </View>
@@ -45,7 +35,7 @@ function BottomSheetList({ handleClosePress, navigation, proxyRes, text }) {
         }}>
         <Text style={styles.topButtonText}>{text.buttons.b8}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.bottomButton} onPress={() => handleClosePress()} activeOpacity={0.8}>
+      <TouchableOpacity style={styles.bottomButton} onPress={handleClosePress} activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>{text?.buttons?.b9}</Text>
       </TouchableOpacity>
     </View>

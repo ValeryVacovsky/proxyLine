@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
 import { CalendarList } from 'react-native-calendars'
 import { LocaleConfig } from 'react-native-calendars'
+import Locacles from '../../../../utils/LocaleConfig'
+LocaleConfig.locales['ru'] = Locacles.ru
 
 LocaleConfig.defaultLocale = 'ru'
 

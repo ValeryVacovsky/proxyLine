@@ -6,10 +6,11 @@ function BottomSheetId({ handleClosePress, setIsOpen, setIdDefault }) {
   const handlePress = () => {
     handleClosePress()
     setIsOpen(false)
-    value.length > 0 &&
+    if (value.length > 0) {
       setIdDefault(prevState =>
         prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
       )
+    }
   }
   return (
     <View style={styles.container}>
