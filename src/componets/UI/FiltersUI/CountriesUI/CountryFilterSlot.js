@@ -1,20 +1,13 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { StyleSheet } from 'react-native'
-import LightRadioUncheked from '../image/Svg/LightRadioUncheked'
+import LightRadioUncheked from '../../../../image/Svg/LightRadioUncheked'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 
-import RadioUncheked from '../image/Svg/RadioUncheked'
-import { flagByShortName } from '../common/flagByShortName'
+import RadioUncheked from '../../../../image/Svg/RadioUncheked'
+import { flagByShortName } from '../../../../common/flagByShortName'
 
-function CountrySlot({
-  country,
-  selectedCountryShort,
-  setSelectedCountryShort,
-  setSelectedCountry,
-  setSelectedCountryOff,
-  setSelectedCountryShortOff,
-}) {
+function CountryFilterSlot({ country, selectedCountryShort, setSelectedCountryShort }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.containerOpacity} activeOpacity={0.8}>
@@ -28,9 +21,6 @@ function CountrySlot({
           activeOpacity={0.8}
           onPress={() => {
             setSelectedCountryShort(country.code)
-            setSelectedCountry(country.name_local)
-            setSelectedCountryOff(country.name_local)
-            setSelectedCountryShortOff(country.code)
           }}>
           {selectedCountryShort === country.code ? <LightRadioUncheked /> : <RadioUncheked width={21} height={20} />}
         </Pressable>
@@ -60,4 +50,4 @@ const styles = StyleSheet.create({
   mainText: { color: 'white', fontWeight: '600', width: '75%' },
 })
 
-export default CountrySlot
+export default CountryFilterSlot

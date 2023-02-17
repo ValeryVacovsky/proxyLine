@@ -1,12 +1,19 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import BottomSheetDateCreate from './BottomSheet/BottomSheetDateCreate'
 
-function DateCreate({ dateCreate, setFilters }) {
+function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
         <Text style={styles.text}>Дата создания</Text>
-        <TouchableOpacity activeOpacity={0.8}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => {
+            setChildrenItem(<BottomSheetDateCreate handleClosePress={handleClosePress} setIsOpen={setIsOpen} />)
+            handleSnapPress(1)
+            setIsOpen(true)
+          }}>
           <Text style={styles.textInfo}>Выбрать дату</Text>
         </TouchableOpacity>
       </View>

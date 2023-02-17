@@ -43,7 +43,6 @@ function MyProxies({ navigation }) {
     sheetRef.current?.close()
   }, [])
   const proxyLisStore = useSelector(data => data.proxy.proxyList)
-  console.log(proxyLisStore)
   const [selected, setSelected] = useState(null)
   const [proxyItemPicked, setProxyItemPicked] = useState(null)
   const [childrenItem, setChildrenItem] = useState()

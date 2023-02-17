@@ -35,7 +35,6 @@ function AuthCode({ navigation }) {
       setCommonFormError('Invalid email_code')
     }
   }
-  console.log(authText?.texts?.t25)
   return (
     <LayoutAuth>
       <View style={styles.header}>

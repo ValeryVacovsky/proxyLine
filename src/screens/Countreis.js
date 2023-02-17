@@ -39,7 +39,6 @@ const countreisList = [
 function Countreis({ navigation, route }) {
   const [text, setText] = useState({})
   const proxyText = useSelector(res => res.textReducer)
-  console.log('country', proxyText.order.payload)
   const [selectedCountryShort, setSelectedCountryShort] = useState(route.params.selectedCountryShort)
   const [selectedCountry, setSelectedCountry] = useState(route.params.selectedCountry)
   return (

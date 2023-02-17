@@ -1,14 +1,14 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
-function VersionIp({ version, setFilters }) {
+function VersionIp({ version, setFilters, ip_version }) {
   return (
     <View style={styles.Chips}>
       <Text style={styles.text}>Версии IP</Text>
       <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
         <TouchableOpacity
           style={{
-            backgroundColor: version.includes('IPv4') ? '#FAC637' : '#333842',
+            backgroundColor: ip_version.includes('4') ? '#FAC637' : '#333842',
             alignItems: 'center',
             borderRadius: 30,
             marginTop: 10,
@@ -17,16 +17,16 @@ function VersionIp({ version, setFilters }) {
           activeOpacity={0.8}
           onPress={() => {
             setFilters(prevState =>
-              prevState.version.includes('IPv4')
-                ? { ...prevState, version: prevState.version.filter(active => active !== 'IPv4') }
-                : { ...prevState, version: prevState.version.concat('IPv4') },
+              prevState.ip_version.includes('4')
+                ? { ...prevState, ip_version: prevState.ip_version.filter(active => active !== '4') }
+                : { ...prevState, ip_version: prevState.ip_version.concat('4') },
             )
           }}>
           <Text
             style={{
               fontWeight: '600',
               fontSize: 13,
-              color: version.includes('IPv4') ? '#0F1218' : 'white',
+              color: ip_version.includes('4') ? '#0F1218' : 'white',
               paddingBottom: 6,
               paddingTop: 6,
               paddingRight: 12,
@@ -37,7 +37,7 @@ function VersionIp({ version, setFilters }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            backgroundColor: version.includes('IPv6') ? '#FAC637' : '#333842',
+            backgroundColor: ip_version.includes('6') ? '#FAC637' : '#333842',
             alignItems: 'center',
             borderRadius: 30,
             marginTop: 10,
@@ -46,16 +46,16 @@ function VersionIp({ version, setFilters }) {
           activeOpacity={0.8}
           onPress={() => {
             setFilters(prevState =>
-              prevState.version.includes('IPv6')
-                ? { ...prevState, version: prevState.version.filter(active => active !== 'IPv6') }
-                : { ...prevState, version: prevState.version.concat('IPv6') },
+              prevState.ip_version.includes('6')
+                ? { ...prevState, ip_version: prevState.ip_version.filter(active => active !== '6') }
+                : { ...prevState, ip_version: prevState.ip_version.concat('6') },
             )
           }}>
           <Text
             style={{
               fontWeight: '600',
               fontSize: 13,
-              color: version.includes('IPv6') ? '#0F1218' : 'white',
+              color: ip_version.includes('6') ? '#0F1218' : 'white',
               paddingBottom: 6,
               paddingTop: 6,
               paddingRight: 12,

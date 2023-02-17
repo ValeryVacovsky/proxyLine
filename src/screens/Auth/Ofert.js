@@ -19,7 +19,6 @@ function Ofert({ navigation }) {
   const onSubmit = () => {
     navigation.navigate('Main')
   }
-  console.log('sdfsdf', authText)
   return (
     <LayoutAuth>
       <View style={{ marginTop: 25 }}>

@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
 })
 
 function BottomSheetItem({ handleClosePress, navigation, text }) {
-  console.log('bsh', text)
   return (
     <View style={styles.container}>
       <View style={styles.topTab} />

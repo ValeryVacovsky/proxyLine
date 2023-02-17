@@ -49,7 +49,6 @@ function ProxyItem({
   const dateStart = new Date(proxyRes.date_start)
   const dateEnd = new Date()
   const dateNeed = (dateEnd - dateStart) / 1000 / (60 * 60 * 24)
-  console.log('proxyitem', proxyRes)
   return (
     <View style={styles.container}>
       <View style={heightOffScreen > 800 ? styles.mainContainer : styles.s_mainContainer}>

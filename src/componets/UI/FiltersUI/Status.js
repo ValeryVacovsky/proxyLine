@@ -42,6 +42,35 @@ function Status({ status, setFilters }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
+            backgroundColor: status.includes('inactive') ? '#FAC637' : '#333842',
+            alignItems: 'center',
+            borderRadius: 30,
+            marginTop: 10,
+            marginRight: 10,
+          }}
+          activeOpacity={0.8}
+          onPress={() => {
+            setFilters(prevState =>
+              prevState.status.includes('inactive')
+                ? { ...prevState, status: prevState.status.filter(active => active !== 'inactive') }
+                : { ...prevState, status: prevState.status.concat('inactive') },
+            )
+          }}>
+          <Text
+            style={{
+              fontWeight: '600',
+              fontSize: 13,
+              color: status.includes('inactive') ? '#0F1218' : 'white',
+              paddingBottom: 6,
+              paddingTop: 6,
+              paddingRight: 12,
+              paddingLeft: 12,
+            }}>
+            Неактивный
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
             backgroundColor: status.includes('expired') ? '#FAC637' : '#333842',
             alignItems: 'center',
             borderRadius: 30,

@@ -23,7 +23,7 @@ function Settgings({ navigation }) {
             style={styles.balanceIcon}
             activeOpacity={0.8}
             onPress={() => navigation.navigate('Account')}>
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.texts?.t1 && 'Аккаунт'}</Text>
+            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.texts?.t0}</Text>
           </TouchableOpacity>
         </View>
       ),
@@ -49,6 +49,18 @@ function Settgings({ navigation }) {
             <CheckProxy />
           </TouchableOpacity>
         </View>
+        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => navigation.navigate('Confirm')}>
+          <View style={styles.setting}>
+            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t24}</Text>
+            <SettingsVector />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => navigation.navigate('Tags')}>
+          <View style={styles.setting}>
+            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t25}</Text>
+            <SettingsVector />
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.settingLine}
           activeOpacity={0.8}

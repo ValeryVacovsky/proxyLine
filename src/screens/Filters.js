@@ -1,13 +1,16 @@
 import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+import { useDispatch, useSelector } from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import getListProxies from '../api/getListProxies'
+import { setProxy } from '../store/reducers/proxyReducer'
 
 import LayoutMain from '../componets/LayoutMain'
 import Autodetect from '../componets/UI/FiltersUI/Autodetect'
 import DateCreate from '../componets/UI/FiltersUI/DateCreate'
 import DateOver from '../componets/UI/FiltersUI/DateOver'
 import IPAddress from '../componets/UI/FiltersUI/IPAddress'
-import Price from '../componets/UI/FiltersUI/Price'
 import Status from '../componets/UI/FiltersUI/Status'
 import Types from '../componets/UI/FiltersUI/Types'
 import VersionIp from '../componets/UI/FiltersUI/VersionIp'
@@ -16,55 +19,12 @@ import Port from '../componets/UI/FiltersUI/Port'
 import CountriesItem from '../componets/UI/FiltersUI/CountriesItem'
 import Tags from '../componets/UI/FiltersUI/Tags'
 import AllowedIP from '../componets/UI/FiltersUI/AllowedIP'
+import { setFilter } from '../store/reducers/filterReducer'
 
 function Filters({ navigation }) {
-  const styles = StyleSheet.create({
-    balanceIconFilter: {
-      marginRight: 15,
-    },
-    balanceIconFilterDotts: {},
-    container: {
-      flex: 1,
-      marginHorizontal: 20,
-      // eslint-disable-next-line no-use-before-define
-      marginBottom: isOpen && '100%',
-    },
-    scrollView: {
-      marginHorizontal: 20,
-      marginTop: 20,
-    },
-    text: {
-      fontSize: 18,
-      color: 'white',
-      fontWeight: '700',
-    },
-    button: {
-      alignItems: 'center',
-      position: 'absolute',
-      width: '100%',
-      bottom: '8%',
-      zIndex: 1,
-    },
-    buttonInner: {
-      backgroundColor: '#FAC637',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: 50,
-      width: '90%',
-    },
-    buttonText: {
-      color: 'black',
-      fontWeight: '600',
-      fontSize: 13,
-    },
-    Chips: {
-      width: '100%',
-      marginLeft: 20,
-    },
-  })
   const sheetRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => ['25%'], [])
+  const snapPoints = useMemo(() => ['25%', '75%'], [])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -75,12 +35,14 @@ function Filters({ navigation }) {
     sheetRef.current?.close()
   }, [])
 
+  const filterStore = useSelector(data => data.filterReducer.filter)
+
   const clearForm = {
+    ip_type: [],
     status: [],
-    version: [],
+    ip_version: [],
     typesIP: [],
-    price: [],
-    autodetect: [],
+    auto_renewal: [],
     dateCreate: [],
     dateOver: [],
     ip: [],
@@ -93,11 +55,11 @@ function Filters({ navigation }) {
   const [childrenItem, setChildrenItem] = useState(<View />)
   const [selected, setSelected] = useState(null)
   const [fitlers, setFilters] = useState({
+    ip_type: [],
     status: [],
-    version: [],
+    ip_version: [],
     typesIP: [],
-    price: [],
-    autodetect: [],
+    auto_renewal: [],
     dateCreate: [],
     dateOver: [],
     ip: [],
@@ -106,11 +68,22 @@ function Filters({ navigation }) {
     tags: [],
     allowedIP: [],
   })
-  console.log(fitlers)
+
   useEffect(() => {
-    // eslint-disable-next-line array-callback-return
+    setFilters(filterStore)
+  }, [])
+  console.log(fitlers)
+  let params = new URLSearchParams()
+
+  Object.keys(fitlers).map(filterName => {
+    fitlers[filterName].map(item => params.append(filterName, item))
+  })
+
+  const endpoint = `${params.toString()}`
+  console.log('url', endpoint)
+  console.log(new Date())
+  useEffect(() => {
     let count = 0
-    // eslint-disable-next-line array-callback-return
     Object.values(fitlers).map(item => {
       count += item.length
     })
@@ -120,11 +93,31 @@ function Filters({ navigation }) {
       setSelected(false)
     }
   }, [fitlers])
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setFilter(fitlers))
+  }, [dispatch, fitlers])
+  const getFilter = () => {
+    const listProxies = async () => {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const dataProps = `${id}_${token}`
+      const data = await getListProxies({ token: dataProps, limit: '100', offset: '0', endpoint })
+      dispatch(setProxy(data))
+      console.log(data.data)
+    }
+    listProxies()
+  }
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
-        <TouchableOpacity activeOpacity={0.7} onPress={() => setFilters(clearForm)}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => {
+            setFilters(clearForm)
+            getFilter()
+          }}>
           <Text style={{ fontWeight: '700', fontSize: 15, color: 'white' }}>Очистить</Text>
         </TouchableOpacity>
       ),
@@ -136,7 +129,6 @@ function Filters({ navigation }) {
         style={{
           flex: 1,
           marginHorizontal: 20,
-          // eslint-disable-next-line no-use-before-define
           // marginBottom: isOpen && 300,
           marginTop: 15,
         }}>
@@ -144,11 +136,17 @@ function Filters({ navigation }) {
           <ScrollView style={{ width: '100%', height: selected ? '84%' : '100%' }}>
             <View style={styles.chipsContainer}>
               <Status status={fitlers.status} setFilters={setFilters} />
-              <VersionIp version={fitlers.version} setFilters={setFilters} />
-              <Types typesIP={fitlers.typesIP} setFilters={setFilters} />
-              <Price price={fitlers.price} setFilters={setFilters} />
-              <Autodetect autodetect={fitlers.autodetect} setFilters={setFilters} />
-              <DateCreate dateCreate={fitlers.dateCreate} setFilters={setFilters} />
+              <VersionIp ip_version={fitlers.ip_version} setFilters={setFilters} />
+              <Types ip_type={fitlers.ip_type} setFilters={setFilters} />
+              <Autodetect auto_renewal={fitlers.auto_renewal} setFilters={setFilters} />
+              <DateCreate
+                dateCreate={fitlers.dateCreate}
+                setFilters={setFilters}
+                handleSnapPress={handleSnapPress}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                setIsOpen={setIsOpen}
+              />
               <DateOver dateOver={fitlers.dateOver} setFilters={setFilters} />
               <IPAddress
                 ip={fitlers.ip}
@@ -166,20 +164,21 @@ function Filters({ navigation }) {
                 handleSnapPress={handleSnapPress}
                 setIsOpen={setIsOpen}
               />
-              <CountriesItem countries={fitlers.countries} setFilters={setFilters} />
+              <CountriesItem
+                countries={fitlers.countries}
+                setFilters={setFilters}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+                setIsOpen={setIsOpen}
+              />
               <Tags tags={fitlers.tags} setFilters={setFilters} />
               <AllowedIP allowedIP={fitlers.allowedIP} setFilters={setFilters} />
             </View>
           </ScrollView>
         </SafeAreaView>
         {selected && (
-          <TouchableOpacity
-            onPress={() => {}}
-            style={styles.button}
-            activeOpacity={0.8}
-            onLongPress={() => {
-              navigation.navigate('Test')
-            }}>
+          <TouchableOpacity onPress={getFilter} style={styles.button} activeOpacity={0.8}>
             <SuperEllipseMaskView
               radius={{
                 topLeft: 12,
@@ -206,5 +205,49 @@ function Filters({ navigation }) {
     </LayoutMain>
   )
 }
+
+const styles = StyleSheet.create({
+  balanceIconFilter: {
+    marginRight: 15,
+  },
+  balanceIconFilterDotts: {},
+  container: {
+    flex: 1,
+    marginHorizontal: 20,
+    // eslint-disable-next-line no-use-before-define
+  },
+  scrollView: {
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
+  text: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '700',
+  },
+  button: {
+    alignItems: 'center',
+    position: 'absolute',
+    width: '100%',
+    bottom: '8%',
+    zIndex: 1,
+  },
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '90%',
+  },
+  buttonText: {
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  Chips: {
+    width: '100%',
+    marginLeft: 20,
+  },
+})
 
 export default Filters

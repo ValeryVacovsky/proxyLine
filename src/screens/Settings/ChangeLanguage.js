@@ -15,11 +15,9 @@ function ChangeLanguage() {
   const [countriesShort, setCountriesShort] = useState([])
   const balanceText = useSelector(res => res.textReducer.languages)
   const countrySelected = useSelector(res => res.textReducer.languages_get.language)
-  useSelector(res => console.log(res.textReducer.languages_get))
   useEffect(() => {
     setCountriesShort(balanceText.payload.languages)
   }, [balanceText])
-  // console.log('set', countriesShort, countrySelected)
   return (
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>

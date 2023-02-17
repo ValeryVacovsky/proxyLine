@@ -3,7 +3,8 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import BottomSheetIP from './BottomSheet/BottomSheetIP'
 
 function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
-  const [Ipaddress, setIpaddress] = useState(['192.168.0.2', '192.168.0.3', '192.168.0.4'])
+  const [Ipaddress, setIpaddress] = useState(['209.139.71.222', '192.168.0.3', '192.168.0.4'])
+  console.log(Ipaddress)
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>

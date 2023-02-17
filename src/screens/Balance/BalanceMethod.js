@@ -45,7 +45,6 @@ function BalanceMethod({ navigation, route }) {
     }
     fetchData()
   }, [])
-  console.log('fm', route.params?.dataNav?.name)
 
   useEffect(() => {
     setFiltredMethods(methods?.filter(meth => meth?.name_en.toLowerCase()?.includes(valueProxy?.toLowerCase())))

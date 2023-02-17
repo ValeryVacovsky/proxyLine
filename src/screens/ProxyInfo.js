@@ -1,58 +1,31 @@
 import React, { useMemo, useRef, useState, useCallback } from 'react'
-import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Pressable } from 'react-native'
+import { useSelector } from 'react-redux'
+import { ScrollView, StyleSheet, SafeAreaView, Text, View, Pressable } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
-import InfoCopyIcon from '../image/Svg/InfoCopyIcon'
 import ProxyInfoChange from '../image/Svg/ProxyInfoChange'
 import ReadTrash from '../image/Svg/ReadTrash'
-import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
 import BottomSheetForm from '../componets/BottomSheetForm'
 import BottomSheetCopy from '../componets/UI/ProxyUI/BottomSheetCopy'
 import dateFormat from 'dateformat'
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    width: '100%',
-  },
-  text: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '700',
-    paddingLeft: 20,
-    marginBottom: 10,
-    marginTop: 20,
-  },
-  circleGradient: {
-    backgroundColor: 'white',
-    borderRadius: 5,
-  },
-  visit: {
-    margin: 4,
-    paddingHorizontal: 6,
-    textAlign: 'center',
-    backgroundColor: 'white',
-    color: '#008f68',
-    fontSize: 12,
-  },
-  dataProxyes: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  dataProxyesButton: {
-    width: '100%',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  Chips: {
-    width: '90%',
-    marginLeft: 20,
-  },
-})
+import IdOrder from '../componets/UI/InfoUI/IdOrder'
+import Country from '../componets/UI/InfoUI/Country'
+import Version from '../componets/UI/InfoUI/Version'
+import IpAdress from '../componets/UI/InfoUI/IpAdress'
+import Port from '../componets/UI/InfoUI/Port'
+import InfoLogin from '../componets/UI/InfoUI/InfoLogin'
+import InfoPassword from '../componets/UI/InfoUI/InfoPassword'
+import InfoType from '../componets/UI/InfoUI/InfoType'
+import InfoCheckButton from '../componets/UI/InfoUI/InfoCheckButton'
+import OrderFrom from '../componets/UI/InfoUI/OrderFrom'
+import OrderEnd from '../componets/UI/InfoUI/OrderEnd'
+import OrderCount from '../componets/UI/InfoUI/OrderCount'
+import ConfirnIP from '../componets/UI/InfoUI/ConfirnIP'
+import InfoTag from '../componets/UI/InfoUI/InfoTag'
 
 function ProxyInfo({ navigation, route }) {
+  const proxyInfoText = useSelector(res => res.textReducer.proxy_info.payload)
   const proxyInfo = route.params.proxyRes
+  console.log(proxyInfo)
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
   const snapPoints = useMemo(() => ['15%'], [])
@@ -91,321 +64,23 @@ function ProxyInfo({ navigation, route }) {
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View>
-            <Text style={styles.text}>Данные прокси</Text>
+            <Text style={styles.text}>{proxyInfoText?.texts?.t0}</Text>
             <View style={styles.dataProxyes}>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                  backgroundColor: '#1E2127',
-                  marginBottom: 1,
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    alignItems: 'center',
-                    width: '90%',
-                  }}>
-                  <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>ID заказа</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>{proxyInfo.id}</Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                  backgroundColor: '#1E2127',
-                  marginBottom: 1,
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    alignItems: 'center',
-                    width: '90%',
-                  }}>
-                  <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Страна</Text>
-                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontWeight: '600', fontSize: 13, color: 'white', marginRight: 6 }}>
-                      Russian Federation
-                    </Text>
-                    <FlagUsaSmall width={16} height={13} />
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                  backgroundColor: '#1E2127',
-                  marginBottom: 1,
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    alignItems: 'center',
-                    width: '90%',
-                  }}>
-                  <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Версия</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>IPv{proxyInfo.ip_version}</Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                  backgroundColor: '#1E2127',
-                  marginBottom: 1,
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    alignItems: 'center',
-                    width: '90%',
-                  }}>
-                  <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>IP</Text>
-                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>
-                      {proxyInfo.ip}
-                    </Text>
-                    <Pressable
-                      activeOpacity={0.8}
-                      hitSlop={15}
-                      onPress={() => {
-                        handelOpenCopy(`${proxyInfo.ip}`)
-                      }}>
-                      <InfoCopyIcon />
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                  backgroundColor: '#1E2127',
-                  marginBottom: 1,
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    alignItems: 'center',
-                    width: '90%',
-                  }}>
-                  <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Port</Text>
-                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>
-                      {proxyInfo.port_socks5}
-                    </Text>
-                    <Pressable
-                      activeOpacity={0.8}
-                      hitSlop={15}
-                      onPress={() => {
-                        handelOpenCopy('11594')
-                      }}>
-                      <InfoCopyIcon />
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                  backgroundColor: '#1E2127',
-                  marginBottom: 1,
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    alignItems: 'center',
-                    width: '90%',
-                  }}>
-                  <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Логин</Text>
-                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>
-                      {proxyInfo.username}
-                    </Text>
-                    <Pressable
-                      activeOpacity={0.8}
-                      hitSlop={15}
-                      onPress={() => {
-                        handelOpenCopy(`${proxyInfo.username}`)
-                      }}>
-                      <InfoCopyIcon />
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                  backgroundColor: '#1E2127',
-                  marginBottom: 1,
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    alignItems: 'center',
-                    width: '90%',
-                  }}>
-                  <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Пароль</Text>
-                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }}>
-                      {proxyInfo.password}
-                    </Text>
-                    <Pressable
-                      activeOpacity={0.8}
-                      hitSlop={15}
-                      onPress={() => {
-                        handelOpenCopy(`${proxyInfo.password}`)
-                      }}>
-                      <InfoCopyIcon />
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                  backgroundColor: '#1E2127',
-                  marginBottom: 1,
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    alignItems: 'center',
-                    width: '90%',
-                  }}>
-                  <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Тип</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>HTTP</Text>
-                </View>
-              </View>
+              <IdOrder id={proxyInfo.id} text={proxyInfoText?.texts} />
+              <Country countryName={proxyInfo.country_id} text={proxyInfoText?.texts} />
+              <Version vesion={proxyInfo.ip_version} text={proxyInfoText?.texts} />
+              <IpAdress IP={proxyInfo.ip} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
+              <Port port={proxyInfo.port_socks5} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
+              <InfoLogin login={proxyInfo.username} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
+              <InfoPassword password={proxyInfo.password} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
+              <InfoType type="HTTP" text={proxyInfoText?.texts} />
             </View>
-            <View style={styles.dataProxyesButton}>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: '#1E2127',
-                  width: '90%',
-                  alignItems: 'center',
-                  borderRadius: 12,
-                  marginTop: 20,
-                }}
-                activeOpacity={0.8}>
-                <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 13,
-                    color: '#FAC637',
-                    paddingBottom: 18,
-                    paddingTop: 18,
-                  }}>
-                  Проверить прокси
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.text}>Дата</Text>
+            <InfoCheckButton text={proxyInfoText?.buttons} />
+            <Text style={styles.text}>{proxyInfoText?.texts?.t9}</Text>
             <View styles={styles.Data}>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                  backgroundColor: '#1E2127',
-                  marginBottom: 1,
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    alignItems: 'center',
-                    width: '90%',
-                  }}>
-                  <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Заказ от</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>
-                    {dateFormat(proxyInfo.date_start, 'd.mm.yyyy HH:MM')}
-                  </Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                  backgroundColor: '#1E2127',
-                  marginBottom: 1,
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    alignItems: 'center',
-                    width: '90%',
-                  }}>
-                  <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Окончание</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>
-                    {dateFormat(proxyInfo.date_end, 'd.mm.yyyy HH:MM')}
-                  </Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                  backgroundColor: '#1E2127',
-                  marginBottom: 1,
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    alignItems: 'center',
-                    width: '90%',
-                  }}>
-                  <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>Осталось</Text>
-                  <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>1 месяц 10 дней</Text>
-                </View>
-              </View>
+              <OrderFrom date={dateFormat(proxyInfo.date_start, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
+              <OrderEnd date={dateFormat(proxyInfo.date_end, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
+              <OrderCount count="1 месяц 10 дней" text={proxyInfoText?.texts} />
             </View>
             <View style={styles.chipsContainer}>
               <View
@@ -416,78 +91,15 @@ function ProxyInfo({ navigation, route }) {
                   alignItems: 'center',
                   marginRight: 20,
                 }}>
-                <Text style={styles.text}>Разрешенные IP</Text>
+                <Text style={styles.text}>{proxyInfoText?.texts?.t13}</Text>
                 <ProxyInfoChange />
               </View>
               <View style={styles.Chips}>
                 <View>
                   <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: '#333842',
-                        alignItems: 'center',
-                        borderRadius: 30,
-                        marginTop: 20,
-                        marginRight: 10,
-                      }}
-                      activeOpacity={0.8}>
-                      <Text
-                        style={{
-                          fontWeight: '600',
-                          fontSize: 13,
-                          color: 'white',
-                          paddingBottom: 6,
-                          paddingTop: 6,
-                          paddingRight: 12,
-                          paddingLeft: 12,
-                        }}>
-                        192.168.0.1
-                      </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: '#333842',
-                        alignItems: 'center',
-                        borderRadius: 30,
-                        marginTop: 20,
-                        marginRight: 10,
-                      }}
-                      activeOpacity={0.8}>
-                      <Text
-                        style={{
-                          fontWeight: '600',
-                          fontSize: 13,
-                          color: 'white',
-                          paddingBottom: 6,
-                          paddingTop: 6,
-                          paddingRight: 12,
-                          paddingLeft: 12,
-                        }}>
-                        192.168.0.1
-                      </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: '#333842',
-                        alignItems: 'center',
-                        borderRadius: 30,
-                        marginTop: 20,
-                        marginRight: 10,
-                      }}
-                      activeOpacity={0.8}>
-                      <Text
-                        style={{
-                          fontWeight: '600',
-                          fontSize: 13,
-                          color: 'white',
-                          paddingBottom: 6,
-                          paddingTop: 6,
-                          paddingRight: 12,
-                          paddingLeft: 12,
-                        }}>
-                        192.168.0.1
-                      </Text>
-                    </TouchableOpacity>
+                    {proxyInfo?.access_ips?.map(ips => {
+                      return <ConfirnIP key={ips?.id} ips="192.168.0.1" />
+                    })}
                   </View>
                 </View>
               </View>
@@ -499,100 +111,15 @@ function ProxyInfo({ navigation, route }) {
                   alignItems: 'center',
                   marginRight: 20,
                 }}>
-                <Text style={styles.text}>Теги</Text>
+                <Text style={styles.text}>{proxyInfoText?.texts?.t14}</Text>
                 <ProxyInfoChange />
               </View>
               <View style={styles.Chips}>
                 <View>
                   <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: 'rgba(61, 204, 58, 0.1)',
-                        alignItems: 'center',
-                        borderRadius: 30,
-                        marginTop: 20,
-                        marginRight: 10,
-                      }}
-                      activeOpacity={0.8}>
-                      <Text
-                        style={{
-                          fontWeight: '600',
-                          fontSize: 13,
-                          color: '#3FA53D',
-                          paddingBottom: 6,
-                          paddingTop: 6,
-                          paddingRight: 12,
-                          paddingLeft: 12,
-                        }}>
-                        Тестовые
-                      </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: 'rgba(222, 168, 30, 0.1)',
-                        alignItems: 'center',
-                        borderRadius: 30,
-                        marginTop: 20,
-                        marginRight: 10,
-                      }}
-                      activeOpacity={0.8}>
-                      <Text
-                        style={{
-                          fontWeight: '600',
-                          fontSize: 13,
-                          color: '#FAC637',
-                          paddingBottom: 6,
-                          paddingTop: 6,
-                          paddingRight: 12,
-                          paddingLeft: 12,
-                        }}>
-                        Лучшие прокси
-                      </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: 'rgba(61, 204, 58, 0.1)',
-                        alignItems: 'center',
-                        borderRadius: 30,
-                        marginTop: 20,
-                        marginRight: 10,
-                      }}
-                      activeOpacity={0.8}>
-                      <Text
-                        style={{
-                          fontWeight: '600',
-                          fontSize: 13,
-                          color: '#3FA53D',
-                          paddingBottom: 6,
-                          paddingTop: 6,
-                          paddingRight: 12,
-                          paddingLeft: 12,
-                        }}>
-                        Тестовые
-                      </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: 'rgba(61, 204, 58, 0.1)',
-                        alignItems: 'center',
-                        borderRadius: 30,
-                        marginTop: 20,
-                        marginRight: 10,
-                      }}
-                      activeOpacity={0.8}>
-                      <Text
-                        style={{
-                          fontWeight: '600',
-                          fontSize: 13,
-                          color: '#3FA53D',
-                          paddingBottom: 6,
-                          paddingTop: 6,
-                          paddingRight: 12,
-                          paddingLeft: 12,
-                        }}>
-                        Тестовые
-                      </Text>
-                    </TouchableOpacity>
+                    {proxyInfo?.tags?.map(tag => {
+                      return <InfoTag key={tag.id} tag={tag} />
+                    })}
                   </View>
                 </View>
               </View>
@@ -613,5 +140,42 @@ function ProxyInfo({ navigation, route }) {
     </LayoutMain>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    width: '100%',
+  },
+  text: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    paddingLeft: 20,
+    marginBottom: 10,
+    marginTop: 20,
+  },
+  circleGradient: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  visit: {
+    margin: 4,
+    paddingHorizontal: 6,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    color: '#008f68',
+    fontSize: 12,
+  },
+  dataProxyes: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  Chips: {
+    width: '90%',
+    marginLeft: 20,
+  },
+})
 
 export default ProxyInfo

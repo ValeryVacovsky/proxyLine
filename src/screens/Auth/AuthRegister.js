@@ -24,7 +24,6 @@ function AuthRegister({ navigation }) {
     setText(authText)
   }, [authText, text])
 
-  console.log('reg', authText?.texts?.t4)
   const {
     control,
     handleSubmit,

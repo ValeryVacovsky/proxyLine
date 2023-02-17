@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
 
 function AnswerLine({ quest }) {
   const [status, setStatus] = useState(false)
-  console.log(quest)
 
   return (
     <View

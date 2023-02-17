@@ -4,6 +4,7 @@ import { proxyReducer } from './reducers/proxyReducer'
 import { orderReducer } from './reducers/orderReducer'
 import { countryOrderReducer } from './reducers/countryOrderReducer'
 import { textReducer } from './reducers/textReducer'
+import { filterReducer } from './reducers/filterReducer'
 import { BalanceSystems } from './reducers/balanceSystems'
 import thunk from 'redux-thunk'
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   countryOrderReducer,
   BalanceSystems,
   textReducer,
+  filterReducer,
 })
 
 const configureStore = () => createStore(rootReducer, applyMiddleware(thunk))
