@@ -182,6 +182,7 @@ function App({ navigation }) {
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',
               headerBackTitle: 'Заказ',
+              headerBackTitleStyle: styles.headerBackTitleStyle,
               headerLargeTitleStyle: {
                 fontSize: 12,
                 color: 'red',
@@ -235,7 +236,16 @@ function App({ navigation }) {
             name="Proxies"
             component={MyProxies}
             options={{
-              headerTitle: () => <Text style={styles.headerTitle}>Мои прокси</Text>,
+              headerTitle: () => (
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 16,
+                    fontWeight: '700',
+                  }}>
+                  Мои прокси
+                </Text>
+              ),
               headerStyle: styles.headerStyle,
               headerTintColor: '#CBCBCB',
               headerTitleAlign: 'center',

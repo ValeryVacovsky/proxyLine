@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { View, StyleSheet, SafeAreaView, TouchableOpacity, Text, Dimensions } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
@@ -9,11 +9,7 @@ import SettingsVector from '../../image/Svg/SettingsVector'
 import SettingsVector2 from '../../image/Svg/SettingsVector2'
 
 function Settgings({ navigation }) {
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.settings)
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
+  const text = useSelector(res => res.textReducer.settings.payload)
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components

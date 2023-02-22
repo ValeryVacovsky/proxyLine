@@ -68,11 +68,12 @@ function BalanceSystems({ navigation }) {
       setMayGo(true)
     }
   }, [amount])
+  console.log('syste', balanceSystems[0].icon_path_2)
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         <BalanceTopTableSystems balance={balance.balance} navigation={navigation} />
-        <Text style={styles.text}>{text?.texts?.t7}</Text>
+        <Text style={styles.text}>{text?.texts?.t6}</Text>
         <View
           style={{
             backgroundColor: '#1E2127',
@@ -80,13 +81,13 @@ function BalanceSystems({ navigation }) {
             height: 44,
             minWidth: '90%',
             borderRadius: 8,
-            borderWidth: 1,
             paddingLeft: 20,
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
             position: 'relative',
             marginHorizontal: 20,
+            marginBottom: 5,
           }}>
           <TextInput
             onFocus={() => {}}
@@ -113,7 +114,7 @@ function BalanceSystems({ navigation }) {
             $
           </Text>
         </View>
-        <Text style={styles.text}>{text?.texts?.t6}</Text>
+        <Text style={styles.text}>{text?.texts?.t7}</Text>
         <ScrollView style={styles.scrollView}>
           {balanceSystems.map(data => (
             <BalanceListSystem
@@ -155,8 +156,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     paddingLeft: 20,
-    marginTop: 18,
-    marginBottom: 10,
+    marginTop: 20,
+    marginBottom: 14,
   },
   circleGradient: {
     backgroundColor: 'white',

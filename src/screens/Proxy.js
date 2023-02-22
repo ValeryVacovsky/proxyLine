@@ -11,7 +11,6 @@ import HeaderProxy from '../image/Svg/HeaderProxy'
 import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
 import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
 import getBalance from '../api/getBalance'
-import postOrderAmount from '../api/postOrderAmount'
 
 const styles = StyleSheet.create({
   container: {
@@ -42,44 +41,12 @@ const styles = StyleSheet.create({
 })
 
 function Proxy({ navigation }) {
+  const iPtypes = useSelector(res => res.orderPriceReducer.orderPrice)
   const [text, setText] = useState({})
   const proxyText = useSelector(res => res.textReducer)
   useEffect(() => {
     setText(proxyText)
   }, [proxyText, text])
-
-  const [iPtypes, setIpTypes] = useState([10, 10, 10])
-  useEffect(() => {
-    async function name() {
-      const ipTypes = []
-      postOrderAmount({
-        quantity: 1,
-        ip_type: 2,
-        ip_version: 4,
-        country: 'ru',
-        period: 5,
-        coupon: '',
-      }).then(data => ipTypes.push(data?.data.amount))
-      postOrderAmount({
-        quantity: 1,
-        ip_type: 1,
-        ip_version: 4,
-        country: 'ru',
-        period: 5,
-        coupon: '',
-      }).then(data => ipTypes.push(data?.data.amount))
-      postOrderAmount({
-        quantity: 1,
-        ip_type: 1,
-        ip_version: 6,
-        country: 'ru',
-        period: 5,
-        coupon: '',
-      }).then(data => ipTypes.push(data?.data.amount))
-      setIpTypes(ipTypes)
-    }
-    name()
-  }, [])
 
   const [balance, setBalance] = useState({ balance: null })
   useEffect(() => {

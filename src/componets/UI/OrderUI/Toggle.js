@@ -56,7 +56,7 @@ export default function Toggle() {
               color: leftToggleColor,
             },
           ]}>
-          HTTP(S)
+          HTTP
         </Animated.Text>
         <Animated.Text
           style={[

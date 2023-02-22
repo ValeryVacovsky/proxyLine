@@ -1,74 +1,40 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 import dateFormat from 'dateformat'
-import postCreateOrder from '../api/postCreateOrder'
-
-import { useDispatch } from 'react-redux'
-import { deleteObject } from '../store/reducers/orderReducer'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { flagByShortName } from '../common/flagByShortName'
 
-function OrdersList({ data, text }) {
-  const dispatch = useDispatch()
-  const [received, setReceived] = useState(data.data.statusActive)
-  const [dateCreate, setDateCreate] = useState(new Date())
+function OrdersListData({ data, text }) {
+  console.log(data)
+  // преобразуем строку в объект Date
+  const date = new Date(data.earliest_date_end)
 
-  // const dateStart = data.data.dateActive
-  // const dateNow = new Date()
-  // let diff = (dateStart - dateNow) / 1000
-  // const hours = Math.abs(Math.round(diff))
+  // вычисляем разницу между датами
+  const diff = date - new Date()
 
-  const onHandleSuccess = () => {
-    dispatch(deleteObject({ statusActive: true, dateActive: new Date() }))
-    setReceived(true)
-    setDateCreate(new Date())
-  }
-
-  const createOrderRequest = async () => {
-    try {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const user_token = `${id}_${token}`
-      await postCreateOrder({
-        data: {
-          quantity: 1,
-          ip_type: data.data.ip_type,
-          ip_version: data.data.ip_version,
-          country: 'ru',
-          period: data.data.period,
-          selected_ips: [],
-          tags: [0],
-          unique_credentials: false,
-          coupon: 'string',
-        },
-        token: user_token,
-      })
-      onHandleSuccess()
-    } catch (error) {
-      console.log('ошибка', error)
-    }
-  }
+  // вычисляем количество дней и часов в разнице
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+  const hours = Math.floor(diff / (1000 * 60 * 60)) % 24
 
   return (
     <View style={styles.container}>
       <View style={styles.container1}>
         <View style={styles.topContainer}>
           <View>
-            <Text style={styles.IpTitle}>IPv{data.data.ip_version} Shared</Text>
+            <Text style={styles.IpTitle}>IPv{4} Shared</Text>
             <Text style={styles.data}>
-              {text?.texts?.t2} {dateFormat(data.data.dateActive, 'd.mm.yyyy HH:MM')}
+              {text?.texts?.t2} {dateFormat(data.create_date, 'd.mm.yyyy HH:MM')}
             </Text>
           </View>
           <View>
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <View style={styles.idContainer}>
               <Text style={styles.IdNumberSmall}>ID </Text>
-              <Text style={styles.IdNumber}> 4829002398</Text>
+              <Text style={styles.IdNumber}> {data.id}</Text>
             </View>
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <View style={styles.idContainer}>
               <Text style={styles.calenderTimeSmall}>{text?.texts?.t3}</Text>
               <Text style={styles.calenderTime}>
                 {' '}
-                5 {text?.texts?.t4} 6 {text?.texts?.t4}
+                {days > 0 ? days : 0} {text?.texts?.t4} {hours > 0 ? hours : 0} {text?.texts?.t5}
               </Text>
             </View>
           </View>
@@ -78,45 +44,25 @@ function OrdersList({ data, text }) {
             backgroundColor: 'rgba(51, 51, 51, 0.3)',
             marginBottom: 1,
             width: '100%',
-            borderBottomLeftRadius: received && 14,
-            borderBottomRightRadius: received && 14,
+            borderBottomLeftRadius: 14,
+            borderBottomRightRadius: 14,
           }}>
           <View style={styles.blockContainer}>
             <Text style={styles.leftText}>{text?.texts?.t6}</Text>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={styles.rightText}>Russian Federation</Text>
-              <View style={{ width: 16, height: 13, marginLeft: 10 }}>{flagByShortName[data.data.country]}</View>
+              <Text style={styles.rightText}>Российская Федерация</Text>
+              <View style={{ width: 16, height: 13, marginLeft: 10 }}>{flagByShortName['ru']}</View>
             </View>
           </View>
           <View style={styles.centerBlock}>
             <Text style={styles.leftText}>{text?.texts?.t7}</Text>
-            <Text style={styles.rightText}>{data.data.period}</Text>
+            <Text style={styles.rightText}>{30}</Text>
           </View>
           <View style={styles.blockContainer}>
             <Text style={styles.leftText}>{text?.texts?.t8}</Text>
-            <Text style={styles.rightText}>{data.data.quantity}</Text>
+            <Text style={styles.rightText}>{data.proxy_count}</Text>
           </View>
-          <View style={styles.blockContainer}>
-            <Text style={styles.leftText}>{text?.texts?.t9}</Text>
-            <Text style={styles.rightText}>$ {data.data.totalPrice}</Text>
-          </View>
-          {received && (
-            <View style={styles.blockContainer}>
-              <Text style={styles.leftText}>{text?.texts?.t10}</Text>
-              <Text style={styles.rightText}>{dateFormat(dateCreate, 'd.mm.yyyy HH:MM')}</Text>
-            </View>
-          )}
         </View>
-        {!received && (
-          <TouchableOpacity
-            style={styles.buttonInner}
-            onPress={() => {
-              createOrderRequest()
-            }}
-            activeOpacity={0.8}>
-            <Text style={styles.buttonInnerText}>{text.buttons.b0}</Text>
-          </TouchableOpacity>
-        )}
       </View>
     </View>
   )
@@ -216,6 +162,11 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     paddingBottom: 14,
   },
+  idContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
   leftText: {
     color: '#CBCBCB',
     fontWeight: '600',
@@ -237,4 +188,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default OrdersList
+export default OrdersListData

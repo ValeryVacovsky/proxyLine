@@ -2,10 +2,10 @@ import axios from 'axios'
 
 const baseUrl = 'https://proxydbtest.proxyline.net'
 
-const deleteDeleteAccessIp = ({ token, data, idIps }) =>
+const postCreateTag = ({ data, token }) =>
   axios({
-    method: 'delete',
-    url: `${baseUrl}/projectapi/v1/1/user/${token}/accessip/${idIps}/`,
+    method: 'post',
+    url: `${baseUrl}/projectapi/v1/1/user/${token}/tag/`,
     headers: {
       'Content-Type': 'application/json',
       apikey: 'project-1-apikey',
@@ -13,4 +13,4 @@ const deleteDeleteAccessIp = ({ token, data, idIps }) =>
     data,
   })
 
-export default deleteDeleteAccessIp
+export default postCreateTag

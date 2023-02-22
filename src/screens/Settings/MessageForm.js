@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Dimensions } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutMain from '../../componets/LayoutMain'
@@ -66,17 +66,19 @@ function MessageForm({ navigation }) {
               />
             </View>
           </View>
-          <Text style={styles.textSmall}>
-            {text?.texts?.t10 && 'Пишите нам в онлайн чат, он находиться с правой стороны в углу.'}
-            {'\n'}Онлайн чат работает каждый день круглосуточно.
-            {text?.texts?.t11 && 'Онлайн чат работает каждый день круглосуточно.'}
-          </Text>
-          <Text style={styles.textSmall2}>
-            {text?.texts?.t12 && 'Если вопросы связаны:'}
-            {'\n'} {!text?.texts?.t13 && 'Заменой адреса'} {'\n'}
-            {text?.texts?.t14 &&
-              'Возвратом заказов на баланс аккаунта Пишите только в онлайн чат, поддержка отвечает в течение 1 минуты, ответ на тикет может задержаться до 72ч.'}
-          </Text>
+          <ScrollView style={{ marginBottom: 400 }}>
+            <Text style={styles.textSmall}>
+              {text?.texts?.t10 && 'Пишите нам в онлайн чат, он находиться с правой стороны в углу.'}
+              {'\n'}Онлайн чат работает каждый день круглосуточно.
+              {text?.texts?.t11 && 'Онлайн чат работает каждый день круглосуточно.'}
+            </Text>
+            <Text style={styles.textSmall2}>
+              {text?.texts?.t12 && 'Если вопросы связаны:'}
+              {'\n'} {!text?.texts?.t13 && 'Заменой адреса'} {'\n'}
+              {text?.texts?.t14 &&
+                'Возвратом заказов на баланс аккаунта Пишите только в онлайн чат, поддержка отвечает в течение 1 минуты, ответ на тикет может задержаться до 72ч.'}
+            </Text>
+          </ScrollView>
         </View>
       </SafeAreaView>
       <TouchableOpacity
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     paddingLeft: 20,
     marginBottom: 10,

@@ -1,33 +1,136 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 
 import { Colors } from '../../utils/Color'
+import DeleteToggleIcon from '../../image/Svg/DeleteToggleIcon'
+import { useCreateTag } from '../../hooks/useCreateTag'
 
 function Tags() {
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.settings)
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
+  const { createTag, setDeleteTag } = useCreateTag()
+  const tags = useSelector(data => data.ipsTagsReducer.tags)
+  const text = useSelector(res => res.textReducer.settings.payload)
+  const [takeColor, setTakeColor] = useState('green')
+  const [value, setValue] = useState('')
+  const handlePress = item => {
+    setTakeColor(item)
+  }
+  const handleChange = text => {
+    setValue(text)
+  }
   return (
     <LayoutMain style={styles.layOutConatiner}>
       <View style={styles.container}>
         <ScrollView style={styles.scrollContainer}>
           <View style={styles.topContainer}>
-            <View style={styles.topTextContainer}>
-              <Text style={{ color: 'white', fontWeight: '400', fontSize: 13, lineHeight: 15, marginRight: 5 }}>x</Text>
-              <Text style={{ color: Colors.danger.color, fontWeight: '400', fontSize: 13, lineHeight: 15 }}>
-                Тестовое
-              </Text>
-            </View>
+            {tags.map(item => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    paddingTop: 6,
+                    paddingBottom: 7,
+                    paddingLeft: 12,
+                    paddingRight: 12,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    backgroundColor: Colors[item.color].back,
+                    borderRadius: 30,
+                    marginRight: 5,
+                    marginTop: 10,
+                    alignItems: 'center',
+                  }}
+                  key={item.id}
+                  onPress={() => setDeleteTag(item.id)}>
+                  <View>
+                    <DeleteToggleIcon />
+                  </View>
+
+                  <Text
+                    style={{
+                      color: Colors[item.color].color,
+                      fontWeight: '400',
+                      fontSize: 13,
+                      lineHeight: 15,
+                      marginLeft: 9,
+                    }}>
+                    {item.value}
+                  </Text>
+                </TouchableOpacity>
+              )
+            })}
           </View>
         </ScrollView>
         <View style={styles.bottomContainer}>
-          <TextInput style={styles.input} />
-          <TouchableOpacity style={styles.bottomTextContainer}>
+          <View style={{ positon: 'relative' }}>
+            <TextInput style={styles.input} value={value} onChangeText={handleChange} />
+            <View style={styles.tagContainer}>
+              <Pressable
+                hitSlop={10}
+                activeOpacity={0.8}
+                onPress={() => handlePress('green')}
+                style={{
+                  height: 20,
+                  width: 20,
+                  backgroundColor: Colors['green'].color,
+                  borderRadius: 40,
+                  marginLeft: 10,
+                  borderWidth: takeColor === 'green' && 2,
+                  borderColor: takeColor === 'green' ? 'white' : 'none',
+                }}
+              />
+              <Pressable
+                hitSlop={10}
+                activeOpacity={0.8}
+                onPress={() => handlePress('red')}
+                style={{
+                  height: 20,
+                  width: 20,
+                  backgroundColor: Colors['red'].color,
+                  borderRadius: 40,
+                  marginLeft: 10,
+                  borderWidth: takeColor === 'red' && 2,
+                  borderColor: takeColor === 'red' && 'white',
+                }}
+              />
+              <Pressable
+                hitSlop={10}
+                activeOpacity={0.8}
+                onPress={() => handlePress('orange')}
+                style={{
+                  height: 20,
+                  width: 20,
+                  backgroundColor: Colors['orange'].color,
+                  borderRadius: 40,
+                  marginLeft: 10,
+                  borderWidth: takeColor === 'orange' && 2,
+                  borderColor: takeColor === 'orange' && 'white',
+                }}
+              />
+              <Pressable
+                hitSlop={10}
+                activeOpacity={0.8}
+                onPress={() => handlePress('blue')}
+                style={{
+                  height: 20,
+                  width: 20,
+                  backgroundColor: Colors['blue'].color,
+                  borderRadius: 40,
+                  marginLeft: 10,
+                  borderWidth: takeColor === 'blue' && 2,
+                  borderColor: takeColor === 'blue' && 'white',
+                }}
+              />
+            </View>
+          </View>
+
+          <TouchableOpacity
+            style={styles.bottomTextContainer}
+            onPress={() => {
+              createTag({ color: takeColor, value: value })
+            }}>
             <Text style={styles.bottomText}>{text?.buttons?.b1}</Text>
           </TouchableOpacity>
         </View>
@@ -64,7 +167,7 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: Colors.danger.back,
+    backgroundColor: Colors.red.back,
     borderRadius: 30,
     marginRight: 5,
     marginTop: 10,
@@ -99,6 +202,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
     lineHeight: 15,
+  },
+  tagContainer: {
+    position: 'absolute',
+    top: 30,
+    right: 10,
+    display: 'flex',
+    flexDirection: 'row',
   },
 })
 

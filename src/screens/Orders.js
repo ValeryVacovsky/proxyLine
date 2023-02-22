@@ -1,46 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity, Dimensions } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
 import UserNavigation from '../componets/UserNavigation'
 import OrdersList from '../componets/OrdersList'
-import getListOrders from '../api/getListOrders'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useListOrders } from '../hooks/useListOrders'
+import OrdersListData from '../componets/OrdersListData'
 
 function Orders({ navigation }) {
-  const [dataOrders, setDataOrders] = useState()
-  useEffect(() => {
-    const listProxies = async () => {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const dataProps = `${id}_${token}`
-      const data = await getListOrders({ token: dataProps, limit: '100', offset: '0' })
-      setDataOrders(data.data)
-    }
-    listProxies()
-  }, [])
+  const dataOrders = useListOrders()
   const proxyText = useSelector(res => res.textReducer.orders.payload)
   const heightOffScreen = Dimensions.get('window').height
   const ordersRes = useSelector(data => data.orderReducer)
+  console.log(dataOrders.dataOrders[0])
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
-        {ordersRes?.length > 0 && (
+        {ordersRes?.length + dataOrders.dataOrders.length > 0 && (
           <ScrollView style={styles.scrollView}>
             {ordersRes?.map(data => (
               <OrdersList key={data.data.id} navigation={navigation} data={data} text={proxyText} />
             ))}
-            {/* {dataOrders?.map(data => {
-              return (
-                <View key={data.id} style={{ width: '90%', height: 200, backgroundColor: 'rgba(51, 51, 51, 0.3)' }}>
-                  <Text>adasd</Text>
-                </View>
-              )
-            })} */}
+            {dataOrders.dataOrders.map(item => {
+              return <OrdersListData key={item.id} text={proxyText} data={item} />
+            })}
           </ScrollView>
         )}
         <View style={styles.scrollContainer}>
-          {ordersRes?.length === 0 && (
+          {ordersRes?.length + dataOrders.dataOrders?.length === 0 && (
             <View style={styles.ElementContainer}>
               <View style={styles.infoContainer}>
                 <View style={styles.infoBlock}>

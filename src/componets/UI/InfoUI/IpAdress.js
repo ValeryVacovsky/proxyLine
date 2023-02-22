@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, Text, Pressable } from 'react-native'
 import InfoCopyIcon from '../../../image/Svg/InfoCopyIcon'
 
-function IpAdress({ IP, text, handelOpenCopy }) {
+function IpAdress({ IP, text, handelOpenCopy, setCopy }) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
@@ -14,6 +14,7 @@ function IpAdress({ IP, text, handelOpenCopy }) {
             hitSlop={15}
             onPress={() => {
               handelOpenCopy(`${IP}`)
+              setCopy(true)
             }}>
             <InfoCopyIcon />
           </Pressable>

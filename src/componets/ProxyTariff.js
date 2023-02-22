@@ -1,40 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
 function ProxyTariff({ navigation, proxy, iPtype, proxyText }) {
-  const [iPtypes, setIpTypes] = useState([10, 10, 10])
-  useEffect(() => {
-    async function name() {
-      const ipTypes = []
-      postOrderAmount({
-        quantity: 1,
-        ip_type: 2,
-        ip_version: 4,
-        country: 'ru',
-        period: 5,
-        coupon: '',
-      }).then(data => ipTypes.push(data?.data.amount))
-      postOrderAmount({
-        quantity: 1,
-        ip_type: 1,
-        ip_version: 4,
-        country: 'ru',
-        period: 5,
-        coupon: '',
-      }).then(data => ipTypes.push(data?.data.amount))
-      postOrderAmount({
-        quantity: 1,
-        ip_type: 1,
-        ip_version: 6,
-        country: 'ru',
-        period: 5,
-        coupon: '',
-      }).then(data => ipTypes.push(data?.data.amount))
-      setIpTypes(ipTypes)
-    }
-    name()
-  }, [])
+  const iPtypes = useSelector(res => res.orderPriceReducer.orderPrice)
   return (
     <View style={styles.container}>
       <View style={styles.container2}>
@@ -58,11 +28,7 @@ function ProxyTariff({ navigation, proxy, iPtype, proxyText }) {
             </Text>
           </View>
           <View>
-            <Text
-              style={styles.priceText}
-              onPress={() => {
-                navigation.navigate('Balance')
-              }}>
+            <Text style={styles.priceText} onPress={() => {}}>
               $ {iPtype / 100}
             </Text>
           </View>

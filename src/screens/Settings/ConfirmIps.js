@@ -3,8 +3,12 @@ import { useSelector } from 'react-redux'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
+import DeleteToggleIcon from '../../image/Svg/DeleteToggleIcon'
+import { useCreateIps } from '../../hooks/useCreateIps'
 
 function ConfirmIps() {
+  const { setDeleteIps } = useCreateIps()
+  const ipsList = useSelector(data => data.ipsTagsReducer.ips)
   const [text, setText] = useState({})
   const balanceText = useSelector(res => res.textReducer.settings)
   useEffect(() => {
@@ -15,10 +19,14 @@ function ConfirmIps() {
       <View style={styles.container}>
         <ScrollView style={styles.scrollContainer}>
           <View style={styles.topContainer}>
-            <View style={styles.topTextContainer}>
-              <Text style={{ color: 'white', fontWeight: '400', fontSize: 13, lineHeight: 15, marginRight: 5 }}>x</Text>
-              <Text style={styles.ipText}>192.168.0.1</Text>
-            </View>
+            {ipsList.map(item => {
+              return (
+                <TouchableOpacity style={styles.topTextContainer} key={item.id} onPress={item => setDeleteIps(item)}>
+                  <DeleteToggleIcon />
+                  <Text style={styles.ipText}>{item.value}</Text>
+                </TouchableOpacity>
+              )
+            })}
           </View>
         </ScrollView>
         <View style={styles.bottomContainer}>
@@ -73,6 +81,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 13,
     lineHeight: 15,
+    marginLeft: 9,
   },
   bottomContainer: {
     width: '100%',

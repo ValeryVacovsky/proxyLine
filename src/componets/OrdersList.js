@@ -13,11 +13,6 @@ function OrdersList({ data, text }) {
   const [received, setReceived] = useState(data.data.statusActive)
   const [dateCreate, setDateCreate] = useState(new Date())
 
-  // const dateStart = data.data.dateActive
-  // const dateNow = new Date()
-  // let diff = (dateStart - dateNow) / 1000
-  // const hours = Math.abs(Math.round(diff))
-
   const onHandleSuccess = () => {
     dispatch(deleteObject({ statusActive: true, dateActive: new Date() }))
     setReceived(true)
@@ -84,7 +79,7 @@ function OrdersList({ data, text }) {
           <View style={styles.blockContainer}>
             <Text style={styles.leftText}>{text?.texts?.t6}</Text>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={styles.rightText}>Russian Federation</Text>
+              <Text style={styles.rightText}>Российская Федерация</Text>
               <View style={{ width: 16, height: 13, marginLeft: 10 }}>{flagByShortName[data.data.country]}</View>
             </View>
           </View>

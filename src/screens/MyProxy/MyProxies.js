@@ -80,13 +80,13 @@ function MyProxies({ navigation }) {
   }, [handleClosePress, handleSnapPress, navigation])
   return (
     <LayoutMain>
-      <View style={{ alignItems: 'center', display: 'flex' }}>
+      <View style={{ display: 'flex' }}>
         <View
           style={{
             backgroundColor: '#1E2127',
             color: '#CBCBCB',
             height: 44,
-            minWidth: '90%',
+            marginHorizontal: 20,
             marginBottom: 14,
             borderRadius: 8,
             borderWidth: 1,
@@ -117,6 +117,66 @@ function MyProxies({ navigation }) {
         </View>
         <SafeAreaView>
           <ScrollView style={{ width: '100%', marginBottom: selected ? 200 : 90 }}>
+            {/* <View style={{ width: '100%', height: 64, backgroundColor: 'rgba(255, 255, 255, 0.06)', marginBottom: 4 }}>
+              <View
+                style={{
+                  paddingLeft: 30,
+                  paddingRight: 20,
+                  paddingBottom: 14,
+                  paddingTop: 15,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  width: '100%',
+                }}>
+                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+                  <View style={{ width: 25, height: 25, top: 2, marginRight: 14 }}>
+                    <View style={{ width: '100%', height: '100%' }}>{flagByShortName['us']}</View>
+                  </View>
+                  <View style={{ maxWidth: 170 }}>
+                    <Text
+                      style={{
+                        fontWeight: '600',
+                        fontSize: 14,
+                        color: 'white',
+                        lineHeight: 15,
+                      }}>
+                      Bosnia and Herzegovina
+                    </Text>
+                    <View style={{ display: 'flex', flexDirection: 'row' }}>
+                      <Text
+                        style={{
+                          fontWeight: '700',
+                          fontSize: 11,
+                          color: '#0F1218',
+                          lineHeight: 15,
+                          paddingLeft: 8,
+                          paddingRight: 8,
+                          paddingTop: 4,
+                          paddingBottom: 4,
+                          backgroundColor: '#FAC637',
+                          borderRadius: 20,
+                        }}>
+                        IPv4
+                      </Text>
+                      <Text
+                        style={{
+                          fontWeight: '600',
+                          fontSize: 14,
+                          color: 'white',
+                          lineHeight: 15,
+                        }}>
+                        136.117.121.183
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <View>
+                  <Text>0</Text>
+                </View>
+              </View>
+            </View> */}
             {proxyLisStore.data?.map((proxy, index) => (
               <ProxyItem
                 key={proxy.id}

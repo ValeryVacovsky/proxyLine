@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
   mainContainer: {
     alignItems: 'center',
     width: '100%',
+    marginBottom: 20,
   },
   container: {
     alignItems: 'center',
     width: '100%',
     zIndex: 0,
-    marginTop: 11,
   },
   summeContainer: {
     borderRadius: 14,

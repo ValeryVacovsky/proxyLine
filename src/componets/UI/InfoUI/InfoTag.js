@@ -13,7 +13,7 @@ function InfoTag({ tag }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.danger.back,
+    backgroundColor: Colors.red.back,
     alignItems: 'center',
     borderRadius: 30,
     marginTop: 20,
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   item: {
     fontWeight: '600',
     fontSize: 13,
-    color: Colors.danger.color,
+    color: Colors.red.color,
     paddingBottom: 6,
     paddingTop: 6,
     paddingRight: 12,

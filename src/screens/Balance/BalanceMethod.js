@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity, TextInput, Dimensions } from 'react-native'
+import {
+  ScrollView,
+  StyleSheet,
+  SafeAreaView,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Dimensions,
+  Image,
+} from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LayoutMain from '../../componets/LayoutMain'
@@ -49,7 +59,6 @@ function BalanceMethod({ navigation, route }) {
   useEffect(() => {
     setFiltredMethods(methods?.filter(meth => meth?.name_en.toLowerCase()?.includes(valueProxy?.toLowerCase())))
   }, [valueProxy])
-
   const handelPayment = async () => {
     async function paymentTake() {
       try {
@@ -66,6 +75,7 @@ function BalanceMethod({ navigation, route }) {
     }
     paymentTake()
   }
+  console.log(filtredMethods[1])
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
@@ -79,7 +89,6 @@ function BalanceMethod({ navigation, route }) {
             minWidth: '90%',
             marginBottom: 14,
             borderRadius: 8,
-            borderWidth: 1,
             paddingLeft: 20,
             display: 'flex',
             flexDirection: 'row',
@@ -120,7 +129,7 @@ function BalanceMethod({ navigation, route }) {
                   justifyContent: 'space-between',
                 }}>
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                  <Qiwi style={{ marginRight: 24 }} />
+                  <Image style={{ marginLeft: 24, width: 24, height: 24 }} source={{ uri: data.icon_path_2 }} />
                   <Text style={{ fontWeight: '600', color: 'white', fontSize: 14, lineHeight: 15, maxWidth: '80%' }}>
                     {data.name_en}
                   </Text>

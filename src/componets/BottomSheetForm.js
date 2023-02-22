@@ -8,10 +8,13 @@ function BottomSheetForm({ sheetRef, snapPoints, setIsOpen, children }) {
   return (
     <BottomSheet
       ref={sheetRef}
+      backdropPressToClose={true}
       snapPoints={snapPoints}
       enablePanDownToClose
       onClose={() => setIsOpen(true)}
-      handleComponent={handleComponent}>
+      onCloseEnd={() => setIsOpen(true)}
+      handleComponent={handleComponent}
+      backdrop={true}>
       {children}
     </BottomSheet>
   )

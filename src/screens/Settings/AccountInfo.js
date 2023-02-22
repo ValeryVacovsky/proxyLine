@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     paddingLeft: 20,
     marginBottom: 10,

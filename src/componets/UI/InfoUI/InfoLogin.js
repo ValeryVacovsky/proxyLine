@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, Text, Pressable } from 'react-native'
 import InfoCopyIcon from '../../../image/Svg/InfoCopyIcon'
 
-function InfoLogin({ login, text, handelOpenCopy }) {
+function InfoLogin({ login, text, handelOpenCopy, setCopy }) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
@@ -13,7 +13,8 @@ function InfoLogin({ login, text, handelOpenCopy }) {
             activeOpacity={0.8}
             hitSlop={15}
             onPress={() => {
-              handelOpenCopy('11594')
+              handelOpenCopy(login)
+              setCopy(true)
             }}>
             <InfoCopyIcon />
           </Pressable>

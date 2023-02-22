@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, Text, Pressable } from 'react-native'
 import InfoCopyIcon from '../../../image/Svg/InfoCopyIcon'
 
-function Port({ port, text, handelOpenCopy }) {
+function Port({ port, text, handelOpenCopy, setCopy }) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
@@ -13,7 +13,8 @@ function Port({ port, text, handelOpenCopy }) {
             activeOpacity={0.8}
             hitSlop={15}
             onPress={() => {
-              handelOpenCopy('11594')
+              handelOpenCopy(port)
+              setCopy(true)
             }}>
             <InfoCopyIcon />
           </Pressable>
@@ -49,8 +50,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  smallText: { 
-    fontWeight: '700', fontSize: 14, color: 'white', marginRight: 10 }
+  smallText: {
+    fontWeight: '700',
+    fontSize: 14,
+    color: 'white',
+    marginRight: 10,
+  },
 })
 
 export default Port

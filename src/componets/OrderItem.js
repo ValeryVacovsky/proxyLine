@@ -148,7 +148,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
               }}>
               {selectedCountry}
             </Text>
-            <View style={{ width: 16, height: 16, top: 2, marginLeft: 5, marginRight: 5 }}>
+            <View style={{ width: 16, height: 16, marginLeft: 5, marginRight: 5 }}>
               {flagByShortName[selectedCountryShort]}
             </View>
             <VectorRightSmall width={6} height={12} style={{ top: 5, marginLeft: 10 }} />
@@ -312,7 +312,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
             paddingTop: 13,
             paddingBottom: 13,
           }}>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t7}</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t5}</Text>
           <Text style={{ color: 'white', fontWeight: '700', fontSize: 18 }}>$ {totalPrice}</Text>
         </View>
         <TouchableOpacity

@@ -28,7 +28,7 @@ function ProxyInfo({ navigation, route }) {
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
   const snapPoints = useMemo(() => ['15%'], [])
-  const [copy] = useState(false)
+  const [copy, setCopy] = useState(false)
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -37,9 +37,9 @@ function ProxyInfo({ navigation, route }) {
   const handleClosePress = useCallback(() => {
     sheetRef.current?.close()
   }, [])
-  const handelOpenCopy = () => {
+  const handelOpenCopy = item => {
     // eslint-disable-next-line react/no-unescaped-entities
-    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>Укажите баланс</BottomSheetCopy>)
+    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>{item}</BottomSheetCopy>)
     handleSnapPress(0)
     setTimeout(() => {
       handleClosePress()
@@ -68,10 +68,30 @@ function ProxyInfo({ navigation, route }) {
               <IdOrder id={proxyInfo.id} text={proxyInfoText?.texts} />
               <Country countryName={proxyInfo.country_id} text={proxyInfoText?.texts} />
               <Version vesion={proxyInfo.ip_version} text={proxyInfoText?.texts} />
-              <IpAdress IP={proxyInfo.ip} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
-              <Port port={proxyInfo.port_socks5} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
-              <InfoLogin login={proxyInfo.username} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
-              <InfoPassword password={proxyInfo.password} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
+              <IpAdress
+                IP={proxyInfo.ip}
+                handelOpenCopy={handelOpenCopy}
+                text={proxyInfoText?.texts}
+                setCopy={setCopy}
+              />
+              <Port
+                port={proxyInfo.port_socks5}
+                handelOpenCopy={handelOpenCopy}
+                text={proxyInfoText?.texts}
+                setCopy={setCopy}
+              />
+              <InfoLogin
+                login={proxyInfo.username}
+                handelOpenCopy={handelOpenCopy}
+                text={proxyInfoText?.texts}
+                setCopy={setCopy}
+              />
+              <InfoPassword
+                password={proxyInfo.password}
+                handelOpenCopy={handelOpenCopy}
+                text={proxyInfoText?.texts}
+                setCopy={setCopy}
+              />
               <InfoType type="HTTP" text={proxyInfoText?.texts} />
             </View>
             <InfoCheckButton text={proxyInfoText?.buttons} />
