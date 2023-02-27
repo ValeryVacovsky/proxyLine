@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { flagByShortName } from '../../../common/flagByShortName'
 import VectorYellowBig from '../../../image/Svg/VectorYellowBig'
 import BottomSheetItem from './BottomSheetItem'
@@ -19,7 +19,6 @@ function ProxyItemExtend({
   onChange,
   proxyRes,
 }) {
-  const heightOffScreen = Dimensions.get('window').height
   const [text, setText] = useState({})
   const balanceText = useSelector(res => res.textReducer.myproxies)
   useEffect(() => {
@@ -28,23 +27,15 @@ function ProxyItemExtend({
   return (
     <TouchableOpacity style={styles.container} onPress={() => onChange(proxy?.id)} activeOpacity={0.8}>
       <View
-        style={
-          heightOffScreen > 900
-            ? {
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                width: '90%',
-                flexDirection: 'row',
-              }
-            : {
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                width: '96.5%',
-                flexDirection: 'row',
-              }
-        }>
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '100%',
+          flexDirection: 'row',
+          paddingLeft: 30,
+          paddingRight: 20,
+        }}>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
           <View style={{ width: 35, height: 35, top: 10 }}>
             <View style={{ width: '100%', height: '100%' }}>{flagByShortName[proxyRes.country_id]}</View>

@@ -11,7 +11,8 @@ import postAuth from '../../api/postAuth'
 import VectorOpen from '../../image/Svg/VectorOpen'
 import ViewIcon from '../../image/Svg/ViewIcon'
 import ViewIconOff from '../../image/Svg/ViewIconOff'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setAuth } from '../../store/reducers/authReducer'
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -20,6 +21,7 @@ const heightOffScreen = Dimensions.get('window').height
 // const PASSWOR_REGEX;
 
 function AuthAuthauthentification({ navigation }) {
+  const dispatch = useDispatch()
   const [text, setText] = useState({})
   const [commonFormError, setCommonFormError] = useState('')
   const [focusOnEmail, setFocusOnEmail] = useState(false)
@@ -73,7 +75,14 @@ function AuthAuthauthentification({ navigation }) {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text onPress={() => navigation.navigate('Main')} style={styles.authLogo}>
+          <Text
+            onPress={() => {
+              dispatch(setAuth(true))
+              setTimeout(() => {
+                navigation.navigate('Main')
+              }, 500)
+            }}
+            style={styles.authLogo}>
             {text?.texts?.t16}
           </Text>
           {errors.email ? (

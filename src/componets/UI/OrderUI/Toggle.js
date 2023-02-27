@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     position: 'absolute',
     top: 12,
-    left: 14,
+    left: 24,
     zIndex: 1,
   },
   eahcStylesOf: {

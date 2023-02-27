@@ -7,6 +7,7 @@ function BalanceListSystem({ name, data, navigation, amount, handelOpenCopy, may
   const handlePress = () => {
     mayGo ? navigation.navigate('BalanceMethod', { dataNav }) : handelOpenCopy()
   }
+  console.log(data)
   return (
     <TouchableOpacity style={styles.mainContainer} activeOpacity={0.8} onPress={handlePress}>
       <View style={styles.container}>

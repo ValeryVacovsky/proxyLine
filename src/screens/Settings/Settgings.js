@@ -7,6 +7,7 @@ import CheckProxy from '../../image/Svg/CheckProxy'
 import CheckSpeed from '../../image/Svg/CheckSpeed'
 import SettingsVector from '../../image/Svg/SettingsVector'
 import SettingsVector2 from '../../image/Svg/SettingsVector2'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function Settgings({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
@@ -19,9 +20,17 @@ function Settgings({ navigation }) {
             style={styles.balanceIcon}
             activeOpacity={0.8}
             onPress={() => navigation.navigate('Account')}>
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.texts?.t0}</Text>
+            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 14 }}>{text?.texts?.t0}</Text>
           </TouchableOpacity>
         </View>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Настройки</Text>
+        </TouchableOpacity>
       ),
     })
   }, [navigation])

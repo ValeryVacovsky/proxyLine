@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import VectorRightSmall from '../../../image/Svg/VectorRightSmall'
+import BottomSheetTags from './BottomSheet/BottomSheetTags'
 
-function Tags({ tags, setFilters }) {
-  const [prots] = useState(['Тестовые', 'Лучшие прокси', 'Новые', 'Разные'])
+function Tags({ tags, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
+  const [tagsList, setTagsList] = useState(['Тестовые', 'Лучшие прокси', 'Новые', 'Разные'])
   const handlePress = item => {
     setFilters(prevState =>
       prevState.tags.includes(item)
@@ -14,11 +15,22 @@ function Tags({ tags, setFilters }) {
         : { ...prevState, tags: prevState.tags.concat(item) },
     )
   }
+  const handleOpenBottomSheet = () => {
+    setChildrenItem(
+      <BottomSheetTags handleClosePress={handleClosePress} setIsOpen={setIsOpen} setTagsList={setTagsList} />,
+    )
+    setTimeout(() => {
+      handleSnapPress(1)
+    }, 500)
+
+    setIsOpen(true)
+    console.log(123)
+  }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
         <Text style={styles.text}>Теги</Text>
-        <TouchableOpacity activeOpacity={0.8}>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => handleOpenBottomSheet()}>
           <View style={styles.topContainer}>
             <Text style={styles.textInfo}>Выбрать</Text>
             <VectorRightSmall />
@@ -26,7 +38,7 @@ function Tags({ tags, setFilters }) {
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
-        {prots.map(item => (
+        {tagsList.map(item => (
           <TouchableOpacity
             key={item}
             style={{

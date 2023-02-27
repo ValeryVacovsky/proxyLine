@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'rea
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import getListProxies from '../api/getListProxies'
 import { setProxy } from '../store/reducers/proxyReducer'
+import { flagByShortName } from '../common/flagByShortName'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutAuth from '../componets/LayoutAuth'
@@ -22,10 +23,14 @@ import ButtonOff from '../image/ButtonOff.png'
 import { useProxyOrder } from '../hooks/useProxyOrder'
 import { useListTags } from '../hooks/useListTags'
 import { useListIps } from '../hooks/useListIps'
+import useBalance from '../hooks/useBalance'
+import { useListOrders } from '../hooks/useListOrders'
 // import postAuth from "../api";
 // import axios from 'axios'
 
 function Main({ navigation }) {
+  useListOrders()
+  useBalance()
   useProxyOrder()
   useListTags()
   useListIps()
@@ -225,7 +230,9 @@ function Main({ navigation }) {
                         flexDirection: 'row',
                         alignItems: 'center',
                       }}>
-                      <FlagUseBig />
+                      <View style={{ width: 32, height: 24 }}>
+                        <View style={{ width: '100%', height: '100%' }}>{flagByShortName['us']}</View>
+                      </View>
                       <View style={{ marginLeft: 14 }}>
                         <View>
                           <Text style={{ color: 'white', lineHeight: 14, fontWeight: '600' }}>
@@ -459,19 +466,19 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   IPContainer: {
-    display: 'flex',
+    paddingBottom: 2,
+    paddingTop: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
     backgroundColor: '#FAC637',
     borderRadius: 20,
-    alignItems: 'center',
   },
   IPText: {
     color: '#0F1218',
-    paddingBottom: 4,
-    paddingTop: 4,
-    paddingLeft: 8,
-    paddingRight: 8,
     fontWeight: '700',
     fontSize: 11,
+    lineHeight: 15,
+    textAlign: 'center',
   },
   http: {
     color: 'white',

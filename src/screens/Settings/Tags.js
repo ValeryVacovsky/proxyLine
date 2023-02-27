@@ -8,8 +8,9 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import { Colors } from '../../utils/Color'
 import DeleteToggleIcon from '../../image/Svg/DeleteToggleIcon'
 import { useCreateTag } from '../../hooks/useCreateTag'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
-function Tags() {
+function Tags({ navigation }) {
   const { createTag, setDeleteTag } = useCreateTag()
   const tags = useSelector(data => data.ipsTagsReducer.tags)
   const text = useSelector(res => res.textReducer.settings.payload)
@@ -21,6 +22,18 @@ function Tags() {
   const handleChange = text => {
     setValue(text)
   }
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Настройки</Text>
+        </TouchableOpacity>
+      ),
+    })
+  }, [navigation])
   return (
     <LayoutMain style={styles.layOutConatiner}>
       <View style={styles.container}>
@@ -125,7 +138,6 @@ function Tags() {
               />
             </View>
           </View>
-
           <TouchableOpacity
             style={styles.bottomTextContainer}
             onPress={() => {

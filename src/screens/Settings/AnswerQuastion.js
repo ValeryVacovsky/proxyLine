@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, Text, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 import LayoutMain from '../../componets/LayoutMain'
 import AnswerLine from '../../componets/UI/Settings/AnswerLine'
@@ -27,6 +28,14 @@ function AnswerQuastion({ navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Настройки</Text>
+        </TouchableOpacity>
       ),
     })
   }, [navigation])

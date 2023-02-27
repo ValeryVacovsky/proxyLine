@@ -1,12 +1,15 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
-function OrderCount({ count, text }) {
+function OrderCount({ days, text, month }) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
         <Text style={styles.bigText}>{text?.t12}</Text>
-        <Text style={styles.smallText}>{count}</Text>
+        <Text style={styles.smallText}>
+          {month} {month > 0 && 'месяцев'}
+          {days} дней
+        </Text>
       </View>
     </View>
   )

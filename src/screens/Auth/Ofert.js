@@ -2,6 +2,7 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 import { useForm } from 'react-hook-form'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
@@ -19,6 +20,18 @@ function Ofert({ navigation }) {
   const onSubmit = () => {
     navigation.navigate('Main')
   }
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
+        </TouchableOpacity>
+      ),
+    })
+  })
   return (
     <LayoutAuth>
       <View style={{ marginTop: 25 }}>

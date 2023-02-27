@@ -4,6 +4,7 @@ import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Dimensions, Scr
 import { TextInput } from 'react-native-gesture-handler'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutMain from '../../componets/LayoutMain'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function MessageForm({ navigation }) {
   const [text, setText] = useState({})
@@ -13,6 +14,18 @@ function MessageForm({ navigation }) {
   }, [balanceText])
   const heightOffScreen = Dimensions.get('window').height
   const [textValue, setTextValue] = useState('')
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Настройки</Text>
+        </TouchableOpacity>
+      ),
+    })
+  }, [navigation])
   return (
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>

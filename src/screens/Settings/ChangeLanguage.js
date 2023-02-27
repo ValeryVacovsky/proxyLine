@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { StyleSheet, SafeAreaView, Text, View } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import { ScrollView } from 'react-native-gesture-handler'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
@@ -8,9 +8,10 @@ import DarkRadioUncheked from '../../image/Svg/DarkRadioUncheked'
 import LightRadioUncheked from '../../image/Svg/LightRadioUncheked'
 import { flagByShortName } from '../../common/flagByShortName'
 import { addLanguageStatus } from '../../store/reducers/textReducer'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 import getAllTexts from '../../common/getAllTexts'
 
-function ChangeLanguage() {
+function ChangeLanguage({ navigation }) {
   const dispatch = useDispatch()
   const [countriesShort, setCountriesShort] = useState([])
   const balanceText = useSelector(res => res.textReducer.languages)
@@ -18,6 +19,18 @@ function ChangeLanguage() {
   useEffect(() => {
     setCountriesShort(balanceText.payload.languages)
   }, [balanceText])
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Настройки</Text>
+        </TouchableOpacity>
+      ),
+    })
+  }, [navigation])
   return (
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>

@@ -12,7 +12,11 @@ function Orders({ navigation }) {
   const proxyText = useSelector(res => res.textReducer.orders.payload)
   const heightOffScreen = Dimensions.get('window').height
   const ordersRes = useSelector(data => data.orderReducer)
-  console.log(dataOrders.dataOrders[0])
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTintColor: 'transparent',
+    })
+  }, [navigation])
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>

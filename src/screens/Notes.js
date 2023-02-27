@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, View, Pressable, Keyboard } from 'r
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutMain from '../componets/LayoutMain'
 import NotesTab from '../image/Svg/NotesTab'
+import HeaderTintBack from '../image/Svg/HeaderTintBack'
 import { TextInput } from 'react-native-gesture-handler'
 import postUserComment from '../api/postUserComment'
 import { useSelector } from 'react-redux'
@@ -81,6 +82,14 @@ function Notes({ navigation }) {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => <View style={{ marginLeft: 15 }}>{openStatusItem}</View>,
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Мои прокси</Text>
+        </TouchableOpacity>
+      ),
     })
   }, [navigation])
   const onChange = event => {

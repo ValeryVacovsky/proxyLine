@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
-import { ScrollView, StyleSheet, SafeAreaView, Text, View, TextInput } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ScrollView, StyleSheet, SafeAreaView, Text, View, TextInput, TouchableOpacity } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
-import getBalance from '../../api/getBalance'
 import BalanceTopTableSystems from '../../componets/UI/BalanceUI/BalanceTopTableSystems'
 import BalanceListSystem from '../../componets/Balance/BalanceListSystem'
 import { useSelector } from 'react-redux'
 import BottomSheetForm from '../../componets/BottomSheetForm'
 import BottomSheetCopy from '../../componets/UI/ProxyUI/BottomSheetCopy'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function BalanceSystems({ navigation }) {
   const [text, setText] = useState({})
@@ -18,7 +17,7 @@ function BalanceSystems({ navigation }) {
   const [amount, setAmount] = useState(null)
   const systems = useSelector(res => res.BalanceSystems.BalanceSystems)
   const [balanceSystems, setBalanceSystems] = useState([])
-  const [balance, setBalance] = useState({ balance: null })
+  const balance = useSelector(data => data.balanceReducer)
   const sheetRef = useRef(null)
   const snapPoints = useMemo(() => ['15%'], [])
   const [, setIsOpen] = useState(false)
@@ -34,7 +33,6 @@ function BalanceSystems({ navigation }) {
   const [error, setError] = useState(false)
   const [mayGo, setMayGo] = useState(false)
   const handelOpenCopy = () => {
-    // eslint-disable-next-line react/no-unescaped-entities
     setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>{text?.texts?.t8}</BottomSheetCopy>)
     handleSnapPress(0)
     setError(true)
@@ -48,16 +46,7 @@ function BalanceSystems({ navigation }) {
   handlePressRequest = () => {
     navigation.navigate('BalanceMethod', { dataNav })
   }
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const dataProps = `${id}_${token}`
-      const data = await getBalance(dataProps)
-      await setBalance(data.data)
-    }
-    fetchData()
-  }, [])
+
   useEffect(() => {
     setBalanceSystems(systems)
   }, [systems])
@@ -68,31 +57,28 @@ function BalanceSystems({ navigation }) {
       setMayGo(true)
     }
   }, [amount])
-  console.log('syste', balanceSystems[0].icon_path_2)
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
+        </TouchableOpacity>
+      ),
+    })
+  })
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         <BalanceTopTableSystems balance={balance.balance} navigation={navigation} />
         <Text style={styles.text}>{text?.texts?.t6}</Text>
-        <View
-          style={{
-            backgroundColor: '#1E2127',
-            color: '#CBCBCB',
-            height: 44,
-            minWidth: '90%',
-            borderRadius: 8,
-            paddingLeft: 20,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            position: 'relative',
-            marginHorizontal: 20,
-            marginBottom: 5,
-          }}>
+        <View style={styles.topInputContainer}>
           <TextInput
             onFocus={() => {}}
             onBlur={() => {}}
-            style={{ color: 'white', width: '80%', height: '100%', paddingLeft: 10 }}
+            style={styles.inputFilter}
             onChangeText={setAmount}
             value={amount}
             iconPosition="right"
@@ -102,17 +88,7 @@ function BalanceSystems({ navigation }) {
             keyboardType="numeric"
             returnKeyType="done"
           />
-          <Text
-            style={{
-              position: 'absolute',
-              left: '4%',
-              fontSize: 20,
-              fontWeight: '600',
-              lineHeight: 25,
-              color: '#4F4F4F',
-            }}>
-            $
-          </Text>
+          <Text style={styles.placeholderText}>$</Text>
         </View>
         <Text style={styles.text}>{text?.texts?.t7}</Text>
         <ScrollView style={styles.scrollView}>
@@ -170,6 +146,34 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     color: '#008f68',
     fontSize: 12,
+  },
+  topInputContainer: {
+    backgroundColor: '#1E2127',
+    color: '#CBCBCB',
+    height: 44,
+    minWidth: '90%',
+    borderRadius: 8,
+    paddingLeft: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+    marginHorizontal: 20,
+    marginBottom: 5,
+  },
+  inputFilter: {
+    color: 'white',
+    width: '80%',
+    height: '100%',
+    paddingLeft: 10,
+  },
+  placeholderText: {
+    position: 'absolute',
+    left: '4%',
+    fontSize: 20,
+    fontWeight: '600',
+    lineHeight: 25,
+    color: '#4F4F4F',
   },
 })
 

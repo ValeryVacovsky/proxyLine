@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { ScrollView, View, StyleSheet, Text, Pressable } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import LayoutMain from '../componets/LayoutMain'
 import OrderItem from '../componets/OrderItem'
 import CloudProxyIcon from '../image/Svg/CloudProxyIcon'
 import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
 import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
-import getBalance from '../api/getBalance'
 import HeaderProxy from '../image/Svg/HeaderProxy'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import HeaderTintBack from '../image/Svg/HeaderTintBack'
 
 function Order({ navigation, route }) {
   const [text, setText] = useState({})
@@ -18,16 +18,7 @@ function Order({ navigation, route }) {
   }, [proxyText, text])
   const [scrolling, setScrolling] = useState(true)
   const [currentProxyId, setCurrentProxyId] = useState(390)
-  const [balance, setBalance] = useState({ balance: null })
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const data = await getBalance(`${id}_${token}`)
-      await setBalance(data?.data)
-    }
-    fetchData()
-  }, [])
+  const balance = useSelector(data => data.balanceReducer)
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -42,6 +33,14 @@ function Order({ navigation, route }) {
             <HeaderProxy style={{ marginLeft: 3 }} />
           </Pressable>
         </View>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
+        </TouchableOpacity>
       ),
     })
   }, [navigation, balance])

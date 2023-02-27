@@ -35,9 +35,19 @@ const countreisList = [
   },
 ]
 
-function CountriesItem({ countries, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
+function CountriesItem({
+  countries,
+  setFilters,
+  setChildrenItem,
+  handleClosePress,
+  handleSnapPress,
+  setIsOpen,
+  countriesExclude,
+}) {
   // Здесь чуть позже использую setCountry
-  const [country] = useState(['ru', 'en', 'ch'])
+  const [country, setCountry] = useState(['ru', 'us', 'fr', 'de'])
+  const [countryExclude, setCountryExclude] = useState(['ru', 'us', 'fr', 'de'])
+  console.log('выбранные страны', country)
   const handlePress = item => {
     setFilters(prevState =>
       prevState.countries.includes(item)
@@ -49,14 +59,29 @@ function CountriesItem({ countries, setFilters, setChildrenItem, handleClosePres
     )
     handleClosePress()
   }
+  const handlePressExclude = item => {
+    setFilters(prevState =>
+      prevState.countries_exclude.includes(item)
+        ? {
+            ...prevState,
+            countries_exclude: prevState.countries_exclude.filter(active => active !== item),
+          }
+        : { ...prevState, countries_exclude: prevState.countries_exclude.concat(item) },
+    )
+    handleClosePress()
+  }
   const handleOpenBottomSheet = () => {
-    handleSnapPress(1)
+    setTimeout(() => {
+      handleSnapPress(2)
+    }, 500)
     setIsOpen(true)
     setChildrenItem(
       <BottomSheetDateCountries
         countreisList={countreisList}
         handleClosePress={handleClosePress}
         setIsOpen={setIsOpen}
+        countries={countries}
+        setFilters={setFilters}
       />,
     )
   }
@@ -89,6 +114,32 @@ function CountriesItem({ countries, setFilters, setChildrenItem, handleClosePres
                 fontWeight: '600',
                 fontSize: 13,
                 color: countries.includes(item) ? '#0F1218' : 'white',
+                paddingBottom: 6,
+                paddingTop: 6,
+                paddingRight: 12,
+                paddingLeft: 12,
+              }}>
+              {item}
+            </Text>
+          </TouchableOpacity>
+        ))}
+        {countryExclude.map(item => (
+          <TouchableOpacity
+            key={item}
+            style={{
+              backgroundColor: countriesExclude.includes(item) ? '#EC3641' : 'rgba(236, 54, 65, 0.1)',
+              alignItems: 'center',
+              borderRadius: 30,
+              marginTop: 10,
+              marginRight: 10,
+            }}
+            activeOpacity={0.8}
+            onPress={() => handlePressExclude(item)}>
+            <Text
+              style={{
+                fontWeight: '600',
+                fontSize: 13,
+                color: countriesExclude.includes(item) ? '#0F1218' : '#EC3641',
                 paddingBottom: 6,
                 paddingTop: 6,
                 paddingRight: 12,

@@ -8,6 +8,7 @@ import BottomSheetForm from '../../componets/BottomSheetForm'
 import ProxyItemExtend from '../../componets/UI/ProxyUI/ProxyItemExtend'
 import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectForm'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 const MyProxiesList = [
   {
@@ -149,83 +150,90 @@ function ExtendProxies({ navigation }) {
           <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.buttons?.b14}</Text>
         </TouchableOpacity>
       ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Мои прокси</Text>
+        </TouchableOpacity>
+      ),
     })
   }, [arryId, navigation])
   return (
     <LayoutMain>
-      <View style={{ alignItems: 'center', display: 'flex' }}>
-        <View
-          style={{
-            backgroundColor: '#1E2127',
-            color: '#CBCBCB',
-            height: 44,
-            minWidth: '90%',
-            marginBottom: 14,
-            borderRadius: 8,
-            borderWidth: 1,
-            paddingLeft: 20,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            position: 'relative',
-          }}>
-          <TextInput
-            onFocus={() => {}}
-            onBlur={() => {}}
-            style={{ color: 'white', width: '80%', height: '100%', textAlign: 'center' }}
-            onChangeText={setValueProxy}
-            value={valueProxy}
-            iconPosition="right"
-            placeholder="Найти прокси"
-            placeholderTextColor="#CBCBCB"
+      <View
+        style={{
+          backgroundColor: '#1E2127',
+          color: '#CBCBCB',
+          height: 44,
+          marginBottom: 14,
+          borderRadius: 8,
+          borderWidth: 1,
+          paddingLeft: 20,
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          position: 'relative',
+          marginRight: 20,
+          marginLeft: 20,
+        }}>
+        <TextInput
+          onFocus={() => {}}
+          onBlur={() => {}}
+          style={{ color: 'white', width: '80%', height: '100%', textAlign: 'center' }}
+          onChangeText={setValueProxy}
+          value={valueProxy}
+          iconPosition="right"
+          placeholder="Найти прокси"
+          placeholderTextColor="#CBCBCB"
+        />
+        {valueProxy.length === 0 && (
+          <ProxiesSearch
+            style={
+              heightOffScreen > 700 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '68%' }
+            }
           />
-          {valueProxy.length === 0 && (
-            <ProxiesSearch
-              style={
-                heightOffScreen > 700 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '68%' }
-              }
-            />
-          )}
-        </View>
-        <SafeAreaView>
-          <ScrollView
-            style={{
-              width: selectedProxies.length > 0 ? '90%' : '90%',
-              marginBottom: selectedProxies.length > 0 ? 300 : 90,
-            }}
-            decelerationRate="fast">
-            {proxyLisStore?.map((proxy, index) => (
-              <ProxyItemExtend
-                key={proxy.id}
-                proxy={MyProxiesList[index]}
-                handleSnapPress={handleSnapPress}
-                handleClosePress={handleClosePress}
-                onChange={onChange}
-                selectedProxies={selectedProxies}
-                navigation={navigation}
-                proxyRes={proxy}
-              />
-            ))}
-          </ScrollView>
-        </SafeAreaView>
-        {selectedProxies.length > 0 && (
-          <BottomSheetForm
-            navigation={navigation}
-            sheetRef={sheetRef}
-            snapPoints={snapPoints}
-            setIsOpen={setIsOpen}
-            handleClosePress={handleClosePress}>
-            <BottomSheetSelectForm
-              handleClosePress={handleClosePress}
-              navigation={navigation}
-              setSelectedProxies={setSelectedProxies}
-              selected={selectedProxies.length}
-              move={text?.buttons?.b10}
-              text={text?.buttons?.b10}
-            />
-          </BottomSheetForm>
         )}
       </View>
+      <SafeAreaView>
+        <ScrollView
+          style={{
+            width: '100%',
+            marginBottom: selectedProxies.length > 0 ? 300 : 90,
+          }}
+          decelerationRate="fast">
+          {proxyLisStore?.map((proxy, index) => (
+            <ProxyItemExtend
+              key={proxy.id}
+              proxy={MyProxiesList[index]}
+              handleSnapPress={handleSnapPress}
+              handleClosePress={handleClosePress}
+              onChange={onChange}
+              selectedProxies={selectedProxies}
+              navigation={navigation}
+              proxyRes={proxy}
+            />
+          ))}
+        </ScrollView>
+      </SafeAreaView>
+      {selectedProxies.length > 0 && (
+        <BottomSheetForm
+          navigation={navigation}
+          sheetRef={sheetRef}
+          snapPoints={snapPoints}
+          setIsOpen={setIsOpen}
+          handleClosePress={handleClosePress}>
+          <BottomSheetSelectForm
+            handleClosePress={handleClosePress}
+            navigation={navigation}
+            setSelectedProxies={setSelectedProxies}
+            selected={selectedProxies.length}
+            move={text?.buttons?.b10}
+            text={text?.buttons?.b10}
+          />
+        </BottomSheetForm>
+      )}
     </LayoutMain>
   )
 }
@@ -239,7 +247,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollView: {
-    marginHorizontal: 20,
     marginTop: 20,
   },
   text: {

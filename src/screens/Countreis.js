@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import CountrySlot from '../componets/CountrySlot'
 import LayoutMain from '../componets/LayoutMain'
+import HeaderTintBack from '../image/Svg/HeaderTintBack'
 
 const countreisList = [
   {
@@ -37,10 +38,21 @@ const countreisList = [
 ]
 
 function Countreis({ navigation, route }) {
-  const [text, setText] = useState({})
   const proxyText = useSelector(res => res.textReducer)
   const [selectedCountryShort, setSelectedCountryShort] = useState(route.params.selectedCountryShort)
   const [selectedCountry, setSelectedCountry] = useState(route.params.selectedCountry)
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Заказ</Text>
+        </TouchableOpacity>
+      ),
+    })
+  }, [navigation])
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
@@ -61,7 +73,7 @@ function Countreis({ navigation, route }) {
           })}
         </ScrollView>
       </SafeAreaView>
-      <TouchableOpacity onPress={() => navigation.navigate('Proxy')} style={styles.button} activeOpacity={0.8}>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.button} activeOpacity={0.8}>
         <SuperEllipseMaskView
           radius={{
             topLeft: 12,

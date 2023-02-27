@@ -8,10 +8,12 @@ import { filterReducer } from './reducers/filterReducer'
 import { BalanceSystems } from './reducers/balanceSystems'
 import { orderPriceReducer } from './reducers/orderPriceReducer'
 import { ipsTagsReducer } from './reducers/ipsTagsReducer'
+import { balanceReducer } from './reducers/balanceReducer'
+import { ordersReducer } from './reducers/ordersReducer'
 import thunk from 'redux-thunk'
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+  authReducer,
   proxy: proxyReducer,
   orderReducer,
   countryOrderReducer,
@@ -20,6 +22,8 @@ const rootReducer = combineReducers({
   filterReducer,
   orderPriceReducer,
   ipsTagsReducer,
+  balanceReducer,
+  ordersReducer,
 })
 
 const configureStore = () => createStore(rootReducer, applyMiddleware(thunk))

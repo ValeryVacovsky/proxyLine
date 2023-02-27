@@ -20,9 +20,9 @@ function ProxyItem({
   index,
   text,
 }) {
-  const dateStart = new Date(proxyRes.date_start)
+  const dateStart = new Date(proxyRes.date_end)
   const dateEnd = new Date()
-  const dateNeed = (dateEnd - dateStart) / 1000 / (60 * 60 * 24)
+  const dateNeed = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
   return (
     <View style={styles.container}>
       <View style={styles.mainContainer}>
@@ -57,17 +57,17 @@ function ProxyItem({
                   paddingBottom: 2,
                   paddingLeft: 6,
                   paddingRight: 6,
-                  backgroundColor: '#333842',
+                  backgroundColor: dateNeed > 3 ? '#333842' : 'rgba(226, 58, 58, 0.2)',
                   borderRadius: 4,
                 }}>
                 <Text
                   style={{
                     fontWeight: '600',
                     fontSize: 11,
-                    color: '#CBCBCB',
+                    color: dateNeed > 3 ? '#CBCBCB' : '#E23A3A',
                     lineHeight: 15,
                   }}>
-                  {Math.abs(Math.round(dateNeed))} {text?.texts?.t5}
+                  {dateNeed > 0 ? dateNeed : 0} {text?.texts?.t5}
                 </Text>
               </View>
             </View>
@@ -99,6 +99,7 @@ function ProxyItem({
                   fontSize: 13,
                   fontWeight: '400',
                   marginLeft: 6,
+                  maxWidth: 170,
                 }}>
                 {proxyRes?.ip}
               </Text>
@@ -110,6 +111,7 @@ function ProxyItem({
             hitSlop={5}
             onPress={() => {
               setProxyItemPicked(proxyRes?.id)
+              setProxyItemPicked(true)
               childrenItem && handleSnapPress(0)
               setSelected(null)
               setChildrenItem(

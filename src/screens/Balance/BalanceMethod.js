@@ -14,14 +14,13 @@ import {
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LayoutMain from '../../componets/LayoutMain'
-import getBalance from '../../api/getBalance'
 import BalanceTopTableSystems from '../../componets/UI/BalanceUI/BalanceTopTableSystems'
-import Qiwi from '../../image/Svg/Qiwi'
 import LightRadioUncheked from '../../image/Svg/LightRadioUncheked'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import DarkRadioUncheked from '../../image/Svg/DarkRadioUncheked'
 import postCreatePayment from '../../api/postCreatePayment'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function BalanceMethod({ navigation, route }) {
   const [text, setText] = useState({})
@@ -32,7 +31,7 @@ function BalanceMethod({ navigation, route }) {
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const amount = route.params?.dataNav.amount
-  const [balance, setBalance] = useState({ balance: null })
+  const balance = useSelector(data => data.balanceReducer)
   const [methods] = useState(route.params?.dataNav?.methods)
   const [filtredMethods, setFiltredMethods] = useState(route.params?.dataNav?.methods)
   const [selectedMethod, setSelectedMethod] = useState('')
@@ -45,16 +44,6 @@ function BalanceMethod({ navigation, route }) {
       setSelectedStatus(false)
     }
   }, [selectedMethod])
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const dataProps = `${id}_${token}`
-      const data = await getBalance(dataProps)
-      await setBalance(data.data)
-    }
-    fetchData()
-  }, [])
 
   useEffect(() => {
     setFiltredMethods(methods?.filter(meth => meth?.name_en.toLowerCase()?.includes(valueProxy?.toLowerCase())))
@@ -75,7 +64,18 @@ function BalanceMethod({ navigation, route }) {
     }
     paymentTake()
   }
-  console.log(filtredMethods[1])
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
+        </TouchableOpacity>
+      ),
+    })
+  })
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
@@ -129,7 +129,7 @@ function BalanceMethod({ navigation, route }) {
                   justifyContent: 'space-between',
                 }}>
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                  <Image style={{ marginLeft: 24, width: 24, height: 24 }} source={{ uri: data.icon_path_2 }} />
+                  <Image style={{ marginHorizontal: 24, width: 24, height: 24 }} source={{ uri: data.icon_path_2 }} />
                   <Text style={{ fontWeight: '600', color: 'white', fontSize: 14, lineHeight: 15, maxWidth: '80%' }}>
                     {data.name_en}
                   </Text>

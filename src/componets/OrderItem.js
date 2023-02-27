@@ -19,8 +19,8 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
   }
   const dispatch = useDispatch()
   const [amount, setAmount] = useState(1)
-  const [totalPrice, setTotalPrice] = useState(100)
-  const [days, setDays] = useState(30)
+  const [totalPrice, setTotalPrice] = useState(0.1)
+  const [days, setDays] = useState(5)
   const [selectedCountryShort, setSelectedCountryShort] = useState('ru')
   const [selectedCountry, setSelectedCountry] = useState('Russian Federation')
   useEffect(() => {
@@ -32,7 +32,9 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         country: 'ru',
         period: days,
         coupon: '',
-      }).then(data => setTotalPrice(data.data.amount / 100))
+      }).then(data => {
+        setTotalPrice(data.data.amount / 100)
+      })
     }
     name()
   }, [days, amount, order.ip_type, order.ip_version])
@@ -124,6 +126,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
             flexDirection: 'row',
             justifyContent: 'space-between',
             width: '100%',
+            alignItems: 'center',
             paddingTop: 13,
             paddingBottom: 13,
           }}
@@ -151,7 +154,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
             <View style={{ width: 16, height: 16, marginLeft: 5, marginRight: 5 }}>
               {flagByShortName[selectedCountryShort]}
             </View>
-            <VectorRightSmall width={6} height={12} style={{ top: 5, marginLeft: 10 }} />
+            <VectorRightSmall width={6} height={12} style={{ top: 1, marginLeft: 10 }} />
           </View>
         </TouchableOpacity>
         <View

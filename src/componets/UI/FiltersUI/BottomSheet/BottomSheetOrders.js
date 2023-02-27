@@ -26,7 +26,8 @@ function BottomSheetOrders({ handleClosePress, setIsOpen, setOrdersDefault }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#0F1218',
-    borderRadius: 10,
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

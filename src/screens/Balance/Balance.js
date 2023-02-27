@@ -1,48 +1,43 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, StyleSheet, SafeAreaView, Text } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import BalanceList from '../../componets/Balance/BalanceList'
 import BalanceTopTable from '../../componets/UI/BalanceUI/BalanceTopTable'
 import BalanceClearTable from '../../componets/UI/BalanceUI/BalanceClearTable'
-import getBalance from '../../api/getBalance'
-import getListBalanceLogs from '../../api/getListBalanceLogs'
 import getPaymentSystems from '../../api/getPaymentSystem'
 import { useDispatch, useSelector } from 'react-redux'
 import { setBalanceSystems } from '../../store/reducers/balanceSystems'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function Balance({ navigation }) {
   const [text, setText] = useState({})
   const balanceText = useSelector(res => res.textReducer.balance)
+
   useEffect(() => {
     setText(balanceText.payload)
   }, [balanceText])
   const dispatch = useDispatch()
-  const [balance, setBalance] = useState({ balance: null })
-  const [operations, setOperations] = useState([])
+  const balance = useSelector(data => data.balanceReducer)
+  const operations = useSelector(data => data.balanceReducer.balanceListLogs)
   useEffect(() => {
-    const fetchData = async () => {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const dataProps = `${id}_${token}`
-      const data = await getBalance(dataProps)
-      await setBalance(data.data)
-    }
-    fetchData()
-    const listOrders = async () => {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const dataProps = `${id}_${token}`
-      const data = await getListBalanceLogs({ token: dataProps, limit: '100', offset: '0' })
-      setOperations(data.data)
-    }
-    listOrders()
     const listPayments = async () => {
       const res = await getPaymentSystems()
       dispatch(setBalanceSystems(res.data))
     }
     listPayments()
   }, [dispatch])
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
+        </TouchableOpacity>
+      ),
+    })
+  })
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>

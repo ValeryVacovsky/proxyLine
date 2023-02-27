@@ -1,26 +1,38 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import LayoutMain from '../../componets/LayoutMain'
-import ViewIcon from '../../image/Svg/ViewIcon'
-import ViewIconOff from '../../image/Svg/ViewIconOff'
+import { setAuth } from '../../store/reducers/authReducer'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function AccountInfo({ navigation }) {
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.settings)
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
-  const [passwordVisibiliti, setPasswordVisibiliti] = useState(false)
+  const dispatch = useDispatch()
+  useSelector(data => console.log(data.authReducer.authStatus))
+  const text = useSelector(res => res.textReducer.settings.payload)
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <TouchableOpacity activeOpacity={0.7}>
-          <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => navigation.navigate('Main')}>
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.texts?.t6 && 'Выйти'}</Text>
+          <TouchableOpacity
+            style={styles.balanceIcon}
+            activeOpacity={0.8}
+            onPress={() => {
+              dispatch(setAuth(false))
+              setTimeout(() => {
+                navigation.navigate('Auth')
+              }, 1000)
+            }}>
+            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.texts?.t6}</Text>
           </TouchableOpacity>
+        </TouchableOpacity>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Настройки</Text>
         </TouchableOpacity>
       ),
     })
@@ -50,44 +62,6 @@ function AccountInfo({ navigation }) {
                 }}>
                 <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t8 && 'Логин'}</Text>
                 <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>4829002398</Text>
-              </View>
-            </View>
-            <View
-              style={{
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#1E2127',
-                marginBottom: 1,
-              }}>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 17,
-                  paddingTop: 17,
-                  alignItems: 'center',
-                  width: '90%',
-                }}>
-                <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t9 && 'Пароль'}</Text>
-                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                  <Text
-                    style={{
-                      fontWeight: '600',
-                      fontSize: 13,
-                      color: 'white',
-                      marginRight: 10,
-                    }}>
-                    {!passwordVisibiliti ? '************' : 12341234123}
-                  </Text>
-                  <Pressable activeOpacity={0.8} hitSlop={15}>
-                    {!passwordVisibiliti ? (
-                      <ViewIcon style={{ bottom: 2 }} onPress={() => setPasswordVisibiliti(prev => !prev)} />
-                    ) : (
-                      <ViewIconOff style={{ bottom: 2 }} onPress={() => setPasswordVisibiliti(prev => !prev)} />
-                    )}
-                  </Pressable>
-                </View>
               </View>
             </View>
           </View>

@@ -9,6 +9,7 @@ import {
   TextInput,
   Pressable,
   Dimensions,
+  Modal,
 } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import ProxiesFilter from '../../image/Svg/ProxiesFilter'
@@ -21,6 +22,7 @@ import VectorOpen from '../../image/Svg/VectorOpen'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import BottomSheetItem from '../../componets/UI/ProxyUI/BottomSheetItem'
 import { useSelector } from 'react-redux'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function MyProxies({ navigation }) {
   const [text, setText] = useState({})
@@ -36,16 +38,24 @@ function MyProxies({ navigation }) {
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
-    setIsOpen(false)
+    setProxyItemPicked(false)
   }, [])
 
   const handleClosePress = useCallback(() => {
+    setProxyItemPicked(false)
     sheetRef.current?.close()
+    setProxyItemPicked(false)
   }, [])
   const proxyLisStore = useSelector(data => data.proxy.proxyList)
   const [selected, setSelected] = useState(null)
   const [proxyItemPicked, setProxyItemPicked] = useState(null)
   const [childrenItem, setChildrenItem] = useState()
+  const handleSheetChange = index => {
+    if (index === -1) {
+      setProxyItemPicked(false)
+    }
+  }
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -75,6 +85,14 @@ function MyProxies({ navigation }) {
             <ProxiesDotts />
           </Pressable>
         </View>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
+        </TouchableOpacity>
       ),
     })
   }, [handleClosePress, handleSnapPress, navigation])
@@ -117,66 +135,6 @@ function MyProxies({ navigation }) {
         </View>
         <SafeAreaView>
           <ScrollView style={{ width: '100%', marginBottom: selected ? 200 : 90 }}>
-            {/* <View style={{ width: '100%', height: 64, backgroundColor: 'rgba(255, 255, 255, 0.06)', marginBottom: 4 }}>
-              <View
-                style={{
-                  paddingLeft: 30,
-                  paddingRight: 20,
-                  paddingBottom: 14,
-                  paddingTop: 15,
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  width: '100%',
-                }}>
-                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
-                  <View style={{ width: 25, height: 25, top: 2, marginRight: 14 }}>
-                    <View style={{ width: '100%', height: '100%' }}>{flagByShortName['us']}</View>
-                  </View>
-                  <View style={{ maxWidth: 170 }}>
-                    <Text
-                      style={{
-                        fontWeight: '600',
-                        fontSize: 14,
-                        color: 'white',
-                        lineHeight: 15,
-                      }}>
-                      Bosnia and Herzegovina
-                    </Text>
-                    <View style={{ display: 'flex', flexDirection: 'row' }}>
-                      <Text
-                        style={{
-                          fontWeight: '700',
-                          fontSize: 11,
-                          color: '#0F1218',
-                          lineHeight: 15,
-                          paddingLeft: 8,
-                          paddingRight: 8,
-                          paddingTop: 4,
-                          paddingBottom: 4,
-                          backgroundColor: '#FAC637',
-                          borderRadius: 20,
-                        }}>
-                        IPv4
-                      </Text>
-                      <Text
-                        style={{
-                          fontWeight: '600',
-                          fontSize: 14,
-                          color: 'white',
-                          lineHeight: 15,
-                        }}>
-                        136.117.121.183
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-                <View>
-                  <Text>0</Text>
-                </View>
-              </View>
-            </View> */}
             {proxyLisStore.data?.map((proxy, index) => (
               <ProxyItem
                 key={proxy.id}
@@ -215,17 +173,20 @@ function MyProxies({ navigation }) {
             </SuperEllipseMaskView>
           </TouchableOpacity>
         )}
-        {proxyItemPicked && (
+      </View>
+      <Modal visible={proxyItemPicked} transparent={true} onRequestClose={() => setProxyItemPicked(false)}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <BottomSheetForm
             navigation={navigation}
             sheetRef={sheetRef}
             snapPoints={snapPoints}
             setIsOpen={setIsOpen}
-            handleClosePress={handleClosePress}>
+            handleClosePress={handleClosePress}
+            handleSheetChange={handleSheetChange}>
             {childrenItem}
           </BottomSheetForm>
-        )}
-      </View>
+        </View>
+      </Modal>
     </LayoutMain>
   )
 }

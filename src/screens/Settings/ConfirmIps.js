@@ -5,8 +5,9 @@ import LayoutMain from '../../componets/LayoutMain'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import DeleteToggleIcon from '../../image/Svg/DeleteToggleIcon'
 import { useCreateIps } from '../../hooks/useCreateIps'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
-function ConfirmIps() {
+function ConfirmIps({ navigation }) {
   const { setDeleteIps } = useCreateIps()
   const ipsList = useSelector(data => data.ipsTagsReducer.ips)
   const [text, setText] = useState({})
@@ -14,6 +15,18 @@ function ConfirmIps() {
   useEffect(() => {
     setText(balanceText.payload)
   }, [balanceText])
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Настройки</Text>
+        </TouchableOpacity>
+      ),
+    })
+  }, [navigation])
   return (
     <LayoutMain style={styles.layoutContainer}>
       <View style={styles.container}>

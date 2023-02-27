@@ -1,27 +1,42 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import CountryFilterSlot from '../CountriesUI/CountryFilterSlot'
+import ExcludeOff from '../../../../image/Svg/ExcludeOff'
+import ExcludeOn from '../../../../image/Svg/ExcludeOn'
 
-function BottomSheetDateCountries({ handleClosePress, setIsOpen, countreisList }) {
-  const [selectedCountryShort, setSelectedCountryShort] = useState('ru')
+function BottomSheetDateCountries({ handleClosePress, setIsOpen, countreisList, countries, setFilters }) {
+  const [excludeStatus, setExcludeStatus] = useState(false)
+  const [countriesState, setCountriesState] = useState(countries)
+  const [countriesStateExlude, setCountriesStateExlude] = useState(countries)
   const handlePress = () => {
     handleClosePress()
     setIsOpen(false)
   }
+  console.log('state', countriesState)
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.topTextLeft}>Страны</Text>
-        <Text style={styles.topTextRight}>Исключить</Text>
+        <TouchableOpacity
+          style={styles.topRightTextContainer}
+          activeOpacity={0.8}
+          onPress={() => setExcludeStatus(prev => !prev)}>
+          {excludeStatus ? <ExcludeOn /> : <ExcludeOff />}
+          <Text style={styles.topTextRight}>Исключить</Text>
+        </TouchableOpacity>
       </View>
       <ScrollView style={styles.scrollViewContainer}>
         {countreisList.map(item => {
           return (
             <CountryFilterSlot
               key={item.code}
-              country={item}
-              selectedCountryShort={selectedCountryShort}
-              setSelectedCountryShort={setSelectedCountryShort}
+              countreiItem={item}
+              setFilters={setFilters}
+              excludeStatus={excludeStatus}
+              countriesState={countriesState}
+              setCountriesState={setCountriesState}
+              countriesStateExlude={countriesStateExlude}
+              setCountriesStateExlude={setCountriesStateExlude}
             />
           )
         })}
@@ -59,13 +74,19 @@ const styles = StyleSheet.create({
   },
   topTextRight: {
     color: 'white',
-    fontWeight: '400',
+    fontWeight: '600',
     fontSize: 14,
+    lineHeight: 15,
+    marginLeft: 5,
+  },
+  topRightTextContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   scrollViewContainer: {
     height: '100%',
     width: '100%',
-    marginBottom: 140,
   },
   bottomButton: {
     paddingTop: 18,

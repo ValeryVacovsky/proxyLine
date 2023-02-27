@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import LayoutMain from '../../componets/LayoutMain'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function ChangePassword({ navigation }) {
   const [text, setText] = useState({})
@@ -10,6 +11,18 @@ function ChangePassword({ navigation }) {
   useEffect(() => {
     setText(balanceText.payload)
   }, [balanceText])
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Настройки</Text>
+        </TouchableOpacity>
+      ),
+    })
+  }, [navigation])
   return (
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>

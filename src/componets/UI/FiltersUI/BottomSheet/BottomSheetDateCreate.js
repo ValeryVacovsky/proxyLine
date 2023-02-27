@@ -9,9 +9,32 @@ LocaleConfig.defaultLocale = 'ru'
 
 function BottomSheetDateCreate({ handleClosePress, setIsOpen, setPorts }) {
   const [value, setValue] = useState('')
-  const [selectedDate, setSelectedDate] = useState(new Date())
-  const onDayPress = day => {
-    setSelectedDate(day.dateString)
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+  const [markedDates, setMarkedDates] = useState({})
+
+  const handleDayPress = date => {
+    if (!startDate || (startDate && endDate)) {
+      // если начальная дата не выбрана или диапазон уже выбран
+      setStartDate(date.dateString)
+      setEndDate('')
+      setMarkedDates({
+        [date.dateString]: { color: '#FFF1CC' },
+      })
+    } else {
+      // если выбрана начальная дата
+      let range = {}
+      let start = new Date(startDate)
+      let end = new Date(date.dateString)
+      while (start <= end) {
+        let d = new Date(start)
+        range[d.toISOString().slice(0, 10)] = { color: '#FFF1CC' }
+        start.setDate(start.getDate() + 1)
+      }
+      setStartDate('')
+      setEndDate(date.dateString)
+      setMarkedDates(range)
+    }
   }
   const handlePress = () => {
     handleClosePress()
@@ -24,20 +47,23 @@ function BottomSheetDateCreate({ handleClosePress, setIsOpen, setPorts }) {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <TextInput textContentType="date" style={styles.topInput} value={selectedDate} onChangeText={setValue} />
+        <Text style={{ marginTop: 33, marginLeft: 20, marginBottom: 14, fontSize: 16, color: 'white' }}>
+          Дата создания
+        </Text>
+        <TextInput textContentType="date" style={styles.topInput} value={123} onChangeText={setValue} />
       </View>
       <View style={styles.calendarContainer}>
         <CalendarList
-          onDayPress={onDayPress}
-          style={{
-            width: '100%',
-            maxHeight: 600,
-          }}
+          markedDates={markedDates}
+          onDayPress={handleDayPress}
+          markingType="period"
+          style={{ color: 'red' }}
           theme={{
-            calendarBackground: 'rgba(255, 255, 255, 0.03)',
-            dayTextColor: '#fff',
-            textDisabledColor: '#444',
-            monthTextColor: '#888',
+            container: 'red',
+            backgroundColor: '#ffffff',
+            calendarBackground: '#0F1218',
+            monthTextColor: 'white',
+            textSectionTitleDisabledColor: '#d9e1e8',
           }}
         />
       </View>
@@ -52,22 +78,20 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     backgroundColor: '#0F1218',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   topContainer: {
-    alignItems: 'center',
     width: '100%',
   },
   topInput: {
     backgroundColor: '#1E2127',
     color: 'white',
     height: 44,
-    minWidth: '90%',
     marginBottom: 14,
     borderRadius: 8,
     borderWidth: 1,
@@ -75,12 +99,11 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     paddingBottom: 14,
     borderColor: '#333842',
-    marginTop: 33,
+    marginHorizontal: 20,
   },
   calendarContainer: {
     height: '50%',
     width: '100%',
-    marginBottom: 140,
   },
   bottomButton: {
     paddingTop: 18,

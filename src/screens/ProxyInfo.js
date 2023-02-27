@@ -1,9 +1,10 @@
 import React, { useMemo, useRef, useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import { ScrollView, StyleSheet, SafeAreaView, Text, View, Pressable } from 'react-native'
+import { ScrollView, StyleSheet, SafeAreaView, Text, View, Pressable, TouchableOpacity } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
 import ProxyInfoChange from '../image/Svg/ProxyInfoChange'
 import ReadTrash from '../image/Svg/ReadTrash'
+import HeaderTintBack from '../image/Svg/HeaderTintBack'
 import BottomSheetForm from '../componets/BottomSheetForm'
 import BottomSheetCopy from '../componets/UI/ProxyUI/BottomSheetCopy'
 import dateFormat from 'dateformat'
@@ -25,10 +26,15 @@ import InfoTag from '../componets/UI/InfoUI/InfoTag'
 function ProxyInfo({ navigation, route }) {
   const proxyInfoText = useSelector(res => res.textReducer.proxy_info.payload)
   const proxyInfo = route.params.proxyRes
+  console.log(proxyInfo)
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
   const snapPoints = useMemo(() => ['15%'], [])
   const [copy, setCopy] = useState(false)
+  const dateStart = new Date(proxyInfo.date_end)
+  const dateEnd = new Date()
+  const days = ((dateEnd - dateStart) / 1000 / (60 * 60 * 24)).toFixed(0)
+  const mounth = ((dateEnd - dateStart) / 1000 / (60 * 60)).toFixed(0)
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -55,6 +61,14 @@ function ProxyInfo({ navigation, route }) {
         <Pressable activeOpacity={0.7} hitSlop={50}>
           <ReadTrash />
         </Pressable>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Мои прокси</Text>
+        </TouchableOpacity>
       ),
     })
   }, [navigation])
@@ -99,7 +113,7 @@ function ProxyInfo({ navigation, route }) {
             <View styles={styles.Data}>
               <OrderFrom date={dateFormat(proxyInfo.date_start, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
               <OrderEnd date={dateFormat(proxyInfo.date_end, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
-              <OrderCount count="1 месяц 10 дней" text={proxyInfoText?.texts} />
+              <OrderCount days={days} month={mounth} text={proxyInfoText?.texts} />
             </View>
             <View style={styles.chipsContainer}>
               <View style={styles.textContainer}>

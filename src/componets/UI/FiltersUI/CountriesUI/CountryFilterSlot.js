@@ -2,27 +2,86 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { StyleSheet } from 'react-native'
 import LightRadioUncheked from '../../../../image/Svg/LightRadioUncheked'
+import LightRadioUnchekedRed from '../../../../image/Svg/LightRadioUnchekedRed'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 
 import RadioUncheked from '../../../../image/Svg/RadioUncheked'
 import { flagByShortName } from '../../../../common/flagByShortName'
 
-function CountryFilterSlot({ country, selectedCountryShort, setSelectedCountryShort }) {
-  const handlePress = () => {
-    setSelectedCountryShort(country.code)
+function CountryFilterSlot({
+  countreiItem,
+  setFilters,
+  excludeStatus,
+  countriesState,
+  setCountriesState,
+  countriesStateExlude,
+  setCountriesStateExlude,
+}) {
+  const handlePress = item => {
+    setFilters(prevState =>
+      prevState.countries.includes(item)
+        ? {
+            ...prevState,
+            countries: prevState.countries.filter(active => active !== item),
+          }
+        : { ...prevState, countries: prevState.countries.concat(item) },
+    )
+    setCountriesState(prevState =>
+      prevState.includes(item) ? prevState.filter(active => active !== item) : prevState.concat(item),
+    )
+  }
+  const handlePressExclude = item => {
+    setFilters(prevState =>
+      prevState.countries_exclude.includes(item)
+        ? {
+            ...prevState,
+            countries_exclude: prevState.countries_exclude.filter(active => active !== item),
+          }
+        : { ...prevState, countries_exclude: prevState.countries_exclude.concat(item) },
+    )
+    setCountriesStateExlude(prevState =>
+      prevState.includes(item) ? prevState.filter(active => active !== item) : prevState.concat(item),
+    )
   }
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.containerOpacity} activeOpacity={0.8}>
-        <Text style={styles.mockText} />
-        <View style={styles.countryInfo}>
-          <View style={styles.flagIcon}>{flagByShortName[country.code]}</View>
-          <Text style={styles.mainText}>{country.name_local}</Text>
-        </View>
-        <Pressable hitSlop={25} activeOpacity={0.8} onPress={handlePress}>
-          {selectedCountryShort === country.code ? <LightRadioUncheked /> : <RadioUncheked width={21} height={20} />}
-        </Pressable>
-      </TouchableOpacity>
+      {!excludeStatus ? (
+        <TouchableOpacity
+          style={styles.containerOpacity}
+          activeOpacity={0.8}
+          onPress={() => handlePress(countreiItem.code)}>
+          <Text style={styles.mockText} />
+          <View style={styles.countryInfo}>
+            <View style={styles.flagIcon}>{flagByShortName[countreiItem.code]}</View>
+            <Text style={styles.mainText}>{countreiItem.name_local}</Text>
+          </View>
+          <Pressable hitSlop={25} activeOpacity={0.8}>
+            {countriesState.includes(countreiItem.code) ? (
+              <LightRadioUncheked />
+            ) : (
+              <RadioUncheked width={21} height={20} />
+            )}
+          </Pressable>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styles.containerOpacity}
+          activeOpacity={0.8}
+          onPress={() => handlePressExclude(countreiItem.code)}>
+          <Text style={styles.mockText} />
+          <View style={styles.countryInfo}>
+            <View style={styles.flagIcon}>{flagByShortName[countreiItem.code]}</View>
+            <Text style={styles.mainText}>{countreiItem.name_local}</Text>
+          </View>
+          <Pressable hitSlop={25} activeOpacity={0.8}>
+            {countriesStateExlude.includes(countreiItem.code) ? (
+              <LightRadioUnchekedRed />
+            ) : (
+              <RadioUncheked width={21} height={20} />
+            )}
+          </Pressable>
+        </TouchableOpacity>
+      )}
     </View>
   )
 }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, StyleSheet, SafeAreaView, Text, Pressable, Dimensions } from 'react-native'
+import { View, ScrollView, StyleSheet, SafeAreaView, Text, Pressable, Dimensions, TouchableOpacity } from 'react-native'
+import HeaderTintBack from '../image/Svg/HeaderTintBack'
 import { useSelector } from 'react-redux'
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import LayoutMain from '../componets/LayoutMain'
 import ProxyTariff from '../componets/ProxyTariff'
 import UserNavigation from '../componets/UserNavigation'
@@ -10,35 +10,6 @@ import CloudProxyIcon from '../image/Svg/CloudProxyIcon'
 import HeaderProxy from '../image/Svg/HeaderProxy'
 import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
 import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
-import getBalance from '../api/getBalance'
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    marginHorizontal: 0,
-    marginBottom: 5,
-  },
-  text: {
-    fontSize: 42,
-  },
-  navContainer: {
-    alignItems: 'center',
-    marginBottom: 25,
-  },
-  s_navContainer: {
-    alignItems: 'center',
-    width: '95%',
-    left: 10,
-  },
-  balanceIcon: {
-    display: 'flex',
-    flexDirection: 'row',
-    fontSize: 15,
-    alignItems: 'center',
-  },
-})
 
 function Proxy({ navigation }) {
   const iPtypes = useSelector(res => res.orderPriceReducer.orderPrice)
@@ -48,16 +19,7 @@ function Proxy({ navigation }) {
     setText(proxyText)
   }, [proxyText, text])
 
-  const [balance, setBalance] = useState({ balance: null })
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const data = await getBalance(`${id}_${token}`)
-      await setBalance(data.data)
-    }
-    fetchData()
-  }, [])
+  const balance = useSelector(data => data.balanceReducer)
   const ProxyList = [
     {
       id: 1,
@@ -102,6 +64,14 @@ function Proxy({ navigation }) {
           </Pressable>
         </View>
       ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <HeaderTintBack style={{ bottom: 1 }} />
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
+        </TouchableOpacity>
+      ),
     })
   }, [navigation, balance])
   const heightOffScreen = Dimensions.get('window').height
@@ -127,5 +97,33 @@ function Proxy({ navigation }) {
     </LayoutMain>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    marginHorizontal: 0,
+    marginBottom: 5,
+  },
+  text: {
+    fontSize: 42,
+  },
+  navContainer: {
+    alignItems: 'center',
+    marginBottom: 25,
+  },
+  s_navContainer: {
+    alignItems: 'center',
+    width: '95%',
+    left: 10,
+  },
+  balanceIcon: {
+    display: 'flex',
+    flexDirection: 'row',
+    fontSize: 15,
+    alignItems: 'center',
+  },
+})
 
 export default Proxy
