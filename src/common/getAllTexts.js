@@ -18,10 +18,16 @@ import {
   addLanguageText,
 } from '../store/reducers/textReducer'
 
-function getAllTexts(dispatch, language) {
-  getText('auth', language).then(response => {
+export function getAuthText(dispatch, language) {
+  return getText('auth', language).then(response => {
     dispatch(addAuthText(response.data.data))
   })
+}
+
+function getAllTexts(dispatch, language) {
+  // TODO: когда будет логика на Main или Auth переходить при старте приложения,
+  //  перенести получение текстов main в отдельную функцию, вместе с getAuthText
+  //  и обернуть их в Promise.all()
   getText('main', language).then(response => {
     dispatch(addMainText(response.data.data))
   })

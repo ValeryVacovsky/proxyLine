@@ -43,7 +43,6 @@ import Tags from '../../screens/Settings/Tags'
 
 const Stack = createNativeStackNavigator()
 
-// eslint-disable-next-line no-unused-vars
 function Navigation() {
   const auth = useSelector(data => data.authReducer.authStatus)
   return (
@@ -170,9 +169,7 @@ function Navigation() {
               component={Orders}
               options={{
                 headerTitle: () => <Text style={styles.headerTitle}>Заказы</Text>,
-                gestureEnabled: false,
                 headerStyle: styles.headerStyle,
-                headerTintColor: 'transparent',
                 headerTitleAlign: 'center',
                 headerTintColor: '#CBCBCB',
                 headerBackTitle: 'Назад',

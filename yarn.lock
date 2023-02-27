@@ -6680,6 +6680,11 @@ react-native-simple-openvpn@^2.0.0:
   resolved "https://registry.yarnpkg.com/react-native-simple-openvpn/-/react-native-simple-openvpn-2.0.0.tgz#6e5fcc592b29978e33dfba0e2b69e04a99715735"
   integrity sha512-FCUX1qpiNZbTs/M8buDFfP9GyBYJtfajFMYVYNEjJCkmt9RbA6RPaV/h6uAM79UffwNu01KPC6eqUcyFzJctNw==
 
+react-native-splash-screen@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.3.0.tgz#3af71ed17afe50fee69590a45aec399d071ead02"
+  integrity sha512-rGjt6HkoSXxMqH4SQUJ1gnPQlPJV8+J47+4yhgTIan4bVvAwJhEeJH7wWt9hXSdH4+VfwTS0GTaflj1Tw83IhA==
+
 react-native-super-ellipse-mask@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/react-native-super-ellipse-mask/-/react-native-super-ellipse-mask-1.0.7.tgz#31e01b95ce1ff43904554c4a20875988eda9c212"
