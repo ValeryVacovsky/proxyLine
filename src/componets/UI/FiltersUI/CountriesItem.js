@@ -47,7 +47,6 @@ function CountriesItem({
   // Здесь чуть позже использую setCountry
   const [country, setCountry] = useState(['ru', 'us', 'fr', 'de'])
   const [countryExclude, setCountryExclude] = useState(['ru', 'us', 'fr', 'de'])
-  console.log('выбранные страны', country)
   const handlePress = item => {
     setFilters(prevState =>
       prevState.countries.includes(item)

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
+import React, { useCallback, useRef, useMemo, useState } from 'react'
 import {
   ScrollView,
   View,
@@ -25,20 +25,15 @@ import { useSelector } from 'react-redux'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function MyProxies({ navigation }) {
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.myproxies)
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
+  const text = useSelector(res => res.textReducer.myproxies.payload)
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['52%'] : ['61%']), [heightOffScreen])
+  const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['45%'] : ['51%']), [heightOffScreen])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
-    setProxyItemPicked(false)
   }, [])
 
   const handleClosePress = useCallback(() => {
@@ -87,11 +82,9 @@ function MyProxies({ navigation }) {
         </View>
       ),
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
+          <Text style={styles.headerLeftTintText}> Назад</Text>
         </TouchableOpacity>
       ),
     })
@@ -99,25 +92,11 @@ function MyProxies({ navigation }) {
   return (
     <LayoutMain>
       <View style={{ display: 'flex' }}>
-        <View
-          style={{
-            backgroundColor: '#1E2127',
-            color: '#CBCBCB',
-            height: 44,
-            marginHorizontal: 20,
-            marginBottom: 14,
-            borderRadius: 8,
-            borderWidth: 1,
-            paddingLeft: 20,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            position: 'relative',
-          }}>
+        <View style={styles.topInutContainer}>
           <TextInput
             onFocus={() => {}}
             onBlur={() => {}}
-            style={{ color: 'white', width: '80%', height: '100%', textAlign: 'center' }}
+            style={styles.topInput}
             onChangeText={setValueProxy}
             value={valueProxy}
             icon={<VectorOpen />}
@@ -128,7 +107,7 @@ function MyProxies({ navigation }) {
           {valueProxy.length === 0 && (
             <ProxiesSearch
               style={
-                heightOffScreen > 850 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '68%' }
+                heightOffScreen > 850 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '63%' }
               }
             />
           )}
@@ -153,27 +132,27 @@ function MyProxies({ navigation }) {
             ))}
           </ScrollView>
         </SafeAreaView>
-        {selected && (
-          <TouchableOpacity
-            onPress={() => {}}
-            style={styles.button}
-            activeOpacity={0.8}
-            onLongPress={() => {
-              navigation.navigate('Test')
-            }}>
-            <SuperEllipseMaskView
-              radius={{
-                topLeft: 12,
-                topRight: 12,
-                bottomRight: 12,
-                bottomLeft: 12,
-              }}
-              style={styles.buttonInner}>
-              <Text style={styles.buttonText}>{text?.buttons?.b0}</Text>
-            </SuperEllipseMaskView>
-          </TouchableOpacity>
-        )}
       </View>
+      {selected && (
+        <TouchableOpacity
+          onPress={() => {}}
+          style={styles.button}
+          activeOpacity={0.8}
+          onLongPress={() => {
+            navigation.navigate('Test')
+          }}>
+          <SuperEllipseMaskView
+            radius={{
+              topLeft: 12,
+              topRight: 12,
+              bottomRight: 12,
+              bottomLeft: 12,
+            }}
+            style={styles.buttonInner}>
+            <Text style={styles.buttonText}>{text?.buttons?.b0}</Text>
+          </SuperEllipseMaskView>
+        </TouchableOpacity>
+      )}
       <Modal visible={proxyItemPicked} transparent={true} onRequestClose={() => setProxyItemPicked(false)}>
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <BottomSheetForm
@@ -209,9 +188,9 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     width: '100%',
-    marginBottom: 40,
+    marginBottom: 32,
     position: 'absolute',
-    bottom: '8%',
+    bottom: 34,
     zIndex: 1,
   },
   buttonInner: {
@@ -225,6 +204,37 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
     fontSize: 13,
+  },
+  topInutContainer: {
+    backgroundColor: '#1E2127',
+    color: '#CBCBCB',
+    height: 44,
+    marginHorizontal: 20,
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  topInput: {
+    color: 'white',
+    width: '80%',
+    height: '100%',
+    textAlign: 'center',
+  },
+  headerLeftTintContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLeftTintText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 15,
   },
 })
 

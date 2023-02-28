@@ -12,7 +12,7 @@ function BottomSheetCountries({ handleClosePress, setIsOpen }) {
       <View style={styles.topContainer}>
         <TextInput textContentType="date" style={styles.topTextInput} value={value} onChangeText={setValue} />
       </View>
-      <View style={{ height: '50%', width: '100%', marginBottom: 140 }}></View>
+      <View style={styles.mockComponent}></View>
       <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>Добавить</Text>
       </TouchableOpacity>
@@ -63,6 +63,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 12,
     lineHeight: 15,
+  },
+  mockComponent: {
+    height: '50%',
+    width: '100%',
+    marginBottom: 140,
   },
 })
 

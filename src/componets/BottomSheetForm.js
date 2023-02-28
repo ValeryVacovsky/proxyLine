@@ -5,14 +5,17 @@ import BottomSheet from '@gorhom/bottom-sheet'
 const handleComponent = () => <View />
 
 function BottomSheetForm({ sheetRef, snapPoints, setIsOpen, children, handleSheetChange }) {
+  const handelClose = () => {
+    setIsOpen(false)
+  }
   return (
     <BottomSheet
       ref={sheetRef}
       backdropPressToClose={true}
       snapPoints={snapPoints}
       enablePanDownToClose
-      onClose={() => setIsOpen(false)}
-      onCloseEnd={() => setIsOpen(false)}
+      onClose={handelClose}
+      onCloseEnd={handelClose}
       handleComponent={handleComponent}
       onChange={handleSheetChange}
       enabledGestureInteraction={true}

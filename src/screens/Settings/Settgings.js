@@ -25,11 +25,9 @@ function Settgings({ navigation }) {
         </View>
       ),
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Настройки</Text>
+          <Text style={styles.headerLeftTintText}> Настройки</Text>
         </TouchableOpacity>
       ),
     })
@@ -178,6 +176,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '95%',
     left: 10,
+  },
+  headerLeftTintContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLeftTintText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 15,
   },
 })
 

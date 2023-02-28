@@ -26,7 +26,6 @@ import InfoTag from '../componets/UI/InfoUI/InfoTag'
 function ProxyInfo({ navigation, route }) {
   const proxyInfoText = useSelector(res => res.textReducer.proxy_info.payload)
   const proxyInfo = route.params.proxyRes
-  console.log(proxyInfo)
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
   const snapPoints = useMemo(() => ['15%'], [])
@@ -63,11 +62,9 @@ function ProxyInfo({ navigation, route }) {
         </Pressable>
       ),
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Мои прокси</Text>
+          <Text style={styles.headerLeftTintText}> Мои прокси</Text>
         </TouchableOpacity>
       ),
     })
@@ -207,6 +204,17 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  headerLeftTintContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLeftTintText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 15,
   },
 })
 

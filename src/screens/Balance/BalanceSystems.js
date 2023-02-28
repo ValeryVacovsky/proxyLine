@@ -60,15 +60,13 @@ function BalanceSystems({ navigation }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
+          <Text style={styles.headerLeftTintText}> Назад</Text>
         </TouchableOpacity>
       ),
     })
-  })
+  }, [navigation])
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
@@ -174,6 +172,17 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 25,
     color: '#4F4F4F',
+  },
+  headerLeftTintContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLeftTintText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 15,
   },
 })
 

@@ -2,112 +2,12 @@ import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput, Dimensions } from 'react-native'
 
 import LayoutMain from '../../componets/LayoutMain'
-import FlagUseBig from '../../image/Svg/FlagUseBig'
 import BottomSheetForm from '../../componets/BottomSheetForm'
 import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectForm'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import { useSelector } from 'react-redux'
 import ProxyItemChange from '../../componets/UI/ProxyUI/ProxyItemChange'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
-
-const MyProxiesList = [
-  {
-    id: 1,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 2,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 3,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 4,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 5,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 6,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 8,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 9,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 10,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 11,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 12,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-  {
-    id: 13,
-    name: 'United states of America',
-    days: 5,
-    IP: 'IPv4',
-    IpAdress: '136.117.121.183',
-    flag: <FlagUseBig />,
-  },
-]
 
 function ChangeProxies({ navigation }) {
   const [text, setText] = useState({})
@@ -140,22 +40,19 @@ function ChangeProxies({ navigation }) {
   }
   const arryId = []
   useEffect(() => {
-    MyProxiesList.map(item => arryId.push(item.id))
+    proxyLisStore.map(item => arryId.push(item.id))
   }, [])
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => setSelectedProxies(arryId)}>
           <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.buttons?.b14}</Text>
         </TouchableOpacity>
       ),
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Мои прокси</Text>
+          <Text style={styles.headerLeftTintText}> Мои прокси</Text>
         </TouchableOpacity>
       ),
     })
@@ -166,7 +63,7 @@ function ChangeProxies({ navigation }) {
         <TextInput
           onFocus={() => {}}
           onBlur={() => {}}
-          style={{ color: 'white', width: '80%', height: '100%', textAlign: 'center' }}
+          style={styles.topInput}
           onChangeText={setValueProxy}
           value={valueProxy}
           iconPosition="right"
@@ -176,7 +73,7 @@ function ChangeProxies({ navigation }) {
         {valueProxy.length === 0 && (
           <ProxiesSearch
             style={
-              heightOffScreen > 850 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '68%' }
+              heightOffScreen > 850 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '63%' }
             }
           />
         )}
@@ -187,10 +84,10 @@ function ChangeProxies({ navigation }) {
             width: '100%',
             marginBottom: selectedProxies.length > 0 ? 300 : 90,
           }}>
-          {proxyLisStore?.map((proxy, index) => (
+          {proxyLisStore?.map(proxy => (
             <ProxyItemChange
               key={proxy.id}
-              proxy={MyProxiesList[index]}
+              proxy={proxy.id}
               handleSnapPress={handleSnapPress}
               handleClosePress={handleClosePress}
               onChange={onChange}
@@ -271,6 +168,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
     marginHorizontal: 20,
+  },
+  topInput: {
+    color: 'white',
+    width: '80%',
+    height: '100%',
+    textAlign: 'center',
+  },
+  headerLeftTintContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLeftTintText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 15,
   },
 })
 

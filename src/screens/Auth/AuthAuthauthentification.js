@@ -50,10 +50,12 @@ function AuthAuthauthentification({ navigation }) {
   )
 
   const onSubmit = async data => {
+    console.log(data.email)
     const res = await postAuth(data)
     if (res.data.success === true) {
       await AsyncStorage.setItem('@token', String(res.data.user.token))
       await AsyncStorage.setItem('@id', String(res.data.user.id))
+      // dispatch(setAuth(true))
       navigation.navigate('Main')
     } else {
       setCommonFormError('Invalid email or password')

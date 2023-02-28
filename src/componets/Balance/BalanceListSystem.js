@@ -7,15 +7,14 @@ function BalanceListSystem({ name, data, navigation, amount, handelOpenCopy, may
   const handlePress = () => {
     mayGo ? navigation.navigate('BalanceMethod', { dataNav }) : handelOpenCopy()
   }
-  console.log(data)
   return (
     <TouchableOpacity style={styles.mainContainer} activeOpacity={0.8} onPress={handlePress}>
       <View style={styles.container}>
         <View style={styles.summeContainer}>
           <View style={styles.summe}>
-            <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 13 }}>{name}</Text>
-            <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>{name}</Text>
+            <Text style={styles.leftText}>{name}</Text>
+            <View style={styles.rightTextCOntainer}>
+              <Text style={styles.rightText}>{name}</Text>
             </View>
           </View>
         </View>
@@ -46,6 +45,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 20,
+  },
+  leftText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  rightTextCOntainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  rightText: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 14,
   },
 })
 

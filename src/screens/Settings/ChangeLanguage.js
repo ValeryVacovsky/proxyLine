@@ -22,46 +22,32 @@ function ChangeLanguage({ navigation }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Настройки</Text>
+          <Text style={styles.headerLeftTintText}> Настройки</Text>
         </TouchableOpacity>
       ),
     })
   }, [navigation])
+  const handleChange = country => {
+    dispatch(addLanguageStatus(country))
+    getAllTexts(dispatch, country)
+  }
   return (
     <LayoutMain style={{ width: '100%' }}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={{ marginTop: 25 }}>
           {countriesShort?.map(country => {
             return (
-              <View
-                style={{ width: '100%', backgroundColor: 'rgba(255, 255, 255, 0.06)', marginBottom: 4 }}
-                key={country}>
-                <View
-                  style={{
-                    marginHorizontal: 20,
-                    paddingBottom: 16,
-                    paddingTop: 16,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <View style={styles.countryContianer} key={country}>
+                <View style={styles.countryItem}>
+                  <View style={styles.countryItemInfo}>
                     <View style={{ width: 20, height: 20, marginRight: 10 }}>{flagByShortName[country]}</View>
                     <Text style={{ fontWeight: '600', color: 'white', fontSize: 14, lineHeight: 15, maxWidth: '80%' }}>
                       {country}
                     </Text>
                   </View>
-                  <Pressable
-                    hitSlop={25}
-                    activeOpacity={1}
-                    onPress={() => {
-                      dispatch(addLanguageStatus(country))
-                      getAllTexts(dispatch, country)
-                    }}>
+                  <Pressable hitSlop={25} activeOpacity={1} onPress={() => handleChange(country)}>
                     {countrySelected !== country ? <DarkRadioUncheked /> : <LightRadioUncheked />}
                   </Pressable>
                 </View>
@@ -77,6 +63,35 @@ function ChangeLanguage({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  headerLeftTintContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLeftTintText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 15,
+  },
+  countryContianer: {
+    width: '100%',
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    marginBottom: 4,
+  },
+  countryItem: {
+    marginHorizontal: 20,
+    paddingBottom: 16,
+    paddingTop: 16,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  countryItemInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 })
 

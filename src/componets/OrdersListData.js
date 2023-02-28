@@ -4,7 +4,6 @@ import dateFormat from 'dateformat'
 import { flagByShortName } from '../common/flagByShortName'
 
 function OrdersListData({ data, text }) {
-  console.log(data)
   // преобразуем строку в объект Date
   const date = new Date(data.earliest_date_end)
 

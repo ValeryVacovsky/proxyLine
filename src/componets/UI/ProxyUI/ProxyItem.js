@@ -20,37 +20,40 @@ function ProxyItem({
   index,
   text,
 }) {
+  const handleOpenModal = () => {
+    setProxyItemPicked(true)
+    childrenItem && handleSnapPress(1)
+    setSelected(null)
+    setChildrenItem(
+      <BottomSheetIist
+        handleClosePress={handleClosePress}
+        navigation={navigation}
+        proxyRes={proxyRes}
+        index={index}
+        text={text}
+      />,
+    )
+  }
+  const handleSelect = item => {
+    setSelected(item)
+    handleClosePress()
+  }
   const dateStart = new Date(proxyRes.date_end)
   const dateEnd = new Date()
   const dateNeed = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
   return (
     <View style={styles.container}>
       <View style={styles.mainContainer}>
-        <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <View style={{ width: 32, height: 24, top: 5 }}>
-            <View style={{ width: '100%', height: '100%' }}>{flagByShortName[proxyRes.country_id]}</View>
+        <View style={styles.sideContainer}>
+          <View style={styles.flagContainer}>
+            <View style={styles.flag}>{flagByShortName[proxyRes.country_id]}</View>
           </View>
           <View style={{ marginLeft: 14 }}>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
+            <View style={styles.infoContainer}>
               <View>
-                <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 14,
-                    color: 'white',
-                    lineHeight: 15,
-                    maxWidth: 168,
-                  }}>
-                  Российская федерация
-                </Text>
-                <View style={{ width: 168, height: 1, backgroundColor: 'none' }}></View>
+                <Text style={styles.infoCountryName}>Российская федерация</Text>
+                <View style={styles.infoCountryNameConst}></View>
               </View>
-
               <View
                 style={{
                   paddingTop: 2,
@@ -71,77 +74,27 @@ function ProxyItem({
                 </Text>
               </View>
             </View>
-            <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-              <View
-                style={{
-                  paddingBottom: 2,
-                  paddingTop: 2,
-                  paddingLeft: 10,
-                  paddingRight: 10,
-                  backgroundColor: '#FAC637',
-                  borderRadius: 20,
-                }}>
-                <Text
-                  style={{
-                    color: '#0F1218',
-                    fontWeight: '700',
-                    fontSize: 11,
-                    lineHeight: 15,
-                    textAlign: 'center',
-                  }}>
+            <View style={styles.infoContainer}>
+              <View style={styles.IpVersionContianer}>
+                <Text style={styles.IpVersionText}>
                   IPv
                   {proxyRes?.ip_version}
                 </Text>
               </View>
-              <Text
-                style={{
-                  color: 'white',
-                  fontSize: 13,
-                  fontWeight: '400',
-                  marginLeft: 6,
-                  maxWidth: 170,
-                }}>
-                {proxyRes?.ip}
-              </Text>
+              <Text style={styles.ipText}>{proxyRes?.ip}</Text>
             </View>
           </View>
         </View>
-        <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <Pressable
-            hitSlop={5}
-            onPress={() => {
-              setProxyItemPicked(proxyRes?.id)
-              setProxyItemPicked(true)
-              childrenItem && handleSnapPress(0)
-              setSelected(null)
-              setChildrenItem(
-                <BottomSheetIist
-                  handleClosePress={handleClosePress}
-                  navigation={navigation}
-                  proxyRes={proxyRes}
-                  index={index}
-                  text={text}
-                />,
-              )
-            }}>
+        <View style={styles.sideContainer}>
+          <Pressable hitSlop={5} onPress={handleOpenModal}>
             <ProxiesDotts style={{ marginRight: 8 }} />
           </Pressable>
           {selected === proxyRes?.id ? (
-            <Pressable
-              hitSlop={3}
-              onPress={() => {
-                setSelected(null)
-                handleClosePress()
-              }}>
+            <Pressable hitSlop={3} onPress={() => handleSelect(null)}>
               <LightRadioUncheked style={{ marginLeft: 12, bottom: 3 }} />
             </Pressable>
           ) : (
-            <Pressable
-              hitSlop={3}
-              onPress={() => {
-                setSelected(proxyRes.id)
-                handleClosePress()
-              }}>
+            <Pressable hitSlop={3} onPress={() => handleSelect(proxyRes.id)}>
               <DarkRadioUncheked style={{ marginLeft: 12, bottom: 3 }} />
             </Pressable>
           )}
@@ -167,6 +120,58 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  sideContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  flagContainer: {
+    width: 32,
+    height: 24,
+    top: 5,
+  },
+  flag: {
+    width: '100%',
+    height: '100%',
+  },
+  infoContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  infoCountryName: {
+    fontWeight: '600',
+    fontSize: 14,
+    color: 'white',
+    lineHeight: 15,
+    maxWidth: 168,
+  },
+  infoCountryNameConst: {
+    width: 168,
+    height: 1,
+    backgroundColor: 'none',
+  },
+  IpVersionContianer: {
+    paddingBottom: 2,
+    paddingTop: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    backgroundColor: '#FAC637',
+    borderRadius: 20,
+  },
+  IpVersionText: {
+    color: '#0F1218',
+    fontWeight: '700',
+    fontSize: 11,
+    lineHeight: 15,
+    textAlign: 'center',
+  },
+  ipText: {
+    color: 'white',
+    fontSize: 13,
+    fontWeight: '400',
+    marginLeft: 6,
+    maxWidth: 170,
   },
 })
 

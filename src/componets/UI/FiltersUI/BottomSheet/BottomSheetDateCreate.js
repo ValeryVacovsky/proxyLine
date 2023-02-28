@@ -47,9 +47,7 @@ function BottomSheetDateCreate({ handleClosePress, setIsOpen, setPorts }) {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <Text style={{ marginTop: 33, marginLeft: 20, marginBottom: 14, fontSize: 16, color: 'white' }}>
-          Дата создания
-        </Text>
+        <Text style={styles.dateCreate}>Дата создания</Text>
         <TextInput textContentType="date" style={styles.topInput} value={123} onChangeText={setValue} />
       </View>
       <View style={styles.calendarContainer}>
@@ -119,6 +117,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 12,
     lineHeight: 15,
+  },
+  dateCreate: {
+    marginTop: 33,
+    marginLeft: 20,
+    marginBottom: 14,
+    fontSize: 16,
+    color: 'white',
   },
 })
 

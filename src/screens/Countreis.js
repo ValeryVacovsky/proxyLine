@@ -44,11 +44,9 @@ function Countreis({ navigation, route }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Заказ</Text>
+          <Text style={styles.headerLeftTintText}> Заказ</Text>
         </TouchableOpacity>
       ),
     })
@@ -73,7 +71,7 @@ function Countreis({ navigation, route }) {
           })}
         </ScrollView>
       </SafeAreaView>
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.button} activeOpacity={0.8}>
+      <TouchableOpacity onPress={navigation.goBack} style={styles.button} activeOpacity={0.8}>
         <SuperEllipseMaskView
           radius={{
             topLeft: 12,
@@ -121,6 +119,17 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
     fontSize: 13,
+  },
+  headerLeftTintContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLeftTintText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 15,
   },
 })
 

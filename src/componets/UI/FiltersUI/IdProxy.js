@@ -16,7 +16,6 @@ function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnap
       <BottomSheetId handleClosePress={handleClosePress} setIsOpen={setIsOpen} setIdDefault={setIdDefault} />,
     )
     handleSnapPress(2)
-    console.log(123)
     setIsOpen(true)
   }
   return (

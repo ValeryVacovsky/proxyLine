@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, Text, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
@@ -8,33 +8,23 @@ import AnswerLine from '../../componets/UI/Settings/AnswerLine'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
 function AnswerQuastion({ navigation }) {
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.settings)
+  const text = useSelector(res => res.textReducer.settings.payload)
   const general = useSelector(res => res.textReducer.general.payload.texts)
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
+
   const [valueProxy, setValueProxy] = useState('')
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <View style={{ marginLeft: 15 }}>
-          <TouchableOpacity
-            style={styles.balanceIcon}
-            activeOpacity={0.8}
-            onPress={() => navigation.navigate('Message')}>
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>
-              {text?.texts?.t3 && 'Написать нам'}
-            </Text>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('Message')}>
+            <Text style={styles.headerRightText}>{text?.texts?.t3 && 'Написать нам'}</Text>
           </TouchableOpacity>
         </View>
       ),
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Настройки</Text>
+          <Text style={styles.headerLeftTintText}> Настройки</Text>
         </TouchableOpacity>
       ),
     })
@@ -42,26 +32,12 @@ function AnswerQuastion({ navigation }) {
   const heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
-      <View style={{ alignItems: 'center', display: 'flex' }}>
-        <View
-          style={{
-            backgroundColor: '#1E2127',
-            color: '#CBCBCB',
-            height: 44,
-            minWidth: '90%',
-            marginBottom: 14,
-            borderRadius: 8,
-            borderWidth: 1,
-            paddingLeft: 20,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            position: 'relative',
-          }}>
+      <View style={styles.mainContainer}>
+        <View style={styles.topInputContianer}>
           <TextInput
             onFocus={() => {}}
             onBlur={() => {}}
-            style={{ color: 'white', width: '80%', height: '100%', textAlign: 'center' }}
+            style={styles.topInput}
             onChangeText={setValueProxy}
             value={valueProxy}
             iconPosition="right"
@@ -78,7 +54,7 @@ function AnswerQuastion({ navigation }) {
         </View>
         <SafeAreaView>
           <ScrollView style={styles.container}>
-            <View style={{ width: '100%', alignItems: 'center', marginBottom: 120 }}>
+            <View style={styles.answerContainer}>
               {Object.values(general).map(quest => (
                 // eslint-disable-next-line react/jsx-key
                 <AnswerLine navigation={navigation} quest={quest} />
@@ -92,23 +68,53 @@ function AnswerQuastion({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    alignItems: 'center',
+    display: 'flex',
+  },
   container: {
     flex: 1,
   },
-  setting: {
+  answerContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 120,
+  },
+  headerLeftTintContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingBottom: 17,
-    paddingTop: 17,
     alignItems: 'center',
-    width: '90%',
   },
-  settingLine: {
-    alignItems: 'center',
-    width: '90%',
+  headerLeftTintText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 15,
+  },
+  headerRightText: {
+    color: '#FAC637',
+    fontWeight: '600',
+    fontSize: 15,
+  },
+  topInputContianer: {
     backgroundColor: '#1E2127',
-    marginBottom: 1,
+    color: '#CBCBCB',
+    height: 44,
+    minWidth: '90%',
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  topInput: {
+    color: 'white',
+    width: '80%',
+    height: '100%',
+    textAlign: 'center',
   },
 })
 

@@ -15,7 +15,7 @@ function BalanceList({ data, text }) {
         country: 'ru',
         period: 5,
         coupon: '',
-      }).then(data => console.log('price from api', data?.data.amount))
+      })
     }
     name()
   }, [])

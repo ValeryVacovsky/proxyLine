@@ -23,9 +23,7 @@ function UserNavigation({ status, navigation }) {
           activeOpacity={0.8}>
           {status === 'Main' ? <DatabaseButtomOn /> : <DatabaseButtonOff />}
         </Pressable>
-        {status === 'Main' && (
-          <View style={{ width: 20, height: 5, backgroundColor: '#FAC637', borderRadius: 20, bottom: 1 }} />
-        )}
+        {status === 'Main' && <View style={styles.orderStatus} />}
       </View>
       <View>
         <Pressable
@@ -35,9 +33,7 @@ function UserNavigation({ status, navigation }) {
           activeOpacity={0.8}>
           {status === 'Proxy' ? <WalletButtonOn /> : <WalletButtonOff />}
         </Pressable>
-        {status === 'Proxy' && (
-          <View style={{ width: 20, height: 5, backgroundColor: '#FAC637', borderRadius: 20, bottom: 1 }} />
-        )}
+        {status === 'Proxy' && <View style={styles.orderStatus} />}
       </View>
       <View>
         <Pressable
@@ -47,9 +43,7 @@ function UserNavigation({ status, navigation }) {
           activeOpacity={0.8}>
           {status === 'Orders' ? <OrdersButtonOn /> : <OrdersButtonOff />}
         </Pressable>
-        {status === 'Orders' && (
-          <View style={{ width: 20, height: 5, backgroundColor: '#FAC637', borderRadius: 20, bottom: 1 }} />
-        )}
+        {status === 'Orders' && <View style={styles.orderStatus} />}
       </View>
       <View>
         <Pressable
@@ -59,9 +53,7 @@ function UserNavigation({ status, navigation }) {
           activeOpacity={0.8}>
           {status === 'Settings' ? <SettingsButtonOn /> : <SettingsButtonOff />}
         </Pressable>
-        {status === 'Settings' && (
-          <View style={{ width: 20, height: 5, backgroundColor: '#FAC637', borderRadius: 20, bottom: 1 }} />
-        )}
+        {status === 'Settings' && <View style={styles.orderStatus} />}
       </View>
     </SuperEllipseMaskView>
   )
@@ -86,6 +78,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: 15,
+  },
+  orderStatus: {
+    width: 20,
+    height: 5,
+    backgroundColor: '#FAC637',
+    borderRadius: 20,
+    bottom: 1,
   },
 })
 

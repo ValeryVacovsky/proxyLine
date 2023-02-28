@@ -3,14 +3,13 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import BottomSheetDateCreate from './BottomSheet/BottomSheetDateCreate'
 
 function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
-  const today = new Date()
-  const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-  const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)
-  const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1))
-  const lastDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7))
-  const startOfMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1)
-  const endOfMonth = new Date(today.getFullYear(), today.getMonth(), 0)
-  console.log('data1', startOfMonth)
+  // const today = new Date()
+  // const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+  // const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)
+  // const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1))
+  // const lastDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7))
+  // const startOfMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1)
+  // const endOfMonth = new Date(today.getFullYear(), today.getMonth(), 0)
   const handlePress = item => {
     setFilters(prevState =>
       prevState.dateCreate.includes(item)

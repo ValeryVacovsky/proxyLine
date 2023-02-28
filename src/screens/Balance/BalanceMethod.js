@@ -64,42 +64,30 @@ function BalanceMethod({ navigation, route }) {
     }
     paymentTake()
   }
+  const handleChooseItem = data => {
+    setSelectedMethod(data.name_en)
+    setSelectedMethodId(data.id)
+    selectedMethod === data.name_en && setSelectedMethod('')
+    selectedMethod === data.name_en && setSelectedMethodId('')
+  }
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
+          <Text style={styles.headerLeftTintText}> Назад</Text>
         </TouchableOpacity>
       ),
     })
-  })
+  }, [navigation])
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         <BalanceTopTableSystems balance={balance.balance} navigation={navigation} />
         <Text style={styles.text}>{route.params?.dataNav?.name}</Text>
-        <View
-          style={{
-            backgroundColor: '#1E2127',
-            color: '#CBCBCB',
-            height: 44,
-            minWidth: '90%',
-            marginBottom: 14,
-            borderRadius: 8,
-            paddingLeft: 20,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            position: 'relative',
-            marginHorizontal: 20,
-          }}>
+        <View style={styles.inputContainer}>
           <TextInput
-            onFocus={() => {}}
-            onBlur={() => {}}
-            style={{ color: 'white', width: '80%', height: '100%', textAlign: 'center' }}
+            style={styles.inputTop}
             onChangeText={setValueProxy}
             value={valueProxy}
             iconPosition="right"
@@ -116,33 +104,13 @@ function BalanceMethod({ navigation, route }) {
         </View>
         <ScrollView style={styles.scrollView}>
           {filtredMethods.map(data => (
-            <View
-              key={data.id}
-              style={{ width: '100%', backgroundColor: 'rgba(255, 255, 255, 0.06)', marginBottom: 4 }}>
-              <View
-                style={{
-                  marginHorizontal: 20,
-                  paddingBottom: 16,
-                  paddingTop: 16,
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}>
-                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                  <Image style={{ marginHorizontal: 24, width: 24, height: 24 }} source={{ uri: data.icon_path_2 }} />
-                  <Text style={{ fontWeight: '600', color: 'white', fontSize: 14, lineHeight: 15, maxWidth: '80%' }}>
-                    {data.name_en}
-                  </Text>
+            <View key={data.id} style={styles.methodContainer}>
+              <View style={styles.methodItem}>
+                <View style={styles.nameContainer}>
+                  <Image style={styles.nameLogo} source={{ uri: data.icon_path_2 }} />
+                  <Text style={styles.nameText}>{data.name_en}</Text>
                 </View>
-                <Pressable
-                  hitSlop={25}
-                  activeOpacity={1}
-                  onPress={() => {
-                    setSelectedMethod(data.name_en)
-                    setSelectedMethodId(data.id)
-                    selectedMethod === data.name_en && setSelectedMethod('')
-                    selectedMethod === data.name_en && setSelectedMethodId('')
-                  }}>
+                <Pressable hitSlop={25} activeOpacity={1} onPress={() => handleChooseItem(data)}>
                   {selectedMethod !== data.name_en ? <DarkRadioUncheked /> : <LightRadioUncheked />}
                 </Pressable>
               </View>
@@ -150,9 +118,7 @@ function BalanceMethod({ navigation, route }) {
           ))}
         </ScrollView>
         {selectedStatus && (
-          <TouchableOpacity
-            style={{ width: '100%', display: 'flex', alignItems: 'center' }}
-            onPress={() => handelPayment()}>
+          <TouchableOpacity style={styles.paymentButtonContiner} onPress={handelPayment}>
             <SuperEllipseMaskView
               radius={{
                 topLeft: 12,
@@ -160,17 +126,8 @@ function BalanceMethod({ navigation, route }) {
                 bottomRight: 12,
                 bottomLeft: 12,
               }}
-              style={{
-                width: '90%',
-                height: 50,
-                backgroundColor: '#FAC637',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13, lineHeight: 15 }}>
-                {text?.buttons?.b1}
-              </Text>
+              style={styles.paymentButtonItem}>
+              <Text style={styles.paymentButtonText}>{text?.buttons?.b1}</Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
         )}
@@ -226,6 +183,86 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
     fontSize: 13,
+  },
+  headerLeftTintContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLeftTintText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 15,
+  },
+  inputContainer: {
+    backgroundColor: '#1E2127',
+    color: '#CBCBCB',
+    height: 44,
+    minWidth: '90%',
+    marginBottom: 14,
+    borderRadius: 8,
+    paddingLeft: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+    marginHorizontal: 20,
+  },
+  inputTop: {
+    color: 'white',
+    width: '80%',
+    height: '100%',
+    textAlign: 'center',
+  },
+  methodContainer: {
+    width: '100%',
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    marginBottom: 4,
+  },
+  methodItem: {
+    marginHorizontal: 20,
+    paddingBottom: 16,
+    paddingTop: 16,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  nameContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  nameLogo: {
+    marginHorizontal: 24,
+    width: 24,
+    height: 24,
+  },
+  nameText: {
+    fontWeight: '600',
+    color: 'white',
+    fontSize: 14,
+    lineHeight: 15,
+    maxWidth: '80%',
+  },
+  paymentButtonContiner: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  paymentButtonItem: {
+    width: '90%',
+    height: 50,
+    backgroundColor: '#FAC637',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  paymentButtonText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
+    lineHeight: 15,
   },
 })
 

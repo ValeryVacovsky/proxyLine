@@ -24,14 +24,14 @@ function Ofert({ navigation }) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={navigation.goBack}
           style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
           <HeaderTintBack style={{ bottom: 1 }} />
           <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
         </TouchableOpacity>
       ),
     })
-  })
+  }, [navigation])
   return (
     <LayoutAuth>
       <View style={{ marginTop: 25 }}>

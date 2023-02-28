@@ -32,6 +32,7 @@
     "react-native-calendars": "^1.1293.0",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-linear-gradient": "^2.6.2",
+    "react-native-localize": "^2.2.4",
     "react-native-network-bandwith-speed": "^3.0.0",
     "react-native-network-proxy": "^1.0.1",
     "react-native-network-speed": "^1.1.2",

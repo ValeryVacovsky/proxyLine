@@ -33,7 +33,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         period: days,
         coupon: '',
       }).then(data => {
-        setTotalPrice(data.data.amount / 100)
+        setTotalPrice(data?.data?.amount / 100)
       })
     }
     name()

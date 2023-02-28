@@ -24,13 +24,12 @@ function Tags({ tags, setFilters, setChildrenItem, handleClosePress, handleSnapP
     }, 500)
 
     setIsOpen(true)
-    console.log(123)
   }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
         <Text style={styles.text}>Теги</Text>
-        <TouchableOpacity activeOpacity={0.8} onPress={() => handleOpenBottomSheet()}>
+        <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
           <View style={styles.topContainer}>
             <Text style={styles.textInfo}>Выбрать</Text>
             <VectorRightSmall />

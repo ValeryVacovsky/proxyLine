@@ -6,6 +6,7 @@ let heightOffScreen = Dimensions.get('window').height
 function BottomSheetItem({ handleClosePress, navigation, text }) {
   const handlePress = () => {
     navigation.navigate('Notes')
+    handleClosePress()
   }
   return (
     <View style={styles.container}>
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     paddingBottom: heightOffScreen > 800 ? 20 : 18,
     backgroundColor: '#1E2127',
     width: '90%',
-    marginBottom: 90,
+    marginBottom: 34,
     borderRadius: 12,
     alignItems: 'center',
   },

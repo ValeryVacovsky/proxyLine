@@ -12,15 +12,14 @@ function BottomSheetDateCountries({ handleClosePress, setIsOpen, countreisList, 
     handleClosePress()
     setIsOpen(false)
   }
-  console.log('state', countriesState)
+  const hendleExcludeStatus = () => {
+    setExcludeStatus(prev => !prev)
+  }
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.topTextLeft}>Страны</Text>
-        <TouchableOpacity
-          style={styles.topRightTextContainer}
-          activeOpacity={0.8}
-          onPress={() => setExcludeStatus(prev => !prev)}>
+        <TouchableOpacity style={styles.topRightTextContainer} activeOpacity={0.8} onPress={hendleExcludeStatus}>
           {excludeStatus ? <ExcludeOn /> : <ExcludeOff />}
           <Text style={styles.topTextRight}>Исключить</Text>
         </TouchableOpacity>
