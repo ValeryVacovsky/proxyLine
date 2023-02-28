@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import getAllTexts, { getAuthText } from '../../common/getAllTexts'
 import { useSelector } from 'react-redux'
+import SplashScreen from 'react-native-splash-screen'
 
 function AuthIntro({ navigation }) {
   const language = useSelector(res => res.textReducer.languages_get.language)
@@ -11,6 +12,7 @@ function AuthIntro({ navigation }) {
   useEffect(() => {
     // TODO: когда будет логика на Main или Auth переходить, добавить сюда получение текстов main
     getAuthText(dispatch, language).then(() => {
+      SplashScreen.hide()
       navigation.navigate('Auth')
     })
     // TODO: обработать случай, если апи не вернул тексты или произошла ошибка

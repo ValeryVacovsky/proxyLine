@@ -25,8 +25,6 @@ import { useListTags } from '../hooks/useListTags'
 import { useListIps } from '../hooks/useListIps'
 import useBalance from '../hooks/useBalance'
 import { useListOrders } from '../hooks/useListOrders'
-// import postAuth from "../api";
-// import axios from 'axios'
 
 function Main({ navigation }) {
   useListOrders()
@@ -43,7 +41,9 @@ function Main({ navigation }) {
     }
     getIPAddress()
   }, [])
+
   const dispatch = useDispatch()
+
   useEffect(() => {
     const listProxies = async () => {
       const token = await AsyncStorage.getItem('@token')
@@ -332,6 +332,7 @@ function Main({ navigation }) {
     </LayoutAuth>
   )
 }
+
 const styles = StyleSheet.create({
   mainLogo: {
     alignItems: 'center',

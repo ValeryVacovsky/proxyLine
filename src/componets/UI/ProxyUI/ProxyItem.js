@@ -11,7 +11,6 @@ function ProxyItem({
   proxyRes,
   selected,
   setSelected,
-  setProxyItemPicked,
   handleSnapPress,
   setChildrenItem,
   handleClosePress,
@@ -21,8 +20,7 @@ function ProxyItem({
   text,
 }) {
   const handleOpenModal = () => {
-    setProxyItemPicked(true)
-    childrenItem && handleSnapPress(1)
+    childrenItem && handleSnapPress(0)
     setSelected(null)
     setChildrenItem(
       <BottomSheetIist

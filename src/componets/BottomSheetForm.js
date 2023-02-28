@@ -1,26 +1,24 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { View } from 'react-native'
-import BottomSheet from '@gorhom/bottom-sheet'
+import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet'
 
 const handleComponent = () => <View />
 
-function BottomSheetForm({ sheetRef, snapPoints, setIsOpen, children, handleSheetChange }) {
-  const handelClose = () => {
-    setIsOpen(false)
-  }
+function BottomSheetForm({ sheetRef, snapPoints, children, handleSheetChange, handleClosePress }) {
+  const renderBackdrop = useCallback(
+    props => <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} onPress={handleClosePress} />,
+    [handleClosePress],
+  )
+
   return (
     <BottomSheet
       ref={sheetRef}
-      backdropPressToClose={true}
+      index={-1}
       snapPoints={snapPoints}
       enablePanDownToClose
-      onClose={handelClose}
-      onCloseEnd={handelClose}
       handleComponent={handleComponent}
-      onChange={handleSheetChange}
-      enabledGestureInteraction={true}
-      enabledContentGestureInteraction={false}
-      backdrop={true}>
+      backdropComponent={renderBackdrop}
+      onChange={handleSheetChange}>
       {children}
     </BottomSheet>
   )

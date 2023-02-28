@@ -9,7 +9,6 @@ import {
   TextInput,
   Pressable,
   Dimensions,
-  Modal,
 } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import ProxiesFilter from '../../image/Svg/ProxiesFilter'
@@ -29,7 +28,6 @@ function MyProxies({ navigation }) {
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
-  const [, setIsOpen] = useState(false)
   const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['45%'] : ['51%']), [heightOffScreen])
 
   const handleSnapPress = useCallback(index => {
@@ -37,19 +35,12 @@ function MyProxies({ navigation }) {
   }, [])
 
   const handleClosePress = useCallback(() => {
-    setProxyItemPicked(false)
     sheetRef.current?.close()
-    setProxyItemPicked(false)
   }, [])
+
   const proxyLisStore = useSelector(data => data.proxy.proxyList)
   const [selected, setSelected] = useState(null)
-  const [proxyItemPicked, setProxyItemPicked] = useState(null)
   const [childrenItem, setChildrenItem] = useState()
-  const handleSheetChange = index => {
-    if (index === -1) {
-      setProxyItemPicked(false)
-    }
-  }
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -74,7 +65,6 @@ function MyProxies({ navigation }) {
                 <BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} text={text} />,
               )
               handleSnapPress(0)
-              setProxyItemPicked(true)
             }}
             hitSlop={15}>
             <ProxiesDotts />
@@ -88,7 +78,7 @@ function MyProxies({ navigation }) {
         </TouchableOpacity>
       ),
     })
-  }, [handleClosePress, handleSnapPress, navigation])
+  }, [handleClosePress, handleSnapPress, navigation, text])
   return (
     <LayoutMain>
       <View style={{ display: 'flex' }}>
@@ -120,7 +110,6 @@ function MyProxies({ navigation }) {
                 proxyRes={proxy}
                 selected={selected}
                 setSelected={setSelected}
-                setProxyItemPicked={setProxyItemPicked}
                 handleSnapPress={handleSnapPress}
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
@@ -153,19 +142,13 @@ function MyProxies({ navigation }) {
           </SuperEllipseMaskView>
         </TouchableOpacity>
       )}
-      <Modal visible={proxyItemPicked} transparent={true} onRequestClose={() => setProxyItemPicked(false)}>
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <BottomSheetForm
-            navigation={navigation}
-            sheetRef={sheetRef}
-            snapPoints={snapPoints}
-            setIsOpen={setIsOpen}
-            handleClosePress={handleClosePress}
-            handleSheetChange={handleSheetChange}>
-            {childrenItem}
-          </BottomSheetForm>
-        </View>
-      </Modal>
+      <BottomSheetForm
+        navigation={navigation}
+        sheetRef={sheetRef}
+        snapPoints={snapPoints}
+        handleClosePress={handleClosePress}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>{childrenItem}</View>
+      </BottomSheetForm>
     </LayoutMain>
   )
 }
