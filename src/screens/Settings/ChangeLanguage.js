@@ -42,10 +42,8 @@ function ChangeLanguage({ navigation }) {
               <View style={styles.countryContianer} key={country}>
                 <View style={styles.countryItem}>
                   <View style={styles.countryItemInfo}>
-                    <View style={{ width: 20, height: 20, marginRight: 10 }}>{flagByShortName[country]}</View>
-                    <Text style={{ fontWeight: '600', color: 'white', fontSize: 14, lineHeight: 15, maxWidth: '80%' }}>
-                      {country}
-                    </Text>
+                    <View style={styles.countryItemFlag}>{flagByShortName[country]}</View>
+                    <Text style={styles.countryItemText}>{country}</Text>
                   </View>
                   <Pressable hitSlop={25} activeOpacity={1} onPress={() => handleChange(country)}>
                     {countrySelected !== country ? <DarkRadioUncheked /> : <LightRadioUncheked />}
@@ -92,6 +90,18 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  countryItemFlag: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
+  countryItemText: {
+    fontWeight: '600',
+    color: 'white',
+    fontSize: 14,
+    lineHeight: 15,
+    maxWidth: '80%',
   },
 })
 

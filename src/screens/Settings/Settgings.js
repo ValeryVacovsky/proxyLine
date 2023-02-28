@@ -11,15 +11,15 @@ import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function Settgings({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
+  const handleNavigate = item => {
+    navigation.navigate(item)
+  }
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <View style={{ marginLeft: 15 }}>
-          <TouchableOpacity
-            style={styles.balanceIcon}
-            activeOpacity={0.8}
-            onPress={() => navigation.navigate('Account')}>
+          <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => handleNavigate('Account')}>
             <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 14 }}>{text?.texts?.t0}</Text>
           </TouchableOpacity>
         </View>
@@ -52,58 +52,49 @@ function Settgings({ navigation }) {
             <CheckProxy />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => navigation.navigate('Confirm')}>
+        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Confirm')}>
           <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t24}</Text>
+            <Text style={styles.settingText}>{text?.texts?.t24}</Text>
             <SettingsVector />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => navigation.navigate('Tags')}>
+        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Tags')}>
           <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t25}</Text>
-            <SettingsVector />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.settingLine}
-          activeOpacity={0.8}
-          onPress={() => navigation.navigate('AnwserQuaction')}>
-          <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t2}</Text>
-            <SettingsVector />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => navigation.navigate('Message')}>
-          <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>
-              {text?.texts?.t3 && 'Написать нам'}
-            </Text>
+            <Text style={styles.settingText}>{text?.texts?.t25}</Text>
             <SettingsVector />
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.settingLine}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('Language')}>
+          onPress={() => handleNavigate('AnwserQuaction')}>
           <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>{text?.texts?.t6 && 'Язык'}</Text>
+            <Text style={styles.settingText}>{text?.texts?.t2}</Text>
+            <SettingsVector />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Message')}>
+          <View style={styles.setting}>
+            <Text style={styles.settingText}>{text?.texts?.t3 && 'Написать нам'}</Text>
+            <SettingsVector />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Language')}>
+          <View style={styles.setting}>
+            <Text style={styles.settingText}>{text?.texts?.t6 && 'Язык'}</Text>
             <SettingsVector />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => {}}>
           <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>
-              {text?.texts?.t4 && 'Больше возможностей'}
-            </Text>
+            <Text style={styles.settingText}>{text?.texts?.t4 && 'Больше возможностей'}</Text>
             <SettingsVector2 />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingLineBottom} activeOpacity={0.8}>
           <View style={styles.setting}>
-            <Text style={{ fontWeight: '600', fontSize: 15, color: '#CBCBCB' }}>
-              {text?.texts?.t5 && 'Версия'} Proxy Line
-            </Text>
-            <Text style={{ fontWeight: '700', fontSize: 14, color: 'white' }}>1.0.1</Text>
+            <Text style={styles.settingText}>{text?.texts?.t5 && 'Версия'} Proxy Line</Text>
+            <Text style={styles.settingTextVersion}>1.0.1</Text>
           </View>
         </TouchableOpacity>
       </SafeAreaView>
@@ -171,6 +162,16 @@ const styles = StyleSheet.create({
     paddingTop: 17,
     alignItems: 'center',
     width: '90%',
+  },
+  settingText: {
+    fontWeight: '600',
+    fontSize: 15,
+    color: '#CBCBCB',
+  },
+  settingTextVersion: {
+    fontWeight: '700',
+    fontSize: 14,
+    color: 'white',
   },
   s_navContainer: {
     alignItems: 'center',

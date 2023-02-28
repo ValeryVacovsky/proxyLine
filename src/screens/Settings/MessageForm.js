@@ -30,33 +30,13 @@ function MessageForm({ navigation }) {
         <View>
           <Text style={styles.text}>{text?.texts?.t9 && 'Тема'}</Text>
           <View style={styles.dataProxyes}>
-            <View
-              style={{
-                width: '90%',
-              }}>
-              <TextInput
-                style={{
-                  backgroundColor: '#1E2127',
-                  color: 'white',
-                  height: 44,
-                  minWidth: '90%',
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  paddingLeft: 20,
-                  paddingTop: 14,
-                  paddingBottom: 14,
-                  borderColor: '#333842',
-                }}
-              />
+            <View style={styles.inputThemeContianer}>
+              <TextInput style={styles.inputTheme} />
             </View>
           </View>
           <Text style={styles.text}>{text?.texts?.t9 && 'Сообщение'}</Text>
           <View style={styles.dataProxyes}>
-            <View
-              style={{
-                alignItems: 'center',
-                width: '100%',
-              }}>
+            <View style={styles.inputMessageContainer}>
               <TextInput
                 style={{
                   backgroundColor: '#1E2127',
@@ -116,9 +96,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 10,
   },
-  scrollView: {
-    width: '100%',
-  },
   text: {
     color: 'white',
     fontSize: 16,
@@ -141,36 +118,9 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     marginTop: 20,
   },
-  circleGradient: {
-    backgroundColor: 'white',
-    borderRadius: 5,
-  },
-  visit: {
-    margin: 4,
-    paddingHorizontal: 6,
-    textAlign: 'center',
-    backgroundColor: 'white',
-    color: '#008f68',
-    fontSize: 12,
-  },
   dataProxyes: {
     width: '100%',
     alignItems: 'center',
-  },
-  dataProxyesButton: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  textInput: {
-    padding: 20,
-    flex: 1,
-    backgroundColor: '#1E2127',
-    borderWidth: 1,
-    borderColor: '#333842',
-    borderRadius: 8,
-    color: 'white',
-    fontWeight: '400',
-    fontSize: 14,
   },
   button: {
     alignItems: 'center',
@@ -203,6 +153,25 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  inputThemeContianer: {
+    width: '90%',
+  },
+  inputTheme: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '90%',
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    paddingTop: 14,
+    paddingBottom: 14,
+    borderColor: '#333842',
+  },
+  inputMessageContainer: {
+    alignItems: 'center',
+    width: '100%',
   },
 })
 

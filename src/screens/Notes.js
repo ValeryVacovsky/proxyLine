@@ -31,6 +31,41 @@ function Notes({ navigation }) {
       </Pressable>
     </View>,
   )
+  const handleOpenStatus = () => {
+    setOpenStatus(true)
+    setOpenStatusItem(
+      <View style={{ marginLeft: 15 }}>
+        <TouchableOpacity
+          style={styles.balanceIcon}
+          activeOpacity={0.8}
+          onPress={() => {
+            setOpenStatus(false)
+            setOpenStatusItem(<View />)
+          }}>
+          <NotesTab />
+        </TouchableOpacity>
+      </View>,
+    )
+  }
+  const handleCloseStatus = () => {
+    saveChanges(textValue)
+    setTextValue(pretextValue)
+    setOpenStatus(true)
+    setOpenStatusItem(
+      <View style={{ marginLeft: 15 }}>
+        <TouchableOpacity
+          style={styles.balanceIcon}
+          activeOpacity={0.8}
+          onPress={() => {
+            setTextValue(pretextValue)
+            setOpenStatus(false)
+            setOpenStatusItem(<View />)
+          }}>
+          <NotesTab />
+        </TouchableOpacity>
+      </View>,
+    )
+  }
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -67,16 +102,6 @@ function Notes({ navigation }) {
           {openStatus ? (
             <Text style={{ color: 'white' }}>{textValue}</Text>
           ) : (
-            // <AutoGrowingTextInput
-            //   value={textValue.textValue}
-            //   style={styles.textInput}
-            //   onChange={event => onChange(event)}
-            //   placeholder="Your Message"
-            //   placeholderTextColor="#66737C"
-            //   maxHeight={500}
-            //   minHeight={200}
-            //   enableScrollToCaret
-            // />
             <TextInput
               style={styles.textInput}
               multiline
@@ -115,22 +140,7 @@ function Notes({ navigation }) {
             zIndex: 1,
           }}>
           <TouchableOpacity
-            onPress={() => {
-              setOpenStatus(true)
-              setOpenStatusItem(
-                <View style={{ marginLeft: 15 }}>
-                  <TouchableOpacity
-                    style={styles.balanceIcon}
-                    activeOpacity={0.8}
-                    onPress={() => {
-                      setOpenStatus(false)
-                      setOpenStatusItem(<View />)
-                    }}>
-                    <NotesTab />
-                  </TouchableOpacity>
-                </View>,
-              )
-            }}
+            onPress={handleOpenStatus}
             style={{
               alignItems: 'center',
               width: '100%',
@@ -165,25 +175,7 @@ function Notes({ navigation }) {
             </SuperEllipseMaskView>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {
-              saveChanges(textValue)
-              setTextValue(pretextValue)
-              setOpenStatus(true)
-              setOpenStatusItem(
-                <View style={{ marginLeft: 15 }}>
-                  <TouchableOpacity
-                    style={styles.balanceIcon}
-                    activeOpacity={0.8}
-                    onPress={() => {
-                      setTextValue(pretextValue)
-                      setOpenStatus(false)
-                      setOpenStatusItem(<View />)
-                    }}>
-                    <NotesTab />
-                  </TouchableOpacity>
-                </View>,
-              )
-            }}
+            onPress={handleCloseStatus}
             style={{
               alignItems: 'center',
               width: '100%',

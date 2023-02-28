@@ -55,7 +55,7 @@ function AuthAuthauthentification({ navigation }) {
     if (res.data.success === true) {
       await AsyncStorage.setItem('@token', String(res.data.user.token))
       await AsyncStorage.setItem('@id', String(res.data.user.id))
-      // dispatch(setAuth(true))
+      dispatch(setAuth(true))
       navigation.navigate('Main')
     } else {
       setCommonFormError('Invalid email or password')

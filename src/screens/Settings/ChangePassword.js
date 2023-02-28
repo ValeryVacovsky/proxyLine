@@ -28,72 +28,22 @@ function ChangePassword({ navigation }) {
           <View>
             <Text style={styles.text}>{text?.texts?.t16 && 'Новый пароль'}</Text>
             <View style={styles.dataProxyes}>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                }}>
-                <TextInput
-                  style={{
-                    backgroundColor: '#1E2127',
-                    color: 'white',
-                    height: 44,
-                    minWidth: '90%',
-                    marginBottom: 14,
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    paddingLeft: 20,
-                    paddingTop: 14,
-                    paddingBottom: 14,
-                    borderColor: '#333842',
-                  }}
-                />
+              <View style={styles.inputEmailContainer}>
+                <TextInput style={styles.inputEmailChange} />
               </View>
             </View>
             <Text style={styles.text}>{text?.texts?.t17 && 'Повторите новый пароль'}</Text>
             <View style={styles.dataProxyes}>
-              <View
-                style={{
-                  alignItems: 'center',
-                  width: '100%',
-                }}>
-                <TextInput
-                  style={{
-                    backgroundColor: '#1E2127',
-                    color: 'white',
-                    height: 44,
-                    minWidth: '90%',
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    paddingLeft: 20,
-                    paddingTop: 14,
-                    paddingBottom: 14,
-                    borderColor: '#333842',
-                  }}
-                />
+              <View style={styles.inputPasswordContainer}>
+                <TextInput style={styles.inputPasswordChange} />
               </View>
             </View>
             <View style={styles.dataProxyesButton}>
               <TouchableOpacity
-                style={{
-                  backgroundColor: '#1E2127',
-                  width: '90%',
-                  alignItems: 'center',
-                  borderRadius: 12,
-                  marginTop: 20,
-                }}
+                style={styles.buttonChangeContianer}
                 activeOpacity={0.8}
                 onPress={() => navigation.navigate('Settings')}>
-                <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 13,
-                    color: '#FAC637',
-                    paddingBottom: 18,
-                    paddingTop: 18,
-                  }}>
-                  {text?.texts?.t18 && 'Применить'}
-                </Text>
+                <Text style={styles.buttonChangeText}>{text?.texts?.t18 && 'Применить'}</Text>
               </TouchableOpacity>
             </View>
             <Text style={styles.textSmallh1}>{text?.texts?.t19 && 'Требования к паролю'}</Text>
@@ -172,6 +122,53 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  inputEmailContainer: {
+    alignItems: 'center',
+    width: '100%',
+  },
+  inputEmailChange: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '90%',
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    paddingTop: 14,
+    paddingBottom: 14,
+    borderColor: '#333842',
+  },
+  inputPasswordContainer: {
+    alignItems: 'center',
+    width: '100%',
+  },
+  inputPasswordChange: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '90%',
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    paddingTop: 14,
+    paddingBottom: 14,
+    borderColor: '#333842',
+  },
+  buttonChangeContianer: {
+    backgroundColor: '#1E2127',
+    width: '90%',
+    alignItems: 'center',
+    borderRadius: 12,
+    marginTop: 20,
+  },
+  buttonChangeText: {
+    fontWeight: '600',
+    fontSize: 13,
+    color: '#FAC637',
+    paddingBottom: 18,
+    paddingTop: 18,
   },
 })
 
