@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-nati
 import ExcludeOff from '../../../../image/Svg/ExcludeOff'
 import ExcludeOn from '../../../../image/Svg/ExcludeOn'
 
-function BottomSheetTags({ handleClosePress, setTagsList, tags }) {
+function BottomSheetIps({ handleClosePress, setIps, allowedIP }) {
   const [excludeStatus, setExcludeStatus] = useState(false)
   const handlePress = () => {
     handleClosePress()
@@ -12,18 +12,10 @@ function BottomSheetTags({ handleClosePress, setTagsList, tags }) {
     setExcludeStatus(prev => !prev)
   }
 
-  // const handlePress = () => {
-  //   handleClosePress()
-  //   if (value.length > 0) {
-  //     setTagsList(prevState =>
-  //       prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
-  //     )
-  //   }
-  // }
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <Text style={styles.topTextLeft}>Теги</Text>
+        <Text style={styles.topTextLeft}>Разрешенные IP</Text>
         <TouchableOpacity style={styles.topRightTextContainer} activeOpacity={0.8} onPress={hendleExcludeStatus}>
           {excludeStatus ? <ExcludeOn /> : <ExcludeOff />}
           <Text style={styles.topTextRight}>Исключить</Text>
@@ -94,4 +86,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default BottomSheetTags
+export default BottomSheetIps

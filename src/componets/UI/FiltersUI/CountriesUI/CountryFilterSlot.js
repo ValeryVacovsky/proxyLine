@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { StyleSheet } from 'react-native'
 import LightRadioUncheked from '../../../../image/Svg/LightRadioUncheked'
 import LightRadioUnchekedRed from '../../../../image/Svg/LightRadioUnchekedRed'
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 
 import RadioUncheked from '../../../../image/Svg/RadioUncheked'
 import { flagByShortName } from '../../../../common/flagByShortName'
@@ -55,13 +54,11 @@ function CountryFilterSlot({
             <View style={styles.flagIcon}>{flagByShortName[countreiItem.code]}</View>
             <Text style={styles.mainText}>{countreiItem.name_local}</Text>
           </View>
-          <Pressable hitSlop={25} activeOpacity={0.8}>
-            {countriesState.includes(countreiItem.code) ? (
-              <LightRadioUncheked />
-            ) : (
-              <RadioUncheked width={21} height={20} />
-            )}
-          </Pressable>
+          {countriesState.includes(countreiItem.code) ? (
+            <LightRadioUncheked />
+          ) : (
+            <RadioUncheked width={21} height={20} />
+          )}
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
@@ -73,13 +70,11 @@ function CountryFilterSlot({
             <View style={styles.flagIcon}>{flagByShortName[countreiItem.code]}</View>
             <Text style={styles.mainText}>{countreiItem.name_local}</Text>
           </View>
-          <Pressable hitSlop={25} activeOpacity={0.8}>
-            {countriesStateExlude.includes(countreiItem.code) ? (
-              <LightRadioUnchekedRed />
-            ) : (
-              <RadioUncheked width={21} height={20} />
-            )}
-          </Pressable>
+          {countriesStateExlude.includes(countreiItem.code) ? (
+            <LightRadioUnchekedRed />
+          ) : (
+            <RadioUncheked width={21} height={20} />
+          )}
         </TouchableOpacity>
       )}
     </View>

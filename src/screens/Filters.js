@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
-import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, Modal } from 'react-native'
+import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -25,19 +25,6 @@ import IdProxy from '../componets/UI/FiltersUI/IdProxy'
 import FilterOrders from '../componets/UI/FiltersUI/FilterOrders'
 
 function Filters({ navigation }) {
-  const sheetRef = useRef(null)
-  const [vidsotky, setVidsotky] = useState(0)
-  const [isOpen, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => ['25%', '50%', '75%'], [])
-
-  const handleSnapPress = useCallback(index => {
-    sheetRef.current?.snapToIndex(index)
-  }, [])
-
-  const handleClosePress = useCallback(() => {
-    sheetRef.current?.close()
-  }, [])
-
   const filterStore = useSelector(data => data.filterReducer.filter)
 
   const clearForm = {
@@ -60,7 +47,7 @@ function Filters({ navigation }) {
     allowedIP: [],
   }
 
-  const [childrenItem, setChildrenItem] = useState(<View />)
+  const [childrenItem, setChildrenItem] = useState(<View style={styles.children} />)
   const [selected, setSelected] = useState(null)
   const [fitlers, setFilters] = useState({
     ip_type: [],
@@ -70,8 +57,8 @@ function Filters({ navigation }) {
     id: [],
     auto_renewal: [],
     dateCreate: [],
-    start_date_from: [],
-    start_date_to: [],
+    // start_date_from: [],
+    // start_date_to: [],
     dateOver: [],
     ip: [],
     port: [],
@@ -81,22 +68,43 @@ function Filters({ navigation }) {
     tags: [],
     allowedIP: [],
   })
-  const handleSheetChange = index => {
-    if (index === -1) {
-      setIsOpen(false)
-    }
-    setVidsotky(index)
-  }
+  console.log(fitlers)
 
   useEffect(() => {
     setFilters(filterStore)
   }, [])
   let params = new URLSearchParams()
-
   Object.keys(fitlers).map(filterName => {
-    fitlers[filterName].map(item => params.append(filterName, item))
+    if (filterName === 'dateCreate') {
+      fitlers[filterName].map(item => {
+        if (item === 'today') {
+          params.append('start_date_from', '123')
+          params.append('start_date_to', '124')
+        } else if (item === 'toweek') {
+          params.append('start_date_from', '125')
+          params.append('start_date_to', '126')
+        } else {
+          params.append('start_date_from', '127')
+          params.append('start_date_to', '128')
+        }
+      })
+    } else {
+      fitlers[filterName].map(item => {
+        params.append(filterName, item)
+      })
+    }
   })
+  const sheetRef = useRef(null)
+  const snapPoints = useMemo(() => ['25%', '50%', '75%'], [])
 
+  const handleSnapPress = useCallback(index => {
+    sheetRef.current?.snapToIndex(index)
+  }, [])
+
+  const handleClosePress = useCallback(() => {
+    setChildrenItem(<View style={styles.children} />)
+    sheetRef.current?.close()
+  }, [])
   const endpoint = `${params.toString()}`
   useEffect(() => {
     let count = 0
@@ -167,17 +175,14 @@ function Filters({ navigation }) {
                 handleSnapPress={handleSnapPress}
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
-                setIsOpen={setIsOpen}
               />
               <DateOver dateOver={fitlers.dateOver} setFilters={setFilters} />
               <IPAddress
-                vidsotky={vidsotky}
                 ip={fitlers.ip}
                 setFilters={setFilters}
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
                 handleSnapPress={handleSnapPress}
-                setIsOpen={setIsOpen}
               />
               <IdProxy
                 id={fitlers.id}
@@ -185,7 +190,6 @@ function Filters({ navigation }) {
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
                 handleSnapPress={handleSnapPress}
-                setIsOpen={setIsOpen}
               />
               <FilterOrders
                 orders={fitlers.orders}
@@ -193,7 +197,6 @@ function Filters({ navigation }) {
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
                 handleSnapPress={handleSnapPress}
-                setIsOpen={setIsOpen}
               />
               <Port
                 port={fitlers.port}
@@ -201,7 +204,6 @@ function Filters({ navigation }) {
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
                 handleSnapPress={handleSnapPress}
-                setIsOpen={setIsOpen}
               />
               <CountriesItem
                 countries={fitlers.countries}
@@ -209,7 +211,6 @@ function Filters({ navigation }) {
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
                 handleSnapPress={handleSnapPress}
-                setIsOpen={setIsOpen}
                 countriesExclude={fitlers.countries_exclude}
               />
               <Tags
@@ -218,9 +219,14 @@ function Filters({ navigation }) {
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
                 handleSnapPress={handleSnapPress}
-                setIsOpen={setIsOpen}
               />
-              <AllowedIP allowedIP={fitlers.allowedIP} setFilters={setFilters} />
+              <AllowedIP
+                allowedIP={fitlers.allowedIP}
+                setFilters={setFilters}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+                setChildrenItem={setChildrenItem}
+              />
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -239,23 +245,14 @@ function Filters({ navigation }) {
           </TouchableOpacity>
         )}
       </View>
-      <Modal
-        visible={isOpen}
-        transparent={true}
-        onRequestClose={() => setIsOpen(false)}
-        presentationStyle="overFullScreen">
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <BottomSheetForm
-            navigation={navigation}
-            sheetRef={sheetRef}
-            snapPoints={snapPoints}
-            setIsOpen={setIsOpen}
-            handleClosePress={handleClosePress}
-            handleSheetChange={handleSheetChange}>
-            {childrenItem}
-          </BottomSheetForm>
-        </View>
-      </Modal>
+
+      <BottomSheetForm
+        navigation={navigation}
+        sheetRef={sheetRef}
+        snapPoints={snapPoints}
+        handleClosePress={handleClosePress}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>{childrenItem}</View>
+      </BottomSheetForm>
     </LayoutMain>
   )
 }
@@ -312,6 +309,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  children: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#0F1218',
   },
 })
 

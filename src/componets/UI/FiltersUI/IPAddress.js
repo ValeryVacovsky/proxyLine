@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import BottomSheetIP from './BottomSheet/BottomSheetIP'
 
-function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
+function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const [Ipaddress, setIpaddress] = useState(['209.139.71.222', '192.168.0.3', '192.168.0.4'])
   const handlePress = item => {
     setFilters(prevState =>
@@ -12,11 +12,8 @@ function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSn
     )
   }
   const handleOpenBottomSheet = () => {
-    setChildrenItem(
-      <BottomSheetIP handleClosePress={handleClosePress} setIsOpen={setIsOpen} setIpaddress={setIpaddress} />,
-    )
+    setChildrenItem(<BottomSheetIP handleClosePress={handleClosePress} setIpaddress={setIpaddress} />)
     handleSnapPress(0)
-    setIsOpen(true)
   }
   return (
     <View style={styles.Chips}>

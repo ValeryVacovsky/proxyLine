@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
-import VectorRightSmall from '../../../image/Svg/VectorRightSmall'
 import BottomSheetDateCountries from './BottomSheet/BottomSheetDateCountries'
 
 //Он временно пока бэк допиливается позже я удалю
@@ -41,12 +40,11 @@ function CountriesItem({
   setChildrenItem,
   handleClosePress,
   handleSnapPress,
-  setIsOpen,
   countriesExclude,
 }) {
   // Здесь чуть позже использую setCountry
-  const [country, setCountry] = useState(['ru', 'us', 'fr', 'de'])
-  const [countryExclude, setCountryExclude] = useState(['ru', 'us', 'fr', 'de'])
+  const country = ['ru', 'us']
+  const countryExclude = ['fr', 'de']
   const handlePress = item => {
     setFilters(prevState =>
       prevState.countries.includes(item)
@@ -70,15 +68,11 @@ function CountriesItem({
     handleClosePress()
   }
   const handleOpenBottomSheet = () => {
-    setTimeout(() => {
-      handleSnapPress(2)
-    }, 500)
-    setIsOpen(true)
+    handleSnapPress(2)
     setChildrenItem(
       <BottomSheetDateCountries
         countreisList={countreisList}
         handleClosePress={handleClosePress}
-        setIsOpen={setIsOpen}
         countries={countries}
         setFilters={setFilters}
       />,
@@ -91,7 +85,6 @@ function CountriesItem({
         <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
           <View style={styles.textInfpContainer}>
             <Text style={styles.textInfo}>Выбрать</Text>
-            <VectorRightSmall />
           </View>
         </TouchableOpacity>
       </View>
@@ -163,7 +156,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     color: 'white',
-    marginRight: 10,
   },
   textInfpContainer: {
     display: 'flex',

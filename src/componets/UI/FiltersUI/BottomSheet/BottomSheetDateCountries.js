@@ -4,13 +4,12 @@ import CountryFilterSlot from '../CountriesUI/CountryFilterSlot'
 import ExcludeOff from '../../../../image/Svg/ExcludeOff'
 import ExcludeOn from '../../../../image/Svg/ExcludeOn'
 
-function BottomSheetDateCountries({ handleClosePress, setIsOpen, countreisList, countries, setFilters }) {
+function BottomSheetDateCountries({ handleClosePress, countreisList, countries, setFilters }) {
   const [excludeStatus, setExcludeStatus] = useState(false)
   const [countriesState, setCountriesState] = useState(countries)
   const [countriesStateExlude, setCountriesStateExlude] = useState(countries)
   const handlePress = () => {
     handleClosePress()
-    setIsOpen(false)
   }
   const hendleExcludeStatus = () => {
     setExcludeStatus(prev => !prev)

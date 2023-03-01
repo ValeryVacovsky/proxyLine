@@ -28,7 +28,7 @@ function ProxyInfo({ navigation, route }) {
   const proxyInfo = route.params.proxyRes
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => ['15%'], [])
+  const snapPoints = useMemo(() => ['15%', '45%'], [])
   const [copy, setCopy] = useState(false)
   const dateStart = new Date(proxyInfo.date_end)
   const dateEnd = new Date()
@@ -79,30 +79,10 @@ function ProxyInfo({ navigation, route }) {
               <IdOrder id={proxyInfo.id} text={proxyInfoText?.texts} />
               <Country countryName={proxyInfo.country_id} text={proxyInfoText?.texts} />
               <Version vesion={proxyInfo.ip_version} text={proxyInfoText?.texts} />
-              <IpAdress
-                IP={proxyInfo.ip}
-                handelOpenCopy={handelOpenCopy}
-                text={proxyInfoText?.texts}
-                setCopy={setCopy}
-              />
-              <Port
-                port={proxyInfo.port_socks5}
-                handelOpenCopy={handelOpenCopy}
-                text={proxyInfoText?.texts}
-                setCopy={setCopy}
-              />
-              <InfoLogin
-                login={proxyInfo.username}
-                handelOpenCopy={handelOpenCopy}
-                text={proxyInfoText?.texts}
-                setCopy={setCopy}
-              />
-              <InfoPassword
-                password={proxyInfo.password}
-                handelOpenCopy={handelOpenCopy}
-                text={proxyInfoText?.texts}
-                setCopy={setCopy}
-              />
+              <IpAdress IP={proxyInfo.ip} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
+              <Port port={proxyInfo.port_socks5} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
+              <InfoLogin login={proxyInfo.username} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
+              <InfoPassword password={proxyInfo.password} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
               <InfoType type="HTTP" text={proxyInfoText?.texts} />
             </View>
             <InfoCheckButton text={proxyInfoText?.buttons} />
@@ -121,7 +101,7 @@ function ProxyInfo({ navigation, route }) {
                 <View>
                   <View style={styles.itemContainer}>
                     {proxyInfo?.access_ips?.map(ips => {
-                      return <ConfirnIP key={ips?.id} ips="192.168.0.1" />
+                      return <ConfirnIP key={ips?.id} ips={ips} />
                     })}
                   </View>
                 </View>
@@ -143,16 +123,14 @@ function ProxyInfo({ navigation, route }) {
           </View>
         </ScrollView>
       </SafeAreaView>
-      {copy && (
-        <BottomSheetForm
-          navigation={navigation}
-          sheetRef={sheetRef}
-          snapPoints={snapPoints}
-          setIsOpen={setIsOpen}
-          handleClosePress={handleClosePress}>
-          {childrenItem}
-        </BottomSheetForm>
-      )}
+      <BottomSheetForm
+        navigation={navigation}
+        sheetRef={sheetRef}
+        snapPoints={snapPoints}
+        setIsOpen={setIsOpen}
+        handleClosePress={handleClosePress}>
+        {childrenItem}
+      </BottomSheetForm>
     </LayoutMain>
   )
 }

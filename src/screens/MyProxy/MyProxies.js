@@ -25,26 +25,26 @@ import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function MyProxies({ navigation }) {
   const text = useSelector(res => res.textReducer.myproxies.payload)
+  const [selected, setSelected] = useState(null)
+  const [childrenItem, setChildrenItem] = useState()
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
-  const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['45%'] : ['51%']), [heightOffScreen])
+  const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['48%'] : ['54%']), [heightOffScreen])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
   }, [])
 
   const handleClosePress = useCallback(() => {
+    setChildrenItem(<View style={{ width: '100%', height: '100%', backgroundColor: '#0F1218' }} />)
     sheetRef.current?.close()
   }, [])
 
   const proxyLisStore = useSelector(data => data.proxy.proxyList)
-  const [selected, setSelected] = useState(null)
-  const [childrenItem, setChildrenItem] = useState()
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <View style={{ display: 'flex', flexDirection: 'row' }}>
           <Pressable

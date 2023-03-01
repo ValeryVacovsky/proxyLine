@@ -216,11 +216,6 @@ function Notes({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  textAreaContainer: {
-    borderColor: 'Black',
-    borderWidth: 1,
-    padding: 5,
-  },
   textInputContainer: {
     flexDirection: 'row',
     paddingLeft: 8,

@@ -44,6 +44,7 @@ function ConfirmIps({ navigation }) {
           <View>
             <Text style={{ color: '#CBCBCB' }}>{text?.texts?.t26}</Text>
           </View>
+          <Text style={styles.careText}>{text?.texts?.t27}</Text>
           <TextInput style={styles.input} />
           <TouchableOpacity style={styles.bottomTextContainer}>
             <Text style={styles.bottomText}>{text?.buttons?.b1}</Text>
@@ -134,6 +135,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  careText: {
+    color: '#EC3641',
+    fontSize: 13,
+    lineHeight: 15,
+    marginTop: 20,
+    fontWeight: '400',
   },
 })
 

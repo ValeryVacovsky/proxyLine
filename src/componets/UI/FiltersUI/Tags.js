@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
-import VectorRightSmall from '../../../image/Svg/VectorRightSmall'
 import BottomSheetTags from './BottomSheet/BottomSheetTags'
 
-function Tags({ tags, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
+function Tags({ tags, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const [tagsList, setTagsList] = useState(['Тестовые', 'Лучшие прокси', 'Новые', 'Разные'])
   const handlePress = item => {
     setFilters(prevState =>
@@ -17,13 +16,14 @@ function Tags({ tags, setFilters, setChildrenItem, handleClosePress, handleSnapP
   }
   const handleOpenBottomSheet = () => {
     setChildrenItem(
-      <BottomSheetTags handleClosePress={handleClosePress} setIsOpen={setIsOpen} setTagsList={setTagsList} />,
+      <BottomSheetTags
+        handleClosePress={handleClosePress}
+        setTagsList={setTagsList}
+        setFilters={setFilters}
+        tags={tags}
+      />,
     )
-    setTimeout(() => {
-      handleSnapPress(1)
-    }, 500)
-
-    setIsOpen(true)
+    handleSnapPress(1)
   }
   return (
     <View style={styles.Chips}>
@@ -32,7 +32,6 @@ function Tags({ tags, setFilters, setChildrenItem, handleClosePress, handleSnapP
         <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
           <View style={styles.topContainer}>
             <Text style={styles.textInfo}>Выбрать</Text>
-            <VectorRightSmall />
           </View>
         </TouchableOpacity>
       </View>
@@ -88,7 +87,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     color: 'white',
-    marginRight: 10,
   },
   topMenu: {
     display: 'flex',

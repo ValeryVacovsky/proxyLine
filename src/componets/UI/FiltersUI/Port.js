@@ -3,7 +3,7 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
 import BottomSheetPort from './BottomSheet/BottomSheetPort'
 
-function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
+function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const [prots, setPorts] = useState(['58654', '23234', '67956'])
   const handlePress = item => {
     setFilters(prevState =>
@@ -13,9 +13,8 @@ function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapP
     )
   }
   const handleOpenBottomSheet = () => {
-    setChildrenItem(<BottomSheetPort handleClosePress={handleClosePress} setIsOpen={setIsOpen} setPorts={setPorts} />)
+    setChildrenItem(<BottomSheetPort handleClosePress={handleClosePress} setPorts={setPorts} />)
     handleSnapPress(0)
-    setIsOpen(true)
   }
   return (
     <View style={styles.Chips}>

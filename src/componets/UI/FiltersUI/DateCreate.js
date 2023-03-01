@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import BottomSheetDateCreate from './BottomSheet/BottomSheetDateCreate'
 
-function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
+function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   // const today = new Date()
   // const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate())
   // const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)
@@ -18,18 +18,8 @@ function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress,
     )
   }
   const handleOpenBottomSheet = () => {
-    setChildrenItem(
-      <BottomSheetDateCreate
-        handleClosePress={handleClosePress}
-        setIsOpen={setIsOpen}
-        handleSnapPress={handleSnapPress}
-      />,
-    )
-    setTimeout(() => {
-      handleSnapPress(2)
-    }, 600)
-
-    setIsOpen(true)
+    setChildrenItem(<BottomSheetDateCreate handleClosePress={handleClosePress} handleSnapPress={handleSnapPress} />)
+    handleSnapPress(2)
   }
   return (
     <View style={styles.Chips}>

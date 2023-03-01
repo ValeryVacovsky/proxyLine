@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import BottomSheetOrders from './BottomSheet/BottomSheetOrders'
 
-function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
+function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const [ordersDefault, setOrdersDefault] = useState(['58654', '23234', '67956'])
   const handlePress = item => {
     setFilters(prevState =>
@@ -12,15 +12,8 @@ function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, h
     )
   }
   const handleOpenBottomSheet = () => {
-    setChildrenItem(
-      <BottomSheetOrders
-        handleClosePress={handleClosePress}
-        setIsOpen={setIsOpen}
-        setOrdersDefault={setOrdersDefault}
-      />,
-    )
+    setChildrenItem(<BottomSheetOrders handleClosePress={handleClosePress} setOrdersDefault={setOrdersDefault} />)
     handleSnapPress(0)
-    setIsOpen(true)
   }
   return (
     <View style={styles.Chips}>

@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
 
-function BottomSheetId({ handleClosePress, setIsOpen, setIdDefault }) {
+function BottomSheetId({ handleClosePress, setIdDefault }) {
   const [value, setValue] = useState('')
   const handlePress = () => {
     handleClosePress()
-    setIsOpen(false)
     if (value.length > 0) {
       setIdDefault(prevState =>
         prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),

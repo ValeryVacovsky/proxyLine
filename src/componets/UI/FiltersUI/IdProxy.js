@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import BottomSheetId from './BottomSheet/BottomSheetId'
 
-function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setIsOpen }) {
+function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const [idDefault, setIdDefault] = useState(['58654', '23234', '67956'])
   const handlePress = item => {
     setFilters(prevState =>
@@ -12,11 +12,8 @@ function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnap
     )
   }
   const handleOpenBottomSheet = () => {
-    setChildrenItem(
-      <BottomSheetId handleClosePress={handleClosePress} setIsOpen={setIsOpen} setIdDefault={setIdDefault} />,
-    )
-    handleSnapPress(2)
-    setIsOpen(true)
+    setChildrenItem(<BottomSheetId handleClosePress={handleClosePress} setIdDefault={setIdDefault} />)
+    handleSnapPress(0)
   }
   return (
     <View style={styles.Chips}>

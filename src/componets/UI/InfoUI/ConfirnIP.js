@@ -4,7 +4,7 @@ import { TouchableOpacity, StyleSheet, Text } from 'react-native'
 function ConfirnIP({ ips }) {
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.8}>
-      <Text style={styles.item}>{ips}</Text>
+      <Text style={styles.item}>{ips.value}</Text>
     </TouchableOpacity>
   )
 }
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#333842',
     alignItems: 'center',
     borderRadius: 30,
-    marginTop: 20,
+    marginTop: 5,
     marginRight: 10,
   },
   item: {

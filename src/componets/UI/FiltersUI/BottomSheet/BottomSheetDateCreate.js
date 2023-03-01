@@ -7,7 +7,7 @@ LocaleConfig.locales['ru'] = Locacles.ru
 
 LocaleConfig.defaultLocale = 'ru'
 
-function BottomSheetDateCreate({ handleClosePress, setIsOpen, setPorts }) {
+function BottomSheetDateCreate({ handleClosePress, setPorts }) {
   const [value, setValue] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
@@ -38,7 +38,6 @@ function BottomSheetDateCreate({ handleClosePress, setIsOpen, setPorts }) {
   }
   const handlePress = () => {
     handleClosePress()
-    setIsOpen(false)
     value.length > 0 &&
       setPorts(prevState =>
         prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
@@ -52,6 +51,7 @@ function BottomSheetDateCreate({ handleClosePress, setIsOpen, setPorts }) {
       </View>
       <View style={styles.calendarContainer}>
         <CalendarList
+          firstDay={1}
           markedDates={markedDates}
           onDayPress={handleDayPress}
           markingType="period"
@@ -62,6 +62,13 @@ function BottomSheetDateCreate({ handleClosePress, setIsOpen, setPorts }) {
             calendarBackground: '#0F1218',
             monthTextColor: 'white',
             textSectionTitleDisabledColor: '#d9e1e8',
+            'stylesheet.calendar.header': {
+              week: {
+                marginTop: 50,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+              },
+            },
           }}
         />
       </View>

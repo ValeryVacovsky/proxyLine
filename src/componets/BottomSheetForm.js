@@ -4,7 +4,7 @@ import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet'
 
 const handleComponent = () => <View />
 
-function BottomSheetForm({ sheetRef, snapPoints, children, handleSheetChange, handleClosePress }) {
+function BottomSheetForm({ sheetRef, snapPoints, children, handleClosePress }) {
   const renderBackdrop = useCallback(
     props => <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} onPress={handleClosePress} />,
     [handleClosePress],
@@ -17,8 +17,7 @@ function BottomSheetForm({ sheetRef, snapPoints, children, handleSheetChange, ha
       snapPoints={snapPoints}
       enablePanDownToClose
       handleComponent={handleComponent}
-      backdropComponent={renderBackdrop}
-      onChange={handleSheetChange}>
+      backdropComponent={renderBackdrop}>
       {children}
     </BottomSheet>
   )
