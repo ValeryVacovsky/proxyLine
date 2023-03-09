@@ -185,7 +185,7 @@ function Filters({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={handleGoBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> {text?.buttons?.t13}</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b4}</Text>
         </TouchableOpacity>
       ),
     })

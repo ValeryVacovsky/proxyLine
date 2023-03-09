@@ -284,7 +284,7 @@ function BottomSheetDateOver({ handleClosePress }) {
         {/* <Calendar markingType={'custom'} markedDates={markedDates} onDayPress={handleDayPress} /> */}
       </View>
       <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
-        <Text style={styles.bottomButtonText}>{text.buttons?.t1}</Text>
+        <Text style={styles.bottomButtonText}>{text.buttons?.b1}</Text>
       </TouchableOpacity>
     </View>
   )
