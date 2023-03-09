@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import dateFormat from 'dateformat'
 import postCreateOrder from '../api/postCreateOrder'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { deleteObject } from '../store/reducers/orderReducer'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { flagByShortName } from '../common/flagByShortName'
@@ -12,6 +12,8 @@ function OrdersList({ data, text }) {
   const dispatch = useDispatch()
   const [received, setReceived] = useState(data.data.statusActive)
   const [dateCreate, setDateCreate] = useState(new Date())
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
 
   const onHandleSuccess = () => {
     dispatch(deleteObject({ statusActive: true, dateActive: new Date() }))
@@ -79,7 +81,7 @@ function OrdersList({ data, text }) {
           <View style={styles.blockContainer}>
             <Text style={styles.leftText}>{text?.texts?.t6}</Text>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={styles.rightText}>Российская Федерация</Text>
+              <Text style={styles.rightText}>{countryDiscription[languageGet][data.data.country]}</Text>
               <View style={{ width: 16, height: 13, marginLeft: 10 }}>{flagByShortName[data.data.country]}</View>
             </View>
           </View>

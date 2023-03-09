@@ -1,22 +1,46 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
+import { useForm, Controller } from 'react-hook-form'
 import { TextInput } from 'react-native-gesture-handler'
 import LayoutMain from '../../componets/LayoutMain'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
+import postSetUserPassword from '../../api/postSetUserPassword'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function ChangePassword({ navigation }) {
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.settings)
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
+  const text = useSelector(res => res.textReducer.settings.payload)
+  const [focusOnEmail, setFocusOnEmail] = useState(false)
+  const [focusOnPassword, setFocusOnPassword] = useState(false)
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm({
+    defaultValues: {
+      password: '',
+      passwordConfirmation: '',
+    },
+  })
+  const onSubmit = async item => {
+    const tokenUser = await AsyncStorage.getItem('@token')
+    const id = await AsyncStorage.getItem('@id')
+    const token = `${id}_${tokenUser}`
+    async function ChangePassword() {
+      const data = { password: item.passwordConfirmation }
+      await postSetUserPassword({ token, data })
+      navigation.navigate('Auth')
+    }
+    ChangePassword()
+  }
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Настройки</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
     })
@@ -28,21 +52,76 @@ function ChangePassword({ navigation }) {
           <View>
             <Text style={styles.text}>{text?.texts?.t16 && 'Новый пароль'}</Text>
             <View style={styles.dataProxyes}>
-              <View style={styles.inputEmailContainer}>
+              {/* <View style={styles.inputEmailContainer}>
                 <TextInput style={styles.inputEmailChange} />
-              </View>
+              </View> */}
+              <Controller
+                control={control}
+                rules={{}}
+                render={({ field: { onChange, value } }) => (
+                  <TextInput
+                    onFocus={() => setFocusOnEmail(true)}
+                    onBlur={() => setFocusOnEmail(false)}
+                    style={{
+                      backgroundColor: '#1E2127',
+                      color: 'white',
+                      height: 44,
+                      marginLeft: 20,
+                      marginRight: 20,
+                      marginBottom: 14,
+                      borderRadius: 8,
+                      borderWidth: 1,
+                      paddingLeft: 20,
+                      paddingTop: 12,
+                      paddingBottom: 12,
+                      borderColor: (focusOnEmail && '#fac637') || (errors.password && 'rgb(138,0,0)') || '#333842',
+                    }}
+                    onChangeText={onChange}
+                    value={value}
+                  />
+                )}
+                name="password"
+              />
             </View>
             <Text style={styles.text}>{text?.texts?.t17 && 'Повторите новый пароль'}</Text>
             <View style={styles.dataProxyes}>
-              <View style={styles.inputPasswordContainer}>
-                <TextInput style={styles.inputPasswordChange} />
-              </View>
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                  validate: value => value === getValues('password'),
+                }}
+                render={({ field: { onChange, value } }) => (
+                  <TextInput
+                    onFocus={() => setFocusOnPassword(true)}
+                    onBlur={() => setFocusOnPassword(false)}
+                    style={{
+                      backgroundColor: '#1E2127',
+                      color: 'white',
+                      height: 44,
+                      marginLeft: 20,
+                      marginRight: 20,
+                      marginBottom: 14,
+                      borderRadius: 8,
+                      borderWidth: 1,
+                      paddingLeft: 20,
+                      paddingTop: 12,
+                      paddingBottom: 12,
+                      borderColor:
+                        (focusOnPassword && '#fac637') || (errors.passwordConfirmation && 'rgb(138,0,0)') || '#333842',
+                    }}
+                    onChangeText={onChange}
+                    value={value}
+                  />
+                )}
+                name="passwordConfirmation"
+              />
             </View>
             <View style={styles.dataProxyesButton}>
               <TouchableOpacity
                 style={styles.buttonChangeContianer}
                 activeOpacity={0.8}
-                onPress={() => navigation.navigate('Settings')}>
+                onPress={handleSubmit(onSubmit)}>
                 <Text style={styles.buttonChangeText}>{text?.texts?.t18 && 'Применить'}</Text>
               </TouchableOpacity>
             </View>
@@ -106,7 +185,6 @@ const styles = StyleSheet.create({
   },
   dataProxyes: {
     width: '100%',
-    alignItems: 'center',
   },
   dataProxyesButton: {
     width: '100%',

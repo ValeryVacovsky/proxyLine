@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -14,7 +14,6 @@ import AuthCodeReset from '../../screens/Auth/AuthCodeReset'
 import Main from '../../screens/Main'
 
 import Proxy from '../../screens/Proxy'
-import HeaderProxy from '../../image/Svg/HeaderProxy'
 import TestScreen from '../../screens/TestScreen'
 import Agreement from '../../screens/Auth/Agreement'
 import Order from '../../screens/Order'
@@ -45,6 +44,7 @@ const Stack = createNativeStackNavigator()
 
 function Navigation() {
   const auth = useSelector(data => data.authReducer.authStatus)
+  const texts = useSelector(res => res?.textReducer?.general?.payload?.texts)
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -84,8 +84,8 @@ function Navigation() {
               options={{
                 headerTitle: () => (
                   <View style={{ alignItems: 'center' }}>
-                    <Text style={styles.headerTitle}>Публичная</Text>
-                    <Text style={styles.headerTitle}>оферта</Text>
+                    <Text style={styles.headerTitle}>{texts?.t0}</Text>
+                    <Text style={styles.headerTitle}>{texts?.t1}</Text>
                   </View>
                 ),
                 headerStyle: styles.headerStyle,
@@ -101,8 +101,8 @@ function Navigation() {
               options={{
                 headerTitle: () => (
                   <View style={{ alignItems: 'center' }}>
-                    <Text style={styles.headerTitle}>Политика</Text>
-                    <Text style={styles.headerTitle}>конфиденциальности</Text>
+                    <Text style={styles.headerTitle}>{texts?.t2}</Text>
+                    <Text style={styles.headerTitle}>{texts?.t3}</Text>
                   </View>
                 ),
                 headerStyle: styles.headerStyle,
@@ -121,17 +121,7 @@ function Navigation() {
               name="Proxy"
               component={Proxy}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Прокси</Text>,
-                headerRight: () => (
-                  <View style={{ marginLeft: 15 }}>
-                    <TouchableOpacity
-                      style={{ display: 'flex', flexDirection: 'row', fontSize: 15 }}
-                      activeOpacity={0.8}>
-                      <Text style={{ color: 'white' }}>$ 93.5 </Text>
-                      <HeaderProxy />
-                    </TouchableOpacity>
-                  </View>
-                ),
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t4}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -145,17 +135,7 @@ function Navigation() {
               name="Order"
               component={Order}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Оформление заказа</Text>,
-                headerRight: () => (
-                  <View style={{ marginLeft: 15 }}>
-                    <TouchableOpacity
-                      style={{ display: 'flex', flexDirection: 'row', fontSize: 15 }}
-                      activeOpacity={0.8}>
-                      <Text style={{ color: 'white' }}>$ 93.5 </Text>
-                      <HeaderProxy />
-                    </TouchableOpacity>
-                  </View>
-                ),
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t5}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTitleAlign: 'center',
                 headerTintColor: '#CBCBCB',
@@ -168,7 +148,7 @@ function Navigation() {
               name="Orders"
               component={Orders}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Заказы</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t6}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTitleAlign: 'center',
                 headerTintColor: '#CBCBCB',
@@ -181,7 +161,7 @@ function Navigation() {
               name="Countries"
               component={Countreis}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Выбор страны</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t7}</Text>,
 
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
@@ -199,7 +179,7 @@ function Navigation() {
               name="Balance"
               component={Balance}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Ваш баланс</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t8}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -213,7 +193,7 @@ function Navigation() {
               name="BalanceSystems"
               component={BalanceSystems}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Оплата</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t9}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -227,7 +207,7 @@ function Navigation() {
               name="BalanceMethod"
               component={BalanceMethod}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Оплата</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t9}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -248,7 +228,7 @@ function Navigation() {
                       fontSize: 16,
                       fontWeight: '700',
                     }}>
-                    Мои прокси
+                    {texts?.t10}
                   </Text>
                 ),
                 headerStyle: styles.headerStyle,
@@ -264,7 +244,7 @@ function Navigation() {
               name="Notes"
               component={Notes}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Заметки</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t11}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -278,7 +258,7 @@ function Navigation() {
               name="Info"
               component={ProxyInfo}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>О прокси</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t12}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -292,7 +272,7 @@ function Navigation() {
               name="Settings"
               component={Settgings}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Настройки</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t13}</Text>,
 
                 headerStyle: styles.headerStyle,
                 headerTitleAlign: 'center',
@@ -306,7 +286,7 @@ function Navigation() {
               name="AnwserQuaction"
               component={AnswerQuastion}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Вопрос-ответ</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t14}</Text>,
 
                 headerStyle: styles.headerStyle,
                 headerTitleAlign: 'center',
@@ -320,7 +300,7 @@ function Navigation() {
               name="Account"
               component={AccountInfo}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Аккаунт</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t15}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -334,7 +314,7 @@ function Navigation() {
               name="Resset"
               component={ChangePassword}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Смена пароля</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t16}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -348,7 +328,7 @@ function Navigation() {
               name="Message"
               component={MessageForm}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Написать нам</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t17}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -362,7 +342,7 @@ function Navigation() {
               name="Filters"
               component={Filters}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Фильтр</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t18}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -376,7 +356,7 @@ function Navigation() {
               name="Delete"
               component={DeleteProxies}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Удалить</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t19}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -390,7 +370,7 @@ function Navigation() {
               name="Extend"
               component={ExtendProxies}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Продлить</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t20}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -404,7 +384,7 @@ function Navigation() {
               name="Change"
               component={ChangeProxies}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Изменить</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t21}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -418,7 +398,7 @@ function Navigation() {
               name="Language"
               component={ChangeLanguage}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Выбор языка</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t22}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -432,7 +412,7 @@ function Navigation() {
               name="Confirm"
               component={ConfirmIps}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Разрешенные IP</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t23}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -446,7 +426,7 @@ function Navigation() {
               name="Tags"
               component={Tags}
               options={{
-                headerTitle: () => <Text style={styles.headerTitle}>Теги</Text>,
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t24}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',

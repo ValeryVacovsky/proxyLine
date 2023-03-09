@@ -10,11 +10,7 @@ import ProxyItemChange from '../../componets/UI/ProxyUI/ProxyItemChange'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function ChangeProxies({ navigation }) {
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.myproxies)
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
+  const text = useSelector(res => res.textReducer.myproxies.payload)
   const proxyLisStore = useSelector(data => data.proxy.proxyList.data)
   const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
@@ -52,7 +48,7 @@ function ChangeProxies({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Мои прокси</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b16}</Text>
         </TouchableOpacity>
       ),
     })

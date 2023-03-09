@@ -9,7 +9,7 @@ import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
 function AnswerQuastion({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
-  const general = useSelector(res => res.textReducer.general.payload.texts)
+  const general = useSelector(res => res.textReducer.faq.payload.texts)
 
   const [valueProxy, setValueProxy] = useState('')
   React.useLayoutEffect(() => {
@@ -24,7 +24,7 @@ function AnswerQuastion({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Настройки</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
     })

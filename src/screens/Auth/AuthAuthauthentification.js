@@ -156,7 +156,7 @@ function AuthAuthauthentification({ navigation }) {
             rules={{
               required: true,
               pattern: {
-                value: PASSWORD_REGEX,
+                required: true,
               },
             }}
             render={({ field: { onChange, value } }) => (

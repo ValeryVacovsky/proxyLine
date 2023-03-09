@@ -1,7 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
 function Autodetect({ autoRenewal, setFilters }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const handlePress = item => {
     setFilters(prevState =>
       prevState.auto_renewal.includes(item)
@@ -11,7 +13,7 @@ function Autodetect({ autoRenewal, setFilters }) {
   }
   return (
     <View style={styles.Chips}>
-      <Text style={styles.text}>Автопределение</Text>
+      <Text style={styles.text}>{text?.texts?.t17}</Text>
       <View style={styles.container}>
         <TouchableOpacity
           style={{
@@ -33,7 +35,7 @@ function Autodetect({ autoRenewal, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            Нет
+            {text?.texts?.t19}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -58,7 +60,7 @@ function Autodetect({ autoRenewal, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            Да
+            {text?.texts?.t18}
           </Text>
         </TouchableOpacity>
       </View>

@@ -27,7 +27,9 @@ function Ofert({ navigation }) {
           onPress={navigation.goBack}
           style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}> Назад</Text>
+          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}>
+            {authText?.buttons?.b4}
+          </Text>
         </TouchableOpacity>
       ),
     })

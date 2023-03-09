@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import BottomSheetIP from './BottomSheet/BottomSheetIP'
+import { useSelector } from 'react-redux'
 
 function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [Ipaddress, setIpaddress] = useState(['209.139.71.222', '192.168.0.3', '192.168.0.4'])
   const handlePress = item => {
     setFilters(prevState =>
@@ -18,15 +20,9 @@ function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSn
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
-        <Text
-          style={styles.text}
-          onPress={() => {
-            setIpaddress(prev => prev.concat('2342342'))
-          }}>
-          IP
-        </Text>
+        <Text style={styles.text}>{text?.texts?.t4}</Text>
         <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
-          <Text style={styles.textInfo}>Выбрать</Text>
+          <Text style={styles.textInfo}>{text?.buttons?.b3}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.container}>

@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { StyleSheet } from 'react-native'
 import LightRadioUncheked from '../image/Svg/LightRadioUncheked'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
+import { useSelector } from 'react-redux'
 
 import RadioUncheked from '../image/Svg/RadioUncheked'
 import { flagByShortName } from '../common/flagByShortName'
@@ -11,24 +12,24 @@ function CountrySlot({
   country,
   selectedCountryShort,
   setSelectedCountryShort,
-  setSelectedCountry,
   setSelectedCountryOff,
   setSelectedCountryShortOff,
 }) {
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.containerOpacity} activeOpacity={0.8}>
         <Text style={styles.mockText} />
         <View style={styles.countryInfo}>
           <View style={styles.flagIcon}>{flagByShortName[country.code]}</View>
-          <Text style={styles.mainText}>{country.name_local}</Text>
+          <Text style={styles.mainText}>{countryDiscription[languageGet][country.code]}</Text>
         </View>
         <Pressable
           hitSlop={25}
           activeOpacity={0.8}
           onPress={() => {
             setSelectedCountryShort(country.code)
-            setSelectedCountry(country.name_local)
             setSelectedCountryOff(country.name_local)
             setSelectedCountryShortOff(country.code)
           }}>

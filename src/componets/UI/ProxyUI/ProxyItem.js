@@ -6,6 +6,7 @@ import DarkRadioUncheked from '../../../image/Svg/DarkRadioUncheked'
 import LightRadioUncheked from '../../../image/Svg/LightRadioUncheked'
 import BottomSheetIist from './BottomSheetIist'
 import { flagByShortName } from '../../../common/flagByShortName'
+import { useSelector } from 'react-redux'
 
 function ProxyItem({
   proxyRes,
@@ -36,6 +37,8 @@ function ProxyItem({
     setSelected(item)
     handleClosePress()
   }
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const dateStart = new Date(proxyRes.date_end)
   const dateEnd = new Date()
   const dateNeed = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
@@ -49,7 +52,7 @@ function ProxyItem({
           <View style={{ marginLeft: 14 }}>
             <View style={styles.infoContainer}>
               <View>
-                <Text style={styles.infoCountryName}>Российская федерация</Text>
+                <Text style={styles.infoCountryName}>{countryDiscription[languageGet][proxyRes.country_id]}</Text>
                 <View style={styles.infoCountryNameConst}></View>
               </View>
               <View

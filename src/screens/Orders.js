@@ -4,11 +4,10 @@ import { View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity, Dim
 import LayoutMain from '../componets/LayoutMain'
 import UserNavigation from '../componets/UserNavigation'
 import OrdersList from '../componets/OrdersList'
-import { useListOrders } from '../hooks/useListOrders'
 import OrdersListData from '../componets/OrdersListData'
 
 function Orders({ navigation }) {
-  const dataOrders = useListOrders()
+  const dataOrders = useSelector(res => res.ordersReducer.orders)
   const proxyText = useSelector(res => res.textReducer.orders.payload)
   const heightOffScreen = Dimensions.get('window').height
   const ordersRes = useSelector(data => data.orderReducer)
@@ -20,18 +19,18 @@ function Orders({ navigation }) {
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
-        {ordersRes?.length + dataOrders.dataOrders.length > 0 && (
+        {ordersRes?.length + dataOrders.length > 0 && (
           <ScrollView style={styles.scrollView}>
             {ordersRes?.map(data => (
               <OrdersList key={data.data.id} navigation={navigation} data={data} text={proxyText} />
             ))}
-            {dataOrders.dataOrders.map(item => {
+            {dataOrders.map(item => {
               return <OrdersListData key={item.id} text={proxyText} data={item} />
             })}
           </ScrollView>
         )}
         <View style={styles.scrollContainer}>
-          {ordersRes?.length + dataOrders.dataOrders?.length === 0 && (
+          {ordersRes?.length + dataOrders?.length === 0 && (
             <View style={styles.ElementContainer}>
               <View style={styles.infoContainer}>
                 <View style={styles.infoBlock}>

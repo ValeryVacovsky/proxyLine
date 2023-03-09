@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
@@ -7,11 +7,7 @@ import LayoutMain from '../../componets/LayoutMain'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function MessageForm({ navigation }) {
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.settings)
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
+  const text = useSelector(res => res.textReducer.settings.payload)
   const heightOffScreen = Dimensions.get('window').height
   const [textValue, setTextValue] = useState('')
   React.useLayoutEffect(() => {
@@ -19,7 +15,7 @@ function MessageForm({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Настройки</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b1}</Text>
         </TouchableOpacity>
       ),
     })

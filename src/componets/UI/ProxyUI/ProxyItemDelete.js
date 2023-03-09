@@ -19,8 +19,9 @@ function ProxyItemDelete({
   onChange,
   proxyRes,
 }) {
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const text = useSelector(res => res.textReducer.myproxies.payload)
-
   const dateStart = new Date(proxyRes.date_end)
   const dateEnd = new Date()
   const dateNeed = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
@@ -34,7 +35,7 @@ function ProxyItemDelete({
           <View style={styles.infoContainer}>
             <View style={styles.infoContainerItem}>
               <View>
-                <Text style={styles.infoContainerText}>Российская федерация</Text>
+                <Text style={styles.infoContainerText}>{countryDiscription[languageGet][proxyRes.country_id]}</Text>
                 <View style={styles.infoContainerTextmock}></View>
               </View>
               <View

@@ -35,7 +35,6 @@ function ExtendProxies({ navigation }) {
     )
   }
   const arryId = []
-  // console.log('1', arryId)
   useEffect(() => {
     proxyLisStore.map(item => arryId.push(item.id))
   }, [])
@@ -50,7 +49,7 @@ function ExtendProxies({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Мои прокси</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b16}</Text>
         </TouchableOpacity>
       ),
     })

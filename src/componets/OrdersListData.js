@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import dateFormat from 'dateformat'
 import { flagByShortName } from '../common/flagByShortName'
+import { useSelector } from 'react-redux'
 
 function OrdersListData({ data, text }) {
   // преобразуем строку в объект Date
@@ -13,6 +14,8 @@ function OrdersListData({ data, text }) {
   // вычисляем количество дней и часов в разнице
   const days = Math.floor(diff / (1000 * 60 * 60 * 24))
   const hours = Math.floor(diff / (1000 * 60 * 60)) % 24
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
 
   return (
     <View style={styles.container}>
@@ -49,8 +52,8 @@ function OrdersListData({ data, text }) {
           <View style={styles.blockContainer}>
             <Text style={styles.leftText}>{text?.texts?.t6}</Text>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={styles.rightText}>Российская Федерация</Text>
-              <View style={{ width: 16, height: 13, marginLeft: 10 }}>{flagByShortName['ru']}</View>
+              <Text style={styles.rightText}>{countryDiscription[languageGet][data.country_id]}</Text>
+              <View style={{ width: 16, height: 13, marginLeft: 10, top: 1 }}>{flagByShortName[data.country_id]}</View>
             </View>
           </View>
           <View style={styles.centerBlock}>

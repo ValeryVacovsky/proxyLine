@@ -27,7 +27,7 @@ function AccountInfo({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.navigationLeftContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.navigationLeftText}> Настройки</Text>
+          <Text style={styles.navigationLeftText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
     })

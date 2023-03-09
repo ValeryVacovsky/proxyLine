@@ -1,7 +1,9 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { useSelector } from 'react-redux'
 
 function Price({ price, setFilters }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const handlePress = item => {
     setFilters(prevState =>
       prevState.price.includes(item)
@@ -11,7 +13,7 @@ function Price({ price, setFilters }) {
   }
   return (
     <View style={styles.Chips}>
-      <Text style={styles.text}>Цена</Text>
+      <Text style={styles.text}>{text?.texts?.t28}</Text>
       <View style={styles.conatainer}>
         <TouchableOpacity
           style={{
@@ -33,7 +35,7 @@ function Price({ price, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            Фиксированная
+            {text?.texts?.t29}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -56,7 +58,7 @@ function Price({ price, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            По курсу
+            {text?.texts?.t30}
           </Text>
         </TouchableOpacity>
       </View>

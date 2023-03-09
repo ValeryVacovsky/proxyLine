@@ -8,7 +8,7 @@ LocaleConfig.locales['ru'] = Locacles.ru
 
 LocaleConfig.defaultLocale = 'ru'
 
-function BottomSheetDateCreate({ handleClosePress }) {
+function BottomSheetDateOver({ handleClosePress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [value, setValue] = useState('')
   const [startDate, setStartDate] = useState('')
@@ -345,4 +345,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default BottomSheetDateCreate
+export default BottomSheetDateOver

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import getListProxies from '../api/getListProxies'
-import { setProxy } from '../store/reducers/proxyReducer'
 import { flagByShortName } from '../common/flagByShortName'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
@@ -16,7 +13,7 @@ import FlagRusSmall from '../image/Svg/FlagRusSmall'
 import LogoIntroWhite from '../image/Svg/LogoIntroWhite'
 import VectorRight from '../image/Svg/VectorRight'
 import UserNavigation from '../componets/UserNavigation'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import ButtonOn from '../image/ButtonOn.png'
 import ButtonNone from '../image/ButtonNone.png'
 import ButtonOff from '../image/ButtonOff.png'
@@ -25,13 +22,19 @@ import { useListTags } from '../hooks/useListTags'
 import { useListIps } from '../hooks/useListIps'
 import useBalance from '../hooks/useBalance'
 import { useListOrders } from '../hooks/useListOrders'
+import useProxyList from '../hooks/useProxyList'
+import useCountries from '../hooks/useCountries'
 
 function Main({ navigation }) {
+  useCountries()
   useListOrders()
   useBalance()
   useProxyOrder()
   useListTags()
   useListIps()
+  useProxyList()
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const [IP, setIp] = useState('')
   useEffect(() => {
     async function getIPAddress() {
@@ -41,25 +44,7 @@ function Main({ navigation }) {
     }
     getIPAddress()
   }, [])
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    const listProxies = async () => {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const dataProps = `${id}_${token}`
-      const data = await getListProxies({ token: dataProps, limit: '100', offset: '0' })
-      dispatch(setProxy(data))
-    }
-    listProxies()
-  }, [dispatch])
-
-  const [text, setText] = useState({})
   const mainText = useSelector(res => res.textReducer.main.payload)
-  useEffect(() => {
-    setText(mainText)
-  }, [mainText, text])
   const [statusConect, setStatusConect] = useState('off')
 
   const heightOffScreen = Dimensions.get('window').height
@@ -72,30 +57,24 @@ function Main({ navigation }) {
       <View style={styles.authForm}>
         <View style={{ marginBottom: 0, display: 'flex' }}>
           <View style={{ alignItems: 'center' }}>
-            <Text
-              style={styles.yourIP}
-              onPress={() => {
-                navigation.navigate('Auth')
-              }}>
-              {mainText?.texts?.t0}
-            </Text>
+            <Text style={styles.yourIP}>{mainText?.texts?.t0}</Text>
             {statusConect === 'on' && <Text style={styles.IpAdress}>{IP}</Text>}
             {statusConect === 'off' && <Text style={styles.IpAdress}>{IP}</Text>}
             {statusConect === 'none' && <Text style={styles.IpAdress}>{IP}</Text>}
             <View style={styles.countries}>
               {statusConect === 'on' && (
                 <Text style={styles.countryText} onPress={() => navigation.navigate('Auth')}>
-                  Россия
+                  {countryDiscription[languageGet]['ru']}
                 </Text>
               )}
               {statusConect === 'off' && (
                 <Text style={styles.countryText} onPress={() => navigation.navigate('Auth')}>
-                  Россия
+                  {countryDiscription[languageGet]['ru']}
                 </Text>
               )}
               {statusConect === 'none' && (
                 <Text style={styles.countryText} onPress={() => navigation.navigate('Auth')}>
-                  Россия
+                  {countryDiscription[languageGet]['ru']}
                 </Text>
               )}
               {statusConect === 'on' && <FlagRusSmall width={16} height={13} style={{ bottom: 7, left: 5 }} />}

@@ -19,6 +19,8 @@ function ProxyItemExtend({
   onChange,
   proxyRes,
 }) {
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const text = useSelector(res => res.textReducer.myproxies.payload)
   const dateStart = new Date(proxyRes.date_end)
   const dateEnd = new Date()
@@ -33,7 +35,7 @@ function ProxyItemExtend({
           <View style={styles.infoContainer}>
             <View style={styles.infoContainerItem}>
               <View>
-                <Text style={styles.infoContainerText}>Российская федерация</Text>
+                <Text style={styles.infoContainerText}>{countryDiscription[languageGet][proxyRes.country_id]}</Text>
                 <View style={styles.infoContainerTextmock}></View>
               </View>
               <View

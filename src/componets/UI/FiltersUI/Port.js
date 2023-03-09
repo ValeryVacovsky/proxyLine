@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { useSelector } from 'react-redux'
 
 import BottomSheetPort from './BottomSheet/BottomSheetPort'
 
 function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [prots, setPorts] = useState(['58654', '23234', '67956'])
   const handlePress = item => {
     setFilters(prevState =>
@@ -19,9 +21,9 @@ function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapP
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
-        <Text style={styles.text}>Порт</Text>
+        <Text style={styles.text}>{text?.texts?.t5}</Text>
         <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
-          <Text style={styles.textInfo}>Выбрать</Text>
+          <Text style={styles.textInfo}>{text?.buttons?.b3}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.container}>

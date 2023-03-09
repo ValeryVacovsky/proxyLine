@@ -9,11 +9,7 @@ import BottomSheetCopy from '../../componets/UI/ProxyUI/BottomSheetCopy'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function BalanceSystems({ navigation }) {
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.balance)
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
+  const text = useSelector(res => res.textReducer.balance.payload)
   const [amount, setAmount] = useState(null)
   const systems = useSelector(res => res.BalanceSystems.BalanceSystems)
   const [balanceSystems, setBalanceSystems] = useState([])
@@ -51,7 +47,7 @@ function BalanceSystems({ navigation }) {
     setBalanceSystems(systems)
   }, [systems])
   useEffect(() => {
-    if (amount == 0) {
+    if (amount === 0 || amount === null) {
       setMayGo(false)
     } else {
       setMayGo(true)
@@ -62,7 +58,7 @@ function BalanceSystems({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Назад</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
     })
@@ -100,6 +96,7 @@ function BalanceSystems({ navigation }) {
               error={error}
               handelOpenCopy={handelOpenCopy}
               mayGo={mayGo}
+              setAmount={setAmount}
             />
           ))}
         </ScrollView>

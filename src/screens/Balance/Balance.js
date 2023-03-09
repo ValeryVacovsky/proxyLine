@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import BalanceList from '../../componets/Balance/BalanceList'
@@ -10,12 +10,7 @@ import { setBalanceSystems } from '../../store/reducers/balanceSystems'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function Balance({ navigation }) {
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.balance)
-
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
+  const text = useSelector(res => res.textReducer.balance.payload)
   const dispatch = useDispatch()
   const balance = useSelector(data => data.balanceReducer)
   const operations = useSelector(data => data.balanceReducer.balanceListLogs)
@@ -31,7 +26,7 @@ function Balance({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Назад</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
     })

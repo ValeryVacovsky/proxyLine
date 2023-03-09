@@ -1,10 +1,12 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { StyleSheet } from 'react-native'
+import { useSelector } from 'react-redux'
+
 import LightRadioUncheked from '../../../../image/Svg/LightRadioUncheked'
 import LightRadioUnchekedRed from '../../../../image/Svg/LightRadioUnchekedRed'
-
 import RadioUncheked from '../../../../image/Svg/RadioUncheked'
+
 import { flagByShortName } from '../../../../common/flagByShortName'
 
 function CountryFilterSlot({
@@ -16,6 +18,8 @@ function CountryFilterSlot({
   countriesStateExlude,
   setCountriesStateExlude,
 }) {
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const handlePress = item => {
     setFilters(prevState =>
       prevState.countries.includes(item)
@@ -52,7 +56,7 @@ function CountryFilterSlot({
           <Text style={styles.mockText} />
           <View style={styles.countryInfo}>
             <View style={styles.flagIcon}>{flagByShortName[countreiItem.code]}</View>
-            <Text style={styles.mainText}>{countreiItem.name_local}</Text>
+            <Text style={styles.mainText}>{countryDiscription[languageGet][countreiItem.code]}</Text>
           </View>
           {countriesState.includes(countreiItem.code) ? (
             <LightRadioUncheked />
@@ -68,7 +72,7 @@ function CountryFilterSlot({
           <Text style={styles.mockText} />
           <View style={styles.countryInfo}>
             <View style={styles.flagIcon}>{flagByShortName[countreiItem.code]}</View>
-            <Text style={styles.mainText}>{countreiItem.name_local}</Text>
+            <Text style={styles.mainText}>{countryDiscription[languageGet][countreiItem.code]}</Text>
           </View>
           {countriesStateExlude.includes(countreiItem.code) ? (
             <LightRadioUnchekedRed />

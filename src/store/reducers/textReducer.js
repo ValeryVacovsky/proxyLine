@@ -7,6 +7,10 @@ const initialState = {
     buttons: {},
     text: {},
   },
+  faq: {
+    buttons: {},
+    text: {},
+  },
   general: {
     buttons: {},
     text: {},
@@ -69,6 +73,8 @@ export const textReducer = (state = initialState, action) => {
       return { ...state, auth: action }
     case 'ADD_MAIN_TEXT':
       return { ...state, main: action }
+    case 'ADD_FAQ_TEXT':
+      return { ...state, faq: action }
     case 'ADD_GENERAL_TEXT':
       return { ...state, general: action }
     case 'ADD_PROXY_TEXT':
@@ -114,6 +120,11 @@ export const addMainText = object => ({
 
 export const addProxyText = object => ({
   type: 'ADD_PROXY_TEXT',
+  payload: object,
+})
+
+export const addFaqText = object => ({
+  type: 'ADD_FAQ_TEXT',
   payload: object,
 })
 

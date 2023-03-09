@@ -1,7 +1,9 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { useSelector } from 'react-redux'
 
 function Types({ ipType, setFilters }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const handlePress = item => {
     setFilters(prevState =>
       prevState.ip_type.includes(item)
@@ -11,7 +13,7 @@ function Types({ ipType, setFilters }) {
   }
   return (
     <View style={styles.Chips}>
-      <Text style={styles.text}>Тип</Text>
+      <Text style={styles.text}>{text?.texts?.t8}</Text>
       <View style={styles.container}>
         <TouchableOpacity
           style={{
@@ -33,7 +35,7 @@ function Types({ ipType, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            Индивидуальные
+            {text?.texts?.t36}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -56,7 +58,7 @@ function Types({ ipType, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            Общие
+            {text?.texts?.t37}
           </Text>
         </TouchableOpacity>
       </View>

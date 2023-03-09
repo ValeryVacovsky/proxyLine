@@ -7,6 +7,7 @@ import ReadTrash from '../image/Svg/ReadTrash'
 import HeaderTintBack from '../image/Svg/HeaderTintBack'
 import BottomSheetForm from '../componets/BottomSheetForm'
 import BottomSheetCopy from '../componets/UI/ProxyUI/BottomSheetCopy'
+import BottomSheetProxyTags from '../componets/UI/ProxyUI/BottomSheetProxyTags'
 import dateFormat from 'dateformat'
 import IdOrder from '../componets/UI/InfoUI/IdOrder'
 import Country from '../componets/UI/InfoUI/Country'
@@ -22,18 +23,18 @@ import OrderEnd from '../componets/UI/InfoUI/OrderEnd'
 import OrderCount from '../componets/UI/InfoUI/OrderCount'
 import ConfirnIP from '../componets/UI/InfoUI/ConfirnIP'
 import InfoTag from '../componets/UI/InfoUI/InfoTag'
+import BottomSheetProxyIps from '../componets/UI/ProxyUI/BottomSheetProxyIps'
 
 function ProxyInfo({ navigation, route }) {
   const proxyInfoText = useSelector(res => res.textReducer.proxy_info.payload)
-  const proxyInfo = route.params.proxyRes
+  const [proxyInfo, setProxyInfo] = useState(route.params.proxyRes)
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => ['15%', '45%'], [])
-  const [copy, setCopy] = useState(false)
+  const snapPoints = useMemo(() => ['15%', '55%'], [])
   const dateStart = new Date(proxyInfo.date_end)
   const dateEnd = new Date()
-  const days = ((dateEnd - dateStart) / 1000 / (60 * 60 * 24)).toFixed(0)
-  const mounth = ((dateEnd - dateStart) / 1000 / (60 * 60)).toFixed(0)
+  const days = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
+  const mounth = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24 * 30)).toFixed(0)
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -50,8 +51,35 @@ function ProxyInfo({ navigation, route }) {
       handleClosePress()
     }, 3000)
   }
+
+  const handleOpenIps = () => {
+    handleSnapPress(1)
+    setChildrenItem(
+      <BottomSheetProxyIps
+        handleClosePress={handleClosePress}
+        proxyIps={proxyInfo?.access_ips}
+        handleSnapPress={handleSnapPress}
+        proxyId={proxyInfo.id}
+        setProxyInfo={setProxyInfo}
+      />,
+    )
+  }
+
+  const handleOpenTags = () => {
+    handleSnapPress(1)
+    setChildrenItem(
+      <BottomSheetProxyTags
+        handleClosePress={handleClosePress}
+        proxyTags={proxyInfo?.tags}
+        handleSnapPress={handleSnapPress}
+        proxyId={proxyInfo.id}
+        setProxyInfo={setProxyInfo}
+      />,
+    )
+  }
+
   const [childrenItem, setChildrenItem] = useState(
-    <BottomSheetCopy handleClosePress={handleClosePress}>Укажите баланс</BottomSheetCopy>,
+    <BottomSheetCopy handleClosePress={handleClosePress}></BottomSheetCopy>,
   )
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -64,7 +92,7 @@ function ProxyInfo({ navigation, route }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Мои прокси</Text>
+          <Text style={styles.headerLeftTintText}> {proxyInfoText?.buttons?.b4}</Text>
         </TouchableOpacity>
       ),
     })
@@ -95,7 +123,9 @@ function ProxyInfo({ navigation, route }) {
             <View style={styles.chipsContainer}>
               <View style={styles.textContainer}>
                 <Text style={styles.text}>{proxyInfoText?.texts?.t13}</Text>
-                <ProxyInfoChange />
+                <Pressable hitSlop={25} activeOpacity={0.8} onPress={handleOpenIps}>
+                  <ProxyInfoChange />
+                </Pressable>
               </View>
               <View style={styles.Chips}>
                 <View>
@@ -108,7 +138,9 @@ function ProxyInfo({ navigation, route }) {
               </View>
               <View style={styles.textContainer}>
                 <Text style={styles.text}>{proxyInfoText?.texts?.t14}</Text>
-                <ProxyInfoChange />
+                <Pressable hitSlop={25} activeOpacity={0.8} onPress={handleOpenTags}>
+                  <ProxyInfoChange />
+                </Pressable>
               </View>
               <View style={styles.Chips}>
                 <View>
@@ -138,6 +170,7 @@ function ProxyInfo({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 33,
   },
   scrollView: {
     width: '100%',

@@ -1,15 +1,10 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { useSelector } from 'react-redux'
 import BottomSheetDateCreate from './BottomSheet/BottomSheetDateCreate'
 
 function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
-  // const today = new Date()
-  // const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-  // const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)
-  // const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1))
-  // const lastDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7))
-  // const startOfMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1)
-  // const endOfMonth = new Date(today.getFullYear(), today.getMonth(), 0)
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const handlePress = item => {
     setFilters(prevState =>
       prevState.dateCreate.includes(item)
@@ -24,9 +19,9 @@ function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress,
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
-        <Text style={styles.text}>Дата создания</Text>
+        <Text style={styles.text}>{text?.texts?.t20}</Text>
         <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
-          <Text style={styles.textInfo}>Выбрать дату</Text>
+          <Text style={styles.textInfo}>{text?.texts?.t21}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.containder}>
@@ -50,7 +45,7 @@ function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress,
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            Сегодня
+            {text?.texts?.t22}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -75,7 +70,7 @@ function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress,
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            На этой недели
+            {text?.texts?.t23}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -100,7 +95,7 @@ function DateCreate({ dateCreate, setFilters, setChildrenItem, handleClosePress,
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            В этом месяце
+            {text?.texts?.t24}
           </Text>
         </TouchableOpacity>
       </View>

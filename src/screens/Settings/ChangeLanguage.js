@@ -12,6 +12,9 @@ import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 import getAllTexts from '../../common/getAllTexts'
 
 function ChangeLanguage({ navigation }) {
+  const text = useSelector(res => res.textReducer.settings.payload)
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const dispatch = useDispatch()
   const [countriesShort, setCountriesShort] = useState([])
   const balanceText = useSelector(res => res.textReducer.languages)
@@ -24,7 +27,7 @@ function ChangeLanguage({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Настройки</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
     })
@@ -43,7 +46,7 @@ function ChangeLanguage({ navigation }) {
                 <View style={styles.countryItem}>
                   <View style={styles.countryItemInfo}>
                     <View style={styles.countryItemFlag}>{flagByShortName[country]}</View>
-                    <Text style={styles.countryItemText}>{country}</Text>
+                    <Text style={styles.countryItemText}>{countryDiscription[languageGet][country]}</Text>
                   </View>
                   <Pressable hitSlop={25} activeOpacity={1} onPress={() => handleChange(country)}>
                     {countrySelected !== country ? <DarkRadioUncheked /> : <LightRadioUncheked />}

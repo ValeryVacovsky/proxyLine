@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { View, ScrollView, StyleSheet, SafeAreaView, Text, Pressable, Dimensions, TouchableOpacity } from 'react-native'
 import HeaderTintBack from '../image/Svg/HeaderTintBack'
 import { useSelector } from 'react-redux'
@@ -13,11 +13,7 @@ import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
 
 function Proxy({ navigation }) {
   const iPtypes = useSelector(res => res.orderPriceReducer.orderPrice)
-  const [text, setText] = useState({})
   const proxyText = useSelector(res => res.textReducer)
-  useEffect(() => {
-    setText(proxyText)
-  }, [proxyText, text])
 
   const balance = useSelector(data => data.balanceReducer)
   const ProxyList = [
@@ -67,7 +63,7 @@ function Proxy({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Назад</Text>
+          <Text style={styles.headerLeftTintText}> {proxyText.proxy.payload?.buttons?.b1}</Text>
         </TouchableOpacity>
       ),
     })

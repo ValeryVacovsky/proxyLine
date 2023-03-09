@@ -19,6 +19,7 @@ function BalanceList({ data, text }) {
     }
     name()
   }, [])
+  console.log(data)
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
@@ -38,7 +39,9 @@ function BalanceList({ data, text }) {
           </View>
         </View>
         <View style={styles.order}>
-          <Text style={styles.orderText}>{text?.texts?.t5} 1234812348123</Text>
+          <Text style={styles.orderText}>
+            {text?.texts?.t5} {data.payment_id}
+          </Text>
         </View>
       </View>
     </View>

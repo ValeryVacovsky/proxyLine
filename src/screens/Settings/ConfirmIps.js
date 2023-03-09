@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
@@ -8,23 +8,31 @@ import { useCreateIps } from '../../hooks/useCreateIps'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function ConfirmIps({ navigation }) {
-  const { setDeleteIps } = useCreateIps()
+  const { setDeleteIps, setCreateIps } = useCreateIps()
   const ipsList = useSelector(data => data.ipsTagsReducer.ips)
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.settings)
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
+  const text = useSelector(res => res.textReducer.settings.payload)
+  const [value, setValue] = useState('')
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Настройки</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
     })
   }, [navigation])
+
+  const handleAddTag = () => {
+    if (value.length > 0) {
+      setCreateIps({
+        ip: value,
+        name: 'string',
+      })
+      setValue('')
+    }
+  }
   return (
     <LayoutMain style={styles.layoutContainer}>
       <View style={styles.container}>
@@ -32,7 +40,7 @@ function ConfirmIps({ navigation }) {
           <View style={styles.topContainer}>
             {ipsList.map(item => {
               return (
-                <TouchableOpacity style={styles.topTextContainer} key={item.id} onPress={item => setDeleteIps(item)}>
+                <TouchableOpacity style={styles.topTextContainer} key={item.id} onPress={() => setDeleteIps(item.id)}>
                   <DeleteToggleIcon />
                   <Text style={styles.ipText}>{item.value}</Text>
                 </TouchableOpacity>
@@ -45,9 +53,9 @@ function ConfirmIps({ navigation }) {
             <Text style={{ color: '#CBCBCB' }}>{text?.texts?.t26}</Text>
           </View>
           <Text style={styles.careText}>{text?.texts?.t27}</Text>
-          <TextInput style={styles.input} />
-          <TouchableOpacity style={styles.bottomTextContainer}>
-            <Text style={styles.bottomText}>{text?.buttons?.b1}</Text>
+          <TextInput style={styles.input} value={value} onChangeText={setValue} />
+          <TouchableOpacity style={styles.bottomTextContainer} onPress={handleAddTag}>
+            <Text style={styles.bottomText}> {text?.buttons?.b1}</Text>
           </TouchableOpacity>
         </View>
       </View>

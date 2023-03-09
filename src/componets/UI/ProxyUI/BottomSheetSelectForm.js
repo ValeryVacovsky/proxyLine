@@ -14,7 +14,7 @@ function BottomSheetSelectForm({ handleClosePress, setSelectedProxies, move, sel
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
-        <Text style={styles.bottomButtonText}>Отменить</Text>
+        <Text style={styles.bottomButtonText}>{text?.buttons?.b9}</Text>
       </TouchableOpacity>
     </View>
   )

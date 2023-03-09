@@ -74,7 +74,7 @@ function MyProxies({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Назад</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b17}</Text>
         </TouchableOpacity>
       ),
     })

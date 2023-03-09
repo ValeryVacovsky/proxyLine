@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const baseUrl = 'https://proxydbtest.proxyline.net'
 
-const getContries = () =>
+const getCountries = () =>
   axios({
     method: 'get',
     url: `${baseUrl}/projectapi/v1/1/countries/'`,
@@ -12,4 +12,4 @@ const getContries = () =>
     },
   })
 
-export default getContries
+export default getCountries

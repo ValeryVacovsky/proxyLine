@@ -1,5 +1,5 @@
 const initialState = {
-  country: ['ru', 'Russian Federation'],
+  country: [],
 }
 
 export const countryOrderReducer = (state = initialState, action) => {

@@ -1,7 +1,9 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { useSelector } from 'react-redux'
 
 function Status({ status, setFilters }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const handlePress = item => {
     setFilters(prevState =>
       prevState.status.includes(item)
@@ -12,9 +14,9 @@ function Status({ status, setFilters }) {
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
-        <Text style={styles.text}>Статус</Text>
+        <Text style={styles.text}>{text?.texts?.t31}</Text>
         <TouchableOpacity activeOpacity={0.8}>
-          <Text style={styles.textInfo}>Показать все</Text>
+          <Text style={styles.textInfo}></Text>
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
@@ -38,7 +40,7 @@ function Status({ status, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            Активные
+            {text?.texts?.t32}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -61,7 +63,7 @@ function Status({ status, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            Неактивный
+            {text?.texts?.t33}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -84,7 +86,7 @@ function Status({ status, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            Истекшие
+            {text?.texts?.t34}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -107,7 +109,7 @@ function Status({ status, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            Удаленные
+            {text?.texts?.t35}
           </Text>
         </TouchableOpacity>
       </View>

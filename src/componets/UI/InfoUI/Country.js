@@ -1,14 +1,17 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { flagByShortName } from '../../../common/flagByShortName'
+import { useSelector } from 'react-redux'
 
 function Country({ countryName, text }) {
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   return (
     <View style={styles.container}>
       <View style={styles.item}>
         <Text style={styles.bigText}>{text?.t2}</Text>
         <View style={styles.smallTextContainer}>
-          <Text style={styles.smallText}>{countryName}</Text>
+          <Text style={styles.smallText}>{countryDiscription[languageGet][countryName]}</Text>
           <View style={styles.flagIcon}>{flagByShortName[countryName]}</View>
         </View>
       </View>

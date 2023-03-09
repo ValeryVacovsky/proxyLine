@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { useSelector } from 'react-redux'
 import BottomSheetOrders from './BottomSheet/BottomSheetOrders'
 
 function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [ordersDefault, setOrdersDefault] = useState(['58654', '23234', '67956'])
   const handlePress = item => {
     setFilters(prevState =>
@@ -18,9 +20,9 @@ function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, h
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
-        <Text style={styles.text}>Заказы</Text>
+        <Text style={styles.text}>{text?.texts?.t26}</Text>
         <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
-          <Text style={styles.textInfo}>Выбрать</Text>
+          <Text style={styles.textInfo}>{text?.buttons?.b3}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.container}>

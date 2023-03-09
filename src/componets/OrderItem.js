@@ -6,7 +6,7 @@ import VectorRightSmall from '../image/Svg/VectorRightSmall'
 import Toggle from './UI/OrderUI/Toggle'
 import postOrderAmount from '../api/postOrderAmount'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addObject } from '../store/reducers/orderReducer'
 import { flagByShortName } from '../common/flagByShortName'
 
@@ -17,12 +17,29 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
       return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16)
     })
   }
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const dispatch = useDispatch()
   const [amount, setAmount] = useState(1)
   const [totalPrice, setTotalPrice] = useState(0.1)
   const [days, setDays] = useState(5)
   const [selectedCountryShort, setSelectedCountryShort] = useState('ru')
   const [selectedCountry, setSelectedCountry] = useState('Russian Federation')
+  const handlePressAmount = item => {
+    if (item === 'minus') {
+      amount > 1 && setAmount(amount - 1)
+    } else {
+      amount < 1999 && setAmount(amount + 1)
+    }
+  }
+  const handlePressCountry = () => {
+    navigation.navigate('Countries', {
+      selectedCountryShort,
+      setSelectedCountryShort,
+      selectedCountry,
+      setSelectedCountry,
+    })
+  }
   useEffect(() => {
     async function name() {
       postOrderAmount({
@@ -130,14 +147,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
             paddingTop: 13,
             paddingBottom: 13,
           }}
-          onPress={() =>
-            navigation.navigate('Countries', {
-              selectedCountryShort,
-              setSelectedCountryShort,
-              selectedCountry,
-              setSelectedCountry,
-            })
-          }
+          onPress={() => handlePressCountry()}
           activeOpacity={0.8}>
           <View>
             <Text style={{ color: '#CBCBCB', fontSize: 15, fontWeight: '600' }}>{proxyText?.texts?.t0}</Text>
@@ -149,7 +159,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
                 fontWeight: '600',
                 fontSize: 13,
               }}>
-              {selectedCountry}
+              {countryDiscription[languageGet][selectedCountryShort]}
             </Text>
             <View style={{ width: 16, height: 16, marginLeft: 5, marginRight: 5 }}>
               {flagByShortName[selectedCountryShort]}
@@ -238,7 +248,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
                 borderBottomLeftRadius: 44,
                 borderTopLeftRadius: 44,
               }}
-              onPress={() => amount > 0 && setAmount(amount - 1)}
+              onPress={() => handlePressAmount('minus')}
               activeOpacity={0.8}>
               <Text
                 style={{
@@ -274,7 +284,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
                 borderTopRightRadius: 44,
               }}
               onPress={() => {
-                setAmount(amount + 1)
+                handlePressAmount('plus')
               }}
               activeOpacity={0.8}>
               <Text

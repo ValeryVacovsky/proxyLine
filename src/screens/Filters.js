@@ -25,7 +25,17 @@ import IdProxy from '../componets/UI/FiltersUI/IdProxy'
 import FilterOrders from '../componets/UI/FiltersUI/FilterOrders'
 
 function Filters({ navigation }) {
+  const today = new Date()
+  const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+  const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)
+  const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1))
+  const lastDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7))
+  const startOfMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1)
+  const endOfMonth = new Date(today.getFullYear(), today.getMonth(), 0)
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const filterStore = useSelector(data => data.filterReducer.filter)
+  const tags = useSelector(data => data.ipsTagsReducer.tags)
+  const ips = useSelector(data => data.ipsTagsReducer.ips)
 
   const clearForm = {
     ip_type: [],
@@ -35,8 +45,6 @@ function Filters({ navigation }) {
     id: [],
     auto_renewal: [],
     dateCreate: [],
-    start_date_from: [],
-    start_date_to: [],
     dateOver: [],
     ip: [],
     port: [],
@@ -44,7 +52,9 @@ function Filters({ navigation }) {
     countries: [],
     countries_exclude: [],
     tags: [],
-    allowedIP: [],
+    tags_exclude: [],
+    access_ips: [],
+    access_ips_exclude: [],
   }
 
   const [childrenItem, setChildrenItem] = useState(<View style={styles.children} />)
@@ -57,8 +67,6 @@ function Filters({ navigation }) {
     id: [],
     auto_renewal: [],
     dateCreate: [],
-    // start_date_from: [],
-    // start_date_to: [],
     dateOver: [],
     ip: [],
     port: [],
@@ -66,31 +74,52 @@ function Filters({ navigation }) {
     countries: [],
     countries_exclude: [],
     tags: [],
-    allowedIP: [],
+    tags_exclude: [],
+    access_ips: [],
+    access_ips_exclude: [],
   })
-  console.log(fitlers)
 
   useEffect(() => {
     setFilters(filterStore)
   }, [])
+  useEffect(() => {
+    const allArraysEmpty = Object.values(fitlers).every(array => Array.isArray(array) && array.length === 0)
+    if (allArraysEmpty) {
+      getFilter()
+    }
+  }, [fitlers])
   let params = new URLSearchParams()
+
   Object.keys(fitlers).map(filterName => {
     if (filterName === 'dateCreate') {
       fitlers[filterName].map(item => {
         if (item === 'today') {
-          params.append('start_date_from', '123')
-          params.append('start_date_to', '124')
+          params.append('start_date_from', startOfDay.toISOString())
+          params.append('start_date_to', endOfDay.toISOString())
         } else if (item === 'toweek') {
-          params.append('start_date_from', '125')
-          params.append('start_date_to', '126')
+          params.append('start_date_from', firstDayOfWeek.toISOString())
+          params.append('start_date_to', lastDayOfWeek.toISOString())
         } else {
-          params.append('start_date_from', '127')
-          params.append('start_date_to', '128')
+          params.append('start_date_from', startOfMonth.toISOString())
+          params.append('start_date_to', endOfMonth.toISOString())
+        }
+      })
+    } else if (filterName === 'dateOver') {
+      fitlers[filterName].map(item => {
+        if (item === 'today') {
+          params.append('end_date_from', startOfDay.toISOString())
+          params.append('end_date_to', endOfDay.toISOString())
+        } else if (item === 'toweek') {
+          params.append('end_date_from', firstDayOfWeek.toISOString())
+          params.append('end_date_to', lastDayOfWeek.toISOString())
+        } else {
+          params.append('end_date_from', startOfMonth.toISOString())
+          params.append('end_date_to', endOfMonth.toISOString())
         }
       })
     } else {
       fitlers[filterName].map(item => {
-        params.append(filterName, item)
+        params.append(filterName, item.toString())
       })
     }
   })
@@ -106,6 +135,7 @@ function Filters({ navigation }) {
     sheetRef.current?.close()
   }, [])
   const endpoint = `${params.toString()}`
+
   useEffect(() => {
     let count = 0
     Object.values(fitlers).map(item => {
@@ -121,34 +151,41 @@ function Filters({ navigation }) {
   useEffect(() => {
     dispatch(setFilter(fitlers))
   }, [dispatch, fitlers])
-  const getFilter = () => {
+  const getFilter = (move = false) => {
     const listProxies = async () => {
       const token = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
       const dataProps = `${id}_${token}`
       const data = await getListProxies({ token: dataProps, limit: '100', offset: '0', endpoint })
+      if (move) {
+        navigation.navigate('Proxies')
+      }
       dispatch(setProxy(data))
     }
     listProxies()
-    navigation.navigate('Proxies')
+  }
+  const handleGoBack = () => {
+    const go = async () => {
+      getFilter()
+      navigation.goBack()
+    }
+    go()
   }
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => {
             setFilters(clearForm)
-            getFilter()
           }}>
           <Text style={{ fontWeight: '700', fontSize: 15, color: 'white' }}>Очистить</Text>
         </TouchableOpacity>
       ),
       headerLeft: () => (
-        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
+        <TouchableOpacity onPress={handleGoBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Мои прокси</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.t13}</Text>
         </TouchableOpacity>
       ),
     })
@@ -176,7 +213,13 @@ function Filters({ navigation }) {
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
               />
-              <DateOver dateOver={fitlers.dateOver} setFilters={setFilters} />
+              <DateOver
+                dateOver={fitlers.dateOver}
+                setFilters={setFilters}
+                handleSnapPress={handleSnapPress}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+              />
               <IPAddress
                 ip={fitlers.ip}
                 setFilters={setFilters}
@@ -214,24 +257,28 @@ function Filters({ navigation }) {
                 countriesExclude={fitlers.countries_exclude}
               />
               <Tags
-                tags={fitlers.tags}
+                tagsFilter={fitlers.tags}
+                tagsFilterExcludes={fitlers.tags_exclude}
                 setFilters={setFilters}
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
                 handleSnapPress={handleSnapPress}
+                tags={tags}
               />
               <AllowedIP
-                allowedIP={fitlers.allowedIP}
+                ipsFilter={fitlers.access_ips}
+                ipsFilterExcludes={fitlers.access_ips_exclude}
                 setFilters={setFilters}
                 handleClosePress={handleClosePress}
                 handleSnapPress={handleSnapPress}
                 setChildrenItem={setChildrenItem}
+                ips={ips}
               />
             </View>
           </ScrollView>
         </SafeAreaView>
         {selected && (
-          <TouchableOpacity onPress={getFilter} style={styles.button} activeOpacity={0.8}>
+          <TouchableOpacity onPress={() => getFilter(true)} style={styles.button} activeOpacity={0.8}>
             <SuperEllipseMaskView
               radius={{
                 topLeft: 12,
@@ -247,7 +294,9 @@ function Filters({ navigation }) {
       </View>
 
       <BottomSheetForm
+        nestedScrollEnabled={false}
         navigation={navigation}
+        enabledGestureInteraction={false}
         sheetRef={sheetRef}
         snapPoints={snapPoints}
         handleClosePress={handleClosePress}>

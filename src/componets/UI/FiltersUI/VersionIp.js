@@ -1,7 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
 function VersionIp({ setFilters, ipVersion }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const handlePress = item => {
     setFilters(prevState =>
       prevState.ip_version.includes(item)
@@ -11,7 +13,7 @@ function VersionIp({ setFilters, ipVersion }) {
   }
   return (
     <View style={styles.Chips}>
-      <Text style={styles.text}>Версии IP</Text>
+      <Text style={styles.text}>{text?.texts?.t38}</Text>
       <View style={styles.container}>
         <TouchableOpacity
           style={{

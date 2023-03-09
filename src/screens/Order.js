@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ScrollView, View, StyleSheet, Text, Pressable } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
@@ -11,11 +11,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import HeaderTintBack from '../image/Svg/HeaderTintBack'
 
 function Order({ navigation, route }) {
-  const [text, setText] = useState({})
   const proxyText = useSelector(res => res.textReducer)
-  useEffect(() => {
-    setText(proxyText)
-  }, [proxyText, text])
   const [scrolling, setScrolling] = useState(true)
   const [currentProxyId, setCurrentProxyId] = useState(390)
   const balance = useSelector(data => data.balanceReducer)
@@ -37,7 +33,7 @@ function Order({ navigation, route }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Назад</Text>
+          <Text style={styles.headerLeftTintText}> {proxyText.proxy.payload?.buttons?.b3}</Text>
         </TouchableOpacity>
       ),
     })

@@ -2,10 +2,14 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { StyleSheet } from 'react-native'
 
-function BalanceListSystem({ name, data, navigation, amount, handelOpenCopy, mayGo }) {
+function BalanceListSystem({ name, data, navigation, amount, handelOpenCopy, mayGo, setAmount }) {
   const dataNav = { ...data, amount: amount }
+  const handleMove = () => {
+    navigation.navigate('BalanceMethod', { dataNav })
+    setAmount(null)
+  }
   const handlePress = () => {
-    mayGo ? navigation.navigate('BalanceMethod', { dataNav }) : handelOpenCopy()
+    mayGo ? handleMove() : handelOpenCopy()
   }
   return (
     <TouchableOpacity style={styles.mainContainer} activeOpacity={0.8} onPress={handlePress}>

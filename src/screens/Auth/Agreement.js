@@ -25,7 +25,7 @@ function Agreement({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Назад</Text>
+          <Text style={styles.headerLeftTintText}> {authText?.buttons?.b4}</Text>
         </TouchableOpacity>
       ),
     })

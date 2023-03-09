@@ -1,11 +1,20 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { useSelector } from 'react-redux'
 import CountryFilterSlot from '../CountriesUI/CountryFilterSlot'
 import ExcludeOff from '../../../../image/Svg/ExcludeOff'
 import ExcludeOn from '../../../../image/Svg/ExcludeOn'
 
-function BottomSheetDateCountries({ handleClosePress, countreisList, countries, setFilters }) {
-  const [excludeStatus, setExcludeStatus] = useState(false)
+function BottomSheetDateCountries({
+  handleClosePress,
+  countreisList,
+  countries,
+  setFilters,
+  excludeStatusOut,
+  setExcludeStatusOut,
+}) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
+  const [excludeStatus, setExcludeStatus] = useState(excludeStatusOut)
   const [countriesState, setCountriesState] = useState(countries)
   const [countriesStateExlude, setCountriesStateExlude] = useState(countries)
   const handlePress = () => {
@@ -13,14 +22,15 @@ function BottomSheetDateCountries({ handleClosePress, countreisList, countries, 
   }
   const hendleExcludeStatus = () => {
     setExcludeStatus(prev => !prev)
+    setExcludeStatusOut(prev => !prev)
   }
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <Text style={styles.topTextLeft}>Страны</Text>
+        <Text style={styles.topTextLeft}>{text?.texts?.t15}</Text>
         <TouchableOpacity style={styles.topRightTextContainer} activeOpacity={0.8} onPress={hendleExcludeStatus}>
           {excludeStatus ? <ExcludeOn /> : <ExcludeOff />}
-          <Text style={styles.topTextRight}>Исключить</Text>
+          <Text style={styles.topTextRight}>{text?.buttons?.b2}</Text>
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.scrollViewContainer}>
@@ -40,7 +50,7 @@ function BottomSheetDateCountries({ handleClosePress, countreisList, countries, 
         })}
       </ScrollView>
       <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
-        <Text style={styles.bottomButtonText}>Добавить</Text>
+        <Text style={styles.bottomButtonText}>{text?.buttons?.b1}</Text>
       </TouchableOpacity>
     </View>
   )

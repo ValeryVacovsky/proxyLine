@@ -2,6 +2,7 @@ import getLanguages from '../api/adminQuery/getLanguages'
 import getText from '../api/adminQuery/getText'
 import {
   addAuthText,
+  addFaqText,
   addGeneralText,
   addMainText,
   addOrderText,
@@ -34,8 +35,11 @@ function getAllTexts(dispatch, language) {
   getText('proxy', language).then(response => {
     dispatch(addProxyText(response.data.data))
   })
-  getText('faq', language).then(response => {
+  getText('general', language).then(response => {
     dispatch(addGeneralText(response.data.data))
+  })
+  getText('faq', language).then(response => {
+    dispatch(addFaqText(response.data.data))
   })
   getText('order', language).then(response => {
     dispatch(addOrderText(response.data.data))

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { useSelector } from 'react-redux'
 
 function BottomSheetIP({ handleClosePress, setIpaddress }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [value, setValue] = useState('')
   const handlePress = () => {
     handleClosePress()
@@ -16,7 +18,7 @@ function BottomSheetIP({ handleClosePress, setIpaddress }) {
         <TextInput style={styles.containerInput} value={value} onChange={setValue} />
       </View>
       <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
-        <Text style={styles.bottomButtonText}>Добавить</Text>
+        <Text style={styles.bottomButtonText}>{text?.buttons?.b1}</Text>
       </TouchableOpacity>
     </View>
   )

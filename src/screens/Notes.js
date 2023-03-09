@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, TouchableOpacity, Text, View, Pressable, Keyboard } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutMain from '../componets/LayoutMain'
@@ -9,11 +9,7 @@ import postUserComment from '../api/postUserComment'
 import { useSelector } from 'react-redux'
 
 function Notes({ navigation }) {
-  const [text, setText] = useState({})
-  const balanceText = useSelector(res => res.textReducer.notes)
-  useEffect(() => {
-    setText(balanceText.payload)
-  }, [balanceText])
+  const text = useSelector(res => res.textReducer.notes.payload)
   const [textValue, setTextValue] = useState('')
   const [pretextValue, setPreTextValue] = useState(textValue)
   const [openStatus, setOpenStatus] = useState(true)
@@ -73,7 +69,7 @@ function Notes({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Мои прокси</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b3}</Text>
         </TouchableOpacity>
       ),
     })
@@ -205,7 +201,7 @@ function Notes({ navigation }) {
                   fontWeight: '600',
                   fontSize: 13,
                 }}>
-                Сохранить изменения
+                {text?.buttons?.b1}
               </Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>

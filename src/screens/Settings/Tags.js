@@ -22,12 +22,18 @@ function Tags({ navigation }) {
   const handleChange = text => {
     setValue(text)
   }
+  const handleAddTag = () => {
+    if (value.length > 0) {
+      createTag({ color: takeColor, value: value })
+      setValue('')
+    }
+  }
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> Настройки</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b1}</Text>
         </TouchableOpacity>
       ),
     })
@@ -136,11 +142,7 @@ function Tags({ navigation }) {
               />
             </View>
           </View>
-          <TouchableOpacity
-            style={styles.bottomTextContainer}
-            onPress={() => {
-              createTag({ color: takeColor, value: value })
-            }}>
+          <TouchableOpacity style={styles.bottomTextContainer} onPress={handleAddTag}>
             <Text style={styles.bottomText}>{text?.buttons?.b1}</Text>
           </TouchableOpacity>
         </View>

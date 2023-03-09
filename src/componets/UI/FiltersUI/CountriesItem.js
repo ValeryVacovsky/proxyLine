@@ -1,38 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import BottomSheetDateCountries from './BottomSheet/BottomSheetDateCountries'
-
-//Он временно пока бэк допиливается позже я удалю
-const countreisList = [
-  {
-    code: 'ru',
-    name_en: 'Country ru',
-    name_ru: 'Страна ru',
-    name_local: 'Russian Federation',
-    flag_url: 'https://proxydbtest.proxyline.net/media/CACHE/images/flags/ru/16202e2bc1fc5dfa7f5a01caf77f4145.png',
-  },
-  {
-    code: 'us',
-    name_en: 'Country us',
-    name_ru: 'Страна us',
-    name_local: 'United States of America',
-    flag_url: 'https://proxydbtest.proxyline.net/media/CACHE/images/flags/us/c1a69567eb6f251be2e71926d4538c03.png',
-  },
-  {
-    code: 'de',
-    name_en: 'Country de',
-    name_ru: 'Страна de',
-    name_local: 'Deutchland',
-    flag_url: 'https://proxydbtest.proxyline.net/media/CACHE/images/flags/de/047f6b477648d81364844e269262c1c0.png',
-  },
-  {
-    code: 'fr',
-    name_en: 'Country fr',
-    name_ru: 'Страна fr',
-    name_local: 'France',
-    flag_url: 'https://proxydbtest.proxyline.net/media/CACHE/images/flags/fr/7d9ad5199ce3175f46f8fa6e1a4585c9.png',
-  },
-]
+import { useSelector } from 'react-redux'
 
 function CountriesItem({
   countries,
@@ -42,9 +11,13 @@ function CountriesItem({
   handleSnapPress,
   countriesExclude,
 }) {
-  // Здесь чуть позже использую setCountry
-  const country = ['ru', 'us']
-  const countryExclude = ['fr', 'de']
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
+  const [excludeStatusOut, setExcludeStatusOut] = useState(false)
+  const countreisList = useSelector(res => res.countryOrderReducer.country)
+  const country = ['ru', 'us', 'fr', 'de']
+  const countryExclude = ['ru', 'us', 'fr', 'de']
   const handlePress = item => {
     setFilters(prevState =>
       prevState.countries.includes(item)
@@ -75,72 +48,75 @@ function CountriesItem({
         handleClosePress={handleClosePress}
         countries={countries}
         setFilters={setFilters}
+        excludeStatusOut={excludeStatusOut}
+        setExcludeStatusOut={setExcludeStatusOut}
       />,
     )
   }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
-        <Text style={styles.text}>Страны</Text>
+        <Text style={styles.text}>{text?.texts?.t15}</Text>
         <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
           <View style={styles.textInfpContainer}>
-            <Text style={styles.textInfo}>Выбрать</Text>
+            <Text style={styles.textInfo}>{text?.buttons?.b3}</Text>
           </View>
         </TouchableOpacity>
       </View>
       <View style={styles.conuntryContainer}>
-        {country.map(item => (
-          <TouchableOpacity
-            key={item}
-            style={{
-              backgroundColor: countries.includes(item) ? '#FAC637' : '#333842',
-              alignItems: 'center',
-              borderRadius: 30,
-              marginTop: 10,
-              marginRight: 10,
-            }}
-            activeOpacity={0.8}
-            onPress={() => handlePress(item)}>
-            <Text
-              style={{
-                fontWeight: '600',
-                fontSize: 13,
-                color: countries.includes(item) ? '#0F1218' : 'white',
-                paddingBottom: 6,
-                paddingTop: 6,
-                paddingRight: 12,
-                paddingLeft: 12,
-              }}>
-              {item}
-            </Text>
-          </TouchableOpacity>
-        ))}
-        {countryExclude.map(item => (
-          <TouchableOpacity
-            key={item}
-            style={{
-              backgroundColor: countriesExclude.includes(item) ? '#EC3641' : 'rgba(236, 54, 65, 0.1)',
-              alignItems: 'center',
-              borderRadius: 30,
-              marginTop: 10,
-              marginRight: 10,
-            }}
-            activeOpacity={0.8}
-            onPress={() => handlePressExclude(item)}>
-            <Text
-              style={{
-                fontWeight: '600',
-                fontSize: 13,
-                color: countriesExclude.includes(item) ? '#0F1218' : '#EC3641',
-                paddingBottom: 6,
-                paddingTop: 6,
-                paddingRight: 12,
-                paddingLeft: 12,
-              }}>
-              {item}
-            </Text>
-          </TouchableOpacity>
-        ))}
+        {!excludeStatusOut
+          ? country.map(item => (
+              <TouchableOpacity
+                key={item}
+                style={{
+                  backgroundColor: countries.includes(item) ? '#FAC637' : '#333842',
+                  alignItems: 'center',
+                  borderRadius: 30,
+                  marginTop: 10,
+                  marginRight: 10,
+                }}
+                activeOpacity={0.8}
+                onPress={() => handlePress(item)}>
+                <Text
+                  style={{
+                    fontWeight: '600',
+                    fontSize: 13,
+                    color: countries.includes(item) ? '#0F1218' : 'white',
+                    paddingBottom: 6,
+                    paddingTop: 6,
+                    paddingRight: 12,
+                    paddingLeft: 12,
+                  }}>
+                  {countryDiscription[languageGet][item]}
+                </Text>
+              </TouchableOpacity>
+            ))
+          : countryExclude.map(item => (
+              <TouchableOpacity
+                key={item}
+                style={{
+                  backgroundColor: countriesExclude.includes(item) ? '#EC3641' : 'rgba(236, 54, 65, 0.1)',
+                  alignItems: 'center',
+                  borderRadius: 30,
+                  marginTop: 10,
+                  marginRight: 10,
+                }}
+                activeOpacity={0.8}
+                onPress={() => handlePressExclude(item)}>
+                <Text
+                  style={{
+                    fontWeight: '600',
+                    fontSize: 13,
+                    color: countriesExclude.includes(item) ? '#0F1218' : '#EC3641',
+                    paddingBottom: 6,
+                    paddingTop: 6,
+                    paddingRight: 12,
+                    paddingLeft: 12,
+                  }}>
+                  {countryDiscription[languageGet][item]}
+                </Text>
+              </TouchableOpacity>
+            ))}
       </View>
     </View>
   )

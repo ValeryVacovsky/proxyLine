@@ -4,8 +4,10 @@ import { useDispatch } from 'react-redux'
 import getAllTexts, { getAuthText } from '../../common/getAllTexts'
 import { useSelector } from 'react-redux'
 import SplashScreen from 'react-native-splash-screen'
+import useCountryDiscription from '../../hooks/useCountryDiscription'
 
 function AuthIntro({ navigation }) {
+  useCountryDiscription()
   const language = useSelector(res => res.textReducer.languages_get.language)
   const dispatch = useDispatch()
 

@@ -1,7 +1,10 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { useSelector } from 'react-redux'
+import BottomSheetDateCreate from './BottomSheet/BottomSheetDateCreate'
 
-function DateOver({ dateOver, setFilters }) {
+function DateOver({ dateOver, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const handlePress = item => {
     setFilters(prevState =>
       prevState.dateOver.includes(item)
@@ -9,15 +12,19 @@ function DateOver({ dateOver, setFilters }) {
         : { ...prevState, dateOver: prevState.dateOver.concat(item) },
     )
   }
+  const handleOpenBottomSheet = () => {
+    setChildrenItem(<BottomSheetDateCreate handleClosePress={handleClosePress} handleSnapPress={handleSnapPress} />)
+    handleSnapPress(2)
+  }
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
-        <Text style={styles.text}>Дата окончания</Text>
-        <TouchableOpacity activeOpacity={0.8}>
-          <Text style={styles.textInfo}>Выбрать дату</Text>
+        <Text style={styles.text}>{text?.texts?.t25}</Text>
+        <TouchableOpacity activeOpacity={0.8} onPress={handleOpenBottomSheet}>
+          <Text style={styles.textInfo}>{text?.texts?.t21}</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.container}>
+      <View style={styles.containder}>
         <TouchableOpacity
           style={{
             backgroundColor: dateOver.includes('today') ? '#FAC637' : '#333842',
@@ -38,7 +45,7 @@ function DateOver({ dateOver, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            Сегодня
+            {text?.texts?.t22}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -50,7 +57,9 @@ function DateOver({ dateOver, setFilters }) {
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => handlePress('toweek')}>
+          onPress={() => {
+            handlePress('toweek')
+          }}>
           <Text
             style={{
               fontWeight: '600',
@@ -61,7 +70,7 @@ function DateOver({ dateOver, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            На этой недели
+            {text?.texts?.t23}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -73,7 +82,9 @@ function DateOver({ dateOver, setFilters }) {
             marginRight: 10,
           }}
           activeOpacity={0.8}
-          onPress={() => handlePress('tomonth')}>
+          onPress={() => {
+            handlePress('tomonth')
+          }}>
           <Text
             style={{
               fontWeight: '600',
@@ -84,7 +95,7 @@ function DateOver({ dateOver, setFilters }) {
               paddingRight: 12,
               paddingLeft: 12,
             }}>
-            В этом месяце
+            {text?.texts?.t24}
           </Text>
         </TouchableOpacity>
       </View>
@@ -93,15 +104,15 @@ function DateOver({ dateOver, setFilters }) {
 }
 
 const styles = StyleSheet.create({
+  containder: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   text: {
     fontSize: 18,
     color: 'white',
     fontWeight: '700',
-  },
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
   },
   textInfo: {
     fontWeight: '600',
