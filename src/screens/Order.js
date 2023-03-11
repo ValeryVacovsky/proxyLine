@@ -33,7 +33,7 @@ function Order({ navigation, route }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> {proxyText.proxy.payload?.buttons?.b3}</Text>
+          <Text style={styles.headerLeftTintText}> {proxyText.proxy.payload?.buttons?.b1}</Text>
         </TouchableOpacity>
       ),
     })

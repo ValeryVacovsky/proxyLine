@@ -7,9 +7,8 @@ import CheckProxy from '../../image/Svg/CheckProxy'
 import CheckSpeed from '../../image/Svg/CheckSpeed'
 import SettingsVector from '../../image/Svg/SettingsVector'
 import SettingsVector2 from '../../image/Svg/SettingsVector2'
-import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
-function Settgings({ navigation }) {
+function Settings({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
   const handleNavigate = item => {
     navigation.navigate(item)
@@ -24,12 +23,6 @@ function Settgings({ navigation }) {
           </TouchableOpacity>
         </View>
       ),
-      headerLeft: () => (
-        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> {text?.buttons?.b1}</Text>
-        </TouchableOpacity>
-      ),
     })
   }, [navigation])
   const heightOffScreen = Dimensions.get('window').height
@@ -39,15 +32,15 @@ function Settgings({ navigation }) {
         <View style={styles.checker}>
           <TouchableOpacity style={styles.check} activeOpacity={0.8}>
             <View>
-              <Text style={styles.textTop}>{text?.texts?.t1 && 'проверка'}</Text>
-              <Text style={styles.textTop}>{text?.texts?.t1_1 && 'скорости'}</Text>
+              <Text style={styles.textTop}>{text?.texts?.t1 || 'проверка'}</Text>
+              <Text style={styles.textTop}>{text?.texts?.t1_1 || 'скорости'}</Text>
             </View>
             <CheckSpeed />
           </TouchableOpacity>
           <TouchableOpacity style={styles.check} activeOpacity={0.8}>
             <View>
-              <Text style={styles.textTop}>{text?.texts?.t1 && 'проверка'}</Text>
-              <Text style={styles.textTop}>{text?.texts?.t1_2 && 'прокси'}</Text>
+              <Text style={styles.textTop}>{text?.texts?.t1 || 'проверка'}</Text>
+              <Text style={styles.textTop}>{text?.texts?.t1_21 || 'прокси'}</Text>
             </View>
             <CheckProxy />
           </TouchableOpacity>
@@ -191,4 +184,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Settgings
+export default Settings

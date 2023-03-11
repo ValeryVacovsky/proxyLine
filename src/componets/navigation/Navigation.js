@@ -23,7 +23,7 @@ import Balance from '../../screens/Balance/Balance'
 import MyProxies from '../../screens/MyProxy/MyProxies'
 import Notes from '../../screens/Notes'
 import ProxyInfo from '../../screens/ProxyInfo'
-import Settgings from '../../screens/Settings/Settgings'
+import Settings from '../../screens/Settings/Settings'
 import AnswerQuastion from '../../screens/Settings/AnswerQuastion'
 import AccountInfo from '../../screens/Settings/AccountInfo'
 import ChangePassword from '../../screens/Settings/ChangePassword'
@@ -270,10 +270,9 @@ function Navigation() {
             />
             <Stack.Screen
               name="Settings"
-              component={Settgings}
+              component={Settings}
               options={{
                 headerTitle: () => <Text style={styles.headerTitle}>{texts?.t13}</Text>,
-
                 headerStyle: styles.headerStyle,
                 headerTitleAlign: 'center',
                 headerTintColor: '#CBCBCB',

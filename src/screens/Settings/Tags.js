@@ -33,7 +33,7 @@ function Tags({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> {text?.buttons?.b1}</Text>
+          <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
     })

@@ -7,6 +7,7 @@ import HeaderTintBack from '../image/Svg/HeaderTintBack'
 import { TextInput } from 'react-native-gesture-handler'
 import postUserComment from '../api/postUserComment'
 import { useSelector } from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function Notes({ navigation }) {
   const text = useSelector(res => res.textReducer.notes.payload)
@@ -78,9 +79,12 @@ function Notes({ navigation }) {
     setPreTextValue(event)
   }
 
-  const saveChanges = text => {
+  const saveChanges = async text => {
+    const token = await AsyncStorage.getItem('@token')
+    const id = await AsyncStorage.getItem('@id')
+    const data = `${id}_${token}`
     const fun = async () => {
-      postUserComment({ data: { content: text, token: '116_EkPyrFRIkRWUW2Klh3dQTzQC1XSrlC' } }).then(res => res)
+      const res = await postUserComment({ data: { content: text }, token: data })
     }
     fun()
   }

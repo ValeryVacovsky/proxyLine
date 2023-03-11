@@ -17,29 +17,6 @@ function Autodetect({ autoRenewal, setFilters }) {
       <View style={styles.container}>
         <TouchableOpacity
           style={{
-            backgroundColor: autoRenewal.includes('true') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
-          activeOpacity={0.8}
-          onPress={() => handlePress('true')}>
-          <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: autoRenewal.includes('true') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
-            {text?.texts?.t19}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
             backgroundColor: autoRenewal.includes('false') ? '#FAC637' : '#333842',
             alignItems: 'center',
             borderRadius: 30,
@@ -61,6 +38,29 @@ function Autodetect({ autoRenewal, setFilters }) {
               paddingLeft: 12,
             }}>
             {text?.texts?.t18}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: autoRenewal.includes('true') ? '#FAC637' : '#333842',
+            alignItems: 'center',
+            borderRadius: 30,
+            marginTop: 10,
+            marginRight: 10,
+          }}
+          activeOpacity={0.8}
+          onPress={() => handlePress('true')}>
+          <Text
+            style={{
+              fontWeight: '600',
+              fontSize: 13,
+              color: autoRenewal.includes('true') ? '#0F1218' : 'white',
+              paddingBottom: 6,
+              paddingTop: 6,
+              paddingRight: 12,
+              paddingLeft: 12,
+            }}>
+            {text?.texts?.t19}
           </Text>
         </TouchableOpacity>
       </View>

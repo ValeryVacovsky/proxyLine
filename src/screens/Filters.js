@@ -32,11 +32,16 @@ function Filters({ navigation }) {
   const lastDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7))
   const startOfMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1)
   const endOfMonth = new Date(today.getFullYear(), today.getMonth(), 0)
+  const [startDayStatus, setStartDayStatus] = useState(false)
+  const [startDayFrom, setStartDayFrom] = useState(new Date())
+  const [startDayTo, setStartDayTo] = useState(new Date())
+  const [endDayStatus, setEndDayStatus] = useState(false)
+  const [endDayFrom, setEndDayFrom] = useState(new Date())
+  const [endDayTo, setEndDayTo] = useState(new Date())
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const filterStore = useSelector(data => data.filterReducer.filter)
   const tags = useSelector(data => data.ipsTagsReducer.tags)
   const ips = useSelector(data => data.ipsTagsReducer.ips)
-
   const clearForm = {
     ip_type: [],
     status: [],
@@ -99,6 +104,9 @@ function Filters({ navigation }) {
         } else if (item === 'toweek') {
           params.append('start_date_from', firstDayOfWeek.toISOString())
           params.append('start_date_to', lastDayOfWeek.toISOString())
+        } else if (item === 'custom') {
+          params.append('start_date_from', startDayFrom)
+          params.append('start_date_to', startDayTo)
         } else {
           params.append('start_date_from', startOfMonth.toISOString())
           params.append('start_date_to', endOfMonth.toISOString())
@@ -207,6 +215,12 @@ function Filters({ navigation }) {
               <Types ipType={fitlers.ip_type} setFilters={setFilters} />
               <Autodetect autoRenewal={fitlers.auto_renewal} setFilters={setFilters} />
               <DateCreate
+                startDayStatus={startDayStatus}
+                setStartDayStatus={setStartDayStatus}
+                startDayFrom={startDayFrom}
+                setStartDayFrom={setStartDayFrom}
+                startDayTo={startDayTo}
+                setStartDayTo={setStartDayTo}
                 dateCreate={fitlers.dateCreate}
                 setFilters={setFilters}
                 handleSnapPress={handleSnapPress}
@@ -214,6 +228,12 @@ function Filters({ navigation }) {
                 handleClosePress={handleClosePress}
               />
               <DateOver
+                endDayStatus={endDayStatus}
+                setEndDayStatus={setEndDayStatus}
+                endDayFrom={endDayFrom}
+                setEndDayFrom={setEndDayFrom}
+                endDayTo={endDayTo}
+                setEndDayTo={setEndDayTo}
                 dateOver={fitlers.dateOver}
                 setFilters={setFilters}
                 handleSnapPress={handleSnapPress}

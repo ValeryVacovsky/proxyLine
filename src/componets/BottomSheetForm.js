@@ -12,10 +12,11 @@ function BottomSheetForm({ sheetRef, snapPoints, children, handleClosePress }) {
 
   return (
     <BottomSheet
+      enablePanDownToClose={true}
       ref={sheetRef}
       index={-1}
       snapPoints={snapPoints}
-      enablePanDownToClose
+      enabledGestureInteraction={false}
       handleComponent={handleComponent}
       backdropComponent={renderBackdrop}>
       {children}

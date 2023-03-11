@@ -19,7 +19,6 @@ function BalanceList({ data, text }) {
     }
     name()
   }, [])
-  console.log(data)
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>

@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import { setAuth } from '../../store/reducers/authReducer'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function AccountInfo({ navigation }) {
+  const [login, setLogin] = useState('')
   const dispatch = useDispatch()
   const text = useSelector(res => res.textReducer.settings.payload)
+  useEffect(() => {
+    async function getLogin() {
+      const loginStorage = await AsyncStorage.getItem('@login')
+      setLogin(loginStorage)
+    }
+    getLogin()
+  }, [])
   const handleRightNavigate = () => {
     dispatch(setAuth(false))
     setTimeout(() => {
@@ -42,7 +51,7 @@ function AccountInfo({ navigation }) {
             <View style={styles.mainInfoContainer}>
               <View style={styles.mainInfoContainerItem}>
                 <Text style={styles.mainInfoContainerLeftText}>{text?.texts?.t8 && 'Логин'}</Text>
-                <Text style={styles.mainInfoContainerRightText}>{'login'}</Text>
+                <Text style={styles.mainInfoContainerRightText}>{login}</Text>
               </View>
             </View>
           </View>

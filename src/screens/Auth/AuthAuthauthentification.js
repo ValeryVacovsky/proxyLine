@@ -16,7 +16,7 @@ import { setAuth } from '../../store/reducers/authReducer'
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/g
+// const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/g
 const heightOffScreen = Dimensions.get('window').height
 // const PASSWOR_REGEX;
 
@@ -54,6 +54,7 @@ function AuthAuthauthentification({ navigation }) {
     if (res.data.success === true) {
       await AsyncStorage.setItem('@token', String(res.data.user.token))
       await AsyncStorage.setItem('@id', String(res.data.user.id))
+      await AsyncStorage.setItem('@login', String(data.email))
       dispatch(setAuth(true))
       navigation.navigate('Main')
     } else {

@@ -1,9 +1,21 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import { useSelector } from 'react-redux'
-import BottomSheetDateCreate from './BottomSheet/BottomSheetDateCreate'
+import BottomSheetDateOver from './BottomSheet/BottomSheetDateOver'
 
-function DateOver({ dateOver, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
+function DateOver({
+  dateOver,
+  setFilters,
+  setChildrenItem,
+  handleClosePress,
+  handleSnapPress,
+  endDayStatus,
+  setEndDayStatus,
+  endDayFrom,
+  setEndDayFrom,
+  endDayTo,
+  setEndDayTo,
+}) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const handlePress = item => {
     setFilters(prevState =>
@@ -13,7 +25,18 @@ function DateOver({ dateOver, setFilters, setChildrenItem, handleClosePress, han
     )
   }
   const handleOpenBottomSheet = () => {
-    setChildrenItem(<BottomSheetDateCreate handleClosePress={handleClosePress} handleSnapPress={handleSnapPress} />)
+    setChildrenItem(
+      <BottomSheetDateOver
+        endDayStatus={endDayStatus}
+        setEndDayStatus={setEndDayStatus}
+        endDayFrom={endDayFrom}
+        setEndDayFrom={setEndDayFrom}
+        endDayTo={endDayTo}
+        setEndDayTo={setEndDayTo}
+        handleClosePress={handleClosePress}
+        handleSnapPress={handleSnapPress}
+      />,
+    )
     handleSnapPress(2)
   }
   return (
@@ -98,6 +121,33 @@ function DateOver({ dateOver, setFilters, setChildrenItem, handleClosePress, han
             {text?.texts?.t24}
           </Text>
         </TouchableOpacity>
+        {endDayStatus && (
+          <TouchableOpacity
+            style={{
+              backgroundColor: dateOver.includes('custom') ? '#FAC637' : '#333842',
+              alignItems: 'center',
+              borderRadius: 30,
+              marginTop: 10,
+              marginRight: 10,
+            }}
+            activeOpacity={0.8}
+            onPress={() => {
+              handlePress('custom')
+            }}>
+            <Text
+              style={{
+                fontWeight: '600',
+                fontSize: 13,
+                color: dateOver.includes('custom') ? '#0F1218' : 'white',
+                paddingBottom: 6,
+                paddingTop: 6,
+                paddingRight: 12,
+                paddingLeft: 12,
+              }}>
+              {endDayFrom.slice(0, 10)} - {endDayTo.slice(0, 10)}
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   )

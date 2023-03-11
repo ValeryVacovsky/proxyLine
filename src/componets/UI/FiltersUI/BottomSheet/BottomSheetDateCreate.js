@@ -8,20 +8,32 @@ LocaleConfig.locales['ru'] = Locacles.ru
 
 LocaleConfig.defaultLocale = 'ru'
 
-function BottomSheetDateCreate({ handleClosePress }) {
+function BottomSheetDateCreate({
+  handleClosePress,
+  setStartDayStatus,
+  startDayFrom,
+  setStartDayFrom,
+  startDayTo,
+  setStartDayTo,
+}) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(`${startDayFrom.slice(0, 10)} - ${startDayTo.slice(0, 10)}`)
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-  const [startDateTime, setStartDateTime] = useState('')
-  const [endDateTime, setEndDateTime] = useState('')
+  const [startDateTime, setStartDateTime] = useState(new Date())
+  const [endDateTime, setEndDateTime] = useState(new Date())
   const [markedDates, setMarkedDates] = useState({})
   useEffect(() => {
     const Sdate = new Date(startDateTime)
     const Edate = new Date(endDateTime)
-    const perment = `${Sdate.getDate()} - ${Edate.getDate()}`
-    setValue(perment)
-  }, [startDateTime, endDateTime])
+    if (Object.keys(markedDates).length) {
+      setStartDayFrom(Sdate.toISOString())
+      setStartDayTo(Edate.toISOString())
+      setValue(`${Sdate.toISOString().slice(0, 10)} - ${Edate.toISOString().slice(0, 10)}`)
+    } else {
+      setValue('')
+    }
+  }, [startDateTime, endDateTime, markedDates, setStartDayStatus, setStartDayFrom, setStartDayTo])
 
   const handleDayPress = date => {
     if (!startDate || (startDate && endDate)) {
@@ -184,6 +196,11 @@ function BottomSheetDateCreate({ handleClosePress }) {
   }
   const handlePress = () => {
     handleClosePress()
+    if (Object.keys(markedDates).length) {
+      setStartDayStatus(true)
+    } else {
+      setStartDayStatus(false)
+    }
   }
   return (
     <View style={styles.container}>
