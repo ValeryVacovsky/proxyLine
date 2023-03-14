@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native'
 import { useSelector } from 'react-redux'
 import { ScrollView } from 'react-native-gesture-handler'
 import DeleteToggleIcon from '../../../image/Svg/DeleteToggleIcon'
@@ -40,13 +40,19 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
     setValue(item.value)
     setOpen(false)
   }
+  const handleBlur = () => {
+    setOpen(false)
+    handleSnapPress(1)
+  }
 
-  const handleBlure = () => {
+  const handleFocus = () => {
     if (value > 0) {
       if (requestValue.length == 0) {
         setOpen(true)
       }
     }
+    handleSnapPress(2)
+    // setBottomMatrin(334)
   }
 
   const handleDeleteIps = ipsId => {
@@ -82,90 +88,99 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
       setProxyInfo(proxy.data[0])
       setLocakIps(proxy.data[0].access_ips)
       handleClosePress()
+      setValue('')
     }
     addTag()
   }
   return (
-    <View style={styles.container}>
-      <View>
-        <View style={styles.topTabContainer}>
-          <View style={styles.topTab} />
-        </View>
-        <Text style={styles.mainText}>{text?.texts?.t13}</Text>
-        <View style={styles.itemContainer}>
-          {localIps?.map(item => {
-            return (
-              <TouchableOpacity
-                style={{
-                  paddingTop: 6,
-                  paddingBottom: 7,
-                  paddingLeft: 12,
-                  paddingRight: 12,
-                  display: 'flex',
-                  flexDirection: 'row',
-                  backgroundColor: '#333842',
-                  borderRadius: 30,
-                  marginRight: 5,
-                  marginTop: 10,
-                  alignItems: 'center',
-                }}
-                key={item.id}>
-                <TouchableOpacity onPress={() => handleDeleteIps(item.id)}>
-                  <DeleteToggleIcon />
-                </TouchableOpacity>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontWeight: '400',
-                    fontSize: 13,
-                    lineHeight: 15,
-                    marginLeft: 9,
-                  }}>
-                  {item.value}
-                </Text>
-              </TouchableOpacity>
-            )
-          })}
-        </View>
-      </View>
-      <View style={{ marginHorizontal: 20 }}>
-        <View style={{ position: 'relative' }}>
-          <TextInput
-            value={value}
-            onChangeText={handleChangeText}
-            style={styles.input}
-            onBlur={() => setOpen(false)}
-            onBlure={handleBlure}
-          />
-          {open && (
-            <ScrollView style={styles.scrollViewContainer}>
-              <View style={{ paddingTop: 10, paddingHorizontal: 20 }}>
-                {tagsFiltred.map(item => (
-                  <TouchableOpacity activeOpacity={0.8} key={item.id} onPress={() => handleSelect(item)}>
-                    <Text style={styles.filterText}>{item.value}</Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ flex: 1 }}
+      keyboardVerticalOffset={50}>
+      <View style={styles.container}>
+        <View>
+          <View style={styles.topTabContainer}>
+            <View style={styles.topTab} />
+          </View>
+          <Text style={styles.mainText}>{text?.texts?.t13}</Text>
+          <ScrollView>
+            <View style={styles.itemContainer}>
+              {localIps?.map(item => {
+                return (
+                  <TouchableOpacity
+                    style={{
+                      paddingTop: 6,
+                      paddingBottom: 7,
+                      paddingLeft: 12,
+                      paddingRight: 12,
+                      display: 'flex',
+                      flexDirection: 'row',
+                      backgroundColor: '#333842',
+                      borderRadius: 30,
+                      marginRight: 5,
+                      marginTop: 10,
+                      alignItems: 'center',
+                    }}
+                    key={item.id}>
+                    <TouchableOpacity onPress={() => handleDeleteIps(item.id)}>
+                      <DeleteToggleIcon />
+                    </TouchableOpacity>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontWeight: '400',
+                        fontSize: 13,
+                        lineHeight: 15,
+                        marginLeft: 9,
+                      }}>
+                      {item.value}
+                    </Text>
                   </TouchableOpacity>
-                ))}
-              </View>
-            </ScrollView>
-          )}
+                )
+              })}
+            </View>
+          </ScrollView>
         </View>
-
-        <Text style={styles.ipsInfo}>{text?.texts?.t40}</Text>
-        <Text style={styles.ipsInfoDanger}>{text?.texts?.t41}</Text>
-        <TouchableOpacity
-          onPress={() => handleAddTag('add')}
-          style={{
-            paddingVertical: 20,
-            alignItems: 'center',
-            backgroundColor: '#1E2127',
-            marginTop: 20,
-            borderRadius: 12,
-            marginBottom: 34,
-          }}>
-          <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 13, lineHeight: 15 }}>{text?.buttons?.b3}</Text>
-        </TouchableOpacity>
+        <View style={{ marginHorizontal: 20, marginBottom: 184 }}>
+          <View style={{ position: 'relative' }}>
+            <TextInput
+              value={value}
+              onChangeText={handleChangeText}
+              style={styles.input}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+            />
+            {open && (
+              <ScrollView style={styles.scrollViewContainer}>
+                <View style={{ paddingTop: 10, paddingHorizontal: 20 }}>
+                  {tagsFiltred.map(item => (
+                    <TouchableOpacity activeOpacity={0.8} key={item.id} onPress={() => handleSelect(item)}>
+                      <Text style={styles.filterText}>{item.value}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </ScrollView>
+            )}
+          </View>
+          <Text style={styles.ipsInfo}>{text?.texts?.t40}</Text>
+          <Text style={styles.ipsInfoDanger}>{text?.texts?.t41}</Text>
+          <TouchableOpacity
+            onPress={() => handleAddTag('add')}
+            style={{
+              paddingVertical: 20,
+              alignItems: 'center',
+              backgroundColor: '#1E2127',
+              marginTop: 20,
+              borderRadius: 12,
+              marginBottom: 34,
+            }}>
+            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 13, lineHeight: 15 }}>
+              {text?.buttons?.b3}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 const styles = StyleSheet.create({
@@ -192,7 +207,7 @@ const styles = StyleSheet.create({
   },
   mainText: {
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: 17,
     lineHeight: 16,
     color: 'white',
     marginTop: 33,

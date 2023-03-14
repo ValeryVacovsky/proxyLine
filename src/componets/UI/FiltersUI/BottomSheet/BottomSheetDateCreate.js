@@ -17,7 +17,7 @@ function BottomSheetDateCreate({
   setStartDayTo,
 }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
-  const [value, setValue] = useState(`${startDayFrom.slice(0, 10)} - ${startDayTo.slice(0, 10)}`)
+  const [value, setValue] = useState(`${startDayFrom} - ${startDayTo}`)
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [startDateTime, setStartDateTime] = useState(new Date())

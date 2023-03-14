@@ -12,6 +12,7 @@ function BottomSheetForm({ sheetRef, snapPoints, children, handleClosePress }) {
 
   return (
     <BottomSheet
+      shouldMeasureContentHeight={true}
       enablePanDownToClose={true}
       ref={sheetRef}
       index={-1}

@@ -30,7 +30,7 @@ function ProxyInfo({ navigation, route }) {
   const [proxyInfo, setProxyInfo] = useState(route.params.proxyRes)
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => ['15%', '55%'], [])
+  const snapPoints = useMemo(() => [150, 350, 535], [])
   const dateStart = new Date(proxyInfo.date_end)
   const dateEnd = new Date()
   const days = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)

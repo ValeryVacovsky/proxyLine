@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import DeleteToggleIcon from '../../image/Svg/DeleteToggleIcon'
@@ -35,30 +35,32 @@ function ConfirmIps({ navigation }) {
   }
   return (
     <LayoutMain style={styles.layoutContainer}>
-      <View style={styles.container}>
-        <ScrollView style={styles.scrollContainer}>
-          <View style={styles.topContainer}>
-            {ipsList.map(item => {
-              return (
-                <TouchableOpacity style={styles.topTextContainer} key={item.id} onPress={() => setDeleteIps(item.id)}>
-                  <DeleteToggleIcon />
-                  <Text style={styles.ipText}>{item.value}</Text>
-                </TouchableOpacity>
-              )
-            })}
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <View style={styles.container}>
+          <ScrollView style={styles.scrollContainer}>
+            <View style={styles.topContainer}>
+              {ipsList.map(item => {
+                return (
+                  <TouchableOpacity style={styles.topTextContainer} key={item.id} onPress={() => setDeleteIps(item.id)}>
+                    <DeleteToggleIcon />
+                    <Text style={styles.ipText}>{item.value}</Text>
+                  </TouchableOpacity>
+                )
+              })}
+            </View>
+          </ScrollView>
+          <View style={styles.bottomContainer}>
+            <View>
+              <Text style={{ color: '#CBCBCB' }}>{text?.texts?.t26}</Text>
+            </View>
+            <Text style={styles.careText}>{text?.texts?.t27}</Text>
+            <TextInput style={styles.input} value={value} onChangeText={setValue} />
+            <TouchableOpacity style={styles.bottomTextContainer} onPress={handleAddTag}>
+              <Text style={styles.bottomText}> {text?.buttons?.b1}</Text>
+            </TouchableOpacity>
           </View>
-        </ScrollView>
-        <View style={styles.bottomContainer}>
-          <View>
-            <Text style={{ color: '#CBCBCB' }}>{text?.texts?.t26}</Text>
-          </View>
-          <Text style={styles.careText}>{text?.texts?.t27}</Text>
-          <TextInput style={styles.input} value={value} onChangeText={setValue} />
-          <TouchableOpacity style={styles.bottomTextContainer} onPress={handleAddTag}>
-            <Text style={styles.bottomText}> {text?.buttons?.b1}</Text>
-          </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </LayoutMain>
   )
 }
@@ -116,14 +118,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#333842',
-    marginTop: 14,
+    marginBottom: 24,
   },
   bottomTextContainer: {
     backgroundColor: '#FAC637',
     width: '100%',
     height: 50,
     borderRadius: 12,
-    marginTop: 14,
     alignItems: 'center',
     justifyContent: 'center',
   },

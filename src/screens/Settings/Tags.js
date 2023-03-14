@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
@@ -40,113 +40,115 @@ function Tags({ navigation }) {
   }, [navigation])
   return (
     <LayoutMain style={styles.layOutConatiner}>
-      <View style={styles.container}>
-        <ScrollView style={styles.scrollContainer}>
-          <View style={styles.topContainer}>
-            {tags.map(item => {
-              return (
-                <TouchableOpacity
-                  style={{
-                    paddingTop: 6,
-                    paddingBottom: 7,
-                    paddingLeft: 12,
-                    paddingRight: 12,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    backgroundColor: Colors[item.color].back,
-                    borderRadius: 30,
-                    marginRight: 5,
-                    marginTop: 10,
-                    alignItems: 'center',
-                  }}
-                  key={item.id}
-                  onPress={() => setDeleteTag(item.id)}>
-                  <View>
-                    <DeleteToggleIcon />
-                  </View>
-
-                  <Text
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <View style={styles.container}>
+          <ScrollView style={styles.scrollContainer}>
+            <View style={styles.topContainer}>
+              {tags.map(item => {
+                return (
+                  <TouchableOpacity
                     style={{
-                      color: Colors[item.color].color,
-                      fontWeight: '400',
-                      fontSize: 13,
-                      lineHeight: 15,
-                      marginLeft: 9,
-                    }}>
-                    {item.value}
-                  </Text>
-                </TouchableOpacity>
-              )
-            })}
-          </View>
-        </ScrollView>
-        <View style={styles.bottomContainer}>
-          <View style={{ positon: 'relative' }}>
-            <TextInput style={styles.input} value={value} onChangeText={handleChange} />
-            <View style={styles.tagContainer}>
-              <Pressable
-                hitSlop={10}
-                activeOpacity={0.8}
-                onPress={() => handlePress('green')}
-                style={{
-                  height: 20,
-                  width: 20,
-                  backgroundColor: Colors['green'].color,
-                  borderRadius: 40,
-                  marginLeft: 10,
-                  borderWidth: takeColor === 'green' && 2,
-                  borderColor: takeColor === 'green' ? 'white' : 'none',
-                }}
-              />
-              <Pressable
-                hitSlop={10}
-                activeOpacity={0.8}
-                onPress={() => handlePress('red')}
-                style={{
-                  height: 20,
-                  width: 20,
-                  backgroundColor: Colors['red'].color,
-                  borderRadius: 40,
-                  marginLeft: 10,
-                  borderWidth: takeColor === 'red' && 2,
-                  borderColor: takeColor === 'red' && 'white',
-                }}
-              />
-              <Pressable
-                hitSlop={10}
-                activeOpacity={0.8}
-                onPress={() => handlePress('orange')}
-                style={{
-                  height: 20,
-                  width: 20,
-                  backgroundColor: Colors['orange'].color,
-                  borderRadius: 40,
-                  marginLeft: 10,
-                  borderWidth: takeColor === 'orange' && 2,
-                  borderColor: takeColor === 'orange' && 'white',
-                }}
-              />
-              <Pressable
-                hitSlop={10}
-                activeOpacity={0.8}
-                onPress={() => handlePress('blue')}
-                style={{
-                  height: 20,
-                  width: 20,
-                  backgroundColor: Colors['blue'].color,
-                  borderRadius: 40,
-                  marginLeft: 10,
-                  borderWidth: takeColor === 'blue' && 2,
-                  borderColor: takeColor === 'blue' && 'white',
-                }}
-              />
+                      paddingTop: 6,
+                      paddingBottom: 7,
+                      paddingLeft: 12,
+                      paddingRight: 12,
+                      display: 'flex',
+                      flexDirection: 'row',
+                      backgroundColor: Colors[item.color].back,
+                      borderRadius: 30,
+                      marginRight: 5,
+                      marginTop: 10,
+                      alignItems: 'center',
+                    }}
+                    key={item.id}
+                    onPress={() => setDeleteTag(item.id)}>
+                    <View>
+                      <DeleteToggleIcon />
+                    </View>
+
+                    <Text
+                      style={{
+                        color: Colors[item.color].color,
+                        fontWeight: '400',
+                        fontSize: 13,
+                        lineHeight: 15,
+                        marginLeft: 9,
+                      }}>
+                      {item.value}
+                    </Text>
+                  </TouchableOpacity>
+                )
+              })}
             </View>
+          </ScrollView>
+          <View style={styles.bottomContainer}>
+            <View style={{ positon: 'relative' }}>
+              <TextInput style={styles.input} value={value} onChangeText={handleChange} />
+              <View style={styles.tagContainer}>
+                <Pressable
+                  hitSlop={10}
+                  activeOpacity={0.8}
+                  onPress={() => handlePress('green')}
+                  style={{
+                    height: 20,
+                    width: 20,
+                    backgroundColor: Colors['green'].color,
+                    borderRadius: 40,
+                    marginLeft: 10,
+                    borderWidth: takeColor === 'green' && 2,
+                    borderColor: takeColor === 'green' ? 'white' : 'none',
+                  }}
+                />
+                <Pressable
+                  hitSlop={10}
+                  activeOpacity={0.8}
+                  onPress={() => handlePress('red')}
+                  style={{
+                    height: 20,
+                    width: 20,
+                    backgroundColor: Colors['red'].color,
+                    borderRadius: 40,
+                    marginLeft: 10,
+                    borderWidth: takeColor === 'red' && 2,
+                    borderColor: takeColor === 'red' && 'white',
+                  }}
+                />
+                <Pressable
+                  hitSlop={10}
+                  activeOpacity={0.8}
+                  onPress={() => handlePress('orange')}
+                  style={{
+                    height: 20,
+                    width: 20,
+                    backgroundColor: Colors['orange'].color,
+                    borderRadius: 40,
+                    marginLeft: 10,
+                    borderWidth: takeColor === 'orange' && 2,
+                    borderColor: takeColor === 'orange' && 'white',
+                  }}
+                />
+                <Pressable
+                  hitSlop={10}
+                  activeOpacity={0.8}
+                  onPress={() => handlePress('blue')}
+                  style={{
+                    height: 20,
+                    width: 20,
+                    backgroundColor: Colors['blue'].color,
+                    borderRadius: 40,
+                    marginLeft: 10,
+                    borderWidth: takeColor === 'blue' && 2,
+                    borderColor: takeColor === 'blue' && 'white',
+                  }}
+                />
+              </View>
+            </View>
+            <TouchableOpacity style={styles.bottomTextContainer} onPress={handleAddTag}>
+              <Text style={styles.bottomText}>{text?.buttons?.b1}</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.bottomTextContainer} onPress={handleAddTag}>
-            <Text style={styles.bottomText}>{text?.buttons?.b1}</Text>
-          </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </LayoutMain>
   )
 }
@@ -199,6 +201,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#333842',
     marginTop: 14,
+    marginBottom: 10,
   },
   bottomTextContainer: {
     backgroundColor: '#FAC637',
