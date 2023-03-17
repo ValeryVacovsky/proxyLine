@@ -14,7 +14,6 @@ function OrdersList({ data, text }) {
   const [dateCreate, setDateCreate] = useState(new Date())
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
-  console.log(data)
 
   const onHandleSuccess = () => {
     dispatch(deleteObject({ statusActive: true, dateActive: new Date() }))

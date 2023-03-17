@@ -89,7 +89,6 @@ function Notes({ navigation }) {
       await postUserComment({ data: { content: text }, token: data })
     }
     fun()
-    console.log('text', text)
   }
 
   useEffect(() => {
@@ -98,7 +97,6 @@ function Notes({ navigation }) {
       const id = await AsyncStorage.getItem('@id')
       const token = `${id}_${tokenUser}`
       const res = await getUserComment({ token })
-      console.log(res.data)
     }
     getComment()
   }, [textValue])

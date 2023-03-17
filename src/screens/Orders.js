@@ -11,7 +11,6 @@ function Orders({ navigation }) {
   const proxyText = useSelector(res => res.textReducer.orders.payload)
   const heightOffScreen = Dimensions.get('window').height
   const ordersRes = useSelector(data => data.orderReducer)
-  console.log(ordersRes)
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: 'transparent',

@@ -169,7 +169,6 @@ function Filters({ navigation }) {
     sheetRef.current?.close()
   }, [])
   const endpoint = `${params.toString()}`
-  // console.log(endpoint)
 
   useEffect(() => {
     let count = 0

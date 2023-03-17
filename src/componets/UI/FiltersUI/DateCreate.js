@@ -24,7 +24,6 @@ function DateCreate({
         : { ...prevState, dateCreate: [item] },
     )
   }
-  console.log(startDayFrom)
   const handleOpenBottomSheet = () => {
     setChildrenItem(
       <BottomSheetDateCreate

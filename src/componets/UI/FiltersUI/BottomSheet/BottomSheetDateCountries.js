@@ -45,7 +45,6 @@ function BottomSheetDateCountries({
       CountryByAlphavit[item] = arry
     }
   })
-  console.log(CountryByAlphavit)
   const CountryByAlphavitArray = Object.keys(CountryByAlphavit)
   return (
     <View style={styles.container}>

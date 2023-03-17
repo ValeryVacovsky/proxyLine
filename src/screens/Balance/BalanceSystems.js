@@ -55,7 +55,6 @@ function BalanceSystems({ navigation }) {
       setMayGo(true)
     }
   }, [amount])
-  console.log(mayGo)
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
