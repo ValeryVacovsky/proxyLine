@@ -5,9 +5,31 @@ import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import CountrySlot from '../componets/CountrySlot'
 import LayoutMain from '../componets/LayoutMain'
 import HeaderTintBack from '../image/Svg/HeaderTintBack'
+import alphavit from '../utils/alphavit'
 
 function Countreis({ navigation, route }) {
+  const languageGet = useSelector(res => res.textReducer.languages_get.language)
+  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const countreisList = useSelector(res => res.countryOrderReducer.country)
+  const countryMockFullName = countreisList.map(item => {
+    return {
+      code: item.code,
+      name_local: countryDiscription[languageGet][item.code],
+    }
+  })
+  const CountryByAlphavit = {}
+  alphavit[languageGet].map(item => {
+    const arry = []
+    countryMockFullName.map(country => {
+      if (country.name_local[0].toLowerCase() == item.toLowerCase()) {
+        arry.push(country.name_local)
+      }
+    })
+    if (arry.length > 0) {
+      CountryByAlphavit[item] = arry
+    }
+  })
+  const CountryByAlphavitArray = Object.keys(CountryByAlphavit)
   const proxyText = useSelector(res => res.textReducer.order?.payload)
   const [selectedCountryShort, setSelectedCountryShort] = useState(route.params.selectedCountryShort)
   React.useLayoutEffect(() => {
@@ -24,17 +46,27 @@ function Countreis({ navigation, route }) {
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          {countreisList.map(country => {
-            return (
-              <CountrySlot
-                key={country.code}
-                country={country}
-                selectedCountryShort={selectedCountryShort}
-                setSelectedCountryShortOff={route.params.setSelectedCountryShort}
-                setSelectedCountryOff={route.params.setSelectedCountry}
-                setSelectedCountryShort={setSelectedCountryShort}
-              />
-            )
+          {CountryByAlphavitArray.map(item => {
+            let firstRender = true
+            return countryMockFullName.map((country, index) => {
+              if (country.name_local[0].toLowerCase() == item.toLowerCase()) {
+                const countrySlotComponent = (
+                  <CountrySlot
+                    item={item}
+                    key={country.code}
+                    country={country}
+                    selectedCountryShort={selectedCountryShort}
+                    setSelectedCountryShortOff={route.params.setSelectedCountryShort}
+                    setSelectedCountryOff={route.params.setSelectedCountry}
+                    setSelectedCountryShort={setSelectedCountryShort}
+                    firstRender={firstRender}
+                    lastRender={index == countryMockFullName.length - 1}
+                  />
+                )
+                firstRender = false
+                return countrySlotComponent
+              }
+            })
           })}
         </ScrollView>
       </SafeAreaView>

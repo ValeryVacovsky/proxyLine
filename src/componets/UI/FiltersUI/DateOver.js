@@ -21,7 +21,7 @@ function DateOver({
     setFilters(prevState =>
       prevState.dateOver.includes(item)
         ? { ...prevState, dateOver: prevState.dateOver.filter(active => active !== item) }
-        : { ...prevState, dateOver: prevState.dateOver.concat(item) },
+        : { ...prevState, dateOver: [item] },
     )
   }
   const handleOpenBottomSheet = () => {

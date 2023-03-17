@@ -231,8 +231,8 @@ const styles = StyleSheet.create({
   },
   nameLogo: {
     marginHorizontal: 24,
-    width: 24,
-    height: 24,
+    width: 32,
+    height: 32,
   },
   nameText: {
     fontWeight: '600',

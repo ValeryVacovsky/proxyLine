@@ -8,7 +8,7 @@ function VersionIp({ setFilters, ipVersion }) {
     setFilters(prevState =>
       prevState.ip_version.includes(item)
         ? { ...prevState, ip_version: prevState.ip_version.filter(active => active !== item) }
-        : { ...prevState, ip_version: prevState.ip_version.concat(item) },
+        : { ...prevState, ip_version: [item] },
     )
   }
   return (

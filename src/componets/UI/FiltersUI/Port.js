@@ -6,7 +6,7 @@ import BottomSheetPort from './BottomSheet/BottomSheetPort'
 
 function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
-  const [prots, setPorts] = useState(['58654', '23234', '67956'])
+  const [prots, setPorts] = useState([])
   const handlePress = item => {
     setFilters(prevState =>
       prevState.port.includes(item)
@@ -15,7 +15,9 @@ function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapP
     )
   }
   const handleOpenBottomSheet = () => {
-    setChildrenItem(<BottomSheetPort handleClosePress={handleClosePress} setPorts={setPorts} />)
+    setChildrenItem(
+      <BottomSheetPort handleClosePress={handleClosePress} setPorts={setPorts} handleSnapPress={handleSnapPress} />,
+    )
     handleSnapPress(0)
   }
   return (

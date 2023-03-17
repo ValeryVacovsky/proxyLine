@@ -23,9 +23,11 @@ import AllowedIP from '../componets/UI/FiltersUI/AllowedIP'
 import { setFilter } from '../store/reducers/filterReducer'
 import IdProxy from '../componets/UI/FiltersUI/IdProxy'
 import FilterOrders from '../componets/UI/FiltersUI/FilterOrders'
+import getCountProxyFilter from '../api/getCountProxyFilter'
 
 function Filters({ navigation }) {
   const today = new Date()
+  const [countProxies, setCountProxies] = useState(0)
   const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate())
   const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)
   const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1))
@@ -42,6 +44,7 @@ function Filters({ navigation }) {
   const filterStore = useSelector(data => data.filterReducer.filter)
   const tags = useSelector(data => data.ipsTagsReducer.tags)
   const ips = useSelector(data => data.ipsTagsReducer.ips)
+  const [countryExclude, setCountryExclude] = useState(false)
   const clearForm = {
     ip_type: [],
     status: [],
@@ -85,6 +88,19 @@ function Filters({ navigation }) {
   })
 
   useEffect(() => {
+    const listProxies = async () => {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const dataProps = `${id}_${token}`
+      const data = await getCountProxyFilter({ token: dataProps, limit: '100', offset: '0', endpoint })
+      setCountProxies(data.data.count)
+    }
+    const allArraysEmpty = Object.values(fitlers).every(array => Array.isArray(array) && array.length === 0)
+    if (!allArraysEmpty) {
+      listProxies()
+    }
+  }, [fitlers])
+  useEffect(() => {
     setFilters(filterStore)
   }, [])
   useEffect(() => {
@@ -125,6 +141,16 @@ function Filters({ navigation }) {
           params.append('end_date_to', endOfMonth.toISOString())
         }
       })
+    } else if (filterName === 'countries') {
+      if (countryExclude) {
+        fitlers[filterName].map(item => {
+          params.append('countries_exclude', item.toString())
+        })
+      } else {
+        fitlers[filterName].map(item => {
+          params.append('countries', item.toString())
+        })
+      }
     } else {
       fitlers[filterName].map(item => {
         params.append(filterName, item.toString())
@@ -132,7 +158,7 @@ function Filters({ navigation }) {
     }
   })
   const sheetRef = useRef(null)
-  const snapPoints = useMemo(() => ['25%', '50%', '75%'], [])
+  const snapPoints = useMemo(() => ['27%', '50%', '75%'], [])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -143,6 +169,7 @@ function Filters({ navigation }) {
     sheetRef.current?.close()
   }, [])
   const endpoint = `${params.toString()}`
+  // console.log(endpoint)
 
   useEffect(() => {
     let count = 0
@@ -240,41 +267,15 @@ function Filters({ navigation }) {
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
               />
-              <IPAddress
-                ip={fitlers.ip}
-                setFilters={setFilters}
-                setChildrenItem={setChildrenItem}
-                handleClosePress={handleClosePress}
-                handleSnapPress={handleSnapPress}
-              />
-              <IdProxy
-                id={fitlers.id}
-                setFilters={setFilters}
-                setChildrenItem={setChildrenItem}
-                handleClosePress={handleClosePress}
-                handleSnapPress={handleSnapPress}
-              />
-              <FilterOrders
-                orders={fitlers.orders}
-                setFilters={setFilters}
-                setChildrenItem={setChildrenItem}
-                handleClosePress={handleClosePress}
-                handleSnapPress={handleSnapPress}
-              />
-              <Port
-                port={fitlers.port}
-                setFilters={setFilters}
-                setChildrenItem={setChildrenItem}
-                handleClosePress={handleClosePress}
-                handleSnapPress={handleSnapPress}
-              />
+
               <CountriesItem
                 countries={fitlers.countries}
                 setFilters={setFilters}
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
                 handleSnapPress={handleSnapPress}
-                countriesExclude={fitlers.countries_exclude}
+                countriesExclude={countryExclude}
+                setCountryExclude={setCountryExclude}
               />
               <Tags
                 tagsFilter={fitlers.tags}
@@ -294,6 +295,36 @@ function Filters({ navigation }) {
                 setChildrenItem={setChildrenItem}
                 ips={ips}
               />
+              {/* {} */}
+              <FilterOrders
+                orders={fitlers.orders}
+                setFilters={setFilters}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+              />
+              <IPAddress
+                ip={fitlers.ip}
+                setFilters={setFilters}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+              />
+              <IdProxy
+                id={fitlers.id}
+                setFilters={setFilters}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+              />
+
+              <Port
+                port={fitlers.port}
+                setFilters={setFilters}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+              />
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -307,7 +338,7 @@ function Filters({ navigation }) {
                 bottomLeft: 12,
               }}
               style={styles.buttonInner}>
-              <Text style={styles.buttonText}>Показать прокси</Text>
+              <Text style={styles.buttonText}>Показать прокси ({countProxies})</Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
         )}

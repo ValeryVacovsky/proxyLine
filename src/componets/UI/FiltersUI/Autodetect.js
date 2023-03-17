@@ -8,7 +8,7 @@ function Autodetect({ autoRenewal, setFilters }) {
     setFilters(prevState =>
       prevState.auto_renewal.includes(item)
         ? { ...prevState, auto_renewal: prevState.auto_renewal.filter(active => active !== item) }
-        : { ...prevState, auto_renewal: prevState.auto_renewal.concat(item) },
+        : { ...prevState, auto_renewal: [item] },
     )
   }
   return (

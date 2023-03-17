@@ -8,7 +8,7 @@ function Types({ ipType, setFilters }) {
     setFilters(prevState =>
       prevState.ip_type.includes(item)
         ? { ...prevState, ip_type: prevState.ip_type.filter(active => active !== item) }
-        : { ...prevState, ip_type: prevState.ip_type.concat(item) },
+        : { ...prevState, ip_type: [item] },
     )
   }
   return (

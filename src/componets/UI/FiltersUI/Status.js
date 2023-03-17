@@ -8,7 +8,7 @@ function Status({ status, setFilters }) {
     setFilters(prevState =>
       prevState.status.includes(item)
         ? { ...prevState, status: prevState.status.filter(active => active !== item) }
-        : { ...prevState, status: prevState.status.concat(item) },
+        : { ...prevState, status: [item] },
     )
   }
   return (
@@ -41,29 +41,6 @@ function Status({ status, setFilters }) {
               paddingLeft: 12,
             }}>
             {text?.texts?.t32}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: status.includes('inactive') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
-          activeOpacity={0.8}
-          onPress={() => handlePress('inactive')}>
-          <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: status.includes('inactive') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
-            {text?.texts?.t33}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

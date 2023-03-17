@@ -21,9 +21,10 @@ function DateCreate({
     setFilters(prevState =>
       prevState.dateCreate.includes(item)
         ? { ...prevState, dateCreate: prevState.dateCreate.filter(active => active !== item) }
-        : { ...prevState, dateCreate: prevState.dateCreate.concat(item) },
+        : { ...prevState, dateCreate: [item] },
     )
   }
+  console.log(startDayFrom)
   const handleOpenBottomSheet = () => {
     setChildrenItem(
       <BottomSheetDateCreate

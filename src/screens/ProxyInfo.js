@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import { ScrollView, StyleSheet, SafeAreaView, Text, View, Pressable, TouchableOpacity } from 'react-native'
+import { ScrollView, StyleSheet, SafeAreaView, Text, View, Pressable, TouchableOpacity, Clipboard } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
 import ProxyInfoChange from '../image/Svg/ProxyInfoChange'
 import ReadTrash from '../image/Svg/ReadTrash'
@@ -30,7 +30,7 @@ function ProxyInfo({ navigation, route }) {
   const [proxyInfo, setProxyInfo] = useState(route.params.proxyRes)
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => [150, 350, 535], [])
+  const snapPoints = useMemo(() => [150, 325, 485], [])
   const dateStart = new Date(proxyInfo.date_end)
   const dateEnd = new Date()
   const days = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
@@ -45,8 +45,9 @@ function ProxyInfo({ navigation, route }) {
   }, [])
   const handelOpenCopy = item => {
     // eslint-disable-next-line react/no-unescaped-entities
-    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>{item}</BottomSheetCopy>)
+    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>{`"${item}"`}</BottomSheetCopy>)
     handleSnapPress(0)
+    Clipboard.setString(item.toString())
     setTimeout(() => {
       handleClosePress()
     }, 3000)
@@ -66,7 +67,6 @@ function ProxyInfo({ navigation, route }) {
   }
 
   const handleOpenTags = () => {
-    handleSnapPress(1)
     setChildrenItem(
       <BottomSheetProxyTags
         handleClosePress={handleClosePress}
@@ -124,7 +124,7 @@ function ProxyInfo({ navigation, route }) {
               <View style={styles.textContainer}>
                 <Text style={styles.text}>{proxyInfoText?.texts?.t13}</Text>
                 <Pressable hitSlop={25} activeOpacity={0.8} onPress={handleOpenIps}>
-                  <ProxyInfoChange />
+                  <ProxyInfoChange style={{ top: 5 }} />
                 </Pressable>
               </View>
               <View style={styles.Chips}>
@@ -139,7 +139,7 @@ function ProxyInfo({ navigation, route }) {
               <View style={styles.textContainer}>
                 <Text style={styles.text}>{proxyInfoText?.texts?.t14}</Text>
                 <Pressable hitSlop={25} activeOpacity={0.8} onPress={handleOpenTags}>
-                  <ProxyInfoChange />
+                  <ProxyInfoChange style={{ top: 3 }} />
                 </Pressable>
               </View>
               <View style={styles.Chips}>

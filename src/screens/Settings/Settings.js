@@ -23,6 +23,7 @@ function Settings({ navigation }) {
           </TouchableOpacity>
         </View>
       ),
+      headerLeft: () => <View></View>,
     })
   }, [navigation])
   const heightOffScreen = Dimensions.get('window').height

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
 
-function BottomSheetId({ handleClosePress, setIdDefault }) {
+function BottomSheetId({ handleClosePress, setIdDefault, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [value, setValue] = useState('')
   const handlePress = () => {
@@ -13,19 +13,58 @@ function BottomSheetId({ handleClosePress, setIdDefault }) {
       )
     }
   }
+  const handleBlur = () => {
+    handleSnapPress(0)
+  }
+  const handleFocus = () => {
+    handleSnapPress(1)
+  }
   return (
-    <View style={styles.container}>
-      <View style={styles.topContainer}>
-        <TextInput style={styles.topInput} value={value} onChangeText={setValue} />
-      </View>
-      <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
-        <Text style={styles.bottomButtonText}>{text.texts?.b1}</Text>
-      </TouchableOpacity>
-    </View>
+    <ScrollView
+      scrollEnabled={false}
+      keyboardShouldPersistTaps="always"
+      style={{
+        height: '100%',
+        backgroundColor: '#0F1218',
+        borderTopLeftRadius: 14,
+        borderTopRightRadius: 14,
+        display: 'flex',
+      }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1, height: '100%' }}
+        keyboardVerticalOffset={50}>
+        <View style={styles.container}>
+          <View style={styles.topBar} />
+          <View style={styles.topContainer}>
+            <TextInput
+              type="number"
+              keyboardType="numeric"
+              returnKeyType="done"
+              style={styles.topInput}
+              value={value}
+              onChangeText={setValue}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+            />
+          </View>
+          <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
+            <Text style={styles.bottomButtonText}>{text.buttons?.b1}</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
+  topBar: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: 60,
+    height: 3,
+    borderRadius: 40,
+    marginTop: 10,
+  },
   container: {
     backgroundColor: '#0F1218',
     borderTopLeftRadius: 14,
@@ -51,14 +90,14 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     paddingBottom: 14,
     borderColor: '#333842',
-    marginTop: 50,
+    marginTop: 45,
   },
   bottomButton: {
     paddingTop: 18,
     paddingBottom: 18,
     backgroundColor: '#1E2127',
     width: '90%',
-    marginBottom: 100,
+    marginBottom: 120,
     borderRadius: 12,
     alignItems: 'center',
   },

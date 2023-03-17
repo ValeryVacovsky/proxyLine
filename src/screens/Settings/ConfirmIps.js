@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     marginTop: 20,
     fontWeight: '400',
+    marginBottom: 20,
   },
 })
 

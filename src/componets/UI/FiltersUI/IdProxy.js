@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
-  const [idDefault, setIdDefault] = useState(['58654', '23234', '67956'])
+  const [idDefault, setIdDefault] = useState([])
   const handlePress = item => {
     setFilters(prevState =>
       prevState.id.includes(item)
@@ -14,7 +14,13 @@ function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnap
     )
   }
   const handleOpenBottomSheet = () => {
-    setChildrenItem(<BottomSheetId handleClosePress={handleClosePress} setIdDefault={setIdDefault} />)
+    setChildrenItem(
+      <BottomSheetId
+        handleClosePress={handleClosePress}
+        setIdDefault={setIdDefault}
+        handleSnapPress={handleSnapPress}
+      />,
+    )
     handleSnapPress(0)
   }
   return (

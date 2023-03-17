@@ -86,6 +86,7 @@ function BottomSheetIps({
   }, [ipsFilter, handleClosePress, handleSnapPress, ipsFilterExcludes])
   return (
     <View style={styles.container}>
+      <View style={styles.topBar} />
       <View style={styles.topContainer}>
         <Text style={styles.topTextLeft}>{text?.texts?.t13}</Text>
         <TouchableOpacity style={styles.topRightTextContainer} activeOpacity={0.8} onPress={hendleExcludeStatus}>
@@ -154,6 +155,13 @@ function BottomSheetIps({
 }
 
 const styles = StyleSheet.create({
+  topBar: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: 60,
+    height: 3,
+    borderRadius: 40,
+    marginTop: 10,
+  },
   container: {
     height: '100%',
     backgroundColor: '#0F1218',
@@ -201,6 +209,7 @@ const styles = StyleSheet.create({
     marginBottom: 33,
     borderRadius: 12,
     alignItems: 'center',
+    marginBottom: 220,
   },
   bottomButtonText: {
     color: '#FAC637',

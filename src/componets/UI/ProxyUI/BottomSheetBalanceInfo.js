@@ -1,14 +1,18 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-native'
+import { useSelector } from 'react-redux'
 
 let heightOffScreen = Dimensions.get('window').height
 
-function BottomSheetBalanceInfo({ handleClosePress, children }) {
+function BottomSheetCopy({ handleClosePress, children }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
   return (
     <View style={styles.container}>
       <View style={styles.topTab} />
       <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={handleClosePress}>
-        <Text style={styles.topButtonText}>{children}</Text>
+        <Text style={styles.topButtonText}>
+          {text?.texts?.t39} {children}
+        </Text>
       </TouchableOpacity>
     </View>
   )
@@ -109,4 +113,4 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
 })
-export default BottomSheetBalanceInfo
+export default BottomSheetCopy

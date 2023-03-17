@@ -13,7 +13,7 @@ function IpAdress({ IP, text, handelOpenCopy }) {
             activeOpacity={0.8}
             hitSlop={15}
             onPress={() => {
-              handelOpenCopy(`${IP}`)
+              handelOpenCopy(IP)
             }}>
             <InfoCopyIcon />
           </Pressable>

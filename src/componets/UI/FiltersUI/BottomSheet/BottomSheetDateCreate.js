@@ -204,6 +204,7 @@ function BottomSheetDateCreate({
   }
   return (
     <View style={styles.container}>
+      <View style={styles.topBar} />
       <View style={styles.topContainer}>
         <Text style={styles.dateCreate}>{text?.texts?.t16}</Text>
         <TextInput textContentType="date" style={styles.topInput} value={value} onChangeText={setValue} />
@@ -329,8 +330,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     paddingLeft: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
+    paddingTop: 12,
+    paddingBottom: 12,
     borderColor: '#333842',
     marginHorizontal: 20,
   },
@@ -359,6 +360,13 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     fontSize: 16,
     color: 'white',
+  },
+  topBar: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: 60,
+    height: 3,
+    borderRadius: 40,
+    marginTop: 10,
   },
 })
 

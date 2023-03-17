@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
 import { useSelector } from 'react-redux'
 
-function BottomSheetIP({ handleClosePress, setIpaddress }) {
+function BottomSheetIP({ handleClosePress, setIpaddress, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [value, setValue] = useState('')
   const handlePress = () => {
@@ -12,10 +12,26 @@ function BottomSheetIP({ handleClosePress, setIpaddress }) {
         prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
       )
   }
+  const handleBlur = () => {
+    handleSnapPress(0)
+  }
+  const handleFocus = () => {
+    handleSnapPress(1)
+  }
   return (
     <View style={styles.container}>
+      <View style={styles.topBar} />
       <View style={styles.topContainer}>
-        <TextInput style={styles.containerInput} value={value} onChange={setValue} />
+        <TextInput
+          type="number"
+          keyboardType="numeric"
+          returnKeyType="done"
+          style={styles.containerInput}
+          value={value}
+          onChange={setValue}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+        />
       </View>
       <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>{text?.buttons?.b1}</Text>
@@ -25,6 +41,13 @@ function BottomSheetIP({ handleClosePress, setIpaddress }) {
 }
 
 const styles = StyleSheet.create({
+  topBar: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: 60,
+    height: 3,
+    borderRadius: 40,
+    marginTop: 10,
+  },
   container: {
     backgroundColor: '#0F1218',
     borderTopLeftRadius: 14,
@@ -51,7 +74,7 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     paddingBottom: 14,
     borderColor: '#333842',
-    marginTop: 50,
+    marginTop: 45,
   },
   bottomButton: {
     paddingTop: 18,

@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import { setAuth } from '../../store/reducers/authReducer'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import BottomSheetForm from '../../componets/BottomSheetForm'
+import BottomSheetOutAccount from '../../componets/UI/Settings/BottomSheetOutAccount.js'
 
 function AccountInfo({ navigation }) {
   const [login, setLogin] = useState('')
+  const balance = useSelector(data => data.balanceReducer)
   const dispatch = useDispatch()
   const text = useSelector(res => res.textReducer.settings.payload)
   useEffect(() => {
@@ -23,12 +26,23 @@ function AccountInfo({ navigation }) {
       navigation.navigate('Auth')
     }, 1000)
   }
+  const sheetRef = useRef(null)
+  const snapPoints = useMemo(() => ['30%'], [])
+  const handleSnapPress = useCallback(index => {
+    sheetRef.current?.snapToIndex(index)
+  }, [])
+  const handleClosePress = useCallback(() => {
+    sheetRef.current?.close()
+  }, [])
+  const handleOpenOut = () => {
+    handleSnapPress(0)
+  }
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <TouchableOpacity activeOpacity={0.7}>
-          <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={handleRightNavigate}>
+          <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={handleOpenOut}>
             <Text style={styles.navigationRightText}>{text?.texts?.t6}</Text>
           </TouchableOpacity>
         </TouchableOpacity>
@@ -50,8 +64,14 @@ function AccountInfo({ navigation }) {
           <View style={styles.dataProxyes}>
             <View style={styles.mainInfoContainer}>
               <View style={styles.mainInfoContainerItem}>
-                <Text style={styles.mainInfoContainerLeftText}>{text?.texts?.t8 && 'Логин'}</Text>
+                <Text style={styles.mainInfoContainerLeftText}>{text?.texts?.t8 || 'Логин'}</Text>
                 <Text style={styles.mainInfoContainerRightText}>{login}</Text>
+              </View>
+              <View style={styles.mainInfoContainerItem}>
+                <Text style={styles.mainInfoContainerLeftText}>{text?.texts?.t28 || 'Баланс'}</Text>
+                <View style={{ marginLeft: 15 }}>
+                  <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance / 100}</Text>
+                </View>
               </View>
             </View>
           </View>
@@ -60,11 +80,22 @@ function AccountInfo({ navigation }) {
               style={styles.buttonContainer}
               activeOpacity={0.8}
               onPress={() => navigation.navigate('Resset')}>
-              <Text style={styles.buttonText}>{text?.buttons?.b0 && 'Сменить пароль'}</Text>
+              <Text style={styles.buttonText}>{text?.buttons?.b0 || 'Сменить пароль'}</Text>
             </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>
+      <BottomSheetForm
+        navigation={navigation}
+        sheetRef={sheetRef}
+        snapPoints={snapPoints}
+        handleClosePress={handleClosePress}>
+        <BottomSheetOutAccount
+          text={text}
+          handleRightNavigate={handleRightNavigate}
+          handleClosePress={handleClosePress}
+        />
+      </BottomSheetForm>
     </LayoutMain>
   )
 }

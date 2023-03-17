@@ -58,7 +58,7 @@ function Tags({
         tags={tags}
       />,
     )
-    handleSnapPress(2)
+    handleSnapPress(1)
   }
   useEffect(() => {
     if (!excludeStatusOut) {

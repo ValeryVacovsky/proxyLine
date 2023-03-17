@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, TouchableOpacity, Text, View, Pressable, Keyboard } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutMain from '../componets/LayoutMain'
@@ -8,6 +8,7 @@ import { TextInput } from 'react-native-gesture-handler'
 import postUserComment from '../api/postUserComment'
 import { useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import getUserComment from '../api/getUserComment'
 
 function Notes({ navigation }) {
   const text = useSelector(res => res.textReducer.notes.payload)
@@ -29,6 +30,7 @@ function Notes({ navigation }) {
     </View>,
   )
   const handleOpenStatus = () => {
+    setPreTextValue('')
     setOpenStatus(true)
     setOpenStatusItem(
       <View style={{ marginLeft: 15 }}>
@@ -84,20 +86,26 @@ function Notes({ navigation }) {
     const id = await AsyncStorage.getItem('@id')
     const data = `${id}_${token}`
     const fun = async () => {
-      const res = await postUserComment({ data: { content: text }, token: data })
+      await postUserComment({ data: { content: text }, token: data })
     }
     fun()
+    console.log('text', text)
   }
+
+  useEffect(() => {
+    async function getComment() {
+      const tokenUser = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const token = `${id}_${tokenUser}`
+      const res = await getUserComment({ token })
+      console.log(res.data)
+    }
+    getComment()
+  }, [textValue])
 
   return (
     <LayoutMain>
-      <View
-        style={{
-          display: 'flex',
-          marginLeft: 30,
-          marginRight: 30,
-          marginTop: 10,
-        }}>
+      <View style={styles.topInfoContainer}>
         <View style={styles.textInputContainer}>
           {openStatus ? (
             <Text style={{ color: 'white' }}>{textValue}</Text>
@@ -117,7 +125,7 @@ function Notes({ navigation }) {
         </View>
       </View>
       {openStatus ? (
-        <TouchableOpacity style={styles.button} activeOpacity={0.8} onLongPress={() => {}}>
+        <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => navigation.goBack()}>
           <SuperEllipseMaskView
             radius={{
               topLeft: 12,
@@ -126,7 +134,7 @@ function Notes({ navigation }) {
               bottomLeft: 12,
             }}
             style={styles.buttonInner}>
-            <Text style={styles.buttonText}>{text?.buttons?.b0}</Text>
+            <Text style={styles.buttonText}>{text?.buttons?.b0 || 'Закрыть'}</Text>
           </SuperEllipseMaskView>
         </TouchableOpacity>
       ) : (
@@ -170,7 +178,7 @@ function Notes({ navigation }) {
                   fontWeight: '600',
                   fontSize: 13,
                 }}>
-                {text?.buttons?.b2}
+                {text?.buttons?.b2 || 'Отменить'}
               </Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
@@ -205,7 +213,7 @@ function Notes({ navigation }) {
                   fontWeight: '600',
                   fontSize: 13,
                 }}>
-                {text?.buttons?.b1}
+                {text?.buttons?.b1 || 'Сохранить изменения'}
               </Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
@@ -216,6 +224,12 @@ function Notes({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  topInfoContainer: {
+    display: 'flex',
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 10,
+  },
   textInputContainer: {
     flexDirection: 'row',
     paddingLeft: 8,
@@ -224,6 +238,7 @@ const styles = StyleSheet.create({
     display: 'flex',
   },
   textInput: {
+    paddingTop: 20,
     padding: 20,
     flex: 1,
     backgroundColor: '#1E2127',

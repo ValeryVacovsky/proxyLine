@@ -1,12 +1,14 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { StyleSheet } from 'react-native'
 
 function BalanceListSystem({ name, data, navigation, amount, handelOpenCopy, mayGo, setAmount }) {
   const dataNav = { ...data, amount: amount }
   const handleMove = () => {
     navigation.navigate('BalanceMethod', { dataNav })
-    setAmount(null)
+    setTimeout(() => {
+      setAmount('')
+    }, 400)
   }
   const handlePress = () => {
     mayGo ? handleMove() : handelOpenCopy()
@@ -16,9 +18,9 @@ function BalanceListSystem({ name, data, navigation, amount, handelOpenCopy, may
       <View style={styles.container}>
         <View style={styles.summeContainer}>
           <View style={styles.summe}>
-            <Text style={styles.leftText}>{name}</Text>
+            <Text style={styles.rightText}>{name}</Text>
             <View style={styles.rightTextCOntainer}>
-              <Text style={styles.rightText}>{name}</Text>
+              <Image style={{ width: 110, height: 24 }} source={{ uri: data.logo_path_2 }} />
             </View>
           </View>
         </View>
@@ -49,6 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 20,
+    alignItems: 'center',
   },
   leftText: {
     color: '#CBCBCB',

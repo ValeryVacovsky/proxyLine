@@ -81,8 +81,8 @@ function AuthRecover({ navigation }) {
                   borderRadius: 8,
                   borderWidth: 1,
                   paddingLeft: 20,
-                  paddingTop: 15,
-                  paddingBottom: 15,
+                  paddingTop: 12,
+                  paddingBottom: 12,
                   borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
                 }}
                 onChangeText={onChange}
@@ -102,7 +102,7 @@ function AuthRecover({ navigation }) {
                 bottomRight: 12,
               }}>
               <View style={styles.buttonInner}>
-                <Text style={styles.buttonInnerText}>{authText?.buttons?.b0}</Text>
+                <Text style={styles.buttonInnerText}>{authText?.buttons?.b2}</Text>
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>

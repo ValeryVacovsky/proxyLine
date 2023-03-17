@@ -85,8 +85,8 @@ function AuthCode({ navigation }) {
                   borderRadius: 8,
                   borderWidth: 1,
                   paddingLeft: 20,
-                  paddingTop: 15,
-                  paddingBottom: 15,
+                  paddingTop: 12,
+                  paddingBottom: 12,
                   borderColor: (focusOnCode && '#fac637') || (errors.email_code && 'rgb(138,0,0)') || '#333842',
                   marginTop: 8,
                 }}
@@ -107,7 +107,7 @@ function AuthCode({ navigation }) {
                 bottomRight: 12,
               }}>
               <View style={styles.buttonInner}>
-                <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>{authText?.buttons?.b0}</Text>
+                <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>{authText?.buttons?.b2}</Text>
               </View>
             </SuperEllipseMaskView>
           </TouchableOpacity>

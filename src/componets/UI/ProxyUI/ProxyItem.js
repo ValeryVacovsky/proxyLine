@@ -87,15 +87,15 @@ function ProxyItem({
           </View>
         </View>
         <View style={styles.sideContainer}>
-          <Pressable hitSlop={5} onPress={handleOpenModal}>
+          <Pressable hitSlop={25} onPress={handleOpenModal}>
             <ProxiesDotts style={{ marginRight: 8 }} />
           </Pressable>
           {selected === proxyRes?.id ? (
-            <Pressable hitSlop={3} onPress={() => handleSelect(null)}>
+            <Pressable hitSlop={2} onPress={() => handleSelect(null)}>
               <LightRadioUncheked style={{ marginLeft: 12, bottom: 3 }} />
             </Pressable>
           ) : (
-            <Pressable hitSlop={3} onPress={() => handleSelect(proxyRes.id)}>
+            <Pressable hitSlop={2} onPress={() => handleSelect(proxyRes.id)}>
               <DarkRadioUncheked style={{ marginLeft: 12, bottom: 3 }} />
             </Pressable>
           )}

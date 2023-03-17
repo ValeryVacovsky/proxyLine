@@ -5,7 +5,7 @@ import BottomSheetOrders from './BottomSheet/BottomSheetOrders'
 
 function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
-  const [ordersDefault, setOrdersDefault] = useState(['58654', '23234', '67956'])
+  const [ordersDefault, setOrdersDefault] = useState([])
   const handlePress = item => {
     setFilters(prevState =>
       prevState.orders.includes(item)
@@ -14,7 +14,13 @@ function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, h
     )
   }
   const handleOpenBottomSheet = () => {
-    setChildrenItem(<BottomSheetOrders handleClosePress={handleClosePress} setOrdersDefault={setOrdersDefault} />)
+    setChildrenItem(
+      <BottomSheetOrders
+        handleClosePress={handleClosePress}
+        setOrdersDefault={setOrdersDefault}
+        handleSnapPress={handleSnapPress}
+      />,
+    )
     handleSnapPress(0)
   }
   return (

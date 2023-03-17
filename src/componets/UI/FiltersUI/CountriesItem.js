@@ -10,34 +10,37 @@ function CountriesItem({
   handleClosePress,
   handleSnapPress,
   countriesExclude,
+  setCountryExclude,
 }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
-  const [excludeStatusOut, setExcludeStatusOut] = useState(false)
   const countreisList = useSelector(res => res.countryOrderReducer.country)
-  const country = ['ru', 'us', 'fr', 'de']
-  const countryExclude = ['ru', 'us', 'fr', 'de']
+  const [country, setCountry] = useState(['ru', 'us', 'fr', 'de'])
   const handlePress = item => {
-    setFilters(prevState =>
-      prevState.countries.includes(item)
-        ? {
-            ...prevState,
-            countries: prevState.countries.filter(active => active !== item),
-          }
-        : { ...prevState, countries: prevState.countries.concat(item) },
-    )
-    handleClosePress()
-  }
-  const handlePressExclude = item => {
-    setFilters(prevState =>
-      prevState.countries_exclude.includes(item)
-        ? {
-            ...prevState,
-            countries_exclude: prevState.countries_exclude.filter(active => active !== item),
-          }
-        : { ...prevState, countries_exclude: prevState.countries_exclude.concat(item) },
-    )
+    if (countries.includes(item) && !countriesExclude) {
+      setCountryExclude(true)
+    } else if (countries.includes(item) && countriesExclude) {
+      setCountryExclude(false)
+      setFilters(prevState =>
+        prevState.countries.includes(item)
+          ? {
+              ...prevState,
+              countries: prevState.countries.filter(active => active !== item),
+            }
+          : { ...prevState, countries: prevState.countries.concat(item) },
+      )
+    } else {
+      setFilters(prevState =>
+        prevState.countries.includes(item)
+          ? {
+              ...prevState,
+              countries: prevState.countries.filter(active => active !== item),
+            }
+          : { ...prevState, countries: prevState.countries.concat(item) },
+      )
+    }
+
     handleClosePress()
   }
   const handleOpenBottomSheet = () => {
@@ -47,9 +50,10 @@ function CountriesItem({
         countreisList={countreisList}
         handleClosePress={handleClosePress}
         countries={countries}
+        setCountry={setCountry}
         setFilters={setFilters}
-        excludeStatusOut={excludeStatusOut}
-        setExcludeStatusOut={setExcludeStatusOut}
+        excludeStatusOut={countriesExclude}
+        setExcludeStatusOut={setCountryExclude}
       />,
     )
   }
@@ -64,7 +68,7 @@ function CountriesItem({
         </TouchableOpacity>
       </View>
       <View style={styles.conuntryContainer}>
-        {!excludeStatusOut
+        {!countriesExclude
           ? country.map(item => (
               <TouchableOpacity
                 key={item}
@@ -91,23 +95,23 @@ function CountriesItem({
                 </Text>
               </TouchableOpacity>
             ))
-          : countryExclude.map(item => (
+          : country.map(item => (
               <TouchableOpacity
                 key={item}
                 style={{
-                  backgroundColor: countriesExclude.includes(item) ? '#EC3641' : 'rgba(236, 54, 65, 0.1)',
+                  backgroundColor: countries.includes(item) ? '#EC3641' : '#333842',
                   alignItems: 'center',
                   borderRadius: 30,
                   marginTop: 10,
                   marginRight: 10,
                 }}
                 activeOpacity={0.8}
-                onPress={() => handlePressExclude(item)}>
+                onPress={() => handlePress(item)}>
                 <Text
                   style={{
                     fontWeight: '600',
                     fontSize: 13,
-                    color: countriesExclude.includes(item) ? '#0F1218' : '#EC3641',
+                    color: countries.includes(item) ? '#0F1218' : 'white',
                     paddingBottom: 6,
                     paddingTop: 6,
                     paddingRight: 12,

@@ -12,8 +12,9 @@ function CountrySlot({
   country,
   selectedCountryShort,
   setSelectedCountryShort,
-  setSelectedCountryOff,
   setSelectedCountryShortOff,
+  firstRender,
+  item,
 }) {
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
@@ -22,6 +23,9 @@ function CountrySlot({
       <TouchableOpacity style={styles.containerOpacity} activeOpacity={0.8}>
         <Text style={styles.mockText} />
         <View style={styles.countryInfo}>
+          <View style={styles.bigWordContainer}>
+            <Text style={styles.bigWordText}>{firstRender && item}</Text>
+          </View>
           <View style={styles.flagIcon}>{flagByShortName[country.code]}</View>
           <Text style={styles.mainText}>{countryDiscription[languageGet][country.code]}</Text>
         </View>
@@ -30,7 +34,6 @@ function CountrySlot({
           activeOpacity={0.8}
           onPress={() => {
             setSelectedCountryShort(country.code)
-            setSelectedCountryOff(country.name_local)
             setSelectedCountryShortOff(country.code)
           }}>
           {selectedCountryShort === country.code ? <LightRadioUncheked /> : <RadioUncheked width={21} height={20} />}
@@ -56,9 +59,36 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '900',
   },
-  countryInfo: { display: 'flex', flexDirection: 'row' },
-  flagIcon: { top: 2, marginLeft: 5, marginRight: 5, width: 16, height: 13 },
-  mainText: { color: 'white', fontWeight: '600', width: '75%' },
+  countryInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  bigWordContainer: {
+    width: 20,
+    height: 15,
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  bigWordText: {
+    fontWeight: '900',
+    fontSize: 18,
+    lineHeight: 18,
+    color: '#FAC637',
+    top: 1,
+  },
+  flagIcon: {
+    top: 0,
+    marginLeft: 5,
+    marginRight: 5,
+    width: 16,
+    height: 13,
+  },
+  mainText: {
+    color: 'white',
+    fontWeight: '600',
+    width: '75%',
+  },
 })
 
 export default CountrySlot

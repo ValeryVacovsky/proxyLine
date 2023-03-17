@@ -5,8 +5,8 @@ import BalanceTopTableSystems from '../../componets/UI/BalanceUI/BalanceTopTable
 import BalanceListSystem from '../../componets/Balance/BalanceListSystem'
 import { useSelector } from 'react-redux'
 import BottomSheetForm from '../../componets/BottomSheetForm'
-import BottomSheetCopy from '../../componets/UI/ProxyUI/BottomSheetCopy'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
+import BottomSheetBalanceInfo from '../../componets/UI/ProxyUI/BottomSheetCopy'
 
 function BalanceSystems({ navigation }) {
   const text = useSelector(res => res.textReducer.balance.payload)
@@ -29,7 +29,9 @@ function BalanceSystems({ navigation }) {
   const [error, setError] = useState(false)
   const [mayGo, setMayGo] = useState(false)
   const handelOpenCopy = () => {
-    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>{text?.texts?.t8}</BottomSheetCopy>)
+    setChildrenItem(
+      <BottomSheetBalanceInfo handleClosePress={handleClosePress}>{text?.texts?.t8}</BottomSheetBalanceInfo>,
+    )
     handleSnapPress(0)
     setError(true)
     setTimeout(() => {
@@ -37,7 +39,7 @@ function BalanceSystems({ navigation }) {
     }, 3000)
   }
   const [childrenItem, setChildrenItem] = useState(
-    <BottomSheetCopy handleClosePress={handleClosePress}>{text?.texts?.t8}</BottomSheetCopy>,
+    <BottomSheetBalanceInfo handleClosePress={handleClosePress}>{text?.texts?.t8}</BottomSheetBalanceInfo>,
   )
   handlePressRequest = () => {
     navigation.navigate('BalanceMethod', { dataNav })
@@ -47,12 +49,13 @@ function BalanceSystems({ navigation }) {
     setBalanceSystems(systems)
   }, [systems])
   useEffect(() => {
-    if (amount === 0 || amount === null) {
+    if (amount == 0 || amount == null) {
       setMayGo(false)
     } else {
       setMayGo(true)
     }
   }, [amount])
+  console.log(mayGo)
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (

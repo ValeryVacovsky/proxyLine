@@ -55,7 +55,7 @@ function MyProxies({ navigation }) {
               setTimeout(() => handleClosePress(), 1000)
             }}
             hitSlop={15}>
-            <ProxiesFilter />
+            <ProxiesFilter style={{ top: 1 }} />
           </Pressable>
           <Pressable
             style={styles.balanceIconFilterDotts}

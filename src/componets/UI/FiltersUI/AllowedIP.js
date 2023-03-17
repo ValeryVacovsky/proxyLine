@@ -50,7 +50,7 @@ function Tags({ ipsFilter, ipsFilterExcludes, ips, setFilters, setChildrenItem, 
         ips={ips}
       />,
     )
-    handleSnapPress(2)
+    handleSnapPress(1)
   }
   useEffect(() => {
     if (!excludeStatusOut) {

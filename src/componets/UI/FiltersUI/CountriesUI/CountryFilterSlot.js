@@ -10,6 +10,7 @@ import RadioUncheked from '../../../../image/Svg/RadioUncheked'
 import { flagByShortName } from '../../../../common/flagByShortName'
 
 function CountryFilterSlot({
+  item,
   countreiItem,
   setFilters,
   excludeStatus,
@@ -17,7 +18,9 @@ function CountryFilterSlot({
   setCountriesState,
   countriesStateExlude,
   setCountriesStateExlude,
+  firstRender,
 }) {
+  console.log(firstRender)
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const handlePress = item => {
@@ -55,6 +58,9 @@ function CountryFilterSlot({
           onPress={() => handlePress(countreiItem.code)}>
           <Text style={styles.mockText} />
           <View style={styles.countryInfo}>
+            <View style={styles.bigWordContainer}>
+              <Text style={styles.bigWordText}>{firstRender && item}</Text>
+            </View>
             <View style={styles.flagIcon}>{flagByShortName[countreiItem.code]}</View>
             <Text style={styles.mainText}>{countryDiscription[languageGet][countreiItem.code]}</Text>
           </View>
@@ -69,8 +75,10 @@ function CountryFilterSlot({
           style={styles.containerOpacity}
           activeOpacity={0.8}
           onPress={() => handlePressExclude(countreiItem.code)}>
-          <Text style={styles.mockText} />
           <View style={styles.countryInfo}>
+            <View style={styles.bigWordContainer}>
+              <Text style={styles.bigWordText}>{firstRender && item}</Text>
+            </View>
             <View style={styles.flagIcon}>{flagByShortName[countreiItem.code]}</View>
             <Text style={styles.mainText}>{countryDiscription[languageGet][countreiItem.code]}</Text>
           </View>
@@ -100,6 +108,19 @@ const styles = StyleSheet.create({
     color: '#FAC637',
     fontSize: 18,
     fontWeight: '900',
+  },
+  bigWordContainer: {
+    width: 20,
+    height: 15,
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  bigWordText: {
+    fontWeight: '900',
+    fontSize: 18,
+    lineHeight: 18,
+    color: '#FAC637',
+    top: 1,
   },
   countryInfo: { display: 'flex', flexDirection: 'row' },
   flagIcon: { top: 2, marginLeft: 5, marginRight: 5, width: 16, height: 13 },

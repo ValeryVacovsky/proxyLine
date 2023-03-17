@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, ScrollView, StyleSheet, SafeAreaView, Text, Pressable, Dimensions, TouchableOpacity } from 'react-native'
-import HeaderTintBack from '../image/Svg/HeaderTintBack'
+import { View, ScrollView, StyleSheet, SafeAreaView, Text, Pressable, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import LayoutMain from '../componets/LayoutMain'
@@ -56,16 +55,11 @@ function Proxy({ navigation }) {
             hitSlop={50}
             onPress={() => navigation.navigate('Balance')}>
             <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance / 100}</Text>
-            <HeaderProxy style={{ bottom: 1, marginLeft: 3 }} />
+            <HeaderProxy style={{ marginLeft: 3 }} />
           </Pressable>
         </View>
       ),
-      headerLeft: () => (
-        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={styles.headerLeftTintText}> {proxyText.proxy.payload?.buttons?.b1}</Text>
-        </TouchableOpacity>
-      ),
+      headerLeft: () => <View></View>,
     })
   }, [navigation, balance])
   const heightOffScreen = Dimensions.get('window').height

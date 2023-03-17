@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
-  const [Ipaddress, setIpaddress] = useState(['209.139.71.222', '192.168.0.3', '192.168.0.4'])
+  const [Ipaddress, setIpaddress] = useState([])
   const handlePress = item => {
     setFilters(prevState =>
       prevState.ip.includes(item)
@@ -14,7 +14,13 @@ function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSn
     )
   }
   const handleOpenBottomSheet = () => {
-    setChildrenItem(<BottomSheetIP handleClosePress={handleClosePress} setIpaddress={setIpaddress} />)
+    setChildrenItem(
+      <BottomSheetIP
+        handleClosePress={handleClosePress}
+        setIpaddress={setIpaddress}
+        handleSnapPress={handleSnapPress}
+      />,
+    )
     handleSnapPress(0)
   }
   return (

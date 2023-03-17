@@ -11,6 +11,7 @@ function BottomSheetCountries({ handleClosePress, setIsOpen }) {
   }
   return (
     <View style={styles.container}>
+      <View style={styles.topBar} />
       <View style={styles.topContainer}>
         <TextInput textContentType="date" style={styles.topTextInput} value={value} onChangeText={setValue} />
       </View>
@@ -70,6 +71,13 @@ const styles = StyleSheet.create({
     height: '50%',
     width: '100%',
     marginBottom: 140,
+  },
+  topBar: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: 60,
+    height: 3,
+    borderRadius: 40,
+    marginTop: 10,
   },
 })
 

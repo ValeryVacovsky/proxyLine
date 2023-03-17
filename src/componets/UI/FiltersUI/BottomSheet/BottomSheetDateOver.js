@@ -197,6 +197,7 @@ function BottomSheetDateOver({ handleClosePress, setEndDayStatus, endDayFrom, se
   }
   return (
     <View style={styles.container}>
+      <View style={styles.top} />
       <View style={styles.topContainer}>
         <Text style={styles.dateCreate}>{text?.texts?.t16}</Text>
         <TextInput textContentType="date" style={styles.topInput} value={value} onChangeText={setValue} />
@@ -352,6 +353,13 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     fontSize: 16,
     color: 'white',
+  },
+  topBar: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: 60,
+    height: 3,
+    borderRadius: 40,
+    marginTop: 10,
   },
 })
 

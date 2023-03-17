@@ -14,6 +14,7 @@ function OrdersList({ data, text }) {
   const [dateCreate, setDateCreate] = useState(new Date())
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
+  console.log(data)
 
   const onHandleSuccess = () => {
     dispatch(deleteObject({ statusActive: true, dateActive: new Date() }))
@@ -28,7 +29,7 @@ function OrdersList({ data, text }) {
       const user_token = `${id}_${token}`
       await postCreateOrder({
         data: {
-          quantity: 1,
+          quantity: data.data.quantity,
           ip_type: data.data.ip_type,
           ip_version: data.data.ip_version,
           country: 'ru',
@@ -56,19 +57,6 @@ function OrdersList({ data, text }) {
               {text?.texts?.t2} {dateFormat(data.data.dateActive, 'd.mm.yyyy HH:MM')}
             </Text>
           </View>
-          <View>
-            <View style={styles.idContainer}>
-              <Text style={styles.IdNumberSmall}>ID </Text>
-              <Text style={styles.IdNumber}> 4829002398</Text>
-            </View>
-            <View style={styles.idContainer}>
-              <Text style={styles.calenderTimeSmall}>{text?.texts?.t3}</Text>
-              <Text style={styles.calenderTime}>
-                {' '}
-                5 {text?.texts?.t4} 6 {text?.texts?.t4}
-              </Text>
-            </View>
-          </View>
         </View>
         <View
           style={{
@@ -82,7 +70,9 @@ function OrdersList({ data, text }) {
             <Text style={styles.leftText}>{text?.texts?.t6}</Text>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
               <Text style={styles.rightText}>{countryDiscription[languageGet][data.data.country]}</Text>
-              <View style={{ width: 16, height: 13, marginLeft: 10 }}>{flagByShortName[data.data.country]}</View>
+              <View style={{ width: 16, height: 13, marginLeft: 10, top: 2 }}>
+                {flagByShortName[data.data.country]}
+              </View>
             </View>
           </View>
           <View style={styles.centerBlock}>
@@ -111,7 +101,7 @@ function OrdersList({ data, text }) {
               createOrderRequest()
             }}
             activeOpacity={0.8}>
-            <Text style={styles.buttonInnerText}>{text.buttons.b0}</Text>
+            <Text style={styles.buttonInnerText}>{text?.buttons?.b1 || 'Получить'}</Text>
           </TouchableOpacity>
         )}
       </View>

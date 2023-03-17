@@ -2,20 +2,63 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
 import { useSelector } from 'react-redux'
 
-function BottomSheetPort({ handleClosePress, setPorts }) {
+function BottomSheetPort({ handleClosePress, setPorts, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [value, setValue] = useState('')
+  const [error, setError] = useState('')
+  const handleNumberChange = newNumber => {
+    const parsedNumber = parseInt(newNumber)
+
+    if (isNaN(parsedNumber) || parsedNumber < 1024 || parsedNumber > 65535) {
+      setError('Number should be between 1064 and 50000')
+      setValue(newNumber)
+      return
+    }
+
+    setValue(newNumber)
+    setError('')
+  }
   const handlePress = () => {
-    handleClosePress()
-    value.length > 0 &&
+    if (value.length > 0 && error.length == 0) {
       setPorts(prevState =>
         prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
       )
+      handleClosePress()
+    }
+  }
+  const handleBlur = () => {
+    handleSnapPress(0)
+  }
+  const handleFocus = () => {
+    handleSnapPress(1)
   }
   return (
     <View style={styles.container}>
+      <View style={styles.topBar} />
       <View style={styles.topContainer}>
-        <TextInput style={styles.topInput} value={value} onChangeText={setValue} />
+        <TextInput
+          style={{
+            backgroundColor: '#1E2127',
+            color: 'white',
+            height: 44,
+            minWidth: '90%',
+            marginBottom: 14,
+            borderRadius: 8,
+            borderWidth: 1,
+            paddingLeft: 20,
+            paddingTop: 14,
+            paddingBottom: 14,
+            borderColor: error.length > 0 ? 'rgb(138,0,0)' : '#333842',
+            marginTop: 45,
+          }}
+          value={value}
+          onChangeText={handleNumberChange}
+          type="number"
+          keyboardType="numeric"
+          returnKeyType="done"
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+        />
       </View>
       <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>{text?.buttons?.b1}</Text>
@@ -25,6 +68,13 @@ function BottomSheetPort({ handleClosePress, setPorts }) {
 }
 
 const styles = StyleSheet.create({
+  topBar: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: 60,
+    height: 3,
+    borderRadius: 40,
+    marginTop: 10,
+  },
   container: {
     backgroundColor: '#0F1218',
     borderTopLeftRadius: 14,
@@ -50,7 +100,7 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     paddingBottom: 14,
     borderColor: '#333842',
-    marginTop: 50,
+    marginTop: 45,
   },
   bottomButton: {
     paddingTop: 18,
