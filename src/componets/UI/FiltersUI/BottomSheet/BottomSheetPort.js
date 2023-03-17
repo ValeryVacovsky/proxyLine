@@ -19,7 +19,7 @@ function BottomSheetPort({ handleClosePress, setPorts, handleSnapPress }) {
     setError(false)
   }
   const handlePress = () => {
-    if (value.length > 0 && !error == 0) {
+    if (value.length > 0 && !error) {
       setPorts(prevState =>
         prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
       )
