@@ -5,21 +5,21 @@ import { useSelector } from 'react-redux'
 function BottomSheetPort({ handleClosePress, setPorts, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [value, setValue] = useState('')
-  const [error, setError] = useState('')
+  const [error, setError] = useState(false)
   const handleNumberChange = newNumber => {
     const parsedNumber = parseInt(newNumber)
 
     if (isNaN(parsedNumber) || parsedNumber < 1024 || parsedNumber > 65535) {
-      setError('Number should be between 1064 and 50000')
+      setError(true)
       setValue(newNumber)
       return
     }
 
     setValue(newNumber)
-    setError('')
+    setError(false)
   }
   const handlePress = () => {
-    if (value.length > 0 && error.length == 0) {
+    if (value.length > 0 && !error == 0) {
       setPorts(prevState =>
         prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
       )
@@ -48,7 +48,7 @@ function BottomSheetPort({ handleClosePress, setPorts, handleSnapPress }) {
             paddingLeft: 20,
             paddingTop: 14,
             paddingBottom: 14,
-            borderColor: error.length > 0 ? 'rgb(138,0,0)' : '#333842',
+            borderColor: error ? 'rgb(138,0,0)' : '#333842',
             marginTop: 45,
           }}
           value={value}

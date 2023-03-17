@@ -158,7 +158,7 @@ function Filters({ navigation }) {
     }
   })
   const sheetRef = useRef(null)
-  const snapPoints = useMemo(() => ['27%', '50%', '75%'], [])
+  const snapPoints = useMemo(() => ['27%', '60%', '75%'], [])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)

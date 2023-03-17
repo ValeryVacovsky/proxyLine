@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     marginBottom: 33,
     borderRadius: 12,
     alignItems: 'center',
-    marginBottom: 220,
+    marginBottom: 150,
   },
   bottomButtonText: {
     color: '#FAC637',
