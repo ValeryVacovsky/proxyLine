@@ -5,76 +5,64 @@ import { useSelector } from 'react-redux'
 
 function Tags({
   tagsFilter,
-  tagsFilterExcludes,
   tags,
   setFilters,
   setChildrenItem,
   handleClosePress,
   handleSnapPress,
+  tagsExclude,
+  setTagsExclude,
 }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
-  const [excludeStatusOut, setExcludeStatusOut] = useState(false)
   const [filtersTagsItem, setFilterTagsItem] = useState([])
-  const [filtersTagsItemExcludes, setFiltersTagsItemExcludes] = useState([])
   const shortTagsList = tags.slice(0, 5)
   const [tagsList, setTagsList] = useState(shortTagsList)
-  const [tagsListExclude, setTagsListExclude] = useState(shortTagsList)
   const handlePress = item => {
-    setFilters(prevState =>
-      prevState.tags.includes(item)
-        ? {
-            ...prevState,
-            tags: prevState.tags.filter(active => active !== item),
-          }
-        : { ...prevState, tags: prevState.tags.concat(item) },
-    )
-  }
-  const handlePressExcludes = item => {
-    setFilters(prevState =>
-      prevState.tags_exclude.includes(item)
-        ? {
-            ...prevState,
-            tags_exclude: prevState.tags_exclude.filter(active => active !== item),
-          }
-        : { ...prevState, tags_exclude: prevState.tags_exclude.concat(item) },
-    )
+    if (tagsFilter.includes(item) && !tagsExclude) {
+      setTagsExclude(true)
+    } else if (tagsFilter.includes(item) && tagsExclude) {
+      setTagsExclude(false)
+      setFilters(prevState =>
+        prevState.tags.includes(item)
+          ? {
+              ...prevState,
+              tags: prevState.tags.filter(active => active !== item),
+            }
+          : { ...prevState, tags: prevState.tags.concat(item) },
+      )
+    } else {
+      setFilters(prevState =>
+        prevState.tags.includes(item)
+          ? {
+              ...prevState,
+              tags: prevState.tags.filter(active => active !== item),
+            }
+          : { ...prevState, tags: prevState.tags.concat(item) },
+      )
+    }
   }
   const handleOpenBottomSheet = () => {
     setChildrenItem(
       <BottomSheetTags
         handleClosePress={handleClosePress}
         setTagsList={setTagsList}
-        setTagsListExclude={setTagsListExclude}
         tagsList={tagsList}
-        tagsListExclude={tagsListExclude}
         filtersTagsItem={filtersTagsItem}
-        filtersTagsItemExcludes={filtersTagsItemExcludes}
         setFilters={setFilters}
-        excludeStatusOut={excludeStatusOut}
-        setExcludeStatusOut={setExcludeStatusOut}
         tagsFilter={tagsFilter}
-        tagsFilterExcludes={tagsFilterExcludes}
         handleSnapPress={handleSnapPress}
+        tagsExclude={tagsExclude}
+        setTagsExclude={setTagsExclude}
         tags={tags}
       />,
     )
     handleSnapPress(1)
   }
   useEffect(() => {
-    if (!excludeStatusOut) {
-      const result = tags.filter(item => tagsFilter.includes(item.id))
-      const data = [...tagsList, ...result.filter(itemB => !tagsList.some(itemA => itemA.id === itemB.id))]
-      setFilterTagsItem(data)
-    } else {
-      const result = tags.filter(item => tagsFilterExcludes.includes(item.id))
-
-      const data = [
-        ...tagsListExclude,
-        ...result.filter(itemB => !tagsListExclude.some(itemA => itemA.id === itemB.id)),
-      ]
-      setFiltersTagsItemExcludes(data)
-    }
-  }, [excludeStatusOut, tags, tagsFilter, tagsFilterExcludes, tagsList, tagsListExclude])
+    const result = tags.filter(item => tagsFilter.includes(item.id))
+    const data = [...tagsList, ...result.filter(itemB => !tagsList.some(itemA => itemA.id === itemB.id))]
+    setFilterTagsItem(data)
+  }, [tags, tagsFilter, tagsList])
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>
@@ -86,7 +74,7 @@ function Tags({
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
-        {!excludeStatusOut
+        {!tagsExclude
           ? filtersTagsItem.map(item => (
               <TouchableOpacity
                 key={item.id}
@@ -113,23 +101,23 @@ function Tags({
                 </Text>
               </TouchableOpacity>
             ))
-          : filtersTagsItemExcludes.map(item => (
+          : filtersTagsItem.map(item => (
               <TouchableOpacity
                 key={item.id}
                 style={{
-                  backgroundColor: tagsFilterExcludes.includes(item.id) ? '#EC3641' : '#333842',
+                  backgroundColor: tagsFilter.includes(item.id) ? '#EC3641' : '#333842',
                   alignItems: 'center',
                   borderRadius: 30,
                   marginTop: 10,
                   marginRight: 10,
                 }}
                 activeOpacity={0.8}
-                onPress={() => handlePressExcludes(item.id)}>
+                onPress={() => handlePress(item.id)}>
                 <Text
                   style={{
                     fontWeight: '600',
                     fontSize: 13,
-                    color: tagsFilterExcludes.includes(item.id) ? '#0F1218' : 'white',
+                    color: tagsFilter.includes(item.id) ? '#0F1218' : 'white',
                     paddingBottom: 6,
                     paddingTop: 6,
                     paddingRight: 12,

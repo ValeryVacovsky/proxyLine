@@ -96,7 +96,7 @@ function Notes({ navigation }) {
       const tokenUser = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
       const token = `${id}_${tokenUser}`
-      const res = await getUserComment({ token })
+      await getUserComment({ token })
     }
     getComment()
   }, [textValue])
@@ -124,95 +124,28 @@ function Notes({ navigation }) {
       </View>
       {openStatus ? (
         <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => navigation.goBack()}>
-          <SuperEllipseMaskView
-            radius={{
-              topLeft: 12,
-              topRight: 12,
-              bottomRight: 12,
-              bottomLeft: 12,
-            }}
-            style={styles.buttonInner}>
+          <SuperEllipseMaskView radius={styles.maskRadius} style={styles.buttonInner}>
             <Text style={styles.buttonText}>{text?.buttons?.b0 || 'Закрыть'}</Text>
           </SuperEllipseMaskView>
         </TouchableOpacity>
       ) : (
-        <View
-          style={{
-            alignItems: 'center',
-            width: '100%',
-            marginBottom: 40,
-            position: 'absolute',
-            bottom: '5%',
-            zIndex: 1,
-          }}>
+        <View style={styles.closeButtonsContainer}>
           <TouchableOpacity
             onPress={handleOpenStatus}
-            style={{
-              alignItems: 'center',
-              width: '100%',
-              marginBottom: 40,
-              zIndex: 1,
-            }}
+            style={styles.cancelButtonContainer}
             activeOpacity={0.8}
             onLongPress={() => {}}>
-            <SuperEllipseMaskView
-              radius={{
-                topLeft: 12,
-                topRight: 12,
-                bottomRight: 12,
-                bottomLeft: 12,
-              }}
-              style={{
-                backgroundColor: '#1E2127',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: 50,
-                width: '90%',
-                position: 'absolute',
-              }}>
-              <Text
-                style={{
-                  color: '#FFFFFF',
-                  fontWeight: '600',
-                  fontSize: 13,
-                }}>
-                {text?.buttons?.b2 || 'Отменить'}
-              </Text>
+            <SuperEllipseMaskView radius={styles.maskRadius} style={styles.cancelButtonContainerMask}>
+              <Text style={styles.cancelButtonText}>{text?.buttons?.b2 || 'Отменить'}</Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handleCloseStatus}
-            style={{
-              alignItems: 'center',
-              width: '100%',
-              marginTop: 20,
-              marginBottom: 20,
-            }}
+            style={styles.saveButtonContainer}
             activeOpacity={0.8}
             onLongPress={() => {}}>
-            <SuperEllipseMaskView
-              radius={{
-                topLeft: 12,
-                topRight: 12,
-                bottomRight: 12,
-                bottomLeft: 12,
-              }}
-              style={{
-                backgroundColor: '#FAC637',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: 50,
-                width: '90%',
-                position: 'absolute',
-              }}>
-              <Text
-                style={{
-                  color: '#0F1218',
-                  fontWeight: '600',
-                  fontSize: 13,
-                }}>
-                {text?.buttons?.b1 || 'Сохранить изменения'}
-              </Text>
+            <SuperEllipseMaskView radius={styles.maskRadius} style={styles.saveButtonContainerMask}>
+              <Text style={styles.saveButtonText}>{text?.buttons?.b1 || 'Сохранить изменения'}</Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
         </View>
@@ -224,8 +157,8 @@ function Notes({ navigation }) {
 const styles = StyleSheet.create({
   topInfoContainer: {
     display: 'flex',
-    marginLeft: 20,
-    marginRight: 20,
+    marginLeft: 10,
+    marginRight: 10,
     marginTop: 10,
   },
   textInputContainer: {
@@ -279,6 +212,58 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  closeButtonsContainer: {
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 40,
+    position: 'absolute',
+    bottom: '5%',
+    zIndex: 1,
+  },
+  cancelButtonContainer: {
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 40,
+    zIndex: 1,
+  },
+  cancelButtonContainerMask: {
+    backgroundColor: '#1E2127',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '90%',
+    position: 'absolute',
+  },
+  cancelButtonText: {
+    color: '#FFFFFF',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  saveButtonContainer: {
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  saveButtonContainerMask: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '90%',
+    position: 'absolute',
+  },
+  saveButtonText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  maskRadius: {
+    topLeft: 12,
+    topRight: 12,
+    bottomRight: 12,
+    bottomLeft: 12,
   },
 })
 

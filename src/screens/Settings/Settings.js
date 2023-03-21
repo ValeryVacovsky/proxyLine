@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { View, StyleSheet, SafeAreaView, TouchableOpacity, Text, Dimensions } from 'react-native'
+import { View, StyleSheet, SafeAreaView, TouchableOpacity, Text, Dimensions, Pressable, ScrollView } from 'react-native'
 import LayoutMain from '../../componets/LayoutMain'
 import UserNavigation from '../../componets/UserNavigation'
 import CheckProxy from '../../image/Svg/CheckProxy'
@@ -18,9 +18,13 @@ function Settings({ navigation }) {
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <View style={{ marginLeft: 15 }}>
-          <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => handleNavigate('Account')}>
+          <Pressable
+            hitSlop={25}
+            style={styles.balanceIcon}
+            activeOpacity={0.8}
+            onPress={() => handleNavigate('Account')}>
             <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 14 }}>{text?.texts?.t0}</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       ),
       headerLeft: () => <View></View>,
@@ -29,69 +33,94 @@ function Settings({ navigation }) {
   const heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
-      <SafeAreaView style={styles.container} activeOpacity={0.8}>
-        <View style={styles.checker}>
-          <TouchableOpacity style={styles.check} activeOpacity={0.8}>
-            <View>
-              <Text style={styles.textTop}>{text?.texts?.t1 || 'проверка'}</Text>
-              <Text style={styles.textTop}>{text?.texts?.t1_1 || 'скорости'}</Text>
+      <View style={styles.checker}>
+        <TouchableOpacity style={styles.check} activeOpacity={0.8}>
+          <View>
+            <Text style={styles.textTop}>{text?.texts?.t1 || 'проверка'}</Text>
+            <Text style={styles.textTop}>{text?.texts?.t1_1 || 'скорости'}</Text>
+          </View>
+          <CheckSpeed />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.check} activeOpacity={0.8}>
+          <View>
+            <Text style={styles.textTop}>{text?.texts?.t1 || 'проверка'}</Text>
+            <Text style={styles.textTop}>{text?.texts?.t1_21 || 'прокси'}</Text>
+          </View>
+          <CheckProxy />
+        </TouchableOpacity>
+      </View>
+      <ScrollView>
+        <SafeAreaView style={styles.container} activeOpacity={0.8}>
+          {/* {} */}
+          <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('TypeProxy')}>
+            <View style={styles.setting}>
+              <Text style={styles.settingText}>{text?.texts?.t30 || 'Тип пркоси'}</Text>
+              <SettingsVector />
             </View>
-            <CheckSpeed />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.check} activeOpacity={0.8}>
-            <View>
-              <Text style={styles.textTop}>{text?.texts?.t1 || 'проверка'}</Text>
-              <Text style={styles.textTop}>{text?.texts?.t1_21 || 'прокси'}</Text>
+          <TouchableOpacity
+            style={styles.settingLine}
+            activeOpacity={0.8}
+            onPress={() => handleNavigate('Notification')}>
+            <View style={styles.setting}>
+              <Text style={styles.settingText}>{text?.texts?.t31 || 'Уведомление'}</Text>
+              <SettingsVector />
             </View>
-            <CheckProxy />
           </TouchableOpacity>
-        </View>
-        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Confirm')}>
-          <View style={styles.setting}>
-            <Text style={styles.settingText}>{text?.texts?.t24}</Text>
-            <SettingsVector />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Tags')}>
-          <View style={styles.setting}>
-            <Text style={styles.settingText}>{text?.texts?.t25}</Text>
-            <SettingsVector />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.settingLine}
-          activeOpacity={0.8}
-          onPress={() => handleNavigate('AnwserQuaction')}>
-          <View style={styles.setting}>
-            <Text style={styles.settingText}>{text?.texts?.t2}</Text>
-            <SettingsVector />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Message')}>
-          <View style={styles.setting}>
-            <Text style={styles.settingText}>{text?.texts?.t3 && 'Написать нам'}</Text>
-            <SettingsVector />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Language')}>
-          <View style={styles.setting}>
-            <Text style={styles.settingText}>{text?.texts?.t6 && 'Язык'}</Text>
-            <SettingsVector />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => {}}>
-          <View style={styles.setting}>
-            <Text style={styles.settingText}>{text?.texts?.t4 && 'Больше возможностей'}</Text>
-            <SettingsVector2 />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.settingLineBottom} activeOpacity={0.8}>
-          <View style={styles.setting}>
-            <Text style={styles.settingText}>{text?.texts?.t5 && 'Версия'} Proxy Line</Text>
-            <Text style={styles.settingTextVersion}>1.0.1</Text>
-          </View>
-        </TouchableOpacity>
-      </SafeAreaView>
+          <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Safety')}>
+            <View style={styles.setting}>
+              <Text style={styles.settingText}>{text?.texts?.t32 || 'Безопасность'}</Text>
+              <SettingsVector />
+            </View>
+          </TouchableOpacity>
+          {/* {} */}
+          <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Confirm')}>
+            <View style={styles.setting}>
+              <Text style={styles.settingText}>{text?.texts?.t24}</Text>
+              <SettingsVector />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Tags')}>
+            <View style={styles.setting}>
+              <Text style={styles.settingText}>{text?.texts?.t25}</Text>
+              <SettingsVector />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.settingLine}
+            activeOpacity={0.8}
+            onPress={() => handleNavigate('AnwserQuaction')}>
+            <View style={styles.setting}>
+              <Text style={styles.settingText}>{text?.texts?.t2}</Text>
+              <SettingsVector />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Message')}>
+            <View style={styles.setting}>
+              <Text style={styles.settingText}>{text?.texts?.t3 && 'Написать нам'}</Text>
+              <SettingsVector />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Language')}>
+            <View style={styles.setting}>
+              <Text style={styles.settingText}>{text?.texts?.t6 && 'Язык'}</Text>
+              <SettingsVector />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => {}}>
+            <View style={styles.setting}>
+              <Text style={styles.settingText}>{text?.texts?.t4 && 'Больше возможностей'}</Text>
+              <SettingsVector2 />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.settingLineBottom} activeOpacity={0.8}>
+            <View style={styles.setting}>
+              <Text style={styles.settingText}>{text?.texts?.t5 && 'Версия'} Proxy Line</Text>
+              <Text style={styles.settingTextVersion}>1.0.1</Text>
+            </View>
+          </TouchableOpacity>
+        </SafeAreaView>
+      </ScrollView>
       <View style={heightOffScreen > 700 ? styles.navContainer : styles.s_navContainer}>
         <UserNavigation status="Settings" navigation={navigation} />
       </View>
@@ -117,7 +146,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '90%',
+    marginHorizontal: 20,
     alignItems: 'center',
     marginBottom: 20,
   },

@@ -46,7 +46,7 @@ export default function Toggle() {
         style={[
           styles.mainStyes,
           {
-            backgroundColor: '#1E2127',
+            backgroundColor: '#0F1218',
           },
         ]}>
         <Animated.Text
@@ -54,6 +54,9 @@ export default function Toggle() {
             styles.eahcStyles,
             {
               color: leftToggleColor,
+              fontWeight: '600',
+              fontSize: 12,
+              lineHeight: 15,
             },
           ]}>
           HTTP
@@ -63,6 +66,9 @@ export default function Toggle() {
             styles.eahcStylesOf,
             {
               color: rightToggleColor,
+              fontWeight: '600',
+              fontSize: 12,
+              lineHeight: 15,
             },
           ]}>
           SOCKS5
@@ -115,5 +121,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#81b0ff',
     height: 40,
     width: 150,
+    fontWeight: 600,
   },
 })

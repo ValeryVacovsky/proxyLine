@@ -103,7 +103,7 @@ function MyProxies({ navigation }) {
           )}
         </View>
         <SafeAreaView>
-          <ScrollView style={{ width: '100%', marginBottom: selected ? 200 : 90 }}>
+          <ScrollView style={{ width: '100%', marginBottom: selected ? 168 : 90 }}>
             {proxyLisStore.data?.map((proxy, index) => (
               <ProxyItem
                 key={proxy.id}
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 32,
     position: 'absolute',
-    bottom: 34,
+    bottom: 4,
     zIndex: 1,
   },
   buttonInner: {

@@ -144,7 +144,8 @@ function DateOver({
                 paddingRight: 12,
                 paddingLeft: 12,
               }}>
-              {endDayFrom.slice(0, 10)} - {endDayTo.slice(0, 10)}
+              {endDayFrom?.slice(8, 10)}.{endDayFrom?.slice(5, 7)}.{endDayFrom?.slice(0, 4)} - {endDayTo?.slice(8, 10)}.
+              {endDayTo?.slice(5, 7)}.{endDayTo?.slice(0, 4)}
             </Text>
           </TouchableOpacity>
         )}

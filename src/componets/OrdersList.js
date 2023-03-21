@@ -15,13 +15,14 @@ function OrdersList({ data, text }) {
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
 
-  const onHandleSuccess = () => {
-    dispatch(deleteObject({ statusActive: true, dateActive: new Date() }))
+  const onHandleSuccess = id => {
+    dispatch(deleteObject(id))
     setReceived(true)
     setDateCreate(new Date())
   }
 
-  const createOrderRequest = async () => {
+  const createOrderRequest = async id => {
+    dispatch(deleteObject(id))
     try {
       const token = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
@@ -40,7 +41,8 @@ function OrdersList({ data, text }) {
         },
         token: user_token,
       })
-      onHandleSuccess()
+
+      onHandleSuccess(id)
     } catch (error) {
       console.log('ошибка', error)
     }
@@ -97,7 +99,7 @@ function OrdersList({ data, text }) {
           <TouchableOpacity
             style={styles.buttonInner}
             onPress={() => {
-              createOrderRequest()
+              createOrderRequest(data.data.id)
             }}
             activeOpacity={0.8}>
             <Text style={styles.buttonInnerText}>{text?.buttons?.b1 || 'Получить'}</Text>

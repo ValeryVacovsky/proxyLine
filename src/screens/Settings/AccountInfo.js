@@ -7,6 +7,7 @@ import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import BottomSheetForm from '../../componets/BottomSheetForm'
 import BottomSheetOutAccount from '../../componets/UI/Settings/BottomSheetOutAccount.js'
+import { clearOrder } from '../../store/reducers/orderReducer'
 
 function AccountInfo({ navigation }) {
   const [login, setLogin] = useState('')
@@ -22,8 +23,10 @@ function AccountInfo({ navigation }) {
   }, [])
   const handleRightNavigate = () => {
     dispatch(setAuth(false))
+    dispatch(clearOrder(''))
     setTimeout(() => {
       navigation.navigate('Auth')
+      AsyncStorage.setItem('@role', String('unauth'))
     }, 1000)
   }
   const sheetRef = useRef(null)
@@ -67,12 +70,12 @@ function AccountInfo({ navigation }) {
                 <Text style={styles.mainInfoContainerLeftText}>{text?.texts?.t8 || 'Логин'}</Text>
                 <Text style={styles.mainInfoContainerRightText}>{login}</Text>
               </View>
-              <View style={styles.mainInfoContainerItem}>
+              <TouchableOpacity style={styles.mainInfoContainerItem} onPress={() => navigation.navigate('Balance')}>
                 <Text style={styles.mainInfoContainerLeftText}>{text?.texts?.t28 || 'Баланс'}</Text>
                 <View style={{ marginLeft: 15 }}>
                   <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance / 100}</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.dataProxyesButton}>

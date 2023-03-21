@@ -4,6 +4,8 @@ export const orderReducer = (state = [], action) => {
       return [...state, action.payload]
     case 'DELETE_ORDER':
       return state.filter(object => object.id !== action.payload)
+    case 'CLEAR_ORDER':
+      return (state = [])
     case 'UPDATE_ORDER':
       return state.map(object => {
         if (object.id === action.payload.id) {
@@ -19,6 +21,11 @@ export const orderReducer = (state = [], action) => {
 export const addObject = object => ({
   type: 'ADD_ORDER',
   payload: object,
+})
+
+export const clearOrder = id => ({
+  type: 'CLEAR_ORDER',
+  payload: id,
 })
 
 export const deleteObject = id => ({

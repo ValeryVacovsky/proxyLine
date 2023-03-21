@@ -19,12 +19,12 @@ function Orders({ navigation }) {
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
-        {ordersRes?.length + dataOrders.length > 0 && (
+        {ordersRes?.length + dataOrders?.length > 0 && (
           <ScrollView style={styles.scrollView}>
             {ordersRes?.map(data => (
               <OrdersList key={data.data.id} navigation={navigation} data={data} text={proxyText} />
             ))}
-            {dataOrders.map(item => {
+            {dataOrders?.map(item => {
               return <OrdersListData key={item.id} text={proxyText} data={item} />
             })}
           </ScrollView>

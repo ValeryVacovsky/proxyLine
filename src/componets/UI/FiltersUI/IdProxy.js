@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import BottomSheetId from './BottomSheet/BottomSheetId'
 import { useSelector } from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import getListProxies from '../../../api/getListProxies'
 
 function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
@@ -23,6 +25,18 @@ function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnap
     )
     handleSnapPress(0)
   }
+  useEffect(() => {
+    const listProxies = async () => {
+      const outData = []
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const dataProps = `${id}_${token}`
+      const data = await getListProxies({ token: dataProps, limit: '5', offset: '0', endpoint: 'status=active' })
+      data.data.map(item => outData.push(item.id))
+      setIdDefault(outData)
+    }
+    listProxies()
+  }, [])
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>

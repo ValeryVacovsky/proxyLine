@@ -230,9 +230,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   nameLogo: {
-    marginHorizontal: 24,
-    width: 32,
-    height: 32,
+    marginRight: 24,
+    marginLeft: 10,
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
   },
   nameText: {
     fontWeight: '600',
@@ -245,6 +247,8 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
+    position: 'absolute',
+    bottom: 30,
   },
   paymentButtonItem: {
     width: '90%',

@@ -12,8 +12,8 @@ function OrdersListData({ data, text }) {
   const diff = date - new Date()
 
   // вычисляем количество дней и часов в разнице
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-  const hours = Math.floor(diff / (1000 * 60 * 60)) % 24
+  const hours = Math.floor(diff / (1000 * 60 * 60 * 24))
+  const days = Math.floor(diff / (1000 * 60 * 60)) % 24
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
 
@@ -36,7 +36,7 @@ function OrdersListData({ data, text }) {
               <Text style={styles.calenderTimeSmall}>{text?.texts?.t3}</Text>
               <Text style={styles.calenderTime}>
                 {' '}
-                {days > 0 ? days : 0} {text?.texts?.t4} {hours > 0 ? hours : 0} {text?.texts?.t5}
+                {days > 0 ? days : 0} {text?.texts?.t4} {hours > 0 ? hours % 24 : 0} {text?.texts?.t5}
               </Text>
             </View>
           </View>

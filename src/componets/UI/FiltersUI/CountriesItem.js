@@ -40,8 +40,6 @@ function CountriesItem({
           : { ...prevState, countries: prevState.countries.concat(item) },
       )
     }
-
-    handleClosePress()
   }
   const handleOpenBottomSheet = () => {
     handleSnapPress(2)

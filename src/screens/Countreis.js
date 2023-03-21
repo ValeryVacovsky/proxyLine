@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native'
+import { ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text, Pressable } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import CountrySlot from '../componets/CountrySlot'
 import LayoutMain from '../componets/LayoutMain'
@@ -35,10 +35,10 @@ function Countreis({ navigation, route }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
+        <Pressable hitSlop={25} onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
           <Text style={styles.headerLeftTintText}> {proxyText?.buttons?.b2}</Text>
-        </TouchableOpacity>
+        </Pressable>
       ),
     })
   }, [navigation])

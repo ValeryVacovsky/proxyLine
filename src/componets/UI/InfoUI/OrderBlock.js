@@ -1,14 +1,12 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
-function OrderCount({ days, text, month }) {
+function OrderBlock({ date, text }) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
-        <Text style={styles.bigText}>{text?.t12}</Text>
-        <Text style={styles.smallText}>
-          {month > 0 && month} {month > 0 && 'месяцев'} {days > 0 ? days : 0} дней
-        </Text>
+        <Text style={styles.bigText}>{text?.t43 || 'Заблокирован до'}</Text>
+        <Text style={styles.smallText}>{date}</Text>
       </View>
     </View>
   )
@@ -33,7 +31,7 @@ const styles = StyleSheet.create({
   bigText: {
     fontWeight: '600',
     fontSize: 15,
-    color: '#CBCBCB',
+    color: '#EC3641',
   },
   smallText: {
     fontWeight: '700',
@@ -42,4 +40,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default OrderCount
+export default OrderBlock

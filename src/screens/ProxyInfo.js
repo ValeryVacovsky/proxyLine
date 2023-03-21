@@ -24,13 +24,15 @@ import OrderCount from '../componets/UI/InfoUI/OrderCount'
 import ConfirnIP from '../componets/UI/InfoUI/ConfirnIP'
 import InfoTag from '../componets/UI/InfoUI/InfoTag'
 import BottomSheetProxyIps from '../componets/UI/ProxyUI/BottomSheetProxyIps'
+import OrderBlock from '../componets/UI/InfoUI/OrderBlock'
+import OrderRenew from '../componets/UI/InfoUI/OrderRenew'
 
 function ProxyInfo({ navigation, route }) {
   const proxyInfoText = useSelector(res => res.textReducer.proxy_info.payload)
   const [proxyInfo, setProxyInfo] = useState(route.params.proxyRes)
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => [150, 325, 485], [])
+  const snapPoints = useMemo(() => [120, 275, 325, 375, 500, 540], [])
   const dateStart = new Date(proxyInfo.date_end)
   const dateEnd = new Date()
   const days = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
@@ -45,7 +47,7 @@ function ProxyInfo({ navigation, route }) {
   }, [])
   const handelOpenCopy = item => {
     // eslint-disable-next-line react/no-unescaped-entities
-    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>{`"${item}"`}</BottomSheetCopy>)
+    setChildrenItem(<BottomSheetCopy handleClosePress={handleClosePress}>{`Скопированно "${item}"`}</BottomSheetCopy>)
     handleSnapPress(0)
     Clipboard.setString(item.toString())
     setTimeout(() => {
@@ -54,7 +56,14 @@ function ProxyInfo({ navigation, route }) {
   }
 
   const handleOpenIps = () => {
-    handleSnapPress(1)
+    if (proxyInfo?.access_ips?.length == 0) {
+      handleSnapPress(1)
+    } else if (proxyInfo?.access_ips?.length < 3) {
+      handleSnapPress(2)
+    } else {
+      handleSnapPress(3)
+    }
+
     setChildrenItem(
       <BottomSheetProxyIps
         handleClosePress={handleClosePress}
@@ -67,6 +76,11 @@ function ProxyInfo({ navigation, route }) {
   }
 
   const handleOpenTags = () => {
+    if (proxyInfo?.tags?.length == 0) {
+      handleSnapPress(1)
+    } else {
+      handleSnapPress(2)
+    }
     setChildrenItem(
       <BottomSheetProxyTags
         handleClosePress={handleClosePress}
@@ -81,12 +95,14 @@ function ProxyInfo({ navigation, route }) {
   const [childrenItem, setChildrenItem] = useState(
     <BottomSheetCopy handleClosePress={handleClosePress}></BottomSheetCopy>,
   )
+  const nowDate = new Date()
+  const proxyInfoDate = new Date(proxyInfo.date_end)
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <Pressable activeOpacity={0.7} hitSlop={50}>
-          <ReadTrash />
+          {nowDate > proxyInfoDate && <ReadTrash />}
         </Pressable>
       ),
       headerLeft: () => (
@@ -116,9 +132,11 @@ function ProxyInfo({ navigation, route }) {
             <InfoCheckButton text={proxyInfoText?.buttons} />
             <Text style={styles.text}>{proxyInfoText?.texts?.t9}</Text>
             <View styles={styles.Data}>
+              <OrderBlock date={dateFormat(proxyInfo.suspended_till, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
               <OrderFrom date={dateFormat(proxyInfo.date_start, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
               <OrderEnd date={dateFormat(proxyInfo.date_end, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
               <OrderCount days={days} month={mounth} text={proxyInfoText?.texts} />
+              <OrderRenew text={proxyInfoText?.texts} renewStatus={proxyInfo?.auto_renewal} />
             </View>
             <View style={styles.chipsContainer}>
               <View style={styles.textContainer}>

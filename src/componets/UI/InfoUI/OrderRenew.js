@@ -1,14 +1,14 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
+import LightRadioUncheked from '../../../image/Svg/LightRadioUncheked'
+import RadioUncheked from '../../../image/Svg/RadioUncheked'
 
-function OrderCount({ days, text, month }) {
+function OrderRenew({ text, renewStatus }) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
         <Text style={styles.bigText}>{text?.t12}</Text>
-        <Text style={styles.smallText}>
-          {month > 0 && month} {month > 0 && 'месяцев'} {days > 0 ? days : 0} дней
-        </Text>
+        {renewStatus ? <LightRadioUncheked /> : <RadioUncheked width={21} height={20} />}
       </View>
     </View>
   )
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default OrderCount
+export default OrderRenew

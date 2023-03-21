@@ -18,7 +18,7 @@ const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 // const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/g
 const heightOffScreen = Dimensions.get('window').height
-// const PASSWOR_REGEX;
+// const IPS_REGEX   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
 
 function AuthAuthauthentification({ navigation }) {
   const dispatch = useDispatch()
@@ -28,9 +28,11 @@ function AuthAuthauthentification({ navigation }) {
   const [focusOnPassword, setFocusOnPassword] = useState(false)
   const [showPassword, setShowPassword] = useState(true)
   const authText = useSelector(res => res.textReducer.auth.payload)
+
   useEffect(() => {
     setText(authText)
   }, [authText, text])
+
   const {
     control,
     handleSubmit,
@@ -41,6 +43,7 @@ function AuthAuthauthentification({ navigation }) {
       password: '',
     },
   })
+
   React.useEffect(
     () =>
       navigation.addListener('beforeRemove', e => {
@@ -55,6 +58,7 @@ function AuthAuthauthentification({ navigation }) {
       await AsyncStorage.setItem('@token', String(res.data.user.token))
       await AsyncStorage.setItem('@id', String(res.data.user.id))
       await AsyncStorage.setItem('@login', String(data.email))
+      await AsyncStorage.setItem('@role', String('default'))
       dispatch(setAuth(true))
       navigation.navigate('Main')
     } else {

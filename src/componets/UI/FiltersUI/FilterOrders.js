@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import { useSelector } from 'react-redux'
 import BottomSheetOrders from './BottomSheet/BottomSheetOrders'
+import getListProxies from '../../../api/getListProxies'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
+function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setBottomInset }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [ordersDefault, setOrdersDefault] = useState([])
   const handlePress = item => {
@@ -19,10 +21,23 @@ function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, h
         handleClosePress={handleClosePress}
         setOrdersDefault={setOrdersDefault}
         handleSnapPress={handleSnapPress}
+        setBottomInset={setBottomInset}
       />,
     )
     handleSnapPress(0)
   }
+  useEffect(() => {
+    const listProxies = async () => {
+      const outData = []
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const dataProps = `${id}_${token}`
+      const data = await getListProxies({ token: dataProps, limit: '5', offset: '0', endpoint: 'status=active' })
+      data.data.map(item => outData.push(item.order_id))
+      setOrdersDefault(outData)
+    }
+    listProxies()
+  }, [])
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>

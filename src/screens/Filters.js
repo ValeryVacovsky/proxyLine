@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
-import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text } from 'react-native'
+import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, Pressable } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -45,9 +45,12 @@ function Filters({ navigation }) {
   const tags = useSelector(data => data.ipsTagsReducer.tags)
   const ips = useSelector(data => data.ipsTagsReducer.ips)
   const [countryExclude, setCountryExclude] = useState(false)
+  const [tagsExclude, setTagsExclude] = useState(true)
+  const [ipsExclude, setIpsExclude] = useState(false)
+  const [bottomInset, setBottomInset] = useState(0)
   const clearForm = {
     ip_type: [],
-    status: [],
+    status: ['active'],
     ip_version: [],
     typesIP: [],
     id: [],
@@ -69,7 +72,7 @@ function Filters({ navigation }) {
   const [selected, setSelected] = useState(null)
   const [fitlers, setFilters] = useState({
     ip_type: [],
-    status: [],
+    status: ['active'],
     ip_version: [],
     typesIP: [],
     id: [],
@@ -151,6 +154,26 @@ function Filters({ navigation }) {
           params.append('countries', item.toString())
         })
       }
+    } else if (filterName === 'tags') {
+      if (tagsExclude) {
+        fitlers[filterName].map(item => {
+          params.append('tags_exclude', item.toString())
+        })
+      } else {
+        fitlers[filterName].map(item => {
+          params.append('tags', item.toString())
+        })
+      }
+    } else if (filterName === 'access_ips') {
+      if (tagsExclude) {
+        fitlers[filterName].map(item => {
+          params.append('access_ips_exclude', item.toString())
+        })
+      } else {
+        fitlers[filterName].map(item => {
+          params.append('access_ips', item.toString())
+        })
+      }
     } else {
       fitlers[filterName].map(item => {
         params.append(filterName, item.toString())
@@ -158,7 +181,7 @@ function Filters({ navigation }) {
     }
   })
   const sheetRef = useRef(null)
-  const snapPoints = useMemo(() => ['27%', '60%', '75%'], [])
+  const snapPoints = useMemo(() => ['28%', '60%', '75%'], [])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -208,19 +231,20 @@ function Filters({ navigation }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity
+        <Pressable
+          hitSlop={25}
           activeOpacity={0.7}
           onPress={() => {
             setFilters(clearForm)
           }}>
           <Text style={{ fontWeight: '700', fontSize: 15, color: 'white' }}>Очистить</Text>
-        </TouchableOpacity>
+        </Pressable>
       ),
       headerLeft: () => (
-        <TouchableOpacity onPress={handleGoBack} style={styles.headerLeftTintContainer}>
+        <Pressable hitSlop={25} onPress={handleGoBack} style={styles.headerLeftTintContainer}>
           <HeaderTintBack style={{ bottom: 1 }} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b4}</Text>
-        </TouchableOpacity>
+        </Pressable>
       ),
     })
   }, [navigation])
@@ -278,7 +302,8 @@ function Filters({ navigation }) {
               />
               <Tags
                 tagsFilter={fitlers.tags}
-                tagsFilterExcludes={fitlers.tags_exclude}
+                tagsExclude={tagsExclude}
+                setTagsExclude={setTagsExclude}
                 setFilters={setFilters}
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
@@ -287,20 +312,21 @@ function Filters({ navigation }) {
               />
               <AllowedIP
                 ipsFilter={fitlers.access_ips}
-                ipsFilterExcludes={fitlers.access_ips_exclude}
+                ipsExclude={ipsExclude}
+                setIpsExclude={setIpsExclude}
                 setFilters={setFilters}
                 handleClosePress={handleClosePress}
                 handleSnapPress={handleSnapPress}
                 setChildrenItem={setChildrenItem}
                 ips={ips}
               />
-              {/* {} */}
               <FilterOrders
                 orders={fitlers.orders}
                 setFilters={setFilters}
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
                 handleSnapPress={handleSnapPress}
+                setBottomInset={setBottomInset}
               />
               <IPAddress
                 ip={fitlers.ip}
@@ -344,6 +370,7 @@ function Filters({ navigation }) {
       </View>
 
       <BottomSheetForm
+        bottomInset={bottomInset}
         nestedScrollEnabled={false}
         navigation={navigation}
         enabledGestureInteraction={false}

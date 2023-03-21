@@ -20,7 +20,7 @@ function BalanceListSystem({ name, data, navigation, amount, handelOpenCopy, may
           <View style={styles.summe}>
             <Text style={styles.rightText}>{name}</Text>
             <View style={styles.rightTextCOntainer}>
-              <Image style={{ width: 110, height: 24 }} source={{ uri: data.logo_path_2 }} />
+              <Image style={{ width: 110, height: 24, resizeMode: 'contain' }} source={{ uri: data.logo_path_2 }} />
             </View>
           </View>
         </View>

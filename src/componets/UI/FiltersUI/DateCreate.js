@@ -143,7 +143,8 @@ function DateCreate({
                 paddingRight: 12,
                 paddingLeft: 12,
               }}>
-              {startDayFrom.slice(0, 10)} - {startDayTo.slice(0, 10)}
+              {startDayFrom?.slice(8, 10)}.{startDayFrom?.slice(5, 7)}.{startDayFrom?.slice(0, 4)} -{' '}
+              {startDayTo?.slice(8, 10)}.{startDayTo?.slice(5, 7)}.{startDayTo?.slice(0, 4)}
             </Text>
           </TouchableOpacity>
         )}

@@ -58,9 +58,21 @@ function Main({ navigation }) {
         <View style={{ marginBottom: 0, display: 'flex' }}>
           <View style={{ alignItems: 'center' }}>
             <Text style={styles.yourIP}>{mainText?.texts?.t0}</Text>
-            {statusConect === 'on' && <Text style={styles.IpAdress}>{IP}</Text>}
-            {statusConect === 'off' && <Text style={styles.IpAdress}>{IP}</Text>}
-            {statusConect === 'none' && <Text style={styles.IpAdress}>{IP}</Text>}
+            {statusConect === 'on' && (
+              <View style={{ minHeight: 40 }}>
+                <Text style={styles.IpAdress}>{IP}</Text>
+              </View>
+            )}
+            {statusConect === 'off' && (
+              <View style={{ minHeight: 40 }}>
+                <Text style={styles.IpAdress}>{IP}</Text>
+              </View>
+            )}
+            {statusConect === 'none' && (
+              <View style={{ minHeight: 40 }}>
+                <Text style={styles.IpAdress}>{IP}</Text>
+              </View>
+            )}
             <View style={styles.countries}>
               {statusConect === 'on' && (
                 <Text style={styles.countryText} onPress={() => navigation.navigate('Auth')}>

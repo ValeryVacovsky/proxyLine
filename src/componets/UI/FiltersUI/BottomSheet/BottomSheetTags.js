@@ -7,83 +7,46 @@ import ExcludeOn from '../../../../image/Svg/ExcludeOn'
 function BottomSheetTags({
   handleClosePress,
   setTagsList,
-  setTagsListExclude,
   filtersTagsItem,
-  filtersTagsItemExcludes,
   tagsList,
-  tagsListExclude,
   tags,
   tagsFilter,
-  tagsFilterExcludes,
-  excludeStatusOut,
-  setExcludeStatusOut,
   setFilters,
   handleSnapPress,
+  tagsExclude,
+  setTagsExclude,
 }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
-  const [excludeStatus, setExcludeStatus] = useState(excludeStatusOut)
-  const [filtersTagsExclude, setFilterTagsExclude] = useState(tagsFilterExcludes)
-  const [filtersTagsItemInExclude, setFilterTagsItemExclude] = useState(filtersTagsItemExcludes)
+  const [excludeStatus, setExcludeStatus] = useState(tagsExclude)
   const [filtersTags, setFilterTags] = useState(tagsFilter)
   const [filtersTagsItemIn, setFilterTagsItem] = useState(filtersTagsItem)
+  const hendleExcludeStatus = () => {
+    setExcludeStatus(prev => !prev)
+  }
 
   const handlePress = () => {
-    if (!excludeStatus) {
-      setFilters(prevState => ({ ...prevState, tags: filtersTags }))
-      const result = [...tagsList, ...filtersTagsItemIn.filter(itemB => !tagsList.some(itemA => itemA.id === itemB.id))]
-      setTagsList(result)
-    } else {
-      setFilters(prevState => ({ ...prevState, tags_exclude: filtersTagsExclude }))
-      const result = [
-        ...tagsListExclude,
-        ...filtersTagsItemInExclude.filter(itemB => !tagsListExclude.some(itemA => itemA.id === itemB.id)),
-      ]
-      setTagsListExclude(result)
-    }
-
+    setFilters(prevState => ({ ...prevState, tags: filtersTags }))
+    const result = [...tagsList, ...filtersTagsItemIn.filter(itemB => !tagsList.some(itemA => itemA.id === itemB.id))]
+    setTagsList(result)
+    setTagsExclude(excludeStatus)
     handleClosePress()
-  }
-  const hendleExcludeStatus = () => {
-    if (excludeStatus) {
-      setFilters(prevState => ({ ...prevState, tags: [] }))
-      setFilterTags([])
-    } else {
-      setFilters(prevState => ({ ...prevState, tags_exclude: [] }))
-      setFilterTagsExclude([])
-    }
-    setExcludeStatus(prev => !prev)
-    setExcludeStatusOut(prev => !prev)
   }
 
   const handlePressTag = item => {
-    if (!excludeStatus) {
-      setFilterTags(prevState =>
-        prevState.some(prev => prev === item.id)
-          ? prevState.filter(active => active !== item.id)
-          : prevState.concat(item.id),
-      )
-      setFilterTagsItem(prevState =>
-        prevState.some(prev => prev.id === item.id)
-          ? prevState.filter(active => active.id !== item.id)
-          : prevState.concat(item),
-      )
-    } else {
-      setFilterTagsExclude(prevState =>
-        prevState.some(prev => prev === item.id)
-          ? prevState.filter(active => active !== item.id)
-          : prevState.concat(item.id),
-      )
-      setFilterTagsItemExclude(prevState =>
-        prevState.some(prev => prev.id === item.id)
-          ? prevState.filter(active => active.id !== item.id)
-          : prevState.concat(item),
-      )
-    }
+    setFilterTags(prevState =>
+      prevState.some(prev => prev === item.id)
+        ? prevState.filter(active => active !== item.id)
+        : prevState.concat(item.id),
+    )
+    setFilterTagsItem(prevState =>
+      prevState.some(prev => prev.id === item.id)
+        ? prevState.filter(active => active.id !== item.id)
+        : prevState.concat(item),
+    )
   }
   useEffect(() => {
     setFilterTags(tagsFilter)
-    setFilterTagsItemExclude(tagsFilterExcludes)
-  }, [tagsFilter, handleClosePress, handleSnapPress, tagsFilterExcludes])
+  }, [tagsFilter, handleClosePress, handleSnapPress])
   return (
     <View style={styles.container}>
       <View style={styles.topBar} />
@@ -130,7 +93,7 @@ function BottomSheetTags({
                   onPress={() => handlePressTag(item)}
                   key={item.id}
                   style={{
-                    backgroundColor: filtersTagsExclude.includes(item.id) ? '#EC3641' : '#333842',
+                    backgroundColor: filtersTags.includes(item.id) ? '#EC3641' : '#333842',
                     paddingHorizontal: 12,
                     paddingVertical: 6,
                     borderRadius: 30,
@@ -139,7 +102,7 @@ function BottomSheetTags({
                   }}>
                   <Text
                     style={{
-                      color: filtersTagsExclude.includes(item.id) ? '#0F1218' : 'white',
+                      color: filtersTags.includes(item.id) ? '#0F1218' : 'white',
                     }}>
                     {item.value}
                   </Text>

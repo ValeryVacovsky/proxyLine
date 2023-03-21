@@ -29,10 +29,10 @@ function BalanceSystems({ navigation }) {
   const [error, setError] = useState(false)
   const [mayGo, setMayGo] = useState(false)
   const handelOpenCopy = () => {
+    handleSnapPress(0)
     setChildrenItem(
       <BottomSheetBalanceInfo handleClosePress={handleClosePress}>{text?.texts?.t8}</BottomSheetBalanceInfo>,
     )
-    handleSnapPress(0)
     setError(true)
     setTimeout(() => {
       handleClosePress()

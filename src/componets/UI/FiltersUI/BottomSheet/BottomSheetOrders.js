@@ -1,39 +1,112 @@
-import React, { useState } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Keyboard, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux'
+import { useForm, Controller } from 'react-hook-form'
+function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset }) {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      order: '',
+    },
+  })
+  const [keyboardHeight, setKeyboardHeight] = useState(0)
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false)
+  const [focusInput, setFocusInput] = useState(false)
+  useEffect(() => {
+    function onKeyboardDidShow(e) {
+      // Remove type here if not using TypeScript
+      setKeyboardHeight(e.endCoordinates.height)
+    }
 
-function BottomSheetOrders({ handleClosePress, setOrdersDefault, handleSnapPress }) {
+    function onKeyboardDidHide() {
+      setKeyboardHeight(0)
+    }
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardVisible(true) // or some other action
+    })
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardVisible(false) // or some other action
+    })
+
+    const showSubscription = Keyboard.addListener('keyboardDidShow', onKeyboardDidShow)
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', onKeyboardDidHide)
+    return () => {
+      showSubscription.remove()
+      hideSubscription.remove()
+      keyboardDidHideListener.remove()
+      keyboardDidShowListener.remove()
+    }
+  }, [])
   const text = useSelector(res => res.textReducer.proxy_info.payload)
-  const [value, setValue] = useState('')
-  const handlePress = () => {
+  const onSubmit = data => {
     handleClosePress()
-    value.length > 0 &&
-      setOrdersDefault(prevState =>
-        prevState.includes(value) ? prevState.filter(id => id !== value) : prevState.concat(String(value)),
-      )
+    setOrdersDefault(prevState =>
+      prevState.includes(data.order) ? prevState.filter(id => id !== data.order) : prevState.concat(String(data.order)),
+    )
   }
+
   const handleBlur = () => {
-    handleSnapPress(0)
+    setBottomInset(0)
+    setFocusInput(false)
   }
   const handleFocus = () => {
-    handleSnapPress(1)
+    setFocusInput(true)
   }
+  // setFocusInput(true)
+  useEffect(() => {
+    if (isKeyboardVisible) {
+      setBottomInset(keyboardHeight)
+    } else {
+      setBottomInset(0)
+    }
+  }, [isKeyboardVisible, keyboardHeight, setBottomInset])
+  const heightOffScreen = Dimensions.get('window').height
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar} />
       <View style={styles.topContainer}>
-        <TextInput
-          type="number"
-          keyboardType="numeric"
-          returnKeyType="done"
-          style={styles.topInput}
-          value={value}
-          onChangeText={setValue}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-        />
+        <View style={{ width: '90%' }}>
+          <View style={{ minHeight: 16, minWidth: 150, marginBottom: 3, marginTop: heightOffScreen > 700 ? 34 : 14 }}>
+            <Text style={{ color: 'white', fontSize: 13, lineHeight: 15 }}>{errors.order && 'Введите порт'}</Text>
+          </View>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                type="number"
+                keyboardType="numeric"
+                returnKeyType="done"
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                style={{
+                  backgroundColor: '#1E2127',
+                  color: 'white',
+                  height: 44,
+                  minWidth: '100%',
+                  marginBottom: 14,
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  paddingLeft: 20,
+                  paddingTop: 12,
+                  paddingBottom: 12,
+                  borderColor: (focusInput && '#fac637') || (errors.order && 'rgb(138,0,0)') || '#333842',
+                }}
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+            name="order"
+          />
+        </View>
       </View>
-      <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
+      <TouchableOpacity style={styles.bottomButton} onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>{text?.buttons?.b1}</Text>
       </TouchableOpacity>
     </View>
@@ -73,7 +146,6 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     paddingBottom: 14,
     borderColor: '#333842',
-    marginTop: 45,
   },
   bottomButton: {
     paddingTop: 18,

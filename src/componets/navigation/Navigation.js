@@ -39,6 +39,9 @@ import BalanceMethod from '../../screens/Balance/BalanceMethod'
 import ChangeLanguage from '../../screens/Settings/ChangeLanguage'
 import ConfirmIps from '../../screens/Settings/ConfirmIps'
 import Tags from '../../screens/Settings/Tags'
+import TypeProxy from '../../screens/Settings/TypeProxy'
+import Notification from '../../screens/Settings/Notification'
+import Safety from '../../screens/Settings/Safety'
 
 const Stack = createNativeStackNavigator()
 
@@ -408,6 +411,48 @@ function Navigation() {
               }}
             />
             <Stack.Screen
+              name="TypeProxy"
+              component={TypeProxy}
+              options={{
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t25 || 'Тип прокси'}</Text>,
+                headerStyle: styles.headerStyle,
+                headerTintColor: '#CBCBCB',
+                headerTitleAlign: 'center',
+                headerBackTitleVisible: true,
+                headerBackTitleStyle: styles.headerBackTitleStyle,
+                gestureEnabled: false,
+                headerBackTitle: 'Настройки',
+              }}
+            />
+            <Stack.Screen
+              name="Notification"
+              component={Notification}
+              options={{
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t26}</Text>,
+                headerStyle: styles.headerStyle,
+                headerTintColor: '#CBCBCB',
+                headerTitleAlign: 'center',
+                headerBackTitleVisible: true,
+                headerBackTitleStyle: styles.headerBackTitleStyle,
+                gestureEnabled: false,
+                headerBackTitle: 'Настройки',
+              }}
+            />
+            <Stack.Screen
+              name="Safety"
+              component={Safety}
+              options={{
+                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t27}</Text>,
+                headerStyle: styles.headerStyle,
+                headerTintColor: '#CBCBCB',
+                headerTitleAlign: 'center',
+                headerBackTitleVisible: true,
+                headerBackTitleStyle: styles.headerBackTitleStyle,
+                gestureEnabled: false,
+                headerBackTitle: 'Настройки',
+              }}
+            />
+            <Stack.Screen
               name="Confirm"
               component={ConfirmIps}
               options={{
@@ -448,6 +493,9 @@ const styles = StyleSheet.create({
     height: 300,
     borderBottomLeftRadius: 50,
     backgroundColor: '#0F1218',
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 0,
   },
   headerBackTitleStyle: {
     fontSize: 14,

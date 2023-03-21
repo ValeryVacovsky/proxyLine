@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import SliderExample from './SliderExample'
 import VectorRightSmall from '../image/Svg/VectorRightSmall'
-import Toggle from './UI/OrderUI/Toggle'
 import postOrderAmount from '../api/postOrderAmount'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch, useSelector } from 'react-redux'
 import { addObject } from '../store/reducers/orderReducer'
 import { flagByShortName } from '../common/flagByShortName'
+import { ScrollView } from 'react-native-gesture-handler'
 
 function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
   function generate(str) {
@@ -82,89 +82,103 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
   }
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles.center_container}>
-        <View style={styles.handDesriptionOrderContainer}>
-          <Text style={styles.handDesriptionOrderText}>{order.handDesription}</Text>
-        </View>
-        <View style={styles.proxyTypeContianer}>
-          <View>
-            <Text style={styles.proxyTypeVersionText}>
-              IP
-              {order.proxyType}
-            </Text>
-            <Text style={styles.proxyTypeDiscriptionText}>{order.discription}</Text>
-          </View>
-          <View>{order.icon}</View>
-        </View>
-        <TouchableOpacity style={styles.countryContainer} onPress={() => handlePressCountry()} activeOpacity={0.8}>
-          <View>
-            <Text style={styles.countryNameText}>{proxyText?.texts?.t0}</Text>
-          </View>
-          <View style={styles.countrySelectContainer}>
-            <Text style={styles.countrySelectText}>{countryDiscription[languageGet][selectedCountryShort]}</Text>
-            <View style={styles.countryFlag}>{flagByShortName[selectedCountryShort]}</View>
-            <VectorRightSmall width={6} height={12} style={{ top: 1, marginLeft: 10 }} />
-          </View>
-        </TouchableOpacity>
-        <View style={styles.periodContainer}>
-          <Text style={styles.periodText}>5 {proxyText?.texts?.t6}</Text>
-          <Text style={styles.periodText}>360 {proxyText?.texts?.t6}</Text>
-        </View>
-        <View
-          style={{ width: '100%', right: 10 }}
-          onTouchStart={() => {
-            setScrolling(false)
-          }}
-          onTouchEnd={() => {}}>
-          <SliderExample
-            days={days}
-            setDays={value => setDays(Array.isArray(value) ? value[0] : value)}
-            setScrolling={setScrolling}
-          />
-        </View>
-        <View style={styles.selectedPeriod}>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t3}</Text>
-          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>
-            {days} {proxyText?.texts?.t6}
-          </Text>
-        </View>
-        <View style={styles.orderType}>
-          <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t2}</Text>
-          <View
-            style={{
-              position: 'relative',
-              right: 80,
-            }}>
-            <Toggle />
-          </View>
-        </View>
-        <View style={styles.amountContainer}>
-          <Text style={styles.amountDiscription}>{proxyText?.texts?.t4}</Text>
-          <View style={styles.amountToggleContainer}>
-            <TouchableOpacity
-              style={styles.amountToggleMinusCOntainer}
-              onPress={() => handlePressAmount('minus')}
-              activeOpacity={0.8}>
-              <Text style={styles.amountToggleMinusText}>-</Text>
-            </TouchableOpacity>
-            <View style={styles.amountToggleCenterContainer}>
-              <Text style={styles.amountToggleCenterText}>{amount}</Text>
+      <ScrollView>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <View style={styles.center_container}>
+            <View style={styles.handDesriptionOrderContainer}>
+              <Text style={styles.handDesriptionOrderText}>{order.handDesription}</Text>
             </View>
-            <TouchableOpacity
-              style={styles.amountTogglePlusContainer}
-              onPress={() => {
-                handlePressAmount('plus')
-              }}
-              activeOpacity={0.8}>
-              <Text style={styles.amountTogglePlusText}>+</Text>
+            <View style={styles.proxyTypeContianer}>
+              <View>
+                <Text style={styles.proxyTypeVersionText}>
+                  IP
+                  {order.proxyType}
+                </Text>
+                <Text style={styles.proxyTypeDiscriptionText}>{order.discription}</Text>
+              </View>
+              <View>{order.icon}</View>
+            </View>
+            <TouchableOpacity style={styles.countryContainer} onPress={() => handlePressCountry()} activeOpacity={0.8}>
+              <View>
+                <Text style={styles.countryNameText}>{proxyText?.texts?.t0}</Text>
+              </View>
+              <View style={styles.countrySelectContainer}>
+                <Text style={styles.countrySelectText}>{countryDiscription[languageGet][selectedCountryShort]}</Text>
+                <View style={styles.countryFlag}>{flagByShortName[selectedCountryShort]}</View>
+                <VectorRightSmall width={6} height={12} style={{ top: 1, marginLeft: 10 }} />
+              </View>
             </TouchableOpacity>
+            <View style={styles.periodContainer}>
+              <Text style={styles.periodText}>5 {proxyText?.texts?.t6}</Text>
+              <Text style={styles.periodText}>360 {proxyText?.texts?.t6}</Text>
+            </View>
+            <View
+              style={{ width: '100%', right: 10 }}
+              onTouchStart={() => {
+                setScrolling(false)
+              }}
+              onTouchEnd={() => {}}>
+              <SliderExample
+                days={days}
+                setDays={value => setDays(Array.isArray(value) ? value[0] : value)}
+                setScrolling={setScrolling}
+              />
+            </View>
+            <View style={styles.selectedPeriod}>
+              <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t3}</Text>
+              <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>
+                {days} {proxyText?.texts?.t6}
+              </Text>
+            </View>
+            <View style={styles.orderType}>
+              <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t2}</Text>
+              <Text style={{ color: 'white', fontWeight: '700', fontSize: 14, lineHeight: 15 }}> HTTP / SOCKS5</Text>
+            </View>
+            <View style={styles.amountContainer}>
+              <Text style={styles.amountDiscription}>{proxyText?.texts?.t4}</Text>
+              <View style={styles.amountToggleContainer}>
+                <TouchableOpacity
+                  style={styles.amountToggleMinusCOntainer}
+                  onPress={() => handlePressAmount('minus')}
+                  activeOpacity={0.8}>
+                  <Text style={styles.amountToggleMinusText}>-</Text>
+                </TouchableOpacity>
+                <View style={styles.amountToggleCenterContainer}>
+                  <Text style={styles.amountToggleCenterText}>{amount}</Text>
+                </View>
+                <TouchableOpacity
+                  style={styles.amountTogglePlusContainer}
+                  onPress={() => {
+                    handlePressAmount('plus')
+                  }}
+                  activeOpacity={0.8}>
+                  <Text style={styles.amountTogglePlusText}>+</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.priceAmount}>
+              <Text style={styles.priceAmountDescriptionText}>{proxyText?.texts?.t4}</Text>
+              <Text style={styles.priceAmountText}>$ {price}</Text>
+            </View>
+            <View style={styles.coupon}>
+              <Text style={styles.priceAmountDescriptionText}>{proxyText?.texts?.t8 || 'Купон'}</Text>
+              <TextInput
+                style={{
+                  backgroundColor: '#1E2127',
+                  paddingHorizontal: 10,
+                  paddingVertical: 15,
+                  color: 'white',
+                  fontWeight: '600',
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderColor: '#333842',
+                  width: 134,
+                }}
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.priceAmount}>
-          <Text style={styles.priceAmountDescriptionText}>{proxyText?.texts?.t4}</Text>
-          <Text style={styles.priceAmountText}>$ {price}</Text>
-        </View>
-      </View>
+        </KeyboardAvoidingView>
+      </ScrollView>
       <View style={styles.bottomContainer}>
         <View style={styles.priceFullAmountrContainer}>
           <Text style={styles.priceFullAmountDescriptionText}>{proxyText?.texts?.t5}</Text>
@@ -308,8 +322,8 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: 15,
+    marginTop: 15,
   },
   amountContainer: {
     display: 'flex',
@@ -382,6 +396,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 13,
     paddingBottom: 13,
+  },
+  coupon: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    paddingTop: 13,
+    paddingBottom: 13,
+    alignItems: 'center',
   },
   priceAmountDescriptionText: {
     color: '#CBCBCB',

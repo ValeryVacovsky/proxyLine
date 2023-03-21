@@ -61,14 +61,14 @@ function ProxyItem({
                   paddingBottom: 2,
                   paddingLeft: 6,
                   paddingRight: 6,
-                  backgroundColor: dateNeed > 3 ? '#333842' : 'rgba(226, 58, 58, 0.2)',
+                  backgroundColor: dateNeed > 1 ? '#333842' : 'rgba(226, 58, 58, 0.2)',
                   borderRadius: 4,
                 }}>
                 <Text
                   style={{
                     fontWeight: '600',
                     fontSize: 11,
-                    color: dateNeed > 3 ? '#CBCBCB' : '#E23A3A',
+                    color: dateNeed > 1 ? '#CBCBCB' : '#E23A3A',
                     lineHeight: 15,
                   }}>
                   {dateNeed > 0 ? dateNeed : 0} {text?.texts?.t5}

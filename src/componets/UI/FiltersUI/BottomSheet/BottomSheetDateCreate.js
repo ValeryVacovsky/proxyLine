@@ -29,7 +29,15 @@ function BottomSheetDateCreate({
     if (Object.keys(markedDates).length) {
       setStartDayFrom(Sdate.toISOString())
       setStartDayTo(Edate.toISOString())
-      setValue(`${Sdate.toISOString().slice(0, 10)} - ${Edate.toISOString().slice(0, 10)}`)
+      setValue(
+        `${Sdate.toISOString()?.slice(8, 10)}.${Sdate.toISOString()?.slice(5, 7)}.${Sdate.toISOString()?.slice(
+          0,
+          4,
+        )} - ${Edate.toISOString()?.slice(8, 10)}.${Edate.toISOString()?.slice(5, 7)}.${Edate.toISOString()?.slice(
+          0,
+          4,
+        )}`,
+      )
     } else {
       setValue('')
     }
@@ -207,7 +215,7 @@ function BottomSheetDateCreate({
       <View style={styles.topBar} />
       <View style={styles.topContainer}>
         <Text style={styles.dateCreate}>{text?.texts?.t16}</Text>
-        <TextInput textContentType="date" style={styles.topInput} value={value} onChangeText={setValue} />
+        <TextInput textContentType="date" style={styles.topInput} value={value} onChangeText={setValue} readOnly />
       </View>
       <View style={styles.calendarContainer}>
         <CalendarList
@@ -218,86 +226,7 @@ function BottomSheetDateCreate({
           markedDates={markedDates}
           onDayPress={handleDayPress}
           markingType="custom"
-          theme={{
-            todayTextColor: '#FFFFFF',
-            textDisabledColor: 'rgba(255, 255, 255, 0.2)',
-            textDayFontWeight: 'bold',
-            dayTextColor: '#FFFFFF',
-            textDayFontSize: 14,
-            backgroundColor: '#ffffff',
-            selectedDayTextColor: '#0F1218',
-            calendarBackground: 'rgba(255, 255, 255, 0.04)',
-            monthTextColor: 'white',
-            textSectionTitleDisabledColor: '#d9e1e8',
-            ['stylesheet.calendar.header']: {
-              monthText: {
-                fontWeight: '600',
-                fontSize: 16,
-                lineHeight: 15,
-                color: 'white',
-              },
-              header: {
-                flexDirection: 'row',
-                paddingLeft: 10,
-                paddingRight: 0,
-                marginTop: 6,
-                alignItems: 'center',
-              },
-              week: {
-                marginTop: 7,
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingLeft: 20,
-                paddingRight: 20,
-                borderTopLeftRadius: 14,
-                borderTopRightRadius: 14,
-              },
-              dayHeader: {
-                color: 'rgba(255, 255, 255, 0.8)',
-                display: 'flex',
-                flexDirection: 'row',
-                fontWeight: '700',
-                lineHeight: 15,
-                fontSize: 13,
-                height: 32,
-                textAlign: 'center',
-                paddingTop: 17,
-                paddingBottom: 24,
-              },
-            },
-            ['stylesheet.day.basic']: {
-              base: {
-                width: 32,
-                height: 36,
-                marginTop: -10,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-              text: {
-                marginTop: 4,
-                fontSize: 14,
-                fontWeight: '700',
-                color: '#FFFFFF',
-              },
-            },
-            ['stylesheet.calendar.main']: {
-              dayContainer: {
-                flex: 1,
-                alignItems: 'center',
-              },
-              monthView: {
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                paddingLeft: 10,
-                paddingRight: 10,
-                borderBottomLeftRadius: 10,
-                borderBottomRightRadius: 10,
-                height: 205,
-              },
-            },
-          }}
+          theme={styles.themStyle}
         />
         {/* <Calendar markingType={'custom'} markedDates={markedDates} onDayPress={handleDayPress} /> */}
       </View>
@@ -367,6 +296,134 @@ const styles = StyleSheet.create({
     height: 3,
     borderRadius: 40,
     marginTop: 10,
+  },
+  themStyle: {
+    todayTextColor: '#FFFFFF',
+    textDisabledColor: 'rgba(255, 255, 255, 0.2)',
+    textDayFontWeight: 'bold',
+    dayTextColor: '#FFFFFF',
+    textDayFontSize: 14,
+    backgroundColor: '#ffffff',
+    selectedDayTextColor: '#0F1218',
+    calendarBackground: '#0F1218',
+    monthTextColor: 'white',
+    textSectionTitleDisabledColor: '#d9e1e8',
+    ['stylesheet.calendar.header']: {
+      monthText: {
+        fontWeight: '600',
+        fontSize: 16,
+        lineHeight: 15,
+        color: 'white',
+      },
+      header: {
+        flexDirection: 'row',
+        paddingLeft: 10,
+        paddingRight: 0,
+        marginTop: 6,
+        alignItems: 'center',
+      },
+      week: {
+        marginTop: 7,
+        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderTopLeftRadius: 14,
+        borderTopRightRadius: 14,
+      },
+      dayHeader: {
+        color: 'rgba(255, 255, 255, 0.8)',
+        display: 'flex',
+        flexDirection: 'row',
+        fontWeight: '700',
+        lineHeight: 15,
+        fontSize: 13,
+        height: 32,
+        textAlign: 'center',
+        paddingTop: 17,
+        paddingBottom: 24,
+      },
+    },
+    ['stylesheet.day.basic']: {
+      base: {
+        width: 32,
+        height: 36,
+        marginTop: -10,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      text: {
+        marginTop: 4,
+        fontSize: 14,
+        fontWeight: '700',
+        color: '#FFFFFF',
+      },
+    },
+    ['stylesheet.calendar.main']: {
+      dayContainer: {
+        flex: 1,
+        alignItems: 'center',
+      },
+      monthView: {
+        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+      },
+    },
+  },
+  rageRagiusItemContainer: {
+    backgroundColor: '#FFF1CC',
+    borderRadius: 0,
+    width: '100%',
+    height: 36,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  leftRagiusItemContainer: {
+    backgroundColor: '#FFF1CC',
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    width: '100%',
+    height: 36,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rightRagiusItemContainer: {
+    backgroundColor: '#FFF1CC',
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+    width: '100%',
+    height: 36,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fullRagiusItemContainer: {
+    backgroundColor: '#FAC637',
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+    width: '100%',
+    height: 36,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textItemContianer: {
+    color: 'black',
+    fontWeight: 'bold',
   },
 })
 

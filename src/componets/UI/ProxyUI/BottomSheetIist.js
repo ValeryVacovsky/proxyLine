@@ -23,7 +23,7 @@ function BottomSheetList({ handleClosePress, navigation, proxyRes, text }) {
           <Text style={styles.centerMiddleButtonText}>{text?.buttons?.b6}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.centerBottomButton} onPress={() => handlePress('Extend')} activeOpacity={0.8}>
-          <Text style={styles.centerBottomButtonText}>{text?.buttons?.b7}</Text>
+          <Text style={styles.centerBottomButtonText}>{text?.buttons?.b4}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity

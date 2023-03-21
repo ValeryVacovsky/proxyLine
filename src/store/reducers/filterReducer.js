@@ -1,7 +1,7 @@
 const initialState = {
   filter: {
     ip_type: [],
-    status: [],
+    status: ['active'],
     ip_version: [],
     typesIP: [],
     id: [],

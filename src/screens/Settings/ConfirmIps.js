@@ -6,12 +6,34 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import DeleteToggleIcon from '../../image/Svg/DeleteToggleIcon'
 import { useCreateIps } from '../../hooks/useCreateIps'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
+import { useForm, Controller } from 'react-hook-form'
 
 function ConfirmIps({ navigation }) {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      order: '',
+    },
+  })
   const { setDeleteIps, setCreateIps } = useCreateIps()
   const ipsList = useSelector(data => data.ipsTagsReducer.ips)
   const text = useSelector(res => res.textReducer.settings.payload)
-  const [value, setValue] = useState('')
+  const [focusInput, setFocusInput] = useState(false)
+  const onSubmit = data => {
+    setCreateIps({
+      value: data.order,
+      name: 'string',
+    })
+  }
+  const handleBlur = () => {
+    setFocusInput(false)
+  }
+  const handleFocus = () => {
+    setFocusInput(true)
+  }
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -23,16 +45,6 @@ function ConfirmIps({ navigation }) {
       ),
     })
   }, [navigation])
-
-  const handleAddTag = () => {
-    if (value.length > 0) {
-      setCreateIps({
-        ip: value,
-        name: 'string',
-      })
-      setValue('')
-    }
-  }
   return (
     <LayoutMain style={styles.layoutContainer}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -54,8 +66,43 @@ function ConfirmIps({ navigation }) {
               <Text style={{ color: '#CBCBCB' }}>{text?.texts?.t26}</Text>
             </View>
             <Text style={styles.careText}>{text?.texts?.t27}</Text>
-            <TextInput style={styles.input} value={value} onChangeText={setValue} />
-            <TouchableOpacity style={styles.bottomTextContainer} onPress={handleAddTag}>
+            <View>
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                  min: 1024,
+                  max: 65535,
+                }}
+                render={({ field: { onChange, value } }) => (
+                  <TextInput
+                    type="number"
+                    keyboardType="numeric"
+                    returnKeyType="done"
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    style={{
+                      backgroundColor: '#1E2127',
+                      color: 'white',
+                      height: 44,
+                      minWidth: '100%',
+                      marginBottom: 20,
+                      borderRadius: 8,
+                      borderWidth: 1,
+                      paddingLeft: 20,
+                      paddingTop: 12,
+                      paddingBottom: 12,
+                      borderColor: (focusInput && '#fac637') || (errors.order && 'rgb(138,0,0)') || '#333842',
+                    }}
+                    onChangeText={onChange}
+                    value={value}
+                  />
+                )}
+                name="order"
+              />
+            </View>
+
+            <TouchableOpacity style={styles.bottomTextContainer} onPress={handleSubmit(onSubmit)}>
               <Text style={styles.bottomText}> {text?.buttons?.b1}</Text>
             </TouchableOpacity>
           </View>

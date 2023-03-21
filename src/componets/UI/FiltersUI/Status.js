@@ -8,7 +8,7 @@ function Status({ status, setFilters }) {
     setFilters(prevState =>
       prevState.status.includes(item)
         ? { ...prevState, status: prevState.status.filter(active => active !== item) }
-        : { ...prevState, status: [item] },
+        : { ...prevState, status: prevState.status.concat(item) },
     )
   }
   return (

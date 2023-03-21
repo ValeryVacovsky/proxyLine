@@ -5,6 +5,8 @@ import getAllTexts, { getAuthText } from '../../common/getAllTexts'
 import { useSelector } from 'react-redux'
 import SplashScreen from 'react-native-splash-screen'
 import useCountryDiscription from '../../hooks/useCountryDiscription'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { setAuth } from '../../store/reducers/authReducer'
 
 function AuthIntro({ navigation }) {
   useCountryDiscription()
@@ -12,13 +14,27 @@ function AuthIntro({ navigation }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    async function comeIn() {
+      const role = await AsyncStorage.getItem('@role')
+      if (role == 'default') {
+        getAuthText(dispatch, language).then(() => {
+          SplashScreen.hide()
+          dispatch(setAuth(true))
+          navigation.navigate('Main')
+        })
+      } else {
+        SplashScreen.hide()
+        getAuthText(dispatch, language)
+        navigation.navigate('Auth')
+      }
+    }
     // TODO: когда будет логика на Main или Auth переходить, добавить сюда получение текстов main
     getAuthText(dispatch, language).then(() => {
       SplashScreen.hide()
-      navigation.navigate('Auth')
     })
     // TODO: обработать случай, если апи не вернул тексты или произошла ошибка
     getAllTexts(dispatch, language)
+    comeIn()
   }, [dispatch, language, navigation])
 
   return <View style={styles.sectionContainer} />

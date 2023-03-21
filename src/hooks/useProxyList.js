@@ -11,7 +11,7 @@ const useProxyList = () => {
       const token = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
       const dataProps = `${id}_${token}`
-      const data = await getListProxies({ token: dataProps, limit: '100', offset: '0' })
+      const data = await getListProxies({ token: dataProps, limit: '100', offset: '0', endpoint: 'status=active' })
       dispatch(setProxy(data))
     }
     listProxies()

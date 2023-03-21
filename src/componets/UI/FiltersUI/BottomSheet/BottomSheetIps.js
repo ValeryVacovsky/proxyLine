@@ -7,83 +7,47 @@ import ExcludeOn from '../../../../image/Svg/ExcludeOn'
 function BottomSheetIps({
   handleClosePress,
   setIpsList,
-  setIpsListExclude,
   filtersIpsItem,
-  filtersIpsItemExcludes,
   ipsList,
-  ipsListExclude,
   ips,
   ipsFilter,
-  ipsFilterExcludes,
-  excludeStatusOut,
-  setExcludeStatusOut,
+  ipsExclude,
+  setIpsExclude,
   setFilters,
   handleSnapPress,
 }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
-  const [excludeStatus, setExcludeStatus] = useState(excludeStatusOut)
-  const [filtersIpsExclude, setFilterIpsExclude] = useState(ipsFilterExcludes)
-  const [filtersIpsItemInExclude, setFilterIpsItemExclude] = useState(filtersIpsItemExcludes)
+  const [excludeStatus, setExcludeStatus] = useState(ipsExclude)
   const [filtersIps, setFilterIps] = useState(ipsFilter)
   const [filtersIpsItemIn, setFilterIpsItem] = useState(filtersIpsItem)
 
   const handlePress = () => {
-    if (!excludeStatus) {
-      setFilters(prevState => ({ ...prevState, access_ips: filtersIps }))
-      const result = [...ipsList, ...filtersIpsItemIn.filter(itemB => !ipsList.some(itemA => itemA.id === itemB.id))]
-      setIpsList(result)
-    } else {
-      setFilters(prevState => ({ ...prevState, access_ips_exclude: filtersIpsExclude }))
-      const result = [
-        ...ipsListExclude,
-        ...filtersIpsItemInExclude.filter(itemB => !ipsListExclude.some(itemA => itemA.id === itemB.id)),
-      ]
-      setIpsListExclude(result)
-    }
+    setFilters(prevState => ({ ...prevState, access_ips: filtersIps }))
+    const result = [...ipsList, ...filtersIpsItemIn.filter(itemB => !ipsList.some(itemA => itemA.id === itemB.id))]
+    setIpsList(result)
 
     handleClosePress()
   }
   const hendleExcludeStatus = () => {
-    if (excludeStatus) {
-      setFilters(prevState => ({ ...prevState, access_ips: [] }))
-      setFilterIps([])
-    } else {
-      setFilters(prevState => ({ ...prevState, access_ips_exclude: [] }))
-      setFilterIpsExclude([])
-    }
+    setIpsExclude(prev => !prev)
     setExcludeStatus(prev => !prev)
-    setExcludeStatusOut(prev => !prev)
   }
 
   const handlePressIps = item => {
-    if (!excludeStatus) {
-      setFilterIps(prevState =>
-        prevState.some(prev => prev === item.id)
-          ? prevState.filter(active => active !== item.id)
-          : prevState.concat(item.id),
-      )
-      setFilterIpsItem(prevState =>
-        prevState.some(prev => prev.id === item.id)
-          ? prevState.filter(active => active.id !== item.id)
-          : prevState.concat(item),
-      )
-    } else {
-      setFilterIpsExclude(prevState =>
-        prevState.some(prev => prev === item.id)
-          ? prevState.filter(active => active !== item.id)
-          : prevState.concat(item.id),
-      )
-      setFilterIpsItemExclude(prevState =>
-        prevState.some(prev => prev.id === item.id)
-          ? prevState.filter(active => active.id !== item.id)
-          : prevState.concat(item),
-      )
-    }
+    setFilterIps(prevState =>
+      prevState.some(prev => prev === item.id)
+        ? prevState.filter(active => active !== item.id)
+        : prevState.concat(item.id),
+    )
+    setFilterIpsItem(prevState =>
+      prevState.some(prev => prev.id === item.id)
+        ? prevState.filter(active => active.id !== item.id)
+        : prevState.concat(item),
+    )
   }
   useEffect(() => {
     setFilterIps(ipsFilter)
-    setFilterIpsItemExclude(ipsFilterExcludes)
-  }, [ipsFilter, handleClosePress, handleSnapPress, ipsFilterExcludes])
+  }, [ipsFilter, handleClosePress, handleSnapPress])
   return (
     <View style={styles.container}>
       <View style={styles.topBar} />
@@ -130,7 +94,7 @@ function BottomSheetIps({
                   onPress={() => handlePressIps(item)}
                   key={item.id}
                   style={{
-                    backgroundColor: filtersIpsExclude.includes(item.id) ? '#EC3641' : '#333842',
+                    backgroundColor: filtersIps.includes(item.id) ? '#EC3641' : '#333842',
                     paddingHorizontal: 12,
                     paddingVertical: 6,
                     borderRadius: 30,
@@ -139,7 +103,7 @@ function BottomSheetIps({
                   }}>
                   <Text
                     style={{
-                      color: filtersIpsExclude.includes(item.id) ? '#0F1218' : 'white',
+                      color: filtersIps.includes(item.id) ? '#0F1218' : 'white',
                     }}>
                     {item.value}
                   </Text>

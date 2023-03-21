@@ -44,7 +44,11 @@ function BottomSheetProxyTags({ handleClosePress, proxyTags, handleSnapPress, pr
 
   const handleBlur = () => {
     setOpen(false)
-    handleSnapPress(1)
+    if (localTags.length == 0) {
+      handleSnapPress(1)
+    } else {
+      handleSnapPress(2)
+    }
   }
 
   const handleFocus = () => {
@@ -53,8 +57,7 @@ function BottomSheetProxyTags({ handleClosePress, proxyTags, handleSnapPress, pr
         setOpen(true)
       }
     }
-    handleSnapPress(2)
-    // setBottomMatrin(334)
+    handleSnapPress(4)
   }
 
   const handleDeleteTag = tagId => {
@@ -90,14 +93,25 @@ function BottomSheetProxyTags({ handleClosePress, proxyTags, handleSnapPress, pr
       setProxyInfo(proxy.data[0])
       setLocalTags(proxy.data[0].tags)
     }
+    setValue('')
     addTag()
     handleClosePress()
   }
   return (
-    <ScrollView>
+    <ScrollView
+      scrollEnabled={false}
+      keyboardShouldPersistTaps="always"
+      style={{
+        height: '100%',
+        backgroundColor: '#0F1218',
+        borderTopLeftRadius: 14,
+        borderTopRightRadius: 14,
+        display: 'flex',
+      }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
+        keyboardShouldPersistTaps="always"
         keyboardVerticalOffset={104}>
         <View style={styles.container}>
           <View>
@@ -105,48 +119,61 @@ function BottomSheetProxyTags({ handleClosePress, proxyTags, handleSnapPress, pr
               <View style={styles.topTab} />
             </View>
             <Text style={styles.mainText}>{text?.texts?.t14}</Text>
-            <View style={styles.itemContainer}>
-              {localTags?.map(item => {
-                return (
-                  <TouchableOpacity
-                    style={{
-                      paddingTop: 6,
-                      paddingBottom: 7,
-                      paddingLeft: 12,
-                      paddingRight: 12,
-                      display: 'flex',
-                      flexDirection: 'row',
-                      backgroundColor: Colors[item.color].back,
-                      borderRadius: 30,
-                      marginRight: 5,
-                      marginTop: 10,
-                      alignItems: 'center',
-                    }}
-                    key={item.id}>
-                    <TouchableOpacity onPress={() => handleDeleteTag(item.id)}>
-                      <DeleteToggleIcon />
-                    </TouchableOpacity>
-                    <Text
+            <ScrollView style={{ maxHeight: 80 }}>
+              <View style={styles.itemContainer}>
+                {localTags?.map(item => {
+                  return (
+                    <TouchableOpacity
                       style={{
-                        color: Colors[item.color].color,
-                        fontWeight: '400',
-                        fontSize: 13,
-                        lineHeight: 15,
-                        marginLeft: 9,
-                      }}>
-                      {item.value}
-                    </Text>
-                  </TouchableOpacity>
-                )
-              })}
-            </View>
+                        paddingTop: 6,
+                        paddingBottom: 7,
+                        paddingLeft: 12,
+                        paddingRight: 12,
+                        display: 'flex',
+                        flexDirection: 'row',
+                        backgroundColor: Colors[item.color].back,
+                        borderRadius: 30,
+                        marginRight: 5,
+                        marginTop: 10,
+                        alignItems: 'center',
+                      }}
+                      key={item.id}>
+                      <TouchableOpacity onPress={() => handleDeleteTag(item.id)}>
+                        <DeleteToggleIcon />
+                      </TouchableOpacity>
+                      <Text
+                        style={{
+                          color: Colors[item.color].color,
+                          fontWeight: '400',
+                          fontSize: 13,
+                          lineHeight: 15,
+                          marginLeft: 9,
+                        }}>
+                        {item.value}
+                      </Text>
+                    </TouchableOpacity>
+                  )
+                })}
+              </View>
+            </ScrollView>
           </View>
           <View style={{ marginHorizontal: 20, marginBottom: 234 }}>
             <View style={{ position: 'relative' }}>
               <TextInput
                 value={value}
                 onChangeText={handleChangeText}
-                style={styles.input}
+                style={{
+                  backgroundColor: '#1E2127',
+                  paddingHorizontal: 10,
+                  paddingVertical: 15,
+                  color: 'white',
+                  fontWeight: '600',
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderColor: '#333842',
+                  marginTop: open && localTags?.length == 0 ? 50 : 14,
+                  marginBottom: 14,
+                }}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />

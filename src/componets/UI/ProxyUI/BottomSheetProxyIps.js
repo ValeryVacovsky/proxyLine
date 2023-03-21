@@ -42,7 +42,13 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
   }
   const handleBlur = () => {
     setOpen(false)
-    handleSnapPress(1)
+    if (localIps.length == 0) {
+      handleSnapPress(1)
+    } else if (localIps.length < 3) {
+      handleSnapPress(2)
+    } else {
+      handleSnapPress(3)
+    }
   }
 
   const handleFocus = () => {
@@ -51,8 +57,13 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
         setOpen(true)
       }
     }
-    handleSnapPress(2)
-    // setBottomMatrin(334)
+    if (localIps.length == 0) {
+      handleSnapPress(4)
+    } else if (localIps.length < 3) {
+      handleSnapPress(4)
+    } else {
+      handleSnapPress(5)
+    }
   }
 
   const handleDeleteIps = ipsId => {
@@ -71,6 +82,13 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
       setLocakIps(proxy.data[0].access_ips)
     }
     delTag()
+    if (localIps.length == 0) {
+      handleSnapPress(1)
+    } else if (localIps.length < 3) {
+      handleSnapPress(2)
+    } else {
+      handleSnapPress(3)
+    }
   }
 
   const handleAddTag = method => {
@@ -113,50 +131,64 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
               <View style={styles.topTab} />
             </View>
             <Text style={styles.mainText}>{text?.texts?.t13}</Text>
-            <ScrollView>
-              <View style={styles.itemContainer}>
-                {localIps?.map(item => {
-                  return (
-                    <TouchableOpacity
-                      style={{
-                        paddingTop: 6,
-                        paddingBottom: 7,
-                        paddingLeft: 12,
-                        paddingRight: 12,
-                        display: 'flex',
-                        flexDirection: 'row',
-                        backgroundColor: '#333842',
-                        borderRadius: 30,
-                        marginRight: 5,
-                        marginTop: 10,
-                        alignItems: 'center',
-                      }}
-                      key={item.id}>
-                      <TouchableOpacity onPress={() => handleDeleteIps(item.id)}>
-                        <DeleteToggleIcon />
-                      </TouchableOpacity>
-                      <Text
+            {localIps?.length > 0 && localIps?.length < 4 ? (
+              <ScrollView>
+                <View style={styles.itemContainer}>
+                  {localIps?.map(item => {
+                    return (
+                      <TouchableOpacity
                         style={{
-                          color: 'white',
-                          fontWeight: '400',
-                          fontSize: 13,
-                          lineHeight: 15,
-                          marginLeft: 9,
-                        }}>
-                        {item.value}
-                      </Text>
-                    </TouchableOpacity>
-                  )
-                })}
-              </View>
-            </ScrollView>
+                          paddingTop: 6,
+                          paddingBottom: 7,
+                          paddingLeft: 12,
+                          paddingRight: 12,
+                          display: 'flex',
+                          flexDirection: 'row',
+                          backgroundColor: '#333842',
+                          borderRadius: 30,
+                          marginRight: 5,
+                          marginTop: 10,
+                          alignItems: 'center',
+                        }}
+                        key={item.id}>
+                        <TouchableOpacity onPress={() => handleDeleteIps(item.id)}>
+                          <DeleteToggleIcon />
+                        </TouchableOpacity>
+                        <Text
+                          style={{
+                            color: 'white',
+                            fontWeight: '400',
+                            fontSize: 13,
+                            lineHeight: 15,
+                            marginLeft: 9,
+                          }}>
+                          {item.value}
+                        </Text>
+                      </TouchableOpacity>
+                    )
+                  })}
+                </View>
+              </ScrollView>
+            ) : (
+              <View />
+            )}
           </View>
           <View style={{ marginHorizontal: 20 }}>
             <View style={{ position: 'relative' }}>
               <TextInput
                 value={value}
                 onChangeText={handleChangeText}
-                style={styles.input}
+                style={{
+                  backgroundColor: '#1E2127',
+                  paddingHorizontal: 10,
+                  paddingVertical: 15,
+                  color: 'white',
+                  fontWeight: '600',
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderColor: '#333842',
+                  marginTop: open && localIps?.length == 0 ? 50 : 14,
+                }}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
@@ -245,7 +277,7 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     position: 'absolute',
     width: '100%',
-    maxHeight: 89,
+    maxHeight: 99,
     backgroundColor: '#1E2127',
     bottom: 53,
     borderRadius: 8,

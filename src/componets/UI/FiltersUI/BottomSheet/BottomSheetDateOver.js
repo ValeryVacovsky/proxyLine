@@ -8,7 +8,7 @@ LocaleConfig.locales['ru'] = Locacles.ru
 
 LocaleConfig.defaultLocale = 'ru'
 
-function BottomSheetDateOver({ handleClosePress, setEndDayStatus, endDayFrom, setEndDayFrom, endDayTo, setEndDayTo }) {
+function BottomSheetDateOver({ handleClosePress, setEndDayStatus, setEndDayFrom, setEndDayTo }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [value, setValue] = useState('')
   const [startDate, setStartDate] = useState('')
@@ -22,7 +22,15 @@ function BottomSheetDateOver({ handleClosePress, setEndDayStatus, endDayFrom, se
     if (Object.keys(markedDates).length) {
       setEndDayFrom(Sdate.toISOString())
       setEndDayTo(Edate.toISOString())
-      setValue(`${Sdate.toISOString().slice(0, 10)} - ${Edate.toISOString().slice(0, 10)}`)
+      setValue(
+        `${Sdate.toISOString()?.slice(8, 10)}.${Sdate.toISOString()?.slice(5, 7)}.${Sdate.toISOString()?.slice(
+          0,
+          4,
+        )} - ${Edate.toISOString()?.slice(8, 10)}.${Edate.toISOString()?.slice(5, 7)}.${Edate.toISOString()?.slice(
+          0,
+          4,
+        )}`,
+      )
     } else {
       setValue('')
     }
@@ -211,86 +219,7 @@ function BottomSheetDateOver({ handleClosePress, setEndDayStatus, endDayFrom, se
           markedDates={markedDates}
           onDayPress={handleDayPress}
           markingType="custom"
-          theme={{
-            todayTextColor: '#FFFFFF',
-            textDisabledColor: 'rgba(255, 255, 255, 0.2)',
-            textDayFontWeight: 'bold',
-            dayTextColor: '#FFFFFF',
-            textDayFontSize: 14,
-            backgroundColor: '#ffffff',
-            selectedDayTextColor: '#0F1218',
-            calendarBackground: 'rgba(255, 255, 255, 0.04)',
-            monthTextColor: 'white',
-            textSectionTitleDisabledColor: '#d9e1e8',
-            ['stylesheet.calendar.header']: {
-              monthText: {
-                fontWeight: '600',
-                fontSize: 16,
-                lineHeight: 15,
-                color: 'white',
-              },
-              header: {
-                flexDirection: 'row',
-                paddingLeft: 10,
-                paddingRight: 0,
-                marginTop: 6,
-                alignItems: 'center',
-              },
-              week: {
-                marginTop: 7,
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingLeft: 20,
-                paddingRight: 20,
-                borderTopLeftRadius: 14,
-                borderTopRightRadius: 14,
-              },
-              dayHeader: {
-                color: 'rgba(255, 255, 255, 0.8)',
-                display: 'flex',
-                flexDirection: 'row',
-                fontWeight: '700',
-                lineHeight: 15,
-                fontSize: 13,
-                height: 32,
-                textAlign: 'center',
-                paddingTop: 17,
-                paddingBottom: 24,
-              },
-            },
-            ['stylesheet.day.basic']: {
-              base: {
-                width: 32,
-                height: 36,
-                marginTop: -10,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-              text: {
-                marginTop: 4,
-                fontSize: 14,
-                fontWeight: '700',
-                color: '#FFFFFF',
-              },
-            },
-            ['stylesheet.calendar.main']: {
-              dayContainer: {
-                flex: 1,
-                alignItems: 'center',
-              },
-              monthView: {
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                paddingLeft: 10,
-                paddingRight: 10,
-                borderBottomLeftRadius: 10,
-                borderBottomRightRadius: 10,
-                height: 205,
-              },
-            },
-          }}
+          theme={styles.themeStyle}
         />
         {/* <Calendar markingType={'custom'} markedDates={markedDates} onDayPress={handleDayPress} /> */}
       </View>
@@ -360,6 +289,86 @@ const styles = StyleSheet.create({
     height: 3,
     borderRadius: 40,
     marginTop: 10,
+  },
+  themeStyle: {
+    todayTextColor: '#FFFFFF',
+    textDisabledColor: 'rgba(255, 255, 255, 0.2)',
+    textDayFontWeight: 'bold',
+    dayTextColor: '#FFFFFF',
+    textDayFontSize: 14,
+    backgroundColor: '#ffffff',
+    selectedDayTextColor: '#0F1218',
+    calendarBackground: 'rgba(255, 255, 255, 0.04)',
+    monthTextColor: 'white',
+    textSectionTitleDisabledColor: '#d9e1e8',
+    ['stylesheet.calendar.header']: {
+      monthText: {
+        fontWeight: '600',
+        fontSize: 16,
+        lineHeight: 15,
+        color: 'white',
+      },
+      header: {
+        flexDirection: 'row',
+        paddingLeft: 10,
+        paddingRight: 0,
+        marginTop: 6,
+        alignItems: 'center',
+      },
+      week: {
+        marginTop: 7,
+        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderTopLeftRadius: 14,
+        borderTopRightRadius: 14,
+      },
+      dayHeader: {
+        color: 'rgba(255, 255, 255, 0.8)',
+        display: 'flex',
+        flexDirection: 'row',
+        fontWeight: '700',
+        lineHeight: 15,
+        fontSize: 13,
+        height: 32,
+        textAlign: 'center',
+        paddingTop: 17,
+        paddingBottom: 24,
+      },
+    },
+    ['stylesheet.day.basic']: {
+      base: {
+        width: 32,
+        height: 36,
+        marginTop: -10,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      text: {
+        marginTop: 4,
+        fontSize: 14,
+        fontWeight: '700',
+        color: '#FFFFFF',
+      },
+    },
+    ['stylesheet.calendar.main']: {
+      dayContainer: {
+        flex: 1,
+        alignItems: 'center',
+      },
+      monthView: {
+        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        height: 205,
+      },
+    },
   },
 })
 
