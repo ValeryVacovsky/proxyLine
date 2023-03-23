@@ -7,13 +7,13 @@ import getListAccessIps from '../api/Access/getListAccessIps'
 export const useListIps = () => {
   const dispatch = useDispatch()
   useEffect(() => {
-    const listProxies = async () => {
+    const listIps = async () => {
       const token = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
       const dataProps = `${id}_${token}`
       const data = await getListAccessIps({ token: dataProps, limit: '100', offset: '0' })
       dispatch(setIps(data.data))
     }
-    listProxies()
+    listIps()
   }, [dispatch])
 }

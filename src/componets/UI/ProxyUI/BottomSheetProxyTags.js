@@ -140,7 +140,7 @@ function BottomSheetProxyTags({ proxyTags, handleSnapPress, proxyId, setProxyInf
               <View
                 style={styles.itemContainer}
                 onLayout={event => {
-                  var { height } = event.nativeEvent.layout
+                  const { height } = event.nativeEvent.layout
                   setHeightTags(height)
                   setHeight(height)
                 }}>

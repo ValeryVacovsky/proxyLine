@@ -22,9 +22,10 @@ import postCreatePayment from '../../api/postCreatePayment'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
+const heightOffScreen = Dimensions.get('window').height
+
 function BalanceMethod({ navigation, route }) {
   const text = useSelector(res => res.textReducer.balance.payload)
-  const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const amount = route.params?.dataNav.amount
   const balance = useSelector(data => data.balanceReducer)

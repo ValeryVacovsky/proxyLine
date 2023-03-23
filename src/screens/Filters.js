@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
+import React, { useCallback, useRef, useState, useEffect } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, Pressable } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,6 +24,27 @@ import { setFilter } from '../store/reducers/filterReducer'
 import IdProxy from '../componets/UI/FiltersUI/IdProxy'
 import FilterOrders from '../componets/UI/FiltersUI/FilterOrders'
 import getCountProxyFilter from '../api/getCountProxyFilter'
+import { useParams } from '../hooks/useParams'
+
+const clearForm = {
+  ip_type: [],
+  status: ['active'],
+  ip_version: [],
+  typesIP: [],
+  id: [],
+  auto_renewal: [],
+  dateCreate: [],
+  dateOver: [],
+  ip: [],
+  port: [],
+  orders: [],
+  countries: [],
+  countries_exclude: [],
+  tags: [],
+  tags_exclude: [],
+  access_ips: [],
+  access_ips_exclude: [],
+}
 
 function Filters({ navigation }) {
   const today = new Date()
@@ -48,47 +69,9 @@ function Filters({ navigation }) {
   const [tagsExclude, setTagsExclude] = useState(true)
   const [ipsExclude, setIpsExclude] = useState(false)
   const [bottomInset, setBottomInset] = useState(0)
-  const clearForm = {
-    ip_type: [],
-    status: ['active'],
-    ip_version: [],
-    typesIP: [],
-    id: [],
-    auto_renewal: [],
-    dateCreate: [],
-    dateOver: [],
-    ip: [],
-    port: [],
-    orders: [],
-    countries: [],
-    countries_exclude: [],
-    tags: [],
-    tags_exclude: [],
-    access_ips: [],
-    access_ips_exclude: [],
-  }
-
   const [childrenItem, setChildrenItem] = useState(<View style={styles.children} />)
   const [selected, setSelected] = useState(null)
-  const [fitlers, setFilters] = useState({
-    ip_type: [],
-    status: ['active'],
-    ip_version: [],
-    typesIP: [],
-    id: [],
-    auto_renewal: [],
-    dateCreate: [],
-    dateOver: [],
-    ip: [],
-    port: [],
-    orders: [],
-    countries: [],
-    countries_exclude: [],
-    tags: [],
-    tags_exclude: [],
-    access_ips: [],
-    access_ips_exclude: [],
-  })
+  const [fitlers, setFilters] = useState(clearForm)
 
   useEffect(() => {
     const listProxies = async () => {
@@ -112,81 +95,26 @@ function Filters({ navigation }) {
       getFilter()
     }
   }, [fitlers])
-  let params = new URLSearchParams()
-
-  Object.keys(fitlers).map(filterName => {
-    if (filterName === 'dateCreate') {
-      fitlers[filterName].map(item => {
-        if (item === 'today') {
-          params.append('start_date_from', startOfDay.toISOString())
-          params.append('start_date_to', endOfDay.toISOString())
-        } else if (item === 'toweek') {
-          params.append('start_date_from', firstDayOfWeek.toISOString())
-          params.append('start_date_to', lastDayOfWeek.toISOString())
-        } else if (item === 'custom') {
-          params.append('start_date_from', startDayFrom)
-          params.append('start_date_to', startDayTo)
-        } else {
-          params.append('start_date_from', startOfMonth.toISOString())
-          params.append('start_date_to', endOfMonth.toISOString())
-        }
-      })
-    } else if (filterName === 'dateOver') {
-      fitlers[filterName].map(item => {
-        if (item === 'today') {
-          params.append('end_date_from', startOfDay.toISOString())
-          params.append('end_date_to', endOfDay.toISOString())
-        } else if (item === 'toweek') {
-          params.append('end_date_from', firstDayOfWeek.toISOString())
-          params.append('end_date_to', lastDayOfWeek.toISOString())
-        } else {
-          params.append('end_date_from', startOfMonth.toISOString())
-          params.append('end_date_to', endOfMonth.toISOString())
-        }
-      })
-    } else if (filterName === 'countries') {
-      if (countryExclude) {
-        fitlers[filterName].map(item => {
-          params.append('countries_exclude', item.toString())
-        })
-      } else {
-        fitlers[filterName].map(item => {
-          params.append('countries', item.toString())
-        })
-      }
-    } else if (filterName === 'tags') {
-      if (tagsExclude) {
-        fitlers[filterName].map(item => {
-          params.append('tags_exclude', item.toString())
-        })
-      } else {
-        fitlers[filterName].map(item => {
-          params.append('tags', item.toString())
-        })
-      }
-    } else if (filterName === 'access_ips') {
-      if (tagsExclude) {
-        fitlers[filterName].map(item => {
-          params.append('access_ips_exclude', item.toString())
-        })
-      } else {
-        fitlers[filterName].map(item => {
-          params.append('access_ips', item.toString())
-        })
-      }
-    } else {
-      fitlers[filterName].map(item => {
-        params.append(filterName, item.toString())
-      })
-    }
+  const { params } = useParams({
+    fitlers,
+    startOfDay,
+    endOfDay,
+    firstDayOfWeek,
+    lastDayOfWeek,
+    startDayFrom,
+    startDayTo,
+    startOfMonth,
+    endOfMonth,
+    countryExclude,
+    tagsExclude,
+    ipsExclude,
   })
   const sheetRef = useRef(null)
   const sheetRefTagsIps = useRef(null)
-  const snapPoints = useMemo(() => ['28%', '60%', '75%'], [])
-  const snapPointsTagsIps = useMemo(
-    () => [150, 216, 244, 272, 300, 328, 356, 384, 412, 440, 468, 496, 524, 552, 580, 608, 636, 664, 692, 720],
-    [],
-  )
+  const snapPoints = ['28%', '60%', '75%']
+  const snapPointsTagsIps = [
+    150, 216, 244, 272, 300, 328, 356, 384, 412, 440, 468, 496, 524, 552, 580, 608, 636, 664, 692, 720,
+  ]
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -261,7 +189,6 @@ function Filters({ navigation }) {
       ),
     })
   }, [navigation])
-  console.log(endpoint)
   return (
     <LayoutMain>
       <View
@@ -413,7 +340,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 20,
-    // eslint-disable-next-line no-use-before-define
   },
   scrollView: {
     marginHorizontal: 20,

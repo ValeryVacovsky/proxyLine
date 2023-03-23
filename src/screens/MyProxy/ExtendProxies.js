@@ -9,10 +9,11 @@ import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectF
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
+const heightOffScreen = Dimensions.get('window').height
+
 function ExtendProxies({ navigation }) {
   const text = useSelector(res => res.textReducer.myproxies.payload)
   const proxyLisStore = useSelector(data => data.proxy.proxyList.data)
-  const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)

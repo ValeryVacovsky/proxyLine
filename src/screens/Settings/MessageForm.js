@@ -6,9 +6,10 @@ import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import LayoutMain from '../../componets/LayoutMain'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
+const heightOffScreen = Dimensions.get('window').height
+
 function MessageForm({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
-  const heightOffScreen = Dimensions.get('window').height
   const [textValue, setTextValue] = useState('')
   React.useLayoutEffect(() => {
     navigation.setOptions({

@@ -133,7 +133,7 @@ function BottomSheetIps({
             marginTop: 15,
           }}
           onLayout={event => {
-            var { height } = event.nativeEvent.layout
+            const { height } = event.nativeEvent.layout
             setHeight(height)
           }}>
           {!excludeStatus
@@ -250,7 +250,6 @@ const styles = StyleSheet.create({
     paddingBottom: 18,
     backgroundColor: '#1E2127',
     width: '90%',
-    marginBottom: 33,
     borderRadius: 12,
     alignItems: 'center',
     marginBottom: 150,

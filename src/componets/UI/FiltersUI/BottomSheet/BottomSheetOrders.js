@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, Keyboard, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
+
+const heightOffScreen = Dimensions.get('window').height
+
 function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset }) {
   const {
     control,
@@ -63,7 +66,6 @@ function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset 
       setBottomInset(0)
     }
   }, [isKeyboardVisible, keyboardHeight, setBottomInset])
-  const heightOffScreen = Dimensions.get('window').height
 
   return (
     <View style={styles.container}>

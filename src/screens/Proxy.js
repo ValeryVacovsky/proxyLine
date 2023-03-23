@@ -10,6 +10,8 @@ import HeaderProxy from '../image/Svg/HeaderProxy'
 import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
 import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
 
+const heightOffScreen = Dimensions.get('window').height
+
 function Proxy({ navigation }) {
   const iPtypes = useSelector(res => res.orderPriceReducer.orderPrice)
   const proxyText = useSelector(res => res.textReducer)
@@ -62,7 +64,6 @@ function Proxy({ navigation }) {
       headerLeft: () => <View></View>,
     })
   }, [navigation, balance])
-  const heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>

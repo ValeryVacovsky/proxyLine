@@ -25,6 +25,7 @@ import { useListOrders } from '../hooks/useListOrders'
 import useProxyList from '../hooks/useProxyList'
 import useCountries from '../hooks/useCountries'
 import { useListOrdersUnpay } from '../hooks/useListOrdersUnpay'
+const heightOffScreen = Dimensions.get('window').height
 
 function Main({ navigation }) {
   useCountries()
@@ -48,8 +49,6 @@ function Main({ navigation }) {
   }, [])
   const mainText = useSelector(res => res.textReducer.main.payload)
   const [statusConect, setStatusConect] = useState('off')
-
-  const heightOffScreen = Dimensions.get('window').height
   useEffect(() => {}, [])
   return (
     <LayoutAuth>

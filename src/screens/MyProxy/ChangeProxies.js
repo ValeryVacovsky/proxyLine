@@ -9,10 +9,11 @@ import { useSelector } from 'react-redux'
 import ProxyItemChange from '../../componets/UI/ProxyUI/ProxyItemChange'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
+const heightOffScreen = Dimensions.get('window').height
+
 function ChangeProxies({ navigation }) {
   const text = useSelector(res => res.textReducer.myproxies.payload)
   const proxyLisStore = useSelector(data => data.proxy.proxyList.data)
-  const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)

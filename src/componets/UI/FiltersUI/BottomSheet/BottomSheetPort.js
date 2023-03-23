@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput, Dimensions } from 
 import { useSelector } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 
+const heightOffScreen = Dimensions.get('window').height
+
 function BottomSheetPort({ handleClosePress, setPorts, handleSnapPress }) {
   const {
     control,
@@ -30,7 +32,6 @@ function BottomSheetPort({ handleClosePress, setPorts, handleSnapPress }) {
     handleSnapPress(1)
     setFocusInput(true)
   }
-  const heightOffScreen = Dimensions.get('window').height
   return (
     <View style={styles.container}>
       <View style={styles.topBar} />

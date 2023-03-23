@@ -7,10 +7,11 @@ import OrdersList from '../componets/OrdersList'
 import OrdersListData from '../componets/OrdersListData'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+const heightOffScreen = Dimensions.get('window').height
+
 function Orders({ navigation }) {
   const dataOrders = useSelector(res => res.ordersReducer.orders)
   const proxyText = useSelector(res => res.textReducer.orders.payload)
-  const heightOffScreen = Dimensions.get('window').height
   const ordersRes = useSelector(data => data.orderReducer)
   useEffect(() => {
     async function cahngeLocalOrders() {

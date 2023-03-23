@@ -7,6 +7,8 @@ import LayoutMain from '../../componets/LayoutMain'
 import AnswerLine from '../../componets/UI/Settings/AnswerLine'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
+const heightOffScreen = Dimensions.get('window').height
+
 function AnswerQuastion({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
   const general = useSelector(res => res.textReducer.faq.payload.texts)
@@ -29,7 +31,6 @@ function AnswerQuastion({ navigation }) {
       ),
     })
   }, [navigation])
-  const heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
       <View style={styles.mainContainer}>

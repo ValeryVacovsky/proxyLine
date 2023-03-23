@@ -38,9 +38,6 @@ function BalanceSystems({ navigation }) {
   const [childrenItem, setChildrenItem] = useState(
     <BottomSheetBalanceInfo handleClosePress={handleClosePress}>{text?.texts?.t8}</BottomSheetBalanceInfo>,
   )
-  handlePressRequest = () => {
-    navigation.navigate('BalanceMethod', { dataNav })
-  }
 
   useEffect(() => {
     setBalanceSystems(systems)

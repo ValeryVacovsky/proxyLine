@@ -12,6 +12,8 @@ import {
 import { useSelector } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 
+const heightOffScreen = Dimensions.get('window').height
+
 function BottomSheetId({ handleClosePress, setIdDefault, handleSnapPress }) {
   const {
     control,
@@ -39,7 +41,6 @@ function BottomSheetId({ handleClosePress, setIdDefault, handleSnapPress }) {
     handleSnapPress(1)
     setFocusInput(true)
   }
-  const heightOffScreen = Dimensions.get('window').height
   return (
     <ScrollView
       scrollEnabled={false}

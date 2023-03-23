@@ -14,10 +14,11 @@ import ViewIconOff from '../../image/Svg/ViewIconOff'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAuth } from '../../store/reducers/authReducer'
 
+const heightOffScreen = Dimensions.get('window').height
+
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 // const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/g
-const heightOffScreen = Dimensions.get('window').height
 // const IPS_REGEX   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
 
 function AuthAuthauthentification({ navigation }) {

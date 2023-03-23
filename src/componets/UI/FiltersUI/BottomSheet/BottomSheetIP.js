@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput, Dimensions } from 
 import { useSelector } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 
+const heightOffScreen = Dimensions.get('window').height
+
 const IPS_REGEX =
   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
 
@@ -33,7 +35,6 @@ function BottomSheetIP({ handleClosePress, setIpaddress, handleSnapPress }) {
     handleSnapPress(1)
     setFocusInput(true)
   }
-  const heightOffScreen = Dimensions.get('window').height
   return (
     <View style={styles.container}>
       <View style={styles.topBar} />

@@ -131,7 +131,7 @@ function BottomSheetTags({
             marginTop: 15,
           }}
           onLayout={event => {
-            var { height } = event.nativeEvent.layout
+            const { height } = event.nativeEvent.layout
             setHeight(height)
           }}>
           {!excludeStatus

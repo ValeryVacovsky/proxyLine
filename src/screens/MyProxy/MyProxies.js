@@ -23,11 +23,12 @@ import BottomSheetItem from '../../componets/UI/ProxyUI/BottomSheetItem'
 import { useSelector } from 'react-redux'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
+const heightOffScreen = Dimensions.get('window').height
+
 function MyProxies({ navigation }) {
   const text = useSelector(res => res.textReducer.myproxies.payload)
   const [selected, setSelected] = useState(null)
   const [childrenItem, setChildrenItem] = useState()
-  const heightOffScreen = Dimensions.get('window').height
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['48%'] : ['54%']), [heightOffScreen])

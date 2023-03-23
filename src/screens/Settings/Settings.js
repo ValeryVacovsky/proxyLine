@@ -8,6 +8,8 @@ import CheckSpeed from '../../image/Svg/CheckSpeed'
 import SettingsVector from '../../image/Svg/SettingsVector'
 import SettingsVector2 from '../../image/Svg/SettingsVector2'
 
+const heightOffScreen = Dimensions.get('window').height
+
 function Settings({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
   const handleNavigate = item => {
@@ -30,7 +32,6 @@ function Settings({ navigation }) {
       headerLeft: () => <View></View>,
     })
   }, [navigation])
-  const heightOffScreen = Dimensions.get('window').height
   return (
     <LayoutMain>
       <View style={styles.checker}>
