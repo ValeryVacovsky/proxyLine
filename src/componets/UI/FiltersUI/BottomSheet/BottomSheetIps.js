@@ -20,6 +20,8 @@ function BottomSheetIps({
   const [excludeStatus, setExcludeStatus] = useState(ipsExclude)
   const [filtersIps, setFilterIps] = useState(ipsFilter)
   const [filtersIpsItemIn, setFilterIpsItem] = useState(filtersIpsItem)
+  const [height, setHeight] = useState(1)
+  const [marginBottom, setMarginBottom] = useState(34)
 
   const handlePress = () => {
     setFilters(prevState => ({ ...prevState, access_ips: filtersIps }))
@@ -48,6 +50,68 @@ function BottomSheetIps({
   useEffect(() => {
     setFilterIps(ipsFilter)
   }, [ipsFilter, handleClosePress, handleSnapPress])
+  useEffect(() => {
+    {
+      if (height > 530) {
+        handleSnapPress(19)
+        setMarginBottom(34)
+      } else if (height > 522) {
+        handleSnapPress(19)
+        setMarginBottom(52)
+      } else if (height > 500) {
+        handleSnapPress(18)
+        setMarginBottom(60)
+      } else if (height > 472) {
+        handleSnapPress(17)
+        setMarginBottom(88)
+      } else if (height > 444) {
+        handleSnapPress(16)
+        setMarginBottom(116)
+      } else if (height > 416) {
+        handleSnapPress(15)
+        setMarginBottom(134)
+      } else if (height > 388) {
+        handleSnapPress(14)
+        setMarginBottom(162)
+      } else if (height > 360) {
+        handleSnapPress(13)
+        setMarginBottom(190)
+      } else if (height > 332) {
+        handleSnapPress(12)
+        setMarginBottom(218)
+      } else if (height > 304) {
+        handleSnapPress(1)
+        setMarginBottom(246)
+      } else if (height > 276) {
+        handleSnapPress(10)
+        setMarginBottom(274)
+      } else if (height > 248) {
+        handleSnapPress(9)
+        setMarginBottom(302)
+      } else if (height > 220) {
+        handleSnapPress(8)
+        setMarginBottom(330)
+      } else if (height > 192) {
+        handleSnapPress(7)
+        setMarginBottom(358)
+      } else if (height > 164) {
+        handleSnapPress(6)
+        setMarginBottom(386)
+      } else if (height > 136) {
+        handleSnapPress(5)
+        setMarginBottom(414)
+      } else if (height > 108) {
+        handleSnapPress(4)
+        setMarginBottom(442)
+      } else if (height > 80) {
+        handleSnapPress(3)
+        setMarginBottom(470)
+      } else {
+        handleSnapPress(2)
+        setMarginBottom(498)
+      }
+    }
+  }, [height, handleSnapPress])
   return (
     <View style={styles.container}>
       <View style={styles.topBar} />
@@ -67,6 +131,10 @@ function BottomSheetIps({
             marginLeft: 10,
             marginRight: 20,
             marginTop: 15,
+          }}
+          onLayout={event => {
+            var { height } = event.nativeEvent.layout
+            setHeight(height)
           }}>
           {!excludeStatus
             ? ips.map(item => (
@@ -111,7 +179,19 @@ function BottomSheetIps({
               ))}
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.bottomButton} onPress={handlePress} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={{
+          paddingTop: 18,
+          paddingBottom: 18,
+          backgroundColor: '#1E2127',
+          width: '90%',
+          marginBottom: marginBottom,
+          borderRadius: 12,
+          alignItems: 'center',
+          marginTop: 2,
+        }}
+        onPress={handlePress}
+        activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>{text?.buttons?.b1}</Text>
       </TouchableOpacity>
     </View>

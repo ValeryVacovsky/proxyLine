@@ -8,12 +8,13 @@ import postUpdateProxyTags from '../../../api/ProxyAdd/postUpdateProxyTags'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import getListProxies from '../../../api/getListProxies'
 
-function BottomSheetProxyTags({ handleClosePress, proxyTags, handleSnapPress, proxyId, setProxyInfo }) {
+function BottomSheetProxyTags({ proxyTags, handleSnapPress, proxyId, setProxyInfo, heightTags, setHeightTags }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const tags = useSelector(data => data.ipsTagsReducer.tags)
   const [tagsFiltred, setTagsFiltred] = useState(tags)
   const [open, setOpen] = useState(true)
   const [value, setValue] = useState('')
+  const [height, setHeight] = useState(heightTags)
   const [requestValue, setRequestValue] = useState('')
   const [localTags, setLocalTags] = useState(proxyTags)
 
@@ -57,7 +58,13 @@ function BottomSheetProxyTags({ handleClosePress, proxyTags, handleSnapPress, pr
         setOpen(true)
       }
     }
-    handleSnapPress(4)
+    if (height == 1) {
+      handleSnapPress(4)
+    } else if (height == 38) {
+      handleSnapPress(5)
+    } else {
+      handleSnapPress(6)
+    }
   }
 
   const handleDeleteTag = tagId => {
@@ -77,6 +84,16 @@ function BottomSheetProxyTags({ handleClosePress, proxyTags, handleSnapPress, pr
     }
     delTag()
   }
+
+  useEffect(() => {
+    if (height == 1) {
+      handleSnapPress(1)
+    } else if (height == 38) {
+      handleSnapPress(2)
+    } else {
+      handleSnapPress(3)
+    }
+  }, [height, heightTags])
 
   const handleAddTag = method => {
     const data = {
@@ -119,8 +136,14 @@ function BottomSheetProxyTags({ handleClosePress, proxyTags, handleSnapPress, pr
               <View style={styles.topTab} />
             </View>
             <Text style={styles.mainText}>{text?.texts?.t14}</Text>
-            <ScrollView style={{ maxHeight: 80 }}>
-              <View style={styles.itemContainer}>
+            <ScrollView style={{ maxHeight: 114 }}>
+              <View
+                style={styles.itemContainer}
+                onLayout={event => {
+                  var { height } = event.nativeEvent.layout
+                  setHeightTags(height)
+                  setHeight(height)
+                }}>
                 {localTags?.map(item => {
                   return (
                     <TouchableOpacity
@@ -246,6 +269,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginHorizontal: 20,
+    minHeight: 1,
+    backgroundColor: 'red ',
   },
   input: {
     backgroundColor: '#1E2127',

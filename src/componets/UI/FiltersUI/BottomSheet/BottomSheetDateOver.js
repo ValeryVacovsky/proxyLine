@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     textDayFontSize: 14,
     backgroundColor: '#ffffff',
     selectedDayTextColor: '#0F1218',
-    calendarBackground: 'rgba(255, 255, 255, 0.04)',
+    calendarBackground: '#0F1218',
     monthTextColor: 'white',
     textSectionTitleDisabledColor: '#d9e1e8',
     ['stylesheet.calendar.header']: {
@@ -366,7 +366,6 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
-        height: 205,
       },
     },
   },

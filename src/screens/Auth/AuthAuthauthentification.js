@@ -218,7 +218,7 @@ function AuthAuthauthentification({ navigation }) {
             <Text
               style={{ color: 'white', textDecorationLine: 'underline', fontWeight: '600' }}
               onPress={() => navigation.push('Register')}>
-              {text?.texts?.t14}
+              {text?.texts?.t3}
             </Text>
           </Text>
           <TouchableOpacity

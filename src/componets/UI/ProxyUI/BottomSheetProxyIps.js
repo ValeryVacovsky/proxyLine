@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     position: 'absolute',
     width: '100%',
-    maxHeight: 99,
+    maxHeight: 95,
     backgroundColor: '#1E2127',
     bottom: 53,
     borderRadius: 8,

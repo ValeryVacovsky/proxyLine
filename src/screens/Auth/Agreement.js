@@ -64,7 +64,7 @@ function Agreement({ navigation }) {
               bottomRight: 12,
             }}
             style={styles.buttonInner}>
-            <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>{authText?.texts?.b5}</Text>
+            <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>{authText?.buttons?.b5}</Text>
           </SuperEllipseMaskView>
         </TouchableOpacity>
       </View>

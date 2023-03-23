@@ -27,6 +27,7 @@ function AccountInfo({ navigation }) {
     setTimeout(() => {
       navigation.navigate('Auth')
       AsyncStorage.setItem('@role', String('unauth'))
+      AsyncStorage.setItem('@Orders', '')
     }, 1000)
   }
   const sheetRef = useRef(null)
@@ -46,7 +47,7 @@ function AccountInfo({ navigation }) {
       headerRight: () => (
         <TouchableOpacity activeOpacity={0.7}>
           <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={handleOpenOut}>
-            <Text style={styles.navigationRightText}>{text?.texts?.t6}</Text>
+            <Text style={styles.navigationRightText}>{text?.texts?.t6 || 'Выйти'}</Text>
           </TouchableOpacity>
         </TouchableOpacity>
       ),

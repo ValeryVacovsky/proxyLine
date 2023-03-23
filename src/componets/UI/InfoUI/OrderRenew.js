@@ -7,7 +7,7 @@ function OrderRenew({ text, renewStatus }) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
-        <Text style={styles.bigText}>{text?.t12}</Text>
+        <Text style={styles.bigText}>{text?.t17}</Text>
         {renewStatus ? <LightRadioUncheked /> : <RadioUncheked width={21} height={20} />}
       </View>
     </View>

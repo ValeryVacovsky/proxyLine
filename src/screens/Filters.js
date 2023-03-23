@@ -181,7 +181,12 @@ function Filters({ navigation }) {
     }
   })
   const sheetRef = useRef(null)
+  const sheetRefTagsIps = useRef(null)
   const snapPoints = useMemo(() => ['28%', '60%', '75%'], [])
+  const snapPointsTagsIps = useMemo(
+    () => [150, 216, 244, 272, 300, 328, 356, 384, 412, 440, 468, 496, 524, 552, 580, 608, 636, 664, 692, 720],
+    [],
+  )
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -190,6 +195,14 @@ function Filters({ navigation }) {
   const handleClosePress = useCallback(() => {
     setChildrenItem(<View style={styles.children} />)
     sheetRef.current?.close()
+  }, [])
+  const handleSnapPressTagsIps = useCallback(index => {
+    sheetRefTagsIps.current?.snapToIndex(index)
+  }, [])
+
+  const handleClosePressTagsIps = useCallback(() => {
+    setChildrenItem(<View style={styles.children} />)
+    sheetRefTagsIps.current?.close()
   }, [])
   const endpoint = `${params.toString()}`
 
@@ -248,6 +261,7 @@ function Filters({ navigation }) {
       ),
     })
   }, [navigation])
+  console.log(endpoint)
   return (
     <LayoutMain>
       <View
@@ -290,7 +304,35 @@ function Filters({ navigation }) {
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
               />
-
+              <IPAddress
+                ip={fitlers.ip}
+                setFilters={setFilters}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+              />
+              <IdProxy
+                id={fitlers.id}
+                setFilters={setFilters}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+              />
+              <Port
+                port={fitlers.port}
+                setFilters={setFilters}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+              />
+              <FilterOrders
+                orders={fitlers.orders}
+                setFilters={setFilters}
+                setChildrenItem={setChildrenItem}
+                handleClosePress={handleClosePress}
+                handleSnapPress={handleSnapPress}
+                setBottomInset={setBottomInset}
+              />
               <CountriesItem
                 countries={fitlers.countries}
                 setFilters={setFilters}
@@ -306,8 +348,8 @@ function Filters({ navigation }) {
                 setTagsExclude={setTagsExclude}
                 setFilters={setFilters}
                 setChildrenItem={setChildrenItem}
-                handleClosePress={handleClosePress}
-                handleSnapPress={handleSnapPress}
+                handleClosePress={handleClosePressTagsIps}
+                handleSnapPress={handleSnapPressTagsIps}
                 tags={tags}
               />
               <AllowedIP
@@ -315,40 +357,10 @@ function Filters({ navigation }) {
                 ipsExclude={ipsExclude}
                 setIpsExclude={setIpsExclude}
                 setFilters={setFilters}
-                handleClosePress={handleClosePress}
-                handleSnapPress={handleSnapPress}
+                handleClosePress={handleClosePressTagsIps}
+                handleSnapPress={handleSnapPressTagsIps}
                 setChildrenItem={setChildrenItem}
                 ips={ips}
-              />
-              <FilterOrders
-                orders={fitlers.orders}
-                setFilters={setFilters}
-                setChildrenItem={setChildrenItem}
-                handleClosePress={handleClosePress}
-                handleSnapPress={handleSnapPress}
-                setBottomInset={setBottomInset}
-              />
-              <IPAddress
-                ip={fitlers.ip}
-                setFilters={setFilters}
-                setChildrenItem={setChildrenItem}
-                handleClosePress={handleClosePress}
-                handleSnapPress={handleSnapPress}
-              />
-              <IdProxy
-                id={fitlers.id}
-                setFilters={setFilters}
-                setChildrenItem={setChildrenItem}
-                handleClosePress={handleClosePress}
-                handleSnapPress={handleSnapPress}
-              />
-
-              <Port
-                port={fitlers.port}
-                setFilters={setFilters}
-                setChildrenItem={setChildrenItem}
-                handleClosePress={handleClosePress}
-                handleSnapPress={handleSnapPress}
               />
             </View>
           </ScrollView>
@@ -377,6 +389,16 @@ function Filters({ navigation }) {
         sheetRef={sheetRef}
         snapPoints={snapPoints}
         handleClosePress={handleClosePress}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>{childrenItem}</View>
+      </BottomSheetForm>
+      <BottomSheetForm
+        bottomInset={bottomInset}
+        nestedScrollEnabled={false}
+        navigation={navigation}
+        enabledGestureInteraction={false}
+        sheetRef={sheetRefTagsIps}
+        snapPoints={snapPointsTagsIps}
+        handleClosePress={handleClosePressTagsIps}>
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>{childrenItem}</View>
       </BottomSheetForm>
     </LayoutMain>

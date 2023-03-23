@@ -53,7 +53,7 @@ function AuthRegister({ navigation }) {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text style={styles.authLogo}>{authText?.texts?.t14}</Text>
+          <Text style={styles.authLogo}>{authText?.texts?.t3}</Text>
           <Text style={styles.authUnderLogo}>{authText?.texts?.t4}</Text>
           {errors.email ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>

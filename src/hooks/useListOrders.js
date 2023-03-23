@@ -6,14 +6,17 @@ import { setOrders } from '../store/reducers/ordersReducer'
 
 export const useListOrders = () => {
   const dispatch = useDispatch()
+  const listProxies = async () => {
+    const token = await AsyncStorage.getItem('@token')
+    const id = await AsyncStorage.getItem('@id')
+    const dataProps = `${id}_${token}`
+    const data = await getListOrders({ token: dataProps, limit: '100', offset: '0' })
+    dispatch(setOrders(data.data))
+  }
   useEffect(() => {
-    const listProxies = async () => {
-      const token = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const dataProps = `${id}_${token}`
-      const data = await getListOrders({ token: dataProps, limit: '100', offset: '0' })
-      dispatch(setOrders(data.data))
-    }
     listProxies()
   }, [])
+  return {
+    listProxies,
+  }
 }

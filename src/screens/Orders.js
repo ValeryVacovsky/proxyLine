@@ -1,31 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity, Dimensions } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
 import UserNavigation from '../componets/UserNavigation'
 import OrdersList from '../componets/OrdersList'
 import OrdersListData from '../componets/OrdersListData'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function Orders({ navigation }) {
   const dataOrders = useSelector(res => res.ordersReducer.orders)
   const proxyText = useSelector(res => res.textReducer.orders.payload)
   const heightOffScreen = Dimensions.get('window').height
   const ordersRes = useSelector(data => data.orderReducer)
+  useEffect(() => {
+    async function cahngeLocalOrders() {
+      await AsyncStorage.setItem('@Orders', JSON.stringify(ordersRes))
+    }
+    cahngeLocalOrders()
+  }, [ordersRes])
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: 'transparent',
     })
   }, [navigation])
+  console.log('выходящий рес', JSON.stringify(ordersRes))
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         {ordersRes?.length + dataOrders?.length > 0 && (
           <ScrollView style={styles.scrollView}>
             {ordersRes?.map(data => (
-              <OrdersList key={data.data.id} navigation={navigation} data={data} text={proxyText} />
+              <OrdersList key={data?.data?.id} navigation={navigation} data={data} text={proxyText} />
             ))}
             {dataOrders?.map(item => {
-              return <OrdersListData key={item.id} text={proxyText} data={item} />
+              return <OrdersListData key={item?.id} text={proxyText} data={item} />
             })}
           </ScrollView>
         )}

@@ -3,7 +3,7 @@ export const orderReducer = (state = [], action) => {
     case 'ADD_ORDER':
       return [...state, action.payload]
     case 'DELETE_ORDER':
-      return state.filter(object => object.id !== action.payload)
+      return state.filter(object => object.data.id !== action.payload)
     case 'CLEAR_ORDER':
       return (state = [])
     case 'UPDATE_ORDER':
@@ -13,6 +13,8 @@ export const orderReducer = (state = [], action) => {
         }
         return object
       })
+    case 'TAKE_ORDERS':
+      return [action.payload]
     default:
       return state
   }
@@ -35,5 +37,10 @@ export const deleteObject = id => ({
 
 export const updateObject = updatedObject => ({
   type: 'UPDATE_ORDER',
+  payload: updatedObject,
+})
+
+export const takeObject = updatedObject => ({
+  type: 'TAKE_ORDERS',
   payload: updatedObject,
 })

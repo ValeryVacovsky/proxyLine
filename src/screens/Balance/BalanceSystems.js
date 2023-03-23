@@ -20,20 +20,17 @@ function BalanceSystems({ navigation }) {
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
-    setIsOpen(false)
   }, [])
   const handleClosePress = useCallback(() => {
     sheetRef.current?.close()
   }, [])
 
-  const [error, setError] = useState(false)
   const [mayGo, setMayGo] = useState(false)
   const handelOpenCopy = () => {
     handleSnapPress(0)
     setChildrenItem(
       <BottomSheetBalanceInfo handleClosePress={handleClosePress}>{text?.texts?.t8}</BottomSheetBalanceInfo>,
     )
-    setError(true)
     setTimeout(() => {
       handleClosePress()
     }, 3000)
@@ -95,24 +92,22 @@ function BalanceSystems({ navigation }) {
               name={data.name}
               data={data}
               amount={amount}
-              error={error}
               handelOpenCopy={handelOpenCopy}
               mayGo={mayGo}
               setAmount={setAmount}
+              handleSnapPress={handleSnapPress}
             />
           ))}
         </ScrollView>
       </SafeAreaView>
-      {error && (
-        <BottomSheetForm
-          navigation={navigation}
-          sheetRef={sheetRef}
-          snapPoints={snapPoints}
-          setIsOpen={setIsOpen}
-          handleClosePress={handleClosePress}>
-          {childrenItem}
-        </BottomSheetForm>
-      )}
+      <BottomSheetForm
+        navigation={navigation}
+        sheetRef={sheetRef}
+        snapPoints={snapPoints}
+        setIsOpen={setIsOpen}
+        handleClosePress={handleClosePress}>
+        {childrenItem}
+      </BottomSheetForm>
     </LayoutMain>
   )
 }

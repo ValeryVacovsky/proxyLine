@@ -24,6 +24,7 @@ import useBalance from '../hooks/useBalance'
 import { useListOrders } from '../hooks/useListOrders'
 import useProxyList from '../hooks/useProxyList'
 import useCountries from '../hooks/useCountries'
+import { useListOrdersUnpay } from '../hooks/useListOrdersUnpay'
 
 function Main({ navigation }) {
   useCountries()
@@ -33,6 +34,7 @@ function Main({ navigation }) {
   useListTags()
   useListIps()
   useProxyList()
+  useListOrdersUnpay()
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const [IP, setIp] = useState('')

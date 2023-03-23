@@ -32,10 +32,11 @@ function ProxyInfo({ navigation, route }) {
   const [proxyInfo, setProxyInfo] = useState(route.params.proxyRes)
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
-  const snapPoints = useMemo(() => [120, 275, 325, 375, 500, 540], [])
+  const snapPoints = useMemo(() => [120, 275, 325, 375, 500, 540, 580], [])
   const dateStart = new Date(proxyInfo.date_end)
   const dateEnd = new Date()
   const days = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
+  const [heightTags, setHeightTags] = useState(1)
   const mounth = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24 * 30)).toFixed(0)
 
   const handleSnapPress = useCallback(index => {
@@ -88,6 +89,8 @@ function ProxyInfo({ navigation, route }) {
         handleSnapPress={handleSnapPress}
         proxyId={proxyInfo.id}
         setProxyInfo={setProxyInfo}
+        heightTags={heightTags}
+        setHeightTags={setHeightTags}
       />,
     )
   }

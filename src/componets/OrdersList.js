@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteObject } from '../store/reducers/orderReducer'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { flagByShortName } from '../common/flagByShortName'
+import { useListOrders } from '../hooks/useListOrders'
 
 function OrdersList({ data, text }) {
+  const { listProxies } = useListOrders()
   const dispatch = useDispatch()
   const [received, setReceived] = useState(data.data.statusActive)
   const [dateCreate, setDateCreate] = useState(new Date())
@@ -19,6 +21,7 @@ function OrdersList({ data, text }) {
     dispatch(deleteObject(id))
     setReceived(true)
     setDateCreate(new Date())
+    listProxies()
   }
 
   const createOrderRequest = async id => {
@@ -41,7 +44,6 @@ function OrdersList({ data, text }) {
         },
         token: user_token,
       })
-
       onHandleSuccess(id)
     } catch (error) {
       console.log('ошибка', error)
