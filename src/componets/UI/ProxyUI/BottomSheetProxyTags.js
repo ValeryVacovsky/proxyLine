@@ -8,7 +8,15 @@ import postUpdateProxyTags from '../../../api/ProxyAdd/postUpdateProxyTags'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import getListProxies from '../../../api/getListProxies'
 
-function BottomSheetProxyTags({ proxyTags, handleSnapPress, proxyId, setProxyInfo, heightTags, setHeightTags }) {
+function BottomSheetProxyTags({
+  proxyTags,
+  handleSnapPress,
+  proxyId,
+  setProxyInfo,
+  heightTags,
+  setHeightTags,
+  handleClosePress,
+}) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const tags = useSelector(data => data.ipsTagsReducer.tags)
   const [tagsFiltred, setTagsFiltred] = useState(tags)
