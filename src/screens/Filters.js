@@ -46,6 +46,12 @@ const clearForm = {
   access_ips_exclude: [],
 }
 
+const snapPoints = ['28%', '60%', '75%']
+
+const snapPointsTagsIps = [
+  150, 216, 244, 272, 300, 328, 356, 384, 412, 440, 468, 496, 524, 552, 580, 608, 636, 664, 692, 720,
+]
+
 function Filters({ navigation }) {
   const today = new Date()
   const [countProxies, setCountProxies] = useState(0)
@@ -111,10 +117,6 @@ function Filters({ navigation }) {
   })
   const sheetRef = useRef(null)
   const sheetRefTagsIps = useRef(null)
-  const snapPoints = ['28%', '60%', '75%']
-  const snapPointsTagsIps = [
-    150, 216, 244, 272, 300, 328, 356, 384, 412, 440, 468, 496, 524, 552, 580, 608, 636, 664, 692, 720,
-  ]
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
