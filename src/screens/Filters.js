@@ -66,7 +66,7 @@ function Filters({ navigation }) {
   const tags = useSelector(data => data.ipsTagsReducer.tags)
   const ips = useSelector(data => data.ipsTagsReducer.ips)
   const [countryExclude, setCountryExclude] = useState(false)
-  const [tagsExclude, setTagsExclude] = useState(true)
+  const [tagsExclude, setTagsExclude] = useState(false)
   const [ipsExclude, setIpsExclude] = useState(false)
   const [bottomInset, setBottomInset] = useState(0)
   const [childrenItem, setChildrenItem] = useState(<View style={styles.children} />)
