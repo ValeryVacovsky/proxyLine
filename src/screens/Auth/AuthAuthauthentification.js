@@ -13,6 +13,7 @@ import ViewIcon from '../../image/Svg/ViewIcon'
 import ViewIconOff from '../../image/Svg/ViewIconOff'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAuth } from '../../store/reducers/authReducer'
+import getAllTexts from '../../common/getAllTexts'
 
 const heightOffScreen = Dimensions.get('window').height
 
@@ -29,6 +30,7 @@ function AuthAuthauthentification({ navigation }) {
   const [focusOnPassword, setFocusOnPassword] = useState(false)
   const [showPassword, setShowPassword] = useState(true)
   const authText = useSelector(res => res.textReducer.auth.payload)
+  const language = useSelector(res => res.textReducer.languages_get.language)
 
   useEffect(() => {
     setText(authText)
@@ -60,8 +62,10 @@ function AuthAuthauthentification({ navigation }) {
       await AsyncStorage.setItem('@id', String(res.data.user.id))
       await AsyncStorage.setItem('@login', String(data.email))
       await AsyncStorage.setItem('@role', String('default'))
-      dispatch(setAuth(true))
-      navigation.navigate('Main')
+      getAllTexts(dispatch, language).then(() => {
+        dispatch(setAuth(true))
+        navigation.navigate('Main')
+      })
     } else {
       setCommonFormError('Invalid email or password')
     }
@@ -82,16 +86,7 @@ function AuthAuthauthentification({ navigation }) {
       </View>
       <View style={styles.authForm}>
         <View>
-          <Text
-            onPress={() => {
-              dispatch(setAuth(true))
-              setTimeout(() => {
-                navigation.navigate('Main')
-              }, 500)
-            }}
-            style={styles.authLogo}>
-            {text?.texts?.t16}
-          </Text>
+          <Text style={styles.authLogo}>{text?.texts?.t16}</Text>
           {errors.email ? (
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={styles.label}>{text?.texts?.t1}</Text>
@@ -292,7 +287,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
     fontFamily: 'Rubik',
-    // backgroundColor: "rgba(250, 198, 55, 0.9)"
   },
 
   authLogo: {

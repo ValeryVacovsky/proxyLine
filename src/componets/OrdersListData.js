@@ -41,19 +41,12 @@ function OrdersListData({ data, text }) {
             </View>
           </View>
         </View>
-        <View
-          style={{
-            backgroundColor: 'rgba(51, 51, 51, 0.3)',
-            marginBottom: 1,
-            width: '100%',
-            borderBottomLeftRadius: 14,
-            borderBottomRightRadius: 14,
-          }}>
+        <View style={styles.bottomBlockContainer}>
           <View style={styles.blockContainer}>
             <Text style={styles.leftText}>{text?.texts?.t6}</Text>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
               <Text style={styles.rightText}>{countryDiscription[languageGet][data.country_id]}</Text>
-              <View style={{ width: 16, height: 13, marginLeft: 10, top: 1 }}>{flagByShortName[data.country_id]}</View>
+              <View style={styles.countryFlagContainer}>{flagByShortName[data.country_id]}</View>
             </View>
           </View>
           <View style={styles.centerBlock}>
@@ -154,6 +147,19 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 15,
     textAlign: 'right',
+  },
+  countryFlagContainer: {
+    width: 16,
+    height: 13,
+    marginLeft: 10,
+    top: 1,
+  },
+  bottomBlockContainer: {
+    backgroundColor: 'rgba(51, 51, 51, 0.3)',
+    marginBottom: 1,
+    width: '100%',
+    borderBottomLeftRadius: 14,
+    borderBottomRightRadius: 14,
   },
   blockContainer: {
     display: 'flex',

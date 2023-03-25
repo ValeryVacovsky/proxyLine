@@ -41,7 +41,7 @@ export default function Toggle() {
   }
 
   return (
-    <TouchableOpacity style={{ height: 50, width: 60, right: 5 }} activeOpacity={0.9} onPress={onPress}>
+    <TouchableOpacity style={styles.toggleConatiner} activeOpacity={0.9} onPress={onPress}>
       <Animated.View
         style={[
           styles.mainStyes,
@@ -91,6 +91,11 @@ export default function Toggle() {
 }
 
 const styles = StyleSheet.create({
+  toggleConatiner: {
+    height: 50,
+    width: 60,
+    right: 5,
+  },
   basicStyle: {
     height: 31,
     width: 70,

@@ -124,14 +124,7 @@ function BottomSheetIps({
       </View>
       <ScrollView style={styles.scrollViewContainer}>
         <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            marginLeft: 10,
-            marginRight: 20,
-            marginTop: 15,
-          }}
+          style={styles.IpsContainer}
           onLayout={event => {
             const { height } = event.nativeEvent.layout
             setHeight(height)
@@ -205,6 +198,14 @@ const styles = StyleSheet.create({
     height: 3,
     borderRadius: 40,
     marginTop: 10,
+  },
+  IpsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginLeft: 10,
+    marginRight: 20,
+    marginTop: 15,
   },
   container: {
     height: '100%',

@@ -122,14 +122,7 @@ function BottomSheetTags({
       </View>
       <ScrollView style={styles.scrollViewContainer}>
         <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            marginLeft: 10,
-            marginRight: 20,
-            marginTop: 15,
-          }}
+          style={styles.tagsConatiner}
           onLayout={event => {
             const { height } = event.nativeEvent.layout
             setHeight(height)
@@ -197,6 +190,14 @@ function BottomSheetTags({
 }
 
 const styles = StyleSheet.create({
+  tagsConatiner: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginLeft: 10,
+    marginRight: 20,
+    marginTop: 15,
+  },
   topBar: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     width: 60,

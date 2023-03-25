@@ -73,7 +73,7 @@ function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset 
       <View style={styles.topContainer}>
         <View style={{ width: '90%' }}>
           <View style={{ minHeight: 16, minWidth: 150, marginBottom: 3, marginTop: heightOffScreen > 700 ? 34 : 14 }}>
-            <Text style={{ color: 'white', fontSize: 13, lineHeight: 15 }}>{errors.order && 'Введите порт'}</Text>
+            <Text style={styles.infoText}>{errors.order && 'Введите порт'}</Text>
           </View>
           <Controller
             control={control}
@@ -148,6 +148,11 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     paddingBottom: 14,
     borderColor: '#333842',
+  },
+  infoText: {
+    color: 'white',
+    fontSize: 13,
+    lineHeight: 15,
   },
   bottomButton: {
     paddingTop: 18,

@@ -224,16 +224,7 @@ function Navigation() {
               name="Proxies"
               component={MyProxies}
               options={{
-                headerTitle: () => (
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontSize: 16,
-                      fontWeight: '700',
-                    }}>
-                    {texts?.t10}
-                  </Text>
-                ),
+                headerTitle: () => <Text style={styles.proxyTextLogo}>{texts?.t10}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',
@@ -501,6 +492,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   headerTitle: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  proxyTextLogo: {
     color: 'white',
     fontSize: 16,
     fontWeight: '700',

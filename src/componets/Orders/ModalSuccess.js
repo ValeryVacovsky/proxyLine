@@ -7,7 +7,7 @@ const ModalSuccess = ({ visible, onClose, text }) => {
       <TouchableOpacity style={styles.modalBackground} onPress={onClose}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalTextTop}>{text?.texts?.t11 || 'Прокси куплен!'}</Text>
-          <Text style={{ textAlign: 'center', fontWeight: '400', fontSize: 11, lineHeight: 15, color: 'white' }}>
+          <Text style={styles.modalBottomText}>
             {text?.texts?.t12 || 'Что бы использовать прокси выберите его из списка своих прокси'}
           </Text>
         </View>
@@ -35,6 +35,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 15,
     marginBottom: 6,
+    color: 'white',
+  },
+  modalBottomText: {
+    textAlign: 'center',
+    fontWeight: '400',
+    fontSize: 11,
+    lineHeight: 15,
     color: 'white',
   },
   closeButton: {

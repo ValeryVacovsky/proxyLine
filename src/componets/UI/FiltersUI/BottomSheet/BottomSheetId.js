@@ -42,16 +42,7 @@ function BottomSheetId({ handleClosePress, setIdDefault, handleSnapPress }) {
     setFocusInput(true)
   }
   return (
-    <ScrollView
-      scrollEnabled={false}
-      keyboardShouldPersistTaps="always"
-      style={{
-        height: '100%',
-        backgroundColor: '#0F1218',
-        borderTopLeftRadius: 14,
-        borderTopRightRadius: 14,
-        display: 'flex',
-      }}>
+    <ScrollView scrollEnabled={false} keyboardShouldPersistTaps="always" style={styles.scrollViewContainer}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1, height: '100%' }}
@@ -62,7 +53,7 @@ function BottomSheetId({ handleClosePress, setIdDefault, handleSnapPress }) {
             <View style={{ width: '90%' }}>
               <View
                 style={{ minHeight: 16, minWidth: 150, marginBottom: 3, marginTop: heightOffScreen > 700 ? 34 : 14 }}>
-                <Text style={{ color: 'white', fontSize: 13, lineHeight: 15 }}>{errors.order && 'Введите id'}</Text>
+                <Text style={styles.topText}>{errors.order ? 'Введите id' : ''}</Text>
               </View>
               <Controller
                 control={control}
@@ -107,6 +98,18 @@ function BottomSheetId({ handleClosePress, setIdDefault, handleSnapPress }) {
 }
 
 const styles = StyleSheet.create({
+  topText: {
+    color: 'white',
+    fontSize: 13,
+    lineHeight: 15,
+  },
+  scrollViewContainer: {
+    height: '100%',
+    backgroundColor: '#0F1218',
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
+    display: 'flex',
+  },
   topBar: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     width: 60,

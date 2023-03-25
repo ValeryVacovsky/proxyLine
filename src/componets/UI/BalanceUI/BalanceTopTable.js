@@ -18,7 +18,7 @@ function BalanceTopTable({ balance, navigation, text }) {
         </View>
       </LinearGradient>
       <LinearGradient
-        style={{ width: '90%', borderBottomLeftRadius: 14, borderBottomRightRadius: 14, padding: 1, marginTop: 1 }}
+        style={styles.bottomGradientContainer}
         colors={['#383e4a', '#191c20', '#191c20']}
         start={{ x: 0.2, y: 2.6 }}
         end={{ x: 0.1, y: 0.2 }}>
@@ -91,6 +91,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 40,
     marginLeft: 10,
+  },
+  bottomGradientContainer: {
+    width: '90%',
+    borderBottomLeftRadius: 14,
+    borderBottomRightRadius: 14,
+    padding: 1,
+    marginTop: 1,
   },
 })
 

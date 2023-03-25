@@ -130,7 +130,7 @@ function Main({ navigation }) {
                     padding: 40,
                     marginTop: 30,
                     marginBottom: 10,
-                    bottom: heightOffScreen < 700 && 12,
+                    bottom: heightOffScreen < 700 ? 12 : 0,
                   }}
                 />
               </TouchableOpacity>

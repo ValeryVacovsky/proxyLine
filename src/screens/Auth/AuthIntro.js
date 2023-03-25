@@ -17,7 +17,7 @@ function AuthIntro({ navigation }) {
     async function comeIn() {
       const role = await AsyncStorage.getItem('@role')
       if (role == 'default') {
-        getAuthText(dispatch, language).then(() => {
+        getAllTexts(dispatch, language).then(() => {
           SplashScreen.hide()
           dispatch(setAuth(true))
           navigation.navigate('Main')
@@ -31,12 +31,6 @@ function AuthIntro({ navigation }) {
         })
       }
     }
-    // TODO: когда будет логика на Main или Auth переходить, добавить сюда получение текстов main
-    // getAuthText(dispatch, language).then(() => {
-    //   SplashScreen.hide()
-    // })
-    // TODO: обработать случай, если апи не вернул тексты или произошла ошибка
-    getAllTexts(dispatch, language)
     comeIn()
   }, [dispatch, language, navigation])
 

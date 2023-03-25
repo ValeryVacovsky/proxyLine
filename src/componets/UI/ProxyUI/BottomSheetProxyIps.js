@@ -111,16 +111,7 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
     addTag()
   }
   return (
-    <ScrollView
-      scrollEnabled={false}
-      keyboardShouldPersistTaps="always"
-      style={{
-        height: '100%',
-        backgroundColor: '#0F1218',
-        borderTopLeftRadius: 14,
-        borderTopRightRadius: 14,
-        display: 'flex',
-      }}>
+    <ScrollView scrollEnabled={false} keyboardShouldPersistTaps="always" style={styles.mainContainer}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1, height: '100%' }}
@@ -136,34 +127,11 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
                 <View style={styles.itemContainer}>
                   {localIps?.map(item => {
                     return (
-                      <TouchableOpacity
-                        style={{
-                          paddingTop: 6,
-                          paddingBottom: 7,
-                          paddingLeft: 12,
-                          paddingRight: 12,
-                          display: 'flex',
-                          flexDirection: 'row',
-                          backgroundColor: '#333842',
-                          borderRadius: 30,
-                          marginRight: 5,
-                          marginTop: 10,
-                          alignItems: 'center',
-                        }}
-                        key={item.id}>
+                      <TouchableOpacity style={styles.ipsContainer} key={item.id}>
                         <TouchableOpacity onPress={() => handleDeleteIps(item.id)}>
                           <DeleteToggleIcon />
                         </TouchableOpacity>
-                        <Text
-                          style={{
-                            color: 'white',
-                            fontWeight: '400',
-                            fontSize: 13,
-                            lineHeight: 15,
-                            marginLeft: 9,
-                          }}>
-                          {item.value}
-                        </Text>
+                        <Text style={styles.ipsText}>{item.value}</Text>
                       </TouchableOpacity>
                     )
                   })}
@@ -206,19 +174,8 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
             </View>
             <Text style={styles.ipsInfo}>{text?.texts?.t40}</Text>
             <Text style={styles.ipsInfoDanger}>{text?.texts?.t41}</Text>
-            <TouchableOpacity
-              onPress={() => handleAddTag('add')}
-              style={{
-                paddingVertical: 20,
-                alignItems: 'center',
-                backgroundColor: '#1E2127',
-                marginTop: 20,
-                borderRadius: 12,
-                marginBottom: 0,
-              }}>
-              <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 13, lineHeight: 15 }}>
-                {text?.buttons?.b3}
-              </Text>
+            <TouchableOpacity onPress={() => handleAddTag('add')} style={styles.buttonConatiner}>
+              <Text style={styles.buttonText}>{text?.buttons?.b3}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -227,6 +184,13 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
   )
 }
 const styles = StyleSheet.create({
+  mainContainer: {
+    height: '100%',
+    backgroundColor: '#0F1218',
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
+    display: 'flex',
+  },
   container: {
     height: '100%',
     backgroundColor: '#0F1218',
@@ -262,6 +226,26 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginHorizontal: 20,
     minHeight: 40,
+  },
+  ipsContainer: {
+    paddingTop: 6,
+    paddingBottom: 7,
+    paddingLeft: 12,
+    paddingRight: 12,
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: '#333842',
+    borderRadius: 30,
+    marginRight: 5,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  ipsText: {
+    color: 'white',
+    fontWeight: '400',
+    fontSize: 13,
+    lineHeight: 15,
+    marginLeft: 9,
   },
   input: {
     backgroundColor: '#1E2127',
@@ -301,6 +285,20 @@ const styles = StyleSheet.create({
   },
   ipsInfoDanger: {
     color: '#EC3641',
+    fontWeight: '600',
+    fontSize: 13,
+    lineHeight: 15,
+  },
+  buttonConatiner: {
+    paddingVertical: 20,
+    alignItems: 'center',
+    backgroundColor: '#1E2127',
+    marginTop: 20,
+    borderRadius: 12,
+    marginBottom: 0,
+  },
+  buttonText: {
+    color: '#FAC637',
     fontWeight: '600',
     fontSize: 13,
     lineHeight: 15,

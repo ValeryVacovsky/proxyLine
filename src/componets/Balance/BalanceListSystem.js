@@ -24,7 +24,7 @@ function BalanceListSystem({ name, data, navigation, amount, mayGo, setAmount, h
           <View style={styles.summe}>
             <Text style={styles.rightText}>{name}</Text>
             <View style={styles.rightTextCOntainer}>
-              <Image style={{ width: 110, height: 24, resizeMode: 'contain' }} source={{ uri: data.logo_path_2 }} />
+              <Image style={styles.imageStyle} source={{ uri: data.logo_path_2 }} />
             </View>
           </View>
         </View>
@@ -70,6 +70,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '700',
     fontSize: 14,
+  },
+  imageStyle: {
+    width: 110,
+    height: 24,
+    resizeMode: 'contain',
   },
 })
 

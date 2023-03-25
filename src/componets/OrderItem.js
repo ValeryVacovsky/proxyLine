@@ -80,12 +80,11 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
     }
   }
 
-  const handlePressAmount = item => {
-    if (item === 'minus') {
-      amount > 1 && setAmount(amount - 1)
-    } else {
-      amount < 1999 && setAmount(amount + 1)
-    }
+  const handlePressAmountMinus = () => {
+    amount > 1 && setAmount(amount - 1)
+  }
+  const handlePressAmountPlus = () => {
+    amount > 1 && setAmount(amount - 1)
   }
   const handlePressCountry = () => {
     navigation.navigate('Countries', {
@@ -134,6 +133,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         },
       }),
     )
+    navigation.navigate('Orders')
   }
   return (
     <View style={{ flex: 1 }}>
@@ -153,7 +153,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
               </View>
               <View>{order.icon}</View>
             </View>
-            <TouchableOpacity style={styles.countryContainer} onPress={() => handlePressCountry()} activeOpacity={0.8}>
+            <TouchableOpacity style={styles.countryContainer} onPress={handlePressCountry} activeOpacity={0.8}>
               <View>
                 <Text style={styles.countryNameText}>{proxyText?.texts?.t0}</Text>
               </View>
@@ -180,20 +180,20 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
               />
             </View>
             <View style={styles.selectedPeriod}>
-              <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t3}</Text>
-              <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>
+              <Text style={styles.amountDiscription}>{proxyText?.texts?.t3}</Text>
+              <Text style={styles.amountBoldDiscription}>
                 {days} {proxyText?.texts?.t6}
               </Text>
             </View>
             <View style={styles.orderType}>
-              <Text style={{ color: '#CBCBCB', fontWeight: '600' }}>{proxyText?.texts?.t2}</Text>
-              <Text style={{ color: 'white', fontWeight: '700', fontSize: 14, lineHeight: 15 }}> HTTP / SOCKS5</Text>
+              <Text style={styles.amountDiscription}>{proxyText?.texts?.t2}</Text>
+              <Text style={styles.htttpsocksDiscritinon}> HTTP / SOCKS5</Text>
             </View>
             <View style={styles.amountContainer}>
               <Text style={styles.amountDiscription}>{proxyText?.texts?.t1}</Text>
               <View style={styles.amountToggleContainer}>
                 <TouchableWithoutFeedback
-                  onPress={() => handlePressAmount('minus')}
+                  onPress={handlePressAmountMinus}
                   onPressIn={startTimerMinus}
                   onPressOut={stopTimerMinus}
                   activeOpacity={0.8}>
@@ -206,7 +206,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
                   <Text style={styles.amountToggleCenterText}>{amount}</Text>
                 </View>
                 <TouchableWithoutFeedback
-                  onPress={() => handlePressAmount('plus')}
+                  onPress={handlePressAmountPlus}
                   onPressIn={startTimerPlus}
                   onPressOut={stopTimerPlus}
                   activeOpacity={0.8}>
@@ -222,22 +222,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
             </View>
             <View style={styles.coupon}>
               <Text style={styles.priceAmountDescriptionText}>{proxyText?.texts?.t8 || 'Купон'}</Text>
-              <TextInput
-                style={{
-                  backgroundColor: '#1E2127',
-                  paddingHorizontal: 15,
-                  paddingTop: 12,
-                  paddingBottom: 8,
-                  color: 'white',
-                  fontWeight: '400',
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  borderColor: '#333842',
-                  width: 157,
-                  fontSize: 14,
-                  lineHeight: 15,
-                }}
-              />
+              <TextInput style={styles.cuponInut} />
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -247,13 +232,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
           <Text style={styles.priceFullAmountDescriptionText}>{proxyText?.texts?.t5}</Text>
           <Text style={styles.priceFullAmountText}>$ {totalPrice}</Text>
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            onSubmit()
-            navigation.navigate('Orders')
-          }}
-          style={styles.buttonContainer}
-          activeOpacity={0.8}>
+        <TouchableOpacity onPress={onSubmit} style={styles.buttonContainer} activeOpacity={0.8}>
           <SuperEllipseMaskView radius={12} style={styles.buttonInner}>
             <Text style={styles.buttonText}>{proxyText.buttons.b0}</Text>
           </SuperEllipseMaskView>
@@ -408,6 +387,11 @@ const styles = StyleSheet.create({
     left: 5,
     alignItems: 'center',
   },
+  amountBoldDiscription: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 14,
+  },
   amountToggleMinusCOntainer: {
     backgroundColor: '#1E2127',
     borderBottomLeftRadius: 44,
@@ -460,6 +444,12 @@ const styles = StyleSheet.create({
     paddingTop: 13,
     paddingBottom: 13,
   },
+  htttpsocksDiscritinon: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 14,
+    lineHeight: 15,
+  },
   coupon: {
     display: 'flex',
     flexDirection: 'row',
@@ -468,6 +458,20 @@ const styles = StyleSheet.create({
     paddingTop: 13,
     paddingBottom: 13,
     alignItems: 'center',
+  },
+  cuponInut: {
+    backgroundColor: '#1E2127',
+    paddingHorizontal: 15,
+    paddingTop: 12,
+    paddingBottom: 8,
+    color: 'white',
+    fontWeight: '400',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#333842',
+    width: 157,
+    fontSize: 14,
+    lineHeight: 15,
   },
   priceAmountDescriptionText: {
     color: '#CBCBCB',

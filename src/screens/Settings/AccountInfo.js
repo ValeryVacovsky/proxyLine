@@ -8,10 +8,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import BottomSheetForm from '../../componets/BottomSheetForm'
 import BottomSheetOutAccount from '../../componets/UI/Settings/BottomSheetOutAccount.js'
 import { clearOrder } from '../../store/reducers/orderReducer'
+import { getAuthText } from '../../common/getAllTexts'
 
 function AccountInfo({ navigation }) {
   const [login, setLogin] = useState('')
   const balance = useSelector(data => data.balanceReducer)
+  const language = useSelector(res => res.textReducer.languages_get.language)
   const dispatch = useDispatch()
   const text = useSelector(res => res.textReducer.settings.payload)
   useEffect(() => {
@@ -23,12 +25,13 @@ function AccountInfo({ navigation }) {
   }, [])
   const handleRightNavigate = () => {
     dispatch(setAuth(false))
-    dispatch(clearOrder(''))
-    setTimeout(() => {
+    getAuthText(dispatch, language).then(() => {
       navigation.navigate('Auth')
       AsyncStorage.setItem('@role', String('unauth'))
       AsyncStorage.setItem('@Orders', '')
-    }, 1000)
+
+      dispatch(clearOrder(''))
+    })
   }
   const sheetRef = useRef(null)
   const snapPoints = useMemo(() => ['30%'], [])

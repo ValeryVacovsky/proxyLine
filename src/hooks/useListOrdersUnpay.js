@@ -8,7 +8,9 @@ export const useListOrdersUnpay = () => {
   useEffect(() => {
     const listOrders = async () => {
       const ordersStorage = await AsyncStorage.getItem('@Orders')
-      JSON.parse(ordersStorage).map(item => dispatch(addObject(item)))
+      if (ordersStorage) {
+        JSON.parse(ordersStorage).map(item => dispatch(addObject(item)))
+      }
     }
     listOrders()
   }, [])

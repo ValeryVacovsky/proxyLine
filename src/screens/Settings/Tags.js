@@ -95,7 +95,7 @@ function Tags({ navigation }) {
                     backgroundColor: Colors['green'].color,
                     borderRadius: 40,
                     marginLeft: 10,
-                    borderWidth: takeColor === 'green' && 2,
+                    borderWidth: takeColor === 'green' ? 2 : 0,
                     borderColor: takeColor === 'green' ? 'white' : 'none',
                   }}
                 />
@@ -109,8 +109,8 @@ function Tags({ navigation }) {
                     backgroundColor: Colors['red'].color,
                     borderRadius: 40,
                     marginLeft: 10,
-                    borderWidth: takeColor === 'red' && 2,
-                    borderColor: takeColor === 'red' && 'white',
+                    borderWidth: takeColor === 'red' ? 2 : 0,
+                    borderColor: takeColor === 'red' ? 'white' : 'none',
                   }}
                 />
                 <Pressable
@@ -123,8 +123,8 @@ function Tags({ navigation }) {
                     backgroundColor: Colors['orange'].color,
                     borderRadius: 40,
                     marginLeft: 10,
-                    borderWidth: takeColor === 'orange' && 2,
-                    borderColor: takeColor === 'orange' && 'white',
+                    borderWidth: takeColor === 'orange' ? 2 : 0,
+                    borderColor: takeColor === 'orange' ? 'white' : 'none',
                   }}
                 />
                 <Pressable
@@ -137,8 +137,8 @@ function Tags({ navigation }) {
                     backgroundColor: Colors['blue'].color,
                     borderRadius: 40,
                     marginLeft: 10,
-                    borderWidth: takeColor === 'blue' && 2,
-                    borderColor: takeColor === 'blue' && 'white',
+                    borderWidth: takeColor === 'blue' ? 2 : 0,
+                    borderColor: takeColor === 'blue' ? 'white' : 'none',
                   }}
                 />
               </View>
