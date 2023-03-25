@@ -70,6 +70,7 @@ function AuthRecover({ navigation }) {
             }}
             render={({ field: { onChange, value } }) => (
               <TextInput
+                keyboardType="email-address"
                 onFocus={() => setFocusOnEmail(true)}
                 onBlur={() => setFocusOnEmail(false)}
                 style={{

@@ -137,6 +137,7 @@ function AuthAuthauthentification({ navigation }) {
                 }}
                 onChangeText={onChange}
                 value={value}
+                keyboardType="email-address"
               />
             )}
             name="email"

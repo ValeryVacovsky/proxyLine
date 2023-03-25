@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity, Dimensions } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
@@ -6,6 +6,7 @@ import UserNavigation from '../componets/UserNavigation'
 import OrdersList from '../componets/OrdersList'
 import OrdersListData from '../componets/OrdersListData'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import ModalSuccess from '../componets/Orders/ModalSuccess'
 
 const heightOffScreen = Dimensions.get('window').height
 
@@ -13,6 +14,12 @@ function Orders({ navigation }) {
   const dataOrders = useSelector(res => res.ordersReducer.orders)
   const proxyText = useSelector(res => res.textReducer.orders.payload)
   const ordersRes = useSelector(data => data.orderReducer)
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible)
+  }
+
   useEffect(() => {
     async function cahngeLocalOrders() {
       await AsyncStorage.setItem('@Orders', JSON.stringify(ordersRes))
@@ -25,14 +32,19 @@ function Orders({ navigation }) {
       headerTintColor: 'transparent',
     })
   }, [navigation])
-  console.log('выходящий рес', JSON.stringify(ordersRes))
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         {ordersRes?.length + dataOrders?.length > 0 && (
           <ScrollView style={styles.scrollView}>
-            {ordersRes?.map(data => (
-              <OrdersList key={data?.data?.id} navigation={navigation} data={data} text={proxyText} />
+            {ordersRes?.reverse().map(data => (
+              <OrdersList
+                key={data?.data?.id}
+                navigation={navigation}
+                data={data}
+                text={proxyText}
+                toggleModal={toggleModal}
+              />
             ))}
             {dataOrders?.map(item => {
               return <OrdersListData key={item?.id} text={proxyText} data={item} />
@@ -58,6 +70,7 @@ function Orders({ navigation }) {
       <View style={heightOffScreen > 700 ? styles.navContainer : styles.s_navContainer}>
         <UserNavigation status="Orders" navigation={navigation} />
       </View>
+      <ModalSuccess visible={modalVisible} onClose={toggleModal} text={proxyText} />
     </LayoutMain>
   )
 }

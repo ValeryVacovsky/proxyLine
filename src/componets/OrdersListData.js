@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     marginBottom: 1,
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 21,
+    paddingTop: 14,
     paddingBottom: 14,
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
@@ -185,8 +185,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
 })
 

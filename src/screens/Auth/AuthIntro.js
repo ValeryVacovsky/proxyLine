@@ -24,14 +24,17 @@ function AuthIntro({ navigation }) {
         })
       } else {
         SplashScreen.hide()
-        getAuthText(dispatch, language)
-        navigation.navigate('Auth')
+        getAuthText(dispatch, language).then(() => {
+          SplashScreen.hide()
+          dispatch(setAuth(false))
+          navigation.navigate('Auth')
+        })
       }
     }
     // TODO: когда будет логика на Main или Auth переходить, добавить сюда получение текстов main
-    getAuthText(dispatch, language).then(() => {
-      SplashScreen.hide()
-    })
+    // getAuthText(dispatch, language).then(() => {
+    //   SplashScreen.hide()
+    // })
     // TODO: обработать случай, если апи не вернул тексты или произошла ошибка
     getAllTexts(dispatch, language)
     comeIn()

@@ -1,5 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from 'react-native'
+import React, { useEffect, useState, useRef } from 'react'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+} from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import SliderExample from './SliderExample'
 import VectorRightSmall from '../image/Svg/VectorRightSmall'
@@ -25,6 +34,52 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
   const [days, setDays] = useState(5)
   const [selectedCountryShort, setSelectedCountryShort] = useState('ru')
   const [selectedCountry, setSelectedCountry] = useState('Russian Federation')
+
+  const timerRefMinus = useRef(null)
+  const timerRefPlus = useRef(null)
+
+  const startTimerMinus = () => {
+    timerRefMinus.current = setInterval(() => {
+      setAmount(prevValue => {
+        const newValue = prevValue - 1
+        if (newValue > 0) {
+          return newValue
+        } else {
+          stopTimerMinus()
+          return prevValue
+        }
+      })
+    }, 100)
+  }
+
+  const startTimerPlus = () => {
+    timerRefPlus.current = setInterval(() => {
+      setAmount(prevValue => {
+        const newValue = prevValue + 1
+        if (newValue < 2000) {
+          return newValue
+        } else {
+          stopTimerPlus()
+          return prevValue
+        }
+      })
+    }, 100)
+  }
+
+  const stopTimerMinus = () => {
+    if (timerRefMinus.current) {
+      clearInterval(timerRefMinus.current)
+      timerRefMinus.current = null
+    }
+  }
+
+  const stopTimerPlus = () => {
+    if (timerRefPlus.current) {
+      clearInterval(timerRefPlus.current)
+      timerRefPlus.current = null
+    }
+  }
+
   const handlePressAmount = item => {
     if (item === 'minus') {
       amount > 1 && setAmount(amount - 1)
@@ -46,7 +101,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         quantity: amount,
         ip_type: order.ip_type,
         ip_version: order.ip_version,
-        country: 'ru',
+        country: selectedCountryShort,
         period: days,
         coupon: '',
       }).then(data => {
@@ -54,7 +109,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
       })
     }
     name()
-  }, [days, amount, order.ip_type, order.ip_version])
+  }, [days, amount, order.ip_type, order.ip_version, selectedCountryShort])
   const onSubmit = async () => {
     const token = await AsyncStorage.getItem('@token')
     const id = await AsyncStorage.getItem('@id')
@@ -66,7 +121,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
           quantity: amount,
           ip_type: order.ip_type,
           ip_version: order.ip_version,
-          country: 'ru',
+          country: selectedCountryShort,
           period: days,
           selected_ips: [],
           tags: [0],
@@ -135,25 +190,30 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
               <Text style={{ color: 'white', fontWeight: '700', fontSize: 14, lineHeight: 15 }}> HTTP / SOCKS5</Text>
             </View>
             <View style={styles.amountContainer}>
-              <Text style={styles.amountDiscription}>{proxyText?.texts?.t4}</Text>
+              <Text style={styles.amountDiscription}>{proxyText?.texts?.t1}</Text>
               <View style={styles.amountToggleContainer}>
-                <TouchableOpacity
-                  style={styles.amountToggleMinusCOntainer}
+                <TouchableWithoutFeedback
                   onPress={() => handlePressAmount('minus')}
+                  onPressIn={startTimerMinus}
+                  onPressOut={stopTimerMinus}
                   activeOpacity={0.8}>
-                  <Text style={styles.amountToggleMinusText}>-</Text>
-                </TouchableOpacity>
+                  <View style={styles.amountToggleMinusCOntainer}>
+                    <Text style={styles.amountToggleMinusText}>-</Text>
+                  </View>
+                </TouchableWithoutFeedback>
+
                 <View style={styles.amountToggleCenterContainer}>
                   <Text style={styles.amountToggleCenterText}>{amount}</Text>
                 </View>
-                <TouchableOpacity
-                  style={styles.amountTogglePlusContainer}
-                  onPress={() => {
-                    handlePressAmount('plus')
-                  }}
+                <TouchableWithoutFeedback
+                  onPress={() => handlePressAmount('plus')}
+                  onPressIn={startTimerPlus}
+                  onPressOut={stopTimerPlus}
                   activeOpacity={0.8}>
-                  <Text style={styles.amountTogglePlusText}>+</Text>
-                </TouchableOpacity>
+                  <View style={styles.amountTogglePlusContainer}>
+                    <Text style={styles.amountTogglePlusText}>+</Text>
+                  </View>
+                </TouchableWithoutFeedback>
               </View>
             </View>
             <View style={styles.priceAmount}>
@@ -165,14 +225,17 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
               <TextInput
                 style={{
                   backgroundColor: '#1E2127',
-                  paddingHorizontal: 10,
-                  paddingVertical: 15,
+                  paddingHorizontal: 15,
+                  paddingTop: 12,
+                  paddingBottom: 8,
                   color: 'white',
-                  fontWeight: '600',
+                  fontWeight: '400',
                   borderRadius: 8,
                   borderWidth: 1,
                   borderColor: '#333842',
-                  width: 134,
+                  width: 157,
+                  fontSize: 14,
+                  lineHeight: 15,
                 }}
               />
             </View>

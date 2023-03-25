@@ -2,16 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Slider } from '@miblanchard/react-native-slider'
 import { StyleSheet, View } from 'react-native'
 
-const styles = StyleSheet.create({
-  container: {
-    marginLeft: 10,
-    marginRight: 10,
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    width: '100%',
-  },
-})
-
 function SliderExample({ setDays, setScrolling }) {
   const trackMarks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
   const validDays = [5, 10, 20, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
@@ -20,7 +10,7 @@ function SliderExample({ setDays, setScrolling }) {
     setDays(validDays[value - 1])
   }, [value])
 
-  const [step] = useState(1)
+  const step = 1
   return (
     <View style={styles.container}>
       <Slider
@@ -59,8 +49,28 @@ function SliderExample({ setDays, setScrolling }) {
           />
         )}
       />
+      <View style={styles.rightTint} />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: 10,
+    marginRight: 10,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    width: '100%',
+    position: 'relative',
+  },
+  rightTint: {
+    width: 4,
+    height: 14,
+    backgroundColor: '#1E2127',
+    left: '100%',
+    bottom: 27,
+    zIndex: -10,
+  },
+})
 
 export default SliderExample

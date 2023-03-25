@@ -8,8 +8,10 @@ import { deleteObject } from '../store/reducers/orderReducer'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { flagByShortName } from '../common/flagByShortName'
 import { useListOrders } from '../hooks/useListOrders'
+import getListProxies from '../api/getListProxies'
+import { setProxy } from '../store/reducers/proxyReducer'
 
-function OrdersList({ data, text }) {
+function OrdersList({ data, text, toggleModal }) {
   const { listProxies } = useListOrders()
   const dispatch = useDispatch()
   const [received, setReceived] = useState(data.data.statusActive)
@@ -22,6 +24,15 @@ function OrdersList({ data, text }) {
     setReceived(true)
     setDateCreate(new Date())
     listProxies()
+    toggleModal()
+    const listProxy = async () => {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const dataProps = `${id}_${token}`
+      const data = await getListProxies({ token: dataProps, limit: '100', offset: '0', endpoint: '' })
+      dispatch(setProxy(data))
+    }
+    listProxy()
   }
 
   const createOrderRequest = async id => {
@@ -35,7 +46,7 @@ function OrdersList({ data, text }) {
           quantity: data.data.quantity,
           ip_type: data.data.ip_type,
           ip_version: data.data.ip_version,
-          country: 'ru',
+          country: data.data.country,
           period: data.data.period,
           selected_ips: [],
           tags: [0],
@@ -86,12 +97,12 @@ function OrdersList({ data, text }) {
             <Text style={styles.leftText}>{text?.texts?.t8}</Text>
             <Text style={styles.rightText}>{data.data.quantity}</Text>
           </View>
-          <View style={styles.blockContainer}>
+          <View style={styles.blockContainerBottom}>
             <Text style={styles.leftText}>{text?.texts?.t9}</Text>
             <Text style={styles.rightText}>$ {data.data.totalPrice}</Text>
           </View>
           {received && (
-            <View style={styles.blockContainer}>
+            <View style={styles.blockContainerBottom}>
               <Text style={styles.leftText}>{text?.texts?.t10}</Text>
               <Text style={styles.rightText}>{dateFormat(dateCreate, 'd.mm.yyyy HH:MM')}</Text>
             </View>
@@ -150,7 +161,7 @@ const styles = StyleSheet.create({
     marginBottom: 1,
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 21,
+    paddingTop: 14,
     paddingBottom: 14,
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
@@ -203,8 +214,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  blockContainerBottom: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 5,
+    paddingBottom: 20,
   },
   idContainer: {
     display: 'flex',
@@ -227,8 +247,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
 })
 
