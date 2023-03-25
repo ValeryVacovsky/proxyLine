@@ -19,22 +19,22 @@ import { addObject } from '../store/reducers/orderReducer'
 import { flagByShortName } from '../common/flagByShortName'
 import { ScrollView } from 'react-native-gesture-handler'
 
+function generate(str) {
+  return str.replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16)
+  })
+}
+
 function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
-  function generate(str) {
-    return str.replace(/[xy]/g, function (c) {
-      const r = (Math.random() * 16) | 0
-      return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16)
-    })
-  }
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
-  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
+  const countryDescription = useSelector(res => res.countryDiscriptionReducer.country)
   const dispatch = useDispatch()
   const [amount, setAmount] = useState(1)
   const [totalPrice, setTotalPrice] = useState(0.1)
   const [days, setDays] = useState(5)
   const [selectedCountryShort, setSelectedCountryShort] = useState('ru')
   const [selectedCountry, setSelectedCountry] = useState('Russian Federation')
-
   const timerRefMinus = useRef(null)
   const timerRefPlus = useRef(null)
 
@@ -83,9 +83,11 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
   const handlePressAmountMinus = () => {
     amount > 1 && setAmount(amount - 1)
   }
+
   const handlePressAmountPlus = () => {
-    amount > 1 && setAmount(amount - 1)
+    amount < 1999 && setAmount(amount + 1)
   }
+
   const handlePressCountry = () => {
     navigation.navigate('Countries', {
       selectedCountryShort,
@@ -94,6 +96,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
       setSelectedCountry,
     })
   }
+
   useEffect(() => {
     async function name() {
       postOrderAmount({
@@ -107,13 +110,15 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         setTotalPrice(data?.data?.amount / 100)
       })
     }
-    name()
+    void name()
   }, [days, amount, order.ip_type, order.ip_version, selectedCountryShort])
+
   const onSubmit = async () => {
     const token = await AsyncStorage.getItem('@token')
     const id = await AsyncStorage.getItem('@id')
     const data = `${id}_${token}`
-    await dispatch(
+
+    dispatch(
       addObject({
         token: data,
         data: {
@@ -133,6 +138,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         },
       }),
     )
+
     navigation.navigate('Orders')
   }
   return (
@@ -140,8 +146,8 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
       <ScrollView>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <View style={styles.center_container}>
-            <View style={styles.handDesriptionOrderContainer}>
-              <Text style={styles.handDesriptionOrderText}>{order.handDesription}</Text>
+            <View style={styles.handDescriptionOrderContainer}>
+              <Text style={styles.handDescriptionOrderText}>{order.handDesription}</Text>
             </View>
             <View style={styles.proxyTypeContianer}>
               <View>
@@ -158,7 +164,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
                 <Text style={styles.countryNameText}>{proxyText?.texts?.t0}</Text>
               </View>
               <View style={styles.countrySelectContainer}>
-                <Text style={styles.countrySelectText}>{countryDiscription[languageGet][selectedCountryShort]}</Text>
+                <Text style={styles.countrySelectText}>{countryDescription[languageGet][selectedCountryShort]}</Text>
                 <View style={styles.countryFlag}>{flagByShortName[selectedCountryShort]}</View>
                 <VectorRightSmall width={6} height={12} style={{ top: 1, marginLeft: 10 }} />
               </View>
@@ -180,17 +186,17 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
               />
             </View>
             <View style={styles.selectedPeriod}>
-              <Text style={styles.amountDiscription}>{proxyText?.texts?.t3}</Text>
+              <Text style={styles.amountDescription}>{proxyText?.texts?.t3}</Text>
               <Text style={styles.amountBoldDiscription}>
                 {days} {proxyText?.texts?.t6}
               </Text>
             </View>
             <View style={styles.orderType}>
-              <Text style={styles.amountDiscription}>{proxyText?.texts?.t2}</Text>
+              <Text style={styles.amountDescription}>{proxyText?.texts?.t2}</Text>
               <Text style={styles.htttpsocksDiscritinon}> HTTP / SOCKS5</Text>
             </View>
             <View style={styles.amountContainer}>
-              <Text style={styles.amountDiscription}>{proxyText?.texts?.t1}</Text>
+              <Text style={styles.amountDescription}>{proxyText?.texts?.t1}</Text>
               <View style={styles.amountToggleContainer}>
                 <TouchableWithoutFeedback
                   onPress={handlePressAmountMinus}
@@ -222,13 +228,13 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
             </View>
             <View style={styles.coupon}>
               <Text style={styles.priceAmountDescriptionText}>{proxyText?.texts?.t8 || 'Купон'}</Text>
-              <TextInput style={styles.cuponInut} />
+              <TextInput style={styles.cuponInput} />
             </View>
           </View>
         </KeyboardAvoidingView>
       </ScrollView>
       <View style={styles.bottomContainer}>
-        <View style={styles.priceFullAmountrContainer}>
+        <View style={styles.priceFullAmountContainer}>
           <Text style={styles.priceFullAmountDescriptionText}>{proxyText?.texts?.t5}</Text>
           <Text style={styles.priceFullAmountText}>$ {totalPrice}</Text>
         </View>
@@ -259,7 +265,7 @@ const styles = StyleSheet.create({
     marginTop: 11,
     flex: 1,
   },
-  handDesriptionOrderContainer: {
+  handDescriptionOrderContainer: {
     backgroundColor: '#FAC637',
     top: 12,
     borderRadius: 8,
@@ -274,7 +280,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     zIndex: 1,
   },
-  handDesriptionOrderText: {
+  handDescriptionOrderText: {
     alignItems: 'center',
     fontWeight: '600',
     fontSize: 12,
@@ -375,7 +381,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
-  amountDiscription: {
+  amountDescription: {
     color: '#CBCBCB',
     fontWeight: '600',
   },
@@ -459,7 +465,7 @@ const styles = StyleSheet.create({
     paddingBottom: 13,
     alignItems: 'center',
   },
-  cuponInut: {
+  cuponInput: {
     backgroundColor: '#1E2127',
     paddingHorizontal: 15,
     paddingTop: 12,
@@ -486,7 +492,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 25,
   },
-  priceFullAmountrContainer: {
+  priceFullAmountContainer: {
     display: 'flex',
     flexDirection: 'row',
     width: '90%',

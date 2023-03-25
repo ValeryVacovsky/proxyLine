@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Slider } from '@miblanchard/react-native-slider'
 import { StyleSheet, View } from 'react-native'
 
+const trackMarks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+const validDays = [5, 10, 20, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
+
 function SliderExample({ setDays, setScrolling }) {
-  const trackMarks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-  const validDays = [5, 10, 20, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
   const [value, setValue] = useState(1)
   useEffect(() => {
     setDays(validDays[value - 1])

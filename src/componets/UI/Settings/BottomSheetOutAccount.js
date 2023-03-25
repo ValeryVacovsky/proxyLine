@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+
 function BottomSheetOutAccount({ text, handleRightNavigate, handleClosePress }) {
   return (
     <View style={styles.container} activeOpacity={0.8}>
@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     marginBottom: 100,
     width: '100%',
     marginLeft: 10,
-    alignItems: 'center',
     marginTop: 20,
   },
   buttonYesContainer: {

@@ -6,7 +6,7 @@ import { setAuth } from '../../store/reducers/authReducer'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import BottomSheetForm from '../../componets/BottomSheetForm'
-import BottomSheetOutAccount from '../../componets/UI/Settings/BottomSheetOutAccount.js'
+import BottomSheetOutAccount from '../../componets/UI/Settings/BottomSheetOutAccount'
 import { clearOrder } from '../../store/reducers/orderReducer'
 import { getAuthText } from '../../common/getAllTexts'
 

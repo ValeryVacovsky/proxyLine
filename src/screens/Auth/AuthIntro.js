@@ -16,22 +16,20 @@ function AuthIntro({ navigation }) {
   useEffect(() => {
     async function comeIn() {
       const role = await AsyncStorage.getItem('@role')
-      if (role == 'default') {
-        getAllTexts(dispatch, language).then(() => {
-          SplashScreen.hide()
-          dispatch(setAuth(true))
-          navigation.navigate('Main')
-        })
-      } else {
+      if (role === 'default') {
+        // TODO: обработать случай, если апи не вернул тексты или произошла ошибка
+        await getAllTexts(dispatch, language)
         SplashScreen.hide()
-        getAuthText(dispatch, language).then(() => {
-          SplashScreen.hide()
-          dispatch(setAuth(false))
-          navigation.navigate('Auth')
-        })
+        dispatch(setAuth(true))
+        navigation.navigate('Main')
+      } else {
+        await getAuthText(dispatch, language)
+        SplashScreen.hide()
+        dispatch(setAuth(false))
+        navigation.navigate('Auth')
       }
     }
-    comeIn()
+    void comeIn()
   }, [dispatch, language, navigation])
 
   return <View style={styles.sectionContainer} />

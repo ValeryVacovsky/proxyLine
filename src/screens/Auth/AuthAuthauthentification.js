@@ -62,10 +62,9 @@ function AuthAuthauthentification({ navigation }) {
       await AsyncStorage.setItem('@id', String(res.data.user.id))
       await AsyncStorage.setItem('@login', String(data.email))
       await AsyncStorage.setItem('@role', String('default'))
-      getAllTexts(dispatch, language).then(() => {
-        dispatch(setAuth(true))
-        navigation.navigate('Main')
-      })
+      await getAllTexts(dispatch, language)
+      dispatch(setAuth(true))
+      navigation.navigate('Main')
     } else {
       setCommonFormError('Invalid email or password')
     }
