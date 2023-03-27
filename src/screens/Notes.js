@@ -47,7 +47,7 @@ function Notes({ navigation }) {
     )
   }
   const handleCloseStatus = () => {
-    saveChanges(textValue)
+    saveChanges(pretextValue)
     setTextValue(pretextValue)
     setOpenStatus(true)
     setOpenStatusItem(
@@ -96,10 +96,12 @@ function Notes({ navigation }) {
       const tokenUser = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
       const token = `${id}_${tokenUser}`
-      await getUserComment({ token })
+      const res = await getUserComment({ token })
+      setTextValue(res.data.content)
+      setPreTextValue(res.data.content)
     }
     getComment()
-  }, [textValue])
+  }, [])
 
   return (
     <LayoutMain>

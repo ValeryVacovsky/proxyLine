@@ -73,16 +73,16 @@ function OrdersList({ data, text, toggleModal }) {
           </View>
         </View>
         <View
-          style={{
-            backgroundColor: 'rgba(51, 51, 51, 0.3)',
-            marginBottom: 1,
-            width: '100%',
-            borderBottomLeftRadius: received ? 14 : 0,
-            borderBottomRightRadius: received ? 14 : 0,
-          }}>
+          style={StyleSheet.flatten([
+            styles.bottomContainer,
+            {
+              borderBottomLeftRadius: received ? 14 : 0,
+              borderBottomRightRadius: received ? 14 : 0,
+            },
+          ])}>
           <View style={styles.blockContainer}>
             <Text style={styles.leftText}>{text?.texts?.t6}</Text>
-            <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <View style={styles.countryContainer}>
               <Text style={styles.rightText}>{countryDiscription[languageGet][data.data.country]}</Text>
               <View style={styles.countryFlagContinaer}>{flagByShortName[data.data.country]}</View>
             </View>
@@ -215,6 +215,11 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
   },
+  bottomContainer: {
+    backgroundColor: 'rgba(51, 51, 51, 0.3)',
+    marginBottom: 1,
+    width: '100%',
+  },
   blockContainerBottom: {
     display: 'flex',
     flexDirection: 'row',
@@ -223,6 +228,10 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 5,
     paddingBottom: 20,
+  },
+  countryContainer: {
+    display: 'flex',
+    flexDirection: 'row',
   },
   countryFlagContinaer: {
     width: 16,

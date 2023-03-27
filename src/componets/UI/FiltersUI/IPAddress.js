@@ -49,27 +49,23 @@ function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSn
         {Ipaddress.map(item => (
           <TouchableOpacity
             key={item}
-            style={{
-              backgroundColor: ip.includes(item) ? '#FAC637' : '#333842',
-              alignItems: 'center',
-              borderRadius: 30,
-              marginTop: 10,
-              marginRight: 10,
-            }}
+            style={StyleSheet.flatten([
+              styles.ipContainer,
+              {
+                backgroundColor: ip.includes(item) ? '#FAC637' : '#333842',
+              },
+            ])}
             activeOpacity={0.8}
             onPress={() => {
               handlePress(item)
             }}>
             <Text
-              style={{
-                fontWeight: '600',
-                fontSize: 13,
-                color: ip.includes(item) ? '#0F1218' : 'white',
-                paddingBottom: 6,
-                paddingTop: 6,
-                paddingRight: 12,
-                paddingLeft: 12,
-              }}>
+              style={StyleSheet.flatten([
+                styles.ipText,
+                {
+                  color: ip.includes(item) ? '#0F1218' : 'white',
+                },
+              ])}>
               {item}
             </Text>
           </TouchableOpacity>
@@ -104,6 +100,20 @@ const styles = StyleSheet.create({
   Chips: {
     width: '100%',
     marginBottom: 20,
+  },
+  ipContainer: {
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 10,
+    marginRight: 10,
+  },
+  ipText: {
+    fontWeight: '600',
+    fontSize: 13,
+    paddingBottom: 6,
+    paddingTop: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
   },
 })
 

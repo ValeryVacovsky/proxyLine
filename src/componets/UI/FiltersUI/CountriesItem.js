@@ -70,25 +70,21 @@ function CountriesItem({
           ? country.map(item => (
               <TouchableOpacity
                 key={item}
-                style={{
-                  backgroundColor: countries.includes(item) ? '#FAC637' : '#333842',
-                  alignItems: 'center',
-                  borderRadius: 30,
-                  marginTop: 10,
-                  marginRight: 10,
-                }}
+                style={StyleSheet.flatten([
+                  styles.countriesContainer,
+                  {
+                    backgroundColor: countries.includes(item) ? '#FAC637' : '#333842',
+                  },
+                ])}
                 activeOpacity={0.8}
                 onPress={() => handlePress(item)}>
                 <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 13,
-                    color: countries.includes(item) ? '#0F1218' : 'white',
-                    paddingBottom: 6,
-                    paddingTop: 6,
-                    paddingRight: 12,
-                    paddingLeft: 12,
-                  }}>
+                  style={StyleSheet.flatten([
+                    styles.countriesText,
+                    {
+                      color: countries.includes(item) ? '#0F1218' : 'white',
+                    },
+                  ])}>
                   {countryDiscription[languageGet][item]}
                 </Text>
               </TouchableOpacity>
@@ -96,25 +92,21 @@ function CountriesItem({
           : country.map(item => (
               <TouchableOpacity
                 key={item}
-                style={{
-                  backgroundColor: countries.includes(item) ? '#EC3641' : '#333842',
-                  alignItems: 'center',
-                  borderRadius: 30,
-                  marginTop: 10,
-                  marginRight: 10,
-                }}
+                style={StyleSheet.flatten([
+                  styles.countriesContainer,
+                  {
+                    backgroundColor: countries.includes(item) ? '#EC3641' : '#333842',
+                  },
+                ])}
                 activeOpacity={0.8}
                 onPress={() => handlePress(item)}>
                 <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 13,
-                    color: countries.includes(item) ? '#0F1218' : 'white',
-                    paddingBottom: 6,
-                    paddingTop: 6,
-                    paddingRight: 12,
-                    paddingLeft: 12,
-                  }}>
+                  style={StyleSheet.flatten([
+                    styles.countriesText,
+                    {
+                      color: countries.includes(item) ? '#0F1218' : 'white',
+                    },
+                  ])}>
                   {countryDiscription[languageGet][item]}
                 </Text>
               </TouchableOpacity>
@@ -154,6 +146,20 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  countriesContainer: {
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 10,
+    marginRight: 10,
+  },
+  countriesText: {
+    fontWeight: '600',
+    fontSize: 13,
+    paddingBottom: 6,
+    paddingTop: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
   },
 })
 

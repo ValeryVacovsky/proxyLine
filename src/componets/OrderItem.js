@@ -142,7 +142,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
     navigation.navigate('Orders')
   }
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.mainContainer}>
       <ScrollView>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <View style={styles.center_container}>
@@ -166,7 +166,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
               <View style={styles.countrySelectContainer}>
                 <Text style={styles.countrySelectText}>{countryDescription[languageGet][selectedCountryShort]}</Text>
                 <View style={styles.countryFlag}>{flagByShortName[selectedCountryShort]}</View>
-                <VectorRightSmall width={6} height={12} style={{ top: 1, marginLeft: 10 }} />
+                <VectorRightSmall width={6} height={12} style={styles.vectorIcon} />
               </View>
             </TouchableOpacity>
             <View style={styles.periodContainer}>
@@ -174,7 +174,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
               <Text style={styles.periodText}>360 {proxyText?.texts?.t6}</Text>
             </View>
             <View
-              style={{ width: '100%', right: 10 }}
+              style={styles.sliderContainer}
               onTouchStart={() => {
                 setScrolling(false)
               }}
@@ -249,6 +249,9 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+  },
   buttonInner: {
     backgroundColor: '#FAC637',
     alignItems: 'center',
@@ -343,6 +346,10 @@ const styles = StyleSheet.create({
     height: 16,
     marginLeft: 5,
     marginRight: 5,
+  },
+  vectorIcon: {
+    top: 1,
+    marginLeft: 10,
   },
   periodContainer: {
     display: 'flex',
@@ -464,6 +471,10 @@ const styles = StyleSheet.create({
     paddingTop: 13,
     paddingBottom: 13,
     alignItems: 'center',
+  },
+  sliderContainer: {
+    width: '100%',
+    right: 10,
   },
   cuponInput: {
     backgroundColor: '#1E2127',

@@ -45,14 +45,19 @@ function BottomSheetId({ handleClosePress, setIdDefault, handleSnapPress }) {
     <ScrollView scrollEnabled={false} keyboardShouldPersistTaps="always" style={styles.scrollViewContainer}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1, height: '100%' }}
+        style={styles.keyboardStyles}
         keyboardVerticalOffset={50}>
         <View style={styles.container}>
           <View style={styles.topBar} />
           <View style={styles.topContainer}>
-            <View style={{ width: '90%' }}>
+            <View style={styles.topContainerSecond}>
               <View
-                style={{ minHeight: 16, minWidth: 150, marginBottom: 3, marginTop: heightOffScreen > 700 ? 34 : 14 }}>
+                style={StyleSheet.flatten([
+                  styles.topTextContainer,
+                  {
+                    marginTop: heightOffScreen > 700 ? 34 : 14,
+                  },
+                ])}>
                 <Text style={styles.topText}>{errors.order ? 'Введите id' : ''}</Text>
               </View>
               <Controller
@@ -67,19 +72,12 @@ function BottomSheetId({ handleClosePress, setIdDefault, handleSnapPress }) {
                     returnKeyType="done"
                     onFocus={handleFocus}
                     onBlur={handleBlur}
-                    style={{
-                      backgroundColor: '#1E2127',
-                      color: 'white',
-                      height: 44,
-                      minWidth: '100%',
-                      marginBottom: 14,
-                      borderRadius: 8,
-                      borderWidth: 1,
-                      paddingLeft: 20,
-                      paddingTop: 12,
-                      paddingBottom: 12,
-                      borderColor: (focusInput && '#fac637') || (errors.order && 'rgb(138,0,0)') || '#333842',
-                    }}
+                    style={StyleSheet.flatten([
+                      styles.topInput,
+                      {
+                        borderColor: (focusInput && '#fac637') || (errors.order && 'rgb(138,0,0)') || '#333842',
+                      },
+                    ])}
                     onChangeText={onChange}
                     value={value}
                   />
@@ -98,10 +96,20 @@ function BottomSheetId({ handleClosePress, setIdDefault, handleSnapPress }) {
 }
 
 const styles = StyleSheet.create({
+  topTextContainer: {
+    minHeight: 16,
+    minWidth: 150,
+    marginBottom: 3,
+    marginTop: heightOffScreen > 700 ? 34 : 14,
+  },
   topText: {
     color: 'white',
     fontSize: 13,
     lineHeight: 15,
+  },
+  keyboardStyles: {
+    flex: 1,
+    height: '100%',
   },
   scrollViewContainer: {
     height: '100%',
@@ -130,19 +138,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
+  topContainerSecond: {
+    width: '90%',
+  },
   topInput: {
     backgroundColor: '#1E2127',
     color: 'white',
     height: 44,
-    minWidth: '90%',
+    minWidth: '100%',
     marginBottom: 14,
     borderRadius: 8,
     borderWidth: 1,
     paddingLeft: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
-    borderColor: '#333842',
-    marginTop: 45,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   bottomButton: {
     paddingTop: 18,

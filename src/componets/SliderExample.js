@@ -24,30 +24,19 @@ function SliderExample({ setDays, setScrolling }) {
         minimumTrackTintColor="#FAC637"
         thumbTintColor="#FAC637"
         trackClickable
-        thumbStyle={{
-          borderWidth: 1,
-          borderColor: '#0F1218',
-          shadowColor: '#FAC637',
-          shadowOffset: { width: 0, height: 10 },
-          shadowOpacity: 0.3,
-          shadowRadius: 10,
-          left: 13,
-        }}
+        thumbStyle={styles.thumbStyle}
         step={step}
         onSlidingStart={() => setScrolling(false)}
         onSlidingComplete={() => setScrolling(true)}
         renderTrackMarkComponent={index => (
           <View
-            style={{
-              width: index === 0 ? 4 : 2,
-              height: 14,
-              backgroundColor: value < trackMarks[index] ? '#1E2127' : '#FAC637',
-              borderRadius: 2,
-              shadowColor: '#FAC637',
-              shadowOffset: { width: 0, height: 10 },
-              shadowOpacity: 0.2,
-              shadowRadius: 10,
-            }}
+            style={StyleSheet.flatten([
+              styles.renderTrackMarkComponent,
+              {
+                width: index === 0 ? 4 : 2,
+                backgroundColor: value < trackMarks[index] ? '#1E2127' : '#FAC637',
+              },
+            ])}
           />
         )}
       />
@@ -72,6 +61,23 @@ const styles = StyleSheet.create({
     left: '100%',
     bottom: 27,
     zIndex: -10,
+  },
+  thumbStyle: {
+    borderWidth: 1,
+    borderColor: '#0F1218',
+    shadowColor: '#FAC637',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    left: 13,
+  },
+  renderTrackMarkComponent: {
+    height: 14,
+    borderRadius: 2,
+    shadowColor: '#FAC637',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
   },
 })
 

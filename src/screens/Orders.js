@@ -70,7 +70,7 @@ function Orders({ navigation }) {
       <View style={heightOffScreen > 700 ? styles.navContainer : styles.s_navContainer}>
         <UserNavigation status="Orders" navigation={navigation} />
       </View>
-      <ModalSuccess visible={modalVisible} onClose={toggleModal} text={proxyText}>
+      <ModalSuccess visible={modalVisible} onClose={toggleModal}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalTextTop}>{proxyText?.texts?.t11 || 'Прокси куплен!'}</Text>
           <Text style={styles.modalBottomText}>

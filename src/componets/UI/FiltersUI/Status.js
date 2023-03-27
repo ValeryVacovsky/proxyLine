@@ -21,71 +21,59 @@ function Status({ status, setFilters }) {
       </View>
       <View style={styles.container}>
         <TouchableOpacity
-          style={{
-            backgroundColor: status.includes('active') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
+          style={StyleSheet.flatten([
+            styles.statusContainer,
+            {
+              backgroundColor: status.includes('active') ? '#FAC637' : '#333842',
+            },
+          ])}
           activeOpacity={0.8}
           onPress={() => handlePress('active')}>
           <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: status.includes('active') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
+            style={StyleSheet.flatten([
+              styles.statusText,
+              {
+                color: status.includes('active') ? '#0F1218' : 'white',
+              },
+            ])}>
             {text?.texts?.t32}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{
-            backgroundColor: status.includes('expired') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
+          style={StyleSheet.flatten([
+            styles.statusContainer,
+            {
+              backgroundColor: status.includes('expired') ? '#FAC637' : '#333842',
+            },
+          ])}
           activeOpacity={0.8}
           onPress={() => handlePress('expired')}>
           <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: status.includes('expired') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
+            style={StyleSheet.flatten([
+              styles.statusText,
+              {
+                color: status.includes('expired') ? '#0F1218' : 'white',
+              },
+            ])}>
             {text?.texts?.t34}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{
-            backgroundColor: status.includes('deleted') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
+          style={StyleSheet.flatten([
+            styles.statusContainer,
+            {
+              backgroundColor: status.includes('deleted') ? '#FAC637' : '#333842',
+            },
+          ])}
           activeOpacity={0.8}
           onPress={() => handlePress('deleted')}>
           <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: status.includes('deleted') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
+            style={StyleSheet.flatten([
+              styles.statusText,
+              {
+                color: status.includes('deleted') ? '#0F1218' : 'white',
+              },
+            ])}>
             {text?.texts?.t35}
           </Text>
         </TouchableOpacity>
@@ -119,6 +107,20 @@ const styles = StyleSheet.create({
   Chips: {
     width: '100%',
     marginBottom: 20,
+  },
+  statusContainer: {
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 10,
+    marginRight: 10,
+  },
+  statusText: {
+    fontWeight: '600',
+    fontSize: 13,
+    paddingBottom: 6,
+    paddingTop: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
   },
 })
 

@@ -39,11 +39,15 @@ function BottomSheetIP({ handleClosePress, setIpaddress, handleSnapPress }) {
     <View style={styles.container}>
       <View style={styles.topBar} />
       <View style={styles.topContainer}>
-        <View style={{ width: '90%' }}>
-          <View style={{ minHeight: 16, minWidth: 150, marginBottom: 3, marginTop: heightOffScreen > 700 ? 34 : 14 }}>
-            <Text style={{ color: 'white', fontSize: 13, lineHeight: 15 }}>
-              {errors.order && 'Введите в формате *.*.*.*'}
-            </Text>
+        <View style={styles.topContainerSecond}>
+          <View
+            style={StyleSheet.flatten([
+              styles.textValidContainer,
+              {
+                marginTop: heightOffScreen > 700 ? 34 : 14,
+              },
+            ])}>
+            <Text style={styles.textValid}>{errors.order && 'Введите в формате *.*.*.*'}</Text>
           </View>
           <Controller
             control={control}
@@ -60,19 +64,12 @@ function BottomSheetIP({ handleClosePress, setIpaddress, handleSnapPress }) {
                 returnKeyType="done"
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                style={{
-                  backgroundColor: '#1E2127',
-                  color: 'white',
-                  height: 44,
-                  minWidth: '100%',
-                  marginBottom: 14,
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  paddingLeft: 20,
-                  paddingTop: 12,
-                  paddingBottom: 12,
-                  borderColor: (focusInput && '#fac637') || (errors.order && 'rgb(138,0,0)') || '#333842',
-                }}
+                style={StyleSheet.flatten([
+                  styles.topInput,
+                  {
+                    borderColor: (focusInput && '#fac637') || (errors.order && 'rgb(138,0,0)') || '#333842',
+                  },
+                ])}
                 onChangeText={onChange}
                 value={value}
               />
@@ -109,6 +106,31 @@ const styles = StyleSheet.create({
   topContainer: {
     alignItems: 'center',
     width: '100%',
+  },
+  topContainerSecond: {
+    width: '90%',
+  },
+  textValidContainer: {
+    minHeight: 16,
+    minWidth: 150,
+    marginBottom: 3,
+  },
+  textValid: {
+    color: 'white',
+    fontSize: 13,
+    lineHeight: 15,
+  },
+  topInput: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '100%',
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   containerInput: {
     backgroundColor: '#1E2127',

@@ -86,7 +86,7 @@ function Navigation() {
               component={Ofert}
               options={{
                 headerTitle: () => (
-                  <View style={{ alignItems: 'center' }}>
+                  <View style={styles.headerStyleDuble}>
                     <Text style={styles.headerTitle}>{texts?.t0}</Text>
                     <Text style={styles.headerTitle}>{texts?.t1}</Text>
                   </View>
@@ -103,7 +103,7 @@ function Navigation() {
               component={Agreement}
               options={{
                 headerTitle: () => (
-                  <View style={{ alignItems: 'center' }}>
+                  <View style={styles.headerStyleDuble}>
                     <Text style={styles.headerTitle}>{texts?.t2}</Text>
                     <Text style={styles.headerTitle}>{texts?.t3}</Text>
                   </View>
@@ -500,6 +500,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '700',
+  },
+  headerStyleDuble: {
+    alignItems: 'center',
   },
 })
 

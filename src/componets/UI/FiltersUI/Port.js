@@ -45,25 +45,21 @@ function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapP
         {prots.map(item => (
           <TouchableOpacity
             key={item}
-            style={{
-              backgroundColor: port.includes(item) ? '#FAC637' : '#333842',
-              alignItems: 'center',
-              borderRadius: 30,
-              marginTop: 10,
-              marginRight: 10,
-            }}
+            style={StyleSheet.flatten([
+              styles.portContainer,
+              {
+                backgroundColor: port.includes(item) ? '#FAC637' : '#333842',
+              },
+            ])}
             activeOpacity={0.8}
             onPress={() => handlePress(item)}>
             <Text
-              style={{
-                fontWeight: '600',
-                fontSize: 13,
-                color: port.includes(item) ? '#0F1218' : 'white',
-                paddingBottom: 6,
-                paddingTop: 6,
-                paddingRight: 12,
-                paddingLeft: 12,
-              }}>
+              style={StyleSheet.flatten([
+                styles.portText,
+                {
+                  color: port.includes(item) ? '#0F1218' : 'white',
+                },
+              ])}>
               {item}
             </Text>
           </TouchableOpacity>
@@ -98,6 +94,20 @@ const styles = StyleSheet.create({
   Chips: {
     width: '100%',
     marginBottom: 20,
+  },
+  portContainer: {
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 10,
+    marginRight: 10,
+  },
+  portText: {
+    fontWeight: '600',
+    fontSize: 13,
+    paddingBottom: 6,
+    paddingTop: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
   },
 })
 

@@ -78,25 +78,21 @@ function Tags({
           ? filtersIpsItem.map(item => (
               <TouchableOpacity
                 key={item.id}
-                style={{
-                  backgroundColor: ipsFilter.includes(item.id) ? '#FAC637' : '#333842',
-                  alignItems: 'center',
-                  borderRadius: 30,
-                  marginTop: 10,
-                  marginRight: 10,
-                }}
+                style={StyleSheet.flatten([
+                  styles.ipsItemContainer,
+                  {
+                    backgroundColor: ipsFilter.includes(item.id) ? '#FAC637' : '#333842',
+                  },
+                ])}
                 activeOpacity={0.8}
                 onPress={() => handlePress(item.id)}>
                 <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 13,
-                    color: ipsFilter.includes(item.id) ? '#0F1218' : 'white',
-                    paddingBottom: 6,
-                    paddingTop: 6,
-                    paddingRight: 12,
-                    paddingLeft: 12,
-                  }}>
+                  style={StyleSheet.flatten([
+                    styles.ipsItemText,
+                    {
+                      color: ipsFilter.includes(item.id) ? '#0F1218' : 'white',
+                    },
+                  ])}>
                   {item.value}
                 </Text>
               </TouchableOpacity>
@@ -104,25 +100,21 @@ function Tags({
           : filtersIpsItem.map(item => (
               <TouchableOpacity
                 key={item.id}
-                style={{
-                  backgroundColor: ipsFilter.includes(item.id) ? '#EC3641' : '#333842',
-                  alignItems: 'center',
-                  borderRadius: 30,
-                  marginTop: 10,
-                  marginRight: 10,
-                }}
+                style={StyleSheet.flatten([
+                  styles.ipsItemContainer,
+                  {
+                    backgroundColor: ipsFilter.includes(item.id) ? '#FAC637' : '#333842',
+                  },
+                ])}
                 activeOpacity={0.8}
                 onPress={() => handlePress(item.id)}>
                 <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 13,
-                    color: ipsFilter.includes(item.id) ? '#0F1218' : 'white',
-                    paddingBottom: 6,
-                    paddingTop: 6,
-                    paddingRight: 12,
-                    paddingLeft: 12,
-                  }}>
+                  style={StyleSheet.flatten([
+                    styles.ipsItemText,
+                    {
+                      color: ipsFilter.includes(item.id) ? '#0F1218' : 'white',
+                    },
+                  ])}>
                   {item.value}
                 </Text>
               </TouchableOpacity>
@@ -147,6 +139,20 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  ipsItemContainer: {
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 10,
+    marginRight: 10,
+  },
+  ipsItemText: {
+    fontWeight: '600',
+    fontSize: 13,
+    paddingBottom: 6,
+    paddingTop: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
   },
   textInfo: {
     fontWeight: '600',

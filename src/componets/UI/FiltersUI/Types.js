@@ -16,48 +16,40 @@ function Types({ ipType, setFilters }) {
       <Text style={styles.text}>{text?.texts?.t8}</Text>
       <View style={styles.container}>
         <TouchableOpacity
-          style={{
-            backgroundColor: ipType.includes('1') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
+          style={StyleSheet.flatten([
+            styles.ipTypeContainer,
+            {
+              backgroundColor: ipType.includes('1') ? '#FAC637' : '#333842',
+            },
+          ])}
           activeOpacity={0.8}
           onPress={() => handlePress('1')}>
           <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: ipType.includes('1') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
+            style={StyleSheet.flatten([
+              styles.ipTypeText,
+              {
+                color: ipType.includes('1') ? '#0F1218' : 'white',
+              },
+            ])}>
             {text?.texts?.t36}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{
-            backgroundColor: ipType.includes('2') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
+          style={StyleSheet.flatten([
+            styles.ipTypeContainer,
+            {
+              backgroundColor: ipType.includes('2') ? '#FAC637' : '#333842',
+            },
+          ])}
           activeOpacity={0.8}
           onPress={() => handlePress('2')}>
           <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: ipType.includes('2') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
+            style={StyleSheet.flatten([
+              styles.ipTypeText,
+              {
+                color: ipType.includes('2') ? '#0F1218' : 'white',
+              },
+            ])}>
             {text?.texts?.t37}
           </Text>
         </TouchableOpacity>
@@ -80,6 +72,20 @@ const styles = StyleSheet.create({
   Chips: {
     width: '90%',
     marginBottom: 20,
+  },
+  ipTypeContainer: {
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 10,
+    marginRight: 10,
+  },
+  ipTypeText: {
+    fontWeight: '600',
+    fontSize: 13,
+    paddingBottom: 6,
+    paddingTop: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
   },
 })
 

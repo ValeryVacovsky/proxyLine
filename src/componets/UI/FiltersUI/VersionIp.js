@@ -16,48 +16,40 @@ function VersionIp({ setFilters, ipVersion }) {
       <Text style={styles.text}>{text?.texts?.t38}</Text>
       <View style={styles.container}>
         <TouchableOpacity
-          style={{
-            backgroundColor: ipVersion.includes('4') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
+          style={StyleSheet.flatten([
+            styles.ipVersionContainer,
+            {
+              backgroundColor: ipVersion.includes('4') ? '#FAC637' : '#333842',
+            },
+          ])}
           activeOpacity={0.8}
           onPress={() => handlePress('4')}>
           <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: ipVersion.includes('4') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
+            style={StyleSheet.flatten([
+              styles.ipVersionText,
+              {
+                color: ipVersion.includes('4') ? '#0F1218' : 'white',
+              },
+            ])}>
             IPv4
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{
-            backgroundColor: ipVersion.includes('6') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
+          style={StyleSheet.flatten([
+            styles.ipVersionContainer,
+            {
+              backgroundColor: ipVersion.includes('6') ? '#FAC637' : '#333842',
+            },
+          ])}
           activeOpacity={0.8}
           onPress={() => handlePress('6')}>
           <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: ipVersion.includes('6') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
+            style={StyleSheet.flatten([
+              styles.ipVersionText,
+              {
+                color: ipVersion.includes('6') ? '#0F1218' : 'white',
+              },
+            ])}>
             IPv6
           </Text>
         </TouchableOpacity>
@@ -80,6 +72,20 @@ const styles = StyleSheet.create({
   Chips: {
     width: '90%',
     marginBottom: 20,
+  },
+  ipVersionContainer: {
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 10,
+    marginRight: 10,
+  },
+  ipVersionText: {
+    fontWeight: '600',
+    fontSize: 13,
+    paddingBottom: 6,
+    paddingTop: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
   },
 })
 

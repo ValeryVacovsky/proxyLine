@@ -16,50 +16,42 @@ function Autodetect({ autoRenewal, setFilters }) {
       <Text style={styles.text}>{text?.texts?.t17}</Text>
       <View style={styles.container}>
         <TouchableOpacity
-          style={{
-            backgroundColor: autoRenewal.includes('false') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
+          style={StyleSheet.flatten([
+            styles.autoDetectContainer,
+            {
+              backgroundColor: autoRenewal.includes('false') ? '#FAC637' : '#333842',
+            },
+          ])}
           activeOpacity={0.8}
           onPress={() => {
             handlePress('false')
           }}>
           <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: autoRenewal.includes('false') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
+            style={StyleSheet.flatten([
+              styles.autoDetectText,
+              {
+                color: autoRenewal.includes('false') ? '#0F1218' : 'white',
+              },
+            ])}>
             {text?.texts?.t18}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{
-            backgroundColor: autoRenewal.includes('true') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
+          style={StyleSheet.flatten([
+            styles.autoDetectContainer,
+            {
+              backgroundColor: autoRenewal.includes('true') ? '#FAC637' : '#333842',
+            },
+          ])}
           activeOpacity={0.8}
           onPress={() => handlePress('true')}>
           <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: autoRenewal.includes('true') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
+            style={StyleSheet.flatten([
+              styles.autoDetectText,
+              {
+                color: autoRenewal.includes('true') ? '#0F1218' : 'white',
+              },
+            ])}>
             {text?.texts?.t19}
           </Text>
         </TouchableOpacity>
@@ -82,6 +74,20 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  autoDetectContainer: {
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 10,
+    marginRight: 10,
+  },
+  autoDetectText: {
+    fontWeight: '600',
+    fontSize: 13,
+    paddingBottom: 6,
+    paddingTop: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
   },
 })
 

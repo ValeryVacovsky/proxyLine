@@ -49,25 +49,21 @@ function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnap
         {idDefault.map(item => (
           <TouchableOpacity
             key={item}
-            style={{
-              backgroundColor: id.includes(item) ? '#FAC637' : '#333842',
-              alignItems: 'center',
-              borderRadius: 30,
-              marginTop: 10,
-              marginRight: 10,
-            }}
+            style={StyleSheet.flatten([
+              styles.idContainer,
+              {
+                backgroundColor: id.includes(item) ? '#FAC637' : '#333842',
+              },
+            ])}
             activeOpacity={0.8}
             onPress={() => handlePress(item)}>
             <Text
-              style={{
-                fontWeight: '600',
-                fontSize: 13,
-                color: id.includes(item) ? '#0F1218' : 'white',
-                paddingBottom: 6,
-                paddingTop: 6,
-                paddingRight: 12,
-                paddingLeft: 12,
-              }}>
+              style={StyleSheet.flatten([
+                styles.idText,
+                {
+                  color: id.includes(item) ? '#0F1218' : 'white',
+                },
+              ])}>
               {item}
             </Text>
           </TouchableOpacity>
@@ -102,6 +98,20 @@ const styles = StyleSheet.create({
   Chips: {
     width: '100%',
     marginBottom: 20,
+  },
+  idContainer: {
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 10,
+    marginRight: 10,
+  },
+  idText: {
+    fontWeight: '600',
+    fontSize: 13,
+    paddingBottom: 6,
+    paddingTop: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
   },
 })
 

@@ -16,48 +16,40 @@ function Price({ price, setFilters }) {
       <Text style={styles.text}>{text?.texts?.t28}</Text>
       <View style={styles.conatainer}>
         <TouchableOpacity
-          style={{
-            backgroundColor: price.includes('fix') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
+          style={StyleSheet.flatten([
+            styles.priceContainer,
+            {
+              backgroundColor: price.includes('fix') ? '#FAC637' : '#333842',
+            },
+          ])}
           activeOpacity={0.8}
           onPress={() => handlePress('fix')}>
           <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: price.includes('fix') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
+            style={StyleSheet.flatten([
+              styles.priceText,
+              {
+                color: price.includes('fix') ? '#0F1218' : 'white',
+              },
+            ])}>
             {text?.texts?.t29}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{
-            backgroundColor: price.includes('course') ? '#FAC637' : '#333842',
-            alignItems: 'center',
-            borderRadius: 30,
-            marginTop: 10,
-            marginRight: 10,
-          }}
+          style={StyleSheet.flatten([
+            styles.priceContainer,
+            {
+              backgroundColor: price.includes('course') ? '#FAC637' : '#333842',
+            },
+          ])}
           activeOpacity={0.8}
           onPress={() => handlePress('center')}>
           <Text
-            style={{
-              fontWeight: '600',
-              fontSize: 13,
-              color: price.includes('course') ? '#0F1218' : 'white',
-              paddingBottom: 6,
-              paddingTop: 6,
-              paddingRight: 12,
-              paddingLeft: 12,
-            }}>
+            style={StyleSheet.flatten([
+              styles.priceText,
+              {
+                color: price.includes('course') ? '#0F1218' : 'white',
+              },
+            ])}>
             {text?.texts?.t30}
           </Text>
         </TouchableOpacity>
@@ -80,6 +72,20 @@ const styles = StyleSheet.create({
   Chips: {
     width: '90%',
     marginBottom: 20,
+  },
+  priceContainer: {
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 10,
+    marginRight: 10,
+  },
+  priceText: {
+    fontWeight: '600',
+    fontSize: 13,
+    paddingBottom: 6,
+    paddingTop: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
   },
 })
 

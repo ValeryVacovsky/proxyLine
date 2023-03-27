@@ -15,9 +15,11 @@ function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset 
       order: '',
     },
   })
+
   const [keyboardHeight, setKeyboardHeight] = useState(0)
   const [isKeyboardVisible, setKeyboardVisible] = useState(false)
   const [focusInput, setFocusInput] = useState(false)
+
   useEffect(() => {
     function onKeyboardDidShow(e) {
       // Remove type here if not using TypeScript
@@ -43,7 +45,9 @@ function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset 
       keyboardDidShowListener.remove()
     }
   }, [])
+
   const text = useSelector(res => res.textReducer.proxy_info.payload)
+
   const onSubmit = data => {
     handleClosePress()
     setOrdersDefault(prevState =>
@@ -55,10 +59,11 @@ function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset 
     setBottomInset(0)
     setFocusInput(false)
   }
+
   const handleFocus = () => {
     setFocusInput(true)
   }
-  // setFocusInput(true)
+
   useEffect(() => {
     if (isKeyboardVisible) {
       setBottomInset(keyboardHeight)
@@ -71,8 +76,14 @@ function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset 
     <View style={styles.container}>
       <View style={styles.topBar} />
       <View style={styles.topContainer}>
-        <View style={{ width: '90%' }}>
-          <View style={{ minHeight: 16, minWidth: 150, marginBottom: 3, marginTop: heightOffScreen > 700 ? 34 : 14 }}>
+        <View style={styles.topContainerSecond}>
+          <View
+            style={StyleSheet.flatten([
+              styles.infoContainer,
+              {
+                marginTop: heightOffScreen > 700 ? 34 : 14,
+              },
+            ])}>
             <Text style={styles.infoText}>{errors.order && 'Введите порт'}</Text>
           </View>
           <Controller
@@ -87,19 +98,12 @@ function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset 
                 returnKeyType="done"
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                style={{
-                  backgroundColor: '#1E2127',
-                  color: 'white',
-                  height: 44,
-                  minWidth: '100%',
-                  marginBottom: 14,
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  paddingLeft: 20,
-                  paddingTop: 12,
-                  paddingBottom: 12,
-                  borderColor: (focusInput && '#fac637') || (errors.order && 'rgb(138,0,0)') || '#333842',
-                }}
+                style={StyleSheet.flatten([
+                  styles.topInput,
+                  {
+                    borderColor: (focusInput && '#fac637') || (errors.order && 'rgb(138,0,0)') || '#333842',
+                  },
+                ])}
                 onChangeText={onChange}
                 value={value}
               />
@@ -136,18 +140,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
+  topContainerSecond: {
+    width: '90%',
+  },
   topInput: {
     backgroundColor: '#1E2127',
     color: 'white',
     height: 44,
-    minWidth: '90%',
+    minWidth: '100%',
     marginBottom: 14,
     borderRadius: 8,
     borderWidth: 1,
     paddingLeft: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
-    borderColor: '#333842',
+    paddingTop: 12,
+    paddingBottom: 12,
+  },
+  infoContainer: {
+    minHeight: 16,
+    minWidth: 150,
+    marginBottom: 3,
   },
   infoText: {
     color: 'white',

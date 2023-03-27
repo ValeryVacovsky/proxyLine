@@ -134,18 +134,18 @@ function BottomSheetIps({
                 <TouchableOpacity
                   onPress={() => handlePressIps(item)}
                   key={item.id}
-                  style={{
-                    backgroundColor: filtersIps.includes(item.id) ? '#FAC637' : '#333842',
-                    paddingHorizontal: 12,
-                    paddingVertical: 6,
-                    borderRadius: 30,
-                    marginLeft: 10,
-                    marginTop: 12,
-                  }}>
+                  style={StyleSheet.flatten([
+                    styles.filtersIpsContainer,
+                    {
+                      backgroundColor: filtersIps.includes(item.id) ? '#FAC637' : '#333842',
+                    },
+                  ])}>
                   <Text
-                    style={{
-                      color: filtersIps.includes(item.id) ? '#0F1218' : 'white',
-                    }}>
+                    style={StyleSheet.flatten([
+                      {
+                        color: filtersIps.includes(item.id) ? '#0F1218' : 'white',
+                      },
+                    ])}>
                     {item.value}
                   </Text>
                 </TouchableOpacity>
@@ -154,18 +154,18 @@ function BottomSheetIps({
                 <TouchableOpacity
                   onPress={() => handlePressIps(item)}
                   key={item.id}
-                  style={{
-                    backgroundColor: filtersIps.includes(item.id) ? '#EC3641' : '#333842',
-                    paddingHorizontal: 12,
-                    paddingVertical: 6,
-                    borderRadius: 30,
-                    marginLeft: 10,
-                    marginTop: 12,
-                  }}>
+                  style={StyleSheet.flatten([
+                    styles.filtersIpsContainer,
+                    {
+                      backgroundColor: filtersIps.includes(item.id) ? '#EC3641' : '#333842',
+                    },
+                  ])}>
                   <Text
-                    style={{
-                      color: filtersIps.includes(item.id) ? '#0F1218' : 'white',
-                    }}>
+                    style={StyleSheet.flatten([
+                      {
+                        color: filtersIps.includes(item.id) ? '#0F1218' : 'white',
+                      },
+                    ])}>
                     {item.value}
                   </Text>
                 </TouchableOpacity>
@@ -173,16 +173,12 @@ function BottomSheetIps({
         </View>
       </ScrollView>
       <TouchableOpacity
-        style={{
-          paddingTop: 18,
-          paddingBottom: 18,
-          backgroundColor: '#1E2127',
-          width: '90%',
-          marginBottom: marginBottom,
-          borderRadius: 12,
-          alignItems: 'center',
-          marginTop: 2,
-        }}
+        style={StyleSheet.flatten([
+          styles.bottomButtonContainer,
+          {
+            marginBottom: marginBottom,
+          },
+        ])}
         onPress={handlePress}
         activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>{text?.buttons?.b1}</Text>
@@ -246,14 +242,14 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
-  bottomButton: {
+  bottomButtonContainer: {
     paddingTop: 18,
     paddingBottom: 18,
     backgroundColor: '#1E2127',
     width: '90%',
     borderRadius: 12,
     alignItems: 'center',
-    marginBottom: 150,
+    marginTop: 2,
   },
   bottomButtonText: {
     color: '#FAC637',
@@ -280,6 +276,12 @@ const styles = StyleSheet.create({
   },
   tagsTextExlude: {
     color: '#0F1218',
+  },
+  filtersIpsContainer: {
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 10,
+    marginRight: 10,
   },
 })
 

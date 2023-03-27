@@ -79,25 +79,16 @@ function ChangePassword({ navigation }) {
                 }}
                 render={({ field: { onChange, value } }) => (
                   <View
-                    style={{
-                      backgroundColor: '#1E2127',
-                      color: 'white',
-                      height: 44,
-                      marginBottom: 14,
-                      borderRadius: 8,
-                      borderWidth: 1,
-                      paddingLeft: 20,
-                      borderColor:
-                        (focusOnPasswordTop && '#fac637') ||
-                        (errors.password && 'rgb(138,0,0)') ||
-                        (errors.passwordConfirmation && 'rgb(138,0,0)') ||
-                        '#333842',
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginLeft: 20,
-                      marginRight: 20,
-                    }}>
+                    style={StyleSheet.flatten([
+                      styles.inputStyle,
+                      {
+                        borderColor:
+                          (focusOnPasswordTop && '#fac637') ||
+                          (errors.password && 'rgb(138,0,0)') ||
+                          (errors.passwordConfirmation && 'rgb(138,0,0)') ||
+                          '#333842',
+                      },
+                    ])}>
                     <TextInput
                       onFocus={() => setFocusOnPasswordTop(true)}
                       onBlur={() => setFocusOnPasswordTop(false)}
@@ -129,24 +120,15 @@ function ChangePassword({ navigation }) {
                 }}
                 render={({ field: { onChange, value } }) => (
                   <View
-                    style={{
-                      backgroundColor: '#1E2127',
-                      color: 'white',
-                      height: 44,
-                      marginBottom: 14,
-                      borderRadius: 8,
-                      borderWidth: 1,
-                      paddingLeft: 20,
-                      borderColor:
-                        (focusOnPasswordBottom && '#fac637') ||
-                        (errors.passwordConfirmation && 'rgb(138,0,0)') ||
-                        '#333842',
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginLeft: 20,
-                      marginRight: 20,
-                    }}>
+                    style={StyleSheet.flatten([
+                      styles.inputStyle,
+                      {
+                        borderColor:
+                          (focusOnPasswordBottom && '#fac637') ||
+                          (errors.passwordConfirmation && 'rgb(138,0,0)') ||
+                          '#333842',
+                      },
+                    ])}>
                     <TextInput
                       onFocus={() => setFocusOnPasswordBottom(true)}
                       onBlur={() => setFocusOnPasswordBottom(false)}
@@ -200,6 +182,20 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     width: '100%',
+  },
+  inputStyle: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 20,
+    marginRight: 20,
   },
   text: {
     color: 'white',
