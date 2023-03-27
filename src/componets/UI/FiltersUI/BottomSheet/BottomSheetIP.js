@@ -20,6 +20,7 @@ function BottomSheetIP({ handleClosePress, setIpaddress, handleSnapPress }) {
   })
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [focusInput, setFocusInput] = useState(false)
+
   const onSubmit = data => {
     handleClosePress()
     setIpaddress(prevState =>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
-import BottomSheetDateCountries from './BottomSheet/BottomSheetDateCountries'
 import { useSelector } from 'react-redux'
+
+import BottomSheetDateCountries from './BottomSheet/BottomSheetDateCountries'
 
 function CountriesItem({
   countries,
@@ -16,7 +17,9 @@ function CountriesItem({
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const countreisList = useSelector(res => res.countryOrderReducer.country)
+
   const [country, setCountry] = useState(['ru', 'us', 'fr', 'de'])
+
   const handlePress = item => {
     if (countries.includes(item) && !countriesExclude) {
       setCountryExclude(true)
@@ -41,6 +44,7 @@ function CountriesItem({
       )
     }
   }
+
   const handleOpenBottomSheet = () => {
     handleSnapPress(2)
     setChildrenItem(
@@ -55,6 +59,7 @@ function CountriesItem({
       />,
     )
   }
+
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>

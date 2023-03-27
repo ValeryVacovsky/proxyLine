@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 
 function Price({ price, setFilters }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
+
   const handlePress = item => {
     setFilters(prevState =>
       prevState.price.includes(item)
@@ -11,6 +12,7 @@ function Price({ price, setFilters }) {
         : { ...prevState, price: prevState.price.concat(item) },
     )
   }
+
   return (
     <View style={styles.Chips}>
       <Text style={styles.text}>{text?.texts?.t28}</Text>

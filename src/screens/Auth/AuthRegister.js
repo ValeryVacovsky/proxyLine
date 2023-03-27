@@ -20,6 +20,7 @@ function AuthRegister({ navigation }) {
   const [focusOnEmail, setFocusOnEmail] = useState(false)
   const [text, setText] = useState({})
   const authText = useSelector(res => res.textReducer.auth.payload)
+
   useEffect(() => {
     setText(authText)
   }, [authText, text])
@@ -34,6 +35,7 @@ function AuthRegister({ navigation }) {
       password: '',
     },
   })
+
   const onSubmit = async data => {
     try {
       const res = await postRegisterCode(data)
@@ -46,6 +48,7 @@ function AuthRegister({ navigation }) {
       setCommonFormError('Invalid email or password')
     }
   }
+
   return (
     <LayoutAuth>
       <View style={styles.header}>
@@ -56,16 +59,16 @@ function AuthRegister({ navigation }) {
           <Text style={styles.authLogo}>{authText?.texts?.t3}</Text>
           <Text style={styles.authUnderLogo}>{authText?.texts?.t4}</Text>
           {errors.email ? (
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={styles.errorLableContainer}>
               <Text style={styles.label}>{authText?.texts?.t1}</Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t23}</Text>
+              <Text style={styles.lableErrorText}>{authText?.texts?.t23}</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
-                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={styles.errorLableContainer}>
                   <Text style={styles.label}>{authText?.texts?.t1}</Text>
-                  <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t24}</Text>
+                  <Text style={styles.lableErrorText}>{authText?.texts?.t24}</Text>
                 </View>
               ) : (
                 <Text style={styles.label}>{authText?.texts?.t1}</Text>
@@ -86,19 +89,12 @@ function AuthRegister({ navigation }) {
                 keyboardType="email-address"
                 onFocus={() => setFocusOnEmail(true)}
                 onBlur={() => setFocusOnEmail(false)}
-                style={{
-                  backgroundColor: '#1E2127',
-                  color: 'white',
-                  height: 44,
-                  minWidth: '100%',
-                  marginBottom: 14,
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  paddingLeft: 20,
-                  paddingTop: 12,
-                  paddingBottom: 12,
-                  borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
-                }}
+                style={StyleSheet.flatten([
+                  styles.input,
+                  {
+                    borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
+                  },
+                ])}
                 onChangeText={onChange}
                 value={value}
               />
@@ -116,7 +112,7 @@ function AuthRegister({ navigation }) {
             </Text>
           </Text>
         </View>
-        <View style={{ marginBottom: 25 }}>
+        <View style={styles.bottomContainer}>
           <Text style={styles.haveAcc}>
             {' '}
             {authText?.texts?.t15} &#160;
@@ -174,12 +170,24 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     justifyContent: 'space-between',
   },
+  errorLableContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   label: {
     color: 'white',
     marginBottom: 8,
     fontSize: 16,
     lineHeight: 15,
     fontWeight: '500',
+  },
+  lableErrorText: {
+    color: 'white',
+    fontSize: 12,
+  },
+  bottomContainer: {
+    marginBottom: 25,
   },
   buttonInner: {
     backgroundColor: '#FAC637',
@@ -200,10 +208,9 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#333842',
     paddingLeft: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   authLogo: {
     textAlign: 'center',

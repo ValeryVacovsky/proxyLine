@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
+
 import CountryFilterSlot from '../CountriesUI/CountryFilterSlot'
+
 import ExcludeOff from '../../../../image/Svg/ExcludeOff'
 import ExcludeOn from '../../../../image/Svg/ExcludeOn'
+
 import alphavit from '../../../../utils/alphavit'
 
 function BottomSheetDateCountries({
@@ -20,20 +23,25 @@ function BottomSheetDateCountries({
   const [excludeStatus, setExcludeStatus] = useState(excludeStatusOut)
   const [countriesState, setCountriesState] = useState(countries)
   const [countriesStateExlude, setCountriesStateExlude] = useState(countries)
+
   const handlePress = () => {
     handleClosePress()
   }
+
   const hendleExcludeStatus = () => {
     setExcludeStatus(prev => !prev)
     setExcludeStatusOut(prev => !prev)
   }
+
   const countryMockFullName = countreisList.map(item => {
     return {
       code: item.code,
       name_local: countryDiscription[languageGet][item.code],
     }
   })
+
   const CountryByAlphavit = {}
+
   alphavit[languageGet].map(item => {
     const arry = []
     countryMockFullName.map(country => {
@@ -45,7 +53,9 @@ function BottomSheetDateCountries({
       CountryByAlphavit[item] = arry
     }
   })
+
   const CountryByAlphavitArray = Object.keys(CountryByAlphavit)
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar} />

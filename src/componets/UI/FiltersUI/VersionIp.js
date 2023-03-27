@@ -4,6 +4,7 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
 function VersionIp({ setFilters, ipVersion }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
+
   const handlePress = item => {
     setFilters(prevState =>
       prevState.ip_version.includes(item)
@@ -11,6 +12,7 @@ function VersionIp({ setFilters, ipVersion }) {
         : { ...prevState, ip_version: [item] },
     )
   }
+
   return (
     <View style={styles.Chips}>
       <Text style={styles.text}>{text?.texts?.t38}</Text>

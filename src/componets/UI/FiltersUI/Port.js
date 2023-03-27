@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import { useSelector } from 'react-redux'
-import getListProxies from '../../../api/getListProxies'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import getListProxies from '../../../api/getListProxies'
+
 import BottomSheetPort from './BottomSheet/BottomSheetPort'
 
 function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [prots, setPorts] = useState([])
+
   const handlePress = item => {
     setFilters(prevState =>
       prevState.port.includes(item)
@@ -15,12 +18,14 @@ function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapP
         : { ...prevState, port: prevState.port.concat(item) },
     )
   }
+
   const handleOpenBottomSheet = () => {
     setChildrenItem(
       <BottomSheetPort handleClosePress={handleClosePress} setPorts={setPorts} handleSnapPress={handleSnapPress} />,
     )
     handleSnapPress(0)
   }
+
   useEffect(() => {
     const listProxies = async () => {
       const outData = []
@@ -33,6 +38,7 @@ function Port({ port, setFilters, setChildrenItem, handleClosePress, handleSnapP
     }
     listProxies()
   }, [])
+
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>

@@ -1,13 +1,14 @@
 import React, { useCallback, useRef, useMemo, useState } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput, Dimensions } from 'react-native'
+import { useSelector } from 'react-redux'
 
 import LayoutMain from '../../componets/LayoutMain'
 import BottomSheetForm from '../../componets/BottomSheetForm'
 import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectForm'
-import ProxiesSearch from '../../image/Svg/ProxiesSearch'
-import { useSelector } from 'react-redux'
 import ProxyItemChange from '../../componets/UI/ProxyUI/ProxyItemChange'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
+
+import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
 const heightOffScreen = Dimensions.get('window').height
 
@@ -53,12 +54,12 @@ function ChangeProxies({ navigation }) {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={handleGetAll}>
-          <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.buttons?.b14}</Text>
+          <Text style={styles.headerRightText}>{text?.buttons?.b14}</Text>
         </TouchableOpacity>
       ),
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b16}</Text>
         </TouchableOpacity>
       ),
@@ -87,10 +88,12 @@ function ChangeProxies({ navigation }) {
       </View>
       <SafeAreaView>
         <ScrollView
-          style={{
-            width: '100%',
-            marginBottom: selectedProxies.length > 0 ? 300 : 90,
-          }}>
+          style={StyleSheet.flatten([
+            styles.scrollViewContainer,
+            {
+              marginBottom: selectedProxies.length > 0 ? 300 : 90,
+            },
+          ])}>
           {proxyLisStore?.map(proxy => (
             <ProxyItemChange
               key={proxy.id}
@@ -149,6 +152,9 @@ const styles = StyleSheet.create({
     bottom: '8%',
     zIndex: 1,
   },
+  scrollViewContainer: {
+    width: '100%',
+  },
   buttonInner: {
     backgroundColor: '#FAC637',
     alignItems: 'center',
@@ -192,6 +198,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  headerLeftIcon: {
+    bottom: 1,
+  },
+  headerRightText: {
+    color: '#FAC637',
+    fontWeight: '600',
+    fontSize: 15,
   },
 })
 

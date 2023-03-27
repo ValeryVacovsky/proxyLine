@@ -22,6 +22,7 @@ function CountryFilterSlot({
 }) {
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
+
   const handlePress = item => {
     setFilters(prevState =>
       prevState.countries.includes(item)

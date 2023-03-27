@@ -8,15 +8,7 @@ import postUpdateProxyTags from '../../../api/ProxyAdd/postUpdateProxyTags'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import getListProxies from '../../../api/getListProxies'
 
-function BottomSheetProxyTags({
-  proxyTags,
-  handleSnapPress,
-  proxyId,
-  setProxyInfo,
-  heightTags,
-  setHeightTags,
-  handleClosePress,
-}) {
+function BottomSheetProxyTags({ proxyTags, handleSnapPress, proxyId, setProxyInfo, heightTags, setHeightTags }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const tags = useSelector(data => data.ipsTagsReducer.tags)
   const [tagsFiltred, setTagsFiltred] = useState(tags)
@@ -120,22 +112,12 @@ function BottomSheetProxyTags({
     }
     setValue('')
     addTag()
-    handleClosePress()
   }
   return (
-    <ScrollView
-      scrollEnabled={false}
-      keyboardShouldPersistTaps="always"
-      style={{
-        height: '100%',
-        backgroundColor: '#0F1218',
-        borderTopLeftRadius: 14,
-        borderTopRightRadius: 14,
-        display: 'flex',
-      }}>
+    <ScrollView scrollEnabled={false} keyboardShouldPersistTaps="always" style={styles.scrollViewMainContainer}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
+        style={styles.keyboardContainer}
         keyboardShouldPersistTaps="always"
         keyboardVerticalOffset={104}>
         <View style={styles.container}>
@@ -144,7 +126,7 @@ function BottomSheetProxyTags({
               <View style={styles.topTab} />
             </View>
             <Text style={styles.mainText}>{text?.texts?.t14}</Text>
-            <ScrollView style={{ maxHeight: 114 }}>
+            <ScrollView style={styles.scrollViewListContainer}>
               <View
                 style={styles.itemContainer}
                 onLayout={event => {
@@ -155,31 +137,23 @@ function BottomSheetProxyTags({
                 {localTags?.map(item => {
                   return (
                     <TouchableOpacity
-                      style={{
-                        paddingTop: 6,
-                        paddingBottom: 7,
-                        paddingLeft: 12,
-                        paddingRight: 12,
-                        display: 'flex',
-                        flexDirection: 'row',
-                        backgroundColor: Colors[item.color].back,
-                        borderRadius: 30,
-                        marginRight: 5,
-                        marginTop: 10,
-                        alignItems: 'center',
-                      }}
+                      style={StyleSheet.flatten([
+                        styles.localTagsContainer,
+                        {
+                          backgroundColor: Colors[item.color].back,
+                        },
+                      ])}
                       key={item.id}>
                       <TouchableOpacity onPress={() => handleDeleteTag(item.id)}>
                         <DeleteToggleIcon />
                       </TouchableOpacity>
                       <Text
-                        style={{
-                          color: Colors[item.color].color,
-                          fontWeight: '400',
-                          fontSize: 13,
-                          lineHeight: 15,
-                          marginLeft: 9,
-                        }}>
+                        style={StyleSheet.flatten([
+                          styles.localTagsText,
+                          {
+                            color: Colors[item.color].color,
+                          },
+                        ])}>
                         {item.value}
                       </Text>
                     </TouchableOpacity>
@@ -188,29 +162,23 @@ function BottomSheetProxyTags({
               </View>
             </ScrollView>
           </View>
-          <View style={{ marginHorizontal: 20, marginBottom: 234 }}>
-            <View style={{ position: 'relative' }}>
+          <View style={styles.bottomContainer}>
+            <View style={styles.inputContainer}>
               <TextInput
                 value={value}
                 onChangeText={handleChangeText}
-                style={{
-                  backgroundColor: '#1E2127',
-                  paddingHorizontal: 10,
-                  paddingVertical: 15,
-                  color: 'white',
-                  fontWeight: '600',
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  borderColor: '#333842',
-                  marginTop: open && localTags?.length == 0 ? 50 : 14,
-                  marginBottom: 14,
-                }}
+                style={StyleSheet.flatten([
+                  styles.input,
+                  {
+                    marginTop: open && localTags?.length == 0 ? 50 : 14,
+                  },
+                ])}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
               {open && (
                 <ScrollView style={styles.scrollViewContainer}>
-                  <View style={{ paddingTop: 10, paddingHorizontal: 20 }}>
+                  <View style={styles.scrollViewContainerSecond}>
                     {tagsFiltred.map(item => (
                       <TouchableOpacity activeOpacity={0.8} key={item.id} onPress={() => handleSelect(item)}>
                         <Text style={styles.filterText}>{item.value}</Text>
@@ -222,19 +190,8 @@ function BottomSheetProxyTags({
             </View>
 
             <Text style={styles.TagInfo}>{text?.texts?.t42}</Text>
-            <TouchableOpacity
-              onPress={() => handleAddTag('add')}
-              style={{
-                paddingVertical: 20,
-                alignItems: 'center',
-                backgroundColor: '#1E2127',
-                marginTop: 20,
-                borderRadius: 12,
-                marginBottom: 34,
-              }}>
-              <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 13, lineHeight: 15 }}>
-                {text?.buttons?.b3}
-              </Text>
+            <TouchableOpacity onPress={() => handleAddTag('add')} style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>{text?.buttons?.b3}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -251,6 +208,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  keyboardContainer: {
+    flex: 1,
   },
   topTabContainer: {
     position: 'relative',
@@ -272,6 +232,24 @@ const styles = StyleSheet.create({
     marginTop: 33,
     marginHorizontal: 20,
   },
+  localTagsContainer: {
+    paddingTop: 6,
+    paddingBottom: 7,
+    paddingLeft: 12,
+    paddingRight: 12,
+    display: 'flex',
+    flexDirection: 'row',
+    borderRadius: 30,
+    marginRight: 5,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  localTagsText: {
+    fontWeight: '400',
+    fontSize: 13,
+    lineHeight: 15,
+    marginLeft: 9,
+  },
   itemContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -279,6 +257,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     minHeight: 1,
     backgroundColor: 'red ',
+  },
+  scrollViewListContainer: {
+    maxHeight: 114,
+  },
+  bottomContainer: {
+    marginHorizontal: 20,
+    marginBottom: 234,
+  },
+  inputContainer: {
+    position: 'relative',
   },
   input: {
     backgroundColor: '#1E2127',
@@ -289,8 +277,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#333842',
-    marginTop: 14,
     marginBottom: 14,
+  },
+  scrollViewMainContainer: {
+    height: '100%',
+    backgroundColor: '#0F1218',
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
+    display: 'flex',
   },
   scrollViewContainer: {
     position: 'absolute',
@@ -302,6 +296,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#333842',
   },
+  scrollViewContainerSecond: {
+    paddingTop: 10,
+    paddingHorizontal: 20,
+  },
   filterText: {
     color: 'white',
     fontWeight: '600',
@@ -311,6 +309,20 @@ const styles = StyleSheet.create({
   },
   TagInfo: {
     color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 13,
+    lineHeight: 15,
+  },
+  buttonContainer: {
+    paddingVertical: 20,
+    alignItems: 'center',
+    backgroundColor: '#1E2127',
+    marginTop: 20,
+    borderRadius: 12,
+    marginBottom: 34,
+  },
+  buttonText: {
+    color: '#FAC637',
     fontWeight: '600',
     fontSize: 13,
     lineHeight: 15,

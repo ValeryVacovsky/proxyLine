@@ -2,10 +2,11 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
-import HeaderTintBack from '../../image/Svg/HeaderTintBack'
-
 import { useForm } from 'react-hook-form'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
+
 import LayoutAuth from '../../componets/LayoutAuth'
 
 function Agreement({ navigation }) {
@@ -24,7 +25,7 @@ function Agreement({ navigation }) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {authText?.buttons?.b4}</Text>
         </TouchableOpacity>
       ),
@@ -35,10 +36,10 @@ function Agreement({ navigation }) {
       <View>
         <SafeAreaView style={styles.container}>
           <ScrollView style={styles.scrollView}>
-            <View style={{ color: 'white', display: 'flex', flexDirection: 'column' }}>
+            <View style={styles.scrollViewItemsContainer}>
               {Object.values(agreement)?.map(ofert => {
                 return (
-                  <Text style={{ color: 'white', marginBottom: 15 }} key={ofert}>
+                  <Text style={styles.agreementText} key={ofert}>
                     {ofert}
                   </Text>
                 )
@@ -50,11 +51,7 @@ function Agreement({ navigation }) {
           onPress={data => {
             handleSubmit(onSubmit(data))
           }}
-          style={{
-            marginBottom: 25,
-            alignItems: 'center',
-            borderRadius: 12,
-          }}
+          style={styles.buttonContainer}
           activeOpacity={0.8}>
           <SuperEllipseMaskView
             radius={{
@@ -64,7 +61,7 @@ function Agreement({ navigation }) {
               bottomRight: 12,
             }}
             style={styles.buttonInner}>
-            <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>{authText?.buttons?.b5}</Text>
+            <Text style={styles.buttonText}>{authText?.buttons?.b5}</Text>
           </SuperEllipseMaskView>
         </TouchableOpacity>
       </View>
@@ -87,8 +84,14 @@ const styles = StyleSheet.create({
   scrollView: {
     marginHorizontal: 20,
   },
-  text: {
-    fontSize: 42,
+  scrollViewItemsContainer: {
+    color: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  agreementText: {
+    color: 'white',
+    marginBottom: 15,
   },
   headerLeftTintContainer: {
     display: 'flex',
@@ -100,6 +103,19 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  headerLeftIcon: {
+    bottom: 1,
+  },
+  buttonContainer: {
+    marginBottom: 25,
+    alignItems: 'center',
+    borderRadius: 12,
+  },
+  buttonText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
   },
 })
 

@@ -16,7 +16,7 @@ function Notes({ navigation }) {
   const [pretextValue, setPreTextValue] = useState(textValue)
   const [openStatus, setOpenStatus] = useState(true)
   const [openStatusItem, setOpenStatusItem] = useState(
-    <View style={{ marginLeft: 15 }}>
+    <View style={styles.childrenContainer}>
       <Pressable
         hitSlop={50}
         style={styles.balanceIcon}
@@ -33,7 +33,7 @@ function Notes({ navigation }) {
     setPreTextValue('')
     setOpenStatus(true)
     setOpenStatusItem(
-      <View style={{ marginLeft: 15 }}>
+      <View style={styles.childrenContainer}>
         <TouchableOpacity
           style={styles.balanceIcon}
           activeOpacity={0.8}
@@ -51,7 +51,7 @@ function Notes({ navigation }) {
     setTextValue(pretextValue)
     setOpenStatus(true)
     setOpenStatusItem(
-      <View style={{ marginLeft: 15 }}>
+      <View style={styles.childrenContainer}>
         <TouchableOpacity
           style={styles.balanceIcon}
           activeOpacity={0.8}
@@ -68,10 +68,10 @@ function Notes({ navigation }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
-      headerRight: () => <View style={{ marginLeft: 15 }}>{openStatusItem}</View>,
+      headerRight: () => <View style={styles.childrenContainer}>{openStatusItem}</View>,
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftTintVector} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b3}</Text>
         </TouchableOpacity>
       ),
@@ -108,7 +108,7 @@ function Notes({ navigation }) {
       <View style={styles.topInfoContainer}>
         <View style={styles.textInputContainer}>
           {openStatus ? (
-            <Text style={{ color: 'white' }}>{textValue}</Text>
+            <Text style={styles.mainText}>{textValue}</Text>
           ) : (
             <TextInput
               style={styles.textInput}
@@ -170,6 +170,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
   },
+  childrenContainer: {
+    marginLeft: 15,
+  },
+  mainText: {
+    color: 'white',
+  },
   textInput: {
     paddingTop: 20,
     padding: 20,
@@ -214,6 +220,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  headerLeftTintVector: {
+    bottom: 1,
   },
   closeButtonsContainer: {
     alignItems: 'center',

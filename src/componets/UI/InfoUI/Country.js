@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import { flagByShortName } from '../../../common/flagByShortName'
 import { useSelector } from 'react-redux'
+
+import { flagByShortName } from '../../../common/flagByShortName'
 
 function Country({ countryName, text }) {
   const languageGet = useSelector(res => res.textReducer.languages_get.language)

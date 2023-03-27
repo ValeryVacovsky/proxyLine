@@ -1,9 +1,11 @@
 import { useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
+
 import getListBalanceLogs from '../api/getListBalanceLogs'
-import { setBalanceLogs, setBalance } from '../store/reducers/balanceReducer'
 import getBalance from '../api/getBalance'
+
+import { setBalanceLogs, setBalance } from '../store/reducers/balanceReducer'
 
 const useBalance = () => {
   const dispatch = useDispatch()

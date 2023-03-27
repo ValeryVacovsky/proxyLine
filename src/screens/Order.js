@@ -17,22 +17,21 @@ function Order({ navigation, route }) {
   const balance = useSelector(data => data.balanceReducer)
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
-        <View style={{ marginLeft: 15 }}>
+        <View style={styles.headerRightContainer}>
           <Pressable
             style={styles.balanceIcon}
             activeOpacity={0.8}
             hitSlop={50}
             onPress={() => navigation.navigate('Balance')}>
-            <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance / 100}</Text>
-            <HeaderProxy style={{ marginLeft: 3 }} />
+            <Text style={styles.headerBalanceText}>$ {balance.balance / 100}</Text>
+            <HeaderProxy style={styles.headerRightIcon} />
           </Pressable>
         </View>
       ),
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {proxyText.proxy.payload?.buttons?.b1}</Text>
         </TouchableOpacity>
       ),
@@ -135,6 +134,20 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  headerRightContainer: {
+    marginLeft: 15,
+  },
+  headerBalanceText: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 15,
+  },
+  headerRightIcon: {
+    marginLeft: 3,
+  },
+  headerLeftIcon: {
+    bottom: 1,
   },
 })
 

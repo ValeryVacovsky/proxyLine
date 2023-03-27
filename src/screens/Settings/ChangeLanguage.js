@@ -26,7 +26,7 @@ function ChangeLanguage({ navigation }) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
@@ -37,9 +37,9 @@ function ChangeLanguage({ navigation }) {
     getAllTexts(dispatch, country)
   }
   return (
-    <LayoutMain style={{ width: '100%' }}>
+    <LayoutMain style={styles.layoutContainer}>
       <SafeAreaView style={styles.container}>
-        <ScrollView style={{ marginTop: 25 }}>
+        <ScrollView style={styles.scrollViewContainer}>
           {countriesShort?.map(country => {
             return (
               <View style={styles.countryContianer} key={country}>
@@ -62,13 +62,22 @@ function ChangeLanguage({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  layoutContainer: {
+    width: '100%',
+  },
   container: {
     flex: 1,
+  },
+  scrollViewContainer: {
+    marginTop: 25,
   },
   headerLeftTintContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  headerLeftIcon: {
+    bottom: 1,
   },
   headerLeftTintText: {
     color: '#CBCBCB',

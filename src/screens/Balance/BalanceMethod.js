@@ -13,14 +13,17 @@ import {
 } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
+
 import LayoutMain from '../../componets/LayoutMain'
 import BalanceTopTableSystems from '../../componets/UI/BalanceUI/BalanceTopTableSystems'
+
 import LightRadioUncheked from '../../image/Svg/LightRadioUncheked'
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import DarkRadioUncheked from '../../image/Svg/DarkRadioUncheked'
-import postCreatePayment from '../../api/postCreatePayment'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
+
+import postCreatePayment from '../../api/postCreatePayment'
 
 const heightOffScreen = Dimensions.get('window').height
 
@@ -71,7 +74,7 @@ function BalanceMethod({ navigation, route }) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
@@ -185,6 +188,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  headerLeftIcon: {
+    bottom: 1,
   },
   headerLeftTintText: {
     color: '#CBCBCB',

@@ -39,7 +39,6 @@ function AuthRecover({ navigation }) {
       await AsyncStorage.setItem('@sign_up_email_reset', data.email)
       navigation.navigate('CodeReset')
     } else {
-      // setCommonFormError('Invalid email or password');
     }
   }
   return (
@@ -50,11 +49,11 @@ function AuthRecover({ navigation }) {
       <View style={styles.authForm}>
         <View>
           <Text style={styles.authLogo}>{authText?.texts?.t9}</Text>
-          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>{authText?.texts?.t10}</Text>
+          <Text style={styles.authMainText}>{authText?.texts?.t10}</Text>
           {errors.email ? (
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={styles.lableErrorContainer}>
               <Text style={styles.label}>{authText?.texts?.t1}</Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t21}</Text>
+              <Text style={styles.lableError}>{authText?.texts?.t21}</Text>
             </View>
           ) : (
             <Text style={styles.label}>{authText?.texts?.t1}</Text>
@@ -73,19 +72,12 @@ function AuthRecover({ navigation }) {
                 keyboardType="email-address"
                 onFocus={() => setFocusOnEmail(true)}
                 onBlur={() => setFocusOnEmail(false)}
-                style={{
-                  backgroundColor: '#1E2127',
-                  color: 'white',
-                  height: 44,
-                  minWidth: '100%',
-                  marginBottom: 14,
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  paddingLeft: 20,
-                  paddingTop: 12,
-                  paddingBottom: 12,
-                  borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
-                }}
+                style={StyleSheet.flatten([
+                  styles.input,
+                  {
+                    borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
+                  },
+                ])}
                 onChangeText={onChange}
                 value={value}
               />
@@ -93,7 +85,7 @@ function AuthRecover({ navigation }) {
             name="email"
           />
         </View>
-        <View style={{ marginBottom: 25 }}>
+        <View style={styles.bottomContainer}>
           <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
             <SuperEllipseMaskView
               radius={{
@@ -155,6 +147,18 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     fontWeight: '500',
   },
+  lableError: {
+    color: 'white',
+    fontSize: 12,
+  },
+  lableErrorContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  bottomContainer: {
+    marginBottom: 25,
+  },
   buttonInner: {
     backgroundColor: '#FAC637',
     alignItems: 'center',
@@ -184,16 +188,20 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#333842',
     paddingLeft: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   authLogo: {
     textAlign: 'center',
     color: 'white',
     fontWeight: '600',
     fontSize: heightOffScreen > 700 ? 22 : 20,
+  },
+  authMainText: {
+    color: '#CBCBCB',
+    textAlign: 'center',
+    paddingBottom: 30,
   },
 })
 

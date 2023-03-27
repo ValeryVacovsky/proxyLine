@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 
 function Types({ ipType, setFilters }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
+
   const handlePress = item => {
     setFilters(prevState =>
       prevState.ip_type.includes(item)
@@ -11,6 +12,7 @@ function Types({ ipType, setFilters }) {
         : { ...prevState, ip_type: [item] },
     )
   }
+
   return (
     <View style={styles.Chips}>
       <Text style={styles.text}>{text?.texts?.t8}</Text>

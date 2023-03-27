@@ -32,7 +32,7 @@ function Tags({ navigation }) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
@@ -47,33 +47,24 @@ function Tags({ navigation }) {
               {tags.map(item => {
                 return (
                   <TouchableOpacity
-                    style={{
-                      paddingTop: 6,
-                      paddingBottom: 7,
-                      paddingLeft: 12,
-                      paddingRight: 12,
-                      display: 'flex',
-                      flexDirection: 'row',
-                      backgroundColor: Colors[item.color].back,
-                      borderRadius: 30,
-                      marginRight: 5,
-                      marginTop: 10,
-                      alignItems: 'center',
-                    }}
+                    style={StyleSheet.flatten([
+                      styles.tagItemContainer,
+                      {
+                        backgroundColor: Colors[item.color].back,
+                      },
+                    ])}
                     key={item.id}
                     onPress={() => setDeleteTag(item.id)}>
                     <View>
                       <DeleteToggleIcon />
                     </View>
-
                     <Text
-                      style={{
-                        color: Colors[item.color].color,
-                        fontWeight: '400',
-                        fontSize: 13,
-                        lineHeight: 15,
-                        marginLeft: 9,
-                      }}>
+                      style={StyleSheet.flatten([
+                        styles.tagItemText,
+                        {
+                          color: Colors[item.color].color,
+                        },
+                      ])}>
                       {item.value}
                     </Text>
                   </TouchableOpacity>
@@ -82,64 +73,60 @@ function Tags({ navigation }) {
             </View>
           </ScrollView>
           <View style={styles.bottomContainer}>
-            <View style={{ positon: 'relative' }}>
+            <View style={styles.inputContainer}>
               <TextInput style={styles.input} value={value} onChangeText={handleChange} />
               <View style={styles.tagContainer}>
                 <Pressable
                   hitSlop={10}
                   activeOpacity={0.8}
                   onPress={() => handlePress('green')}
-                  style={{
-                    height: 20,
-                    width: 20,
-                    backgroundColor: Colors['green'].color,
-                    borderRadius: 40,
-                    marginLeft: 10,
-                    borderWidth: takeColor === 'green' ? 2 : 0,
-                    borderColor: takeColor === 'green' ? 'white' : 'none',
-                  }}
+                  style={StyleSheet.flatten([
+                    styles.inputSelectColor,
+                    {
+                      backgroundColor: Colors['green'].color,
+                      borderWidth: takeColor === 'green' ? 2 : 0,
+                      borderColor: takeColor === 'green' ? 'white' : 'none',
+                    },
+                  ])}
                 />
                 <Pressable
                   hitSlop={10}
                   activeOpacity={0.8}
                   onPress={() => handlePress('red')}
-                  style={{
-                    height: 20,
-                    width: 20,
-                    backgroundColor: Colors['red'].color,
-                    borderRadius: 40,
-                    marginLeft: 10,
-                    borderWidth: takeColor === 'red' ? 2 : 0,
-                    borderColor: takeColor === 'red' ? 'white' : 'none',
-                  }}
+                  style={StyleSheet.flatten([
+                    styles.inputSelectColor,
+                    {
+                      backgroundColor: Colors['red'].color,
+                      borderWidth: takeColor === 'red' ? 2 : 0,
+                      borderColor: takeColor === 'red' ? 'white' : 'none',
+                    },
+                  ])}
                 />
                 <Pressable
                   hitSlop={10}
                   activeOpacity={0.8}
                   onPress={() => handlePress('orange')}
-                  style={{
-                    height: 20,
-                    width: 20,
-                    backgroundColor: Colors['orange'].color,
-                    borderRadius: 40,
-                    marginLeft: 10,
-                    borderWidth: takeColor === 'orange' ? 2 : 0,
-                    borderColor: takeColor === 'orange' ? 'white' : 'none',
-                  }}
+                  style={StyleSheet.flatten([
+                    styles.inputSelectColor,
+                    {
+                      backgroundColor: Colors['orange'].color,
+                      borderWidth: takeColor === 'orange' ? 2 : 0,
+                      borderColor: takeColor === 'orange' ? 'white' : 'none',
+                    },
+                  ])}
                 />
                 <Pressable
                   hitSlop={10}
                   activeOpacity={0.8}
                   onPress={() => handlePress('blue')}
-                  style={{
-                    height: 20,
-                    width: 20,
-                    backgroundColor: Colors['blue'].color,
-                    borderRadius: 40,
-                    marginLeft: 10,
-                    borderWidth: takeColor === 'blue' ? 2 : 0,
-                    borderColor: takeColor === 'blue' ? 'white' : 'none',
-                  }}
+                  style={StyleSheet.flatten([
+                    styles.inputSelectColor,
+                    {
+                      backgroundColor: Colors['blue'].color,
+                      borderWidth: takeColor === 'blue' ? 2 : 0,
+                      borderColor: takeColor === 'blue' ? 'white' : 'none',
+                    },
+                  ])}
                 />
               </View>
             </View>
@@ -191,6 +178,27 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 24,
   },
+  tagItemContainer: {
+    paddingTop: 6,
+    paddingBottom: 7,
+    paddingLeft: 12,
+    paddingRight: 12,
+    display: 'flex',
+    flexDirection: 'row',
+    borderRadius: 30,
+    marginRight: 5,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  tagItemText: {
+    fontWeight: '400',
+    fontSize: 13,
+    lineHeight: 15,
+    marginLeft: 9,
+  },
+  inputContainer: {
+    positon: 'relative',
+  },
   input: {
     backgroundColor: '#1E2127',
     paddingHorizontal: 10,
@@ -230,11 +238,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  headerLeftIcon: {
+    bottom: 1,
+  },
   headerLeftTintText: {
     color: '#CBCBCB',
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  inputSelectColor: {
+    height: 20,
+    width: 20,
+    borderRadius: 40,
+    marginLeft: 10,
   },
 })
 

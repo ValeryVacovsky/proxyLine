@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 
 function Status({ status, setFilters }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
+
   const handlePress = item => {
     setFilters(prevState =>
       prevState.status.includes(item)
@@ -11,6 +12,7 @@ function Status({ status, setFilters }) {
         : { ...prevState, status: prevState.status.concat(item) },
     )
   }
+
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>

@@ -3,7 +3,9 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-nativ
 import { useSelector } from 'react-redux'
 import { CalendarList } from 'react-native-calendars'
 import { LocaleConfig } from 'react-native-calendars'
+
 import Locacles from '../../../../utils/LocaleConfig'
+
 LocaleConfig.locales['ru'] = Locacles.ru
 
 LocaleConfig.defaultLocale = 'ru'
@@ -23,6 +25,7 @@ function BottomSheetDateCreate({
   const [startDateTime, setStartDateTime] = useState(new Date())
   const [endDateTime, setEndDateTime] = useState(new Date())
   const [markedDates, setMarkedDates] = useState({})
+
   useEffect(() => {
     const Sdate = new Date(startDateTime)
     const Edate = new Date(endDateTime)

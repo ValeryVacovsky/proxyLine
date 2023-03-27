@@ -19,13 +19,13 @@ function Settings({ navigation }) {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
-        <View style={{ marginLeft: 15 }}>
+        <View style={styles.headerLeftContainer}>
           <Pressable
             hitSlop={25}
             style={styles.balanceIcon}
             activeOpacity={0.8}
             onPress={() => handleNavigate('Account')}>
-            <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 14 }}>{text?.texts?.t0}</Text>
+            <Text style={styles.headerLeftText}>{text?.texts?.t0}</Text>
           </Pressable>
         </View>
       ),
@@ -202,6 +202,9 @@ const styles = StyleSheet.create({
     width: '95%',
     left: 10,
   },
+  headerLeftContainer: {
+    marginLeft: 15,
+  },
   headerLeftTintContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -212,6 +215,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  headerLeftText: {
+    color: '#FAC637',
+    fontWeight: '600',
+    fontSize: 14,
   },
 })
 

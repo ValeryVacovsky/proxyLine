@@ -50,6 +50,7 @@ function BottomSheetIps({
   useEffect(() => {
     setFilterIps(ipsFilter)
   }, [ipsFilter, handleClosePress, handleSnapPress])
+
   useEffect(() => {
     {
       if (height > 530) {
@@ -112,6 +113,7 @@ function BottomSheetIps({
       }
     }
   }, [height, handleSnapPress])
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar} />

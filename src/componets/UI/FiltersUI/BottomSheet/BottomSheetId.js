@@ -24,8 +24,10 @@ function BottomSheetId({ handleClosePress, setIdDefault, handleSnapPress }) {
       order: '',
     },
   })
+
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [focusInput, setFocusInput] = useState(false)
+
   const onSubmit = data => {
     handleClosePress()
     setIdDefault(prevState =>

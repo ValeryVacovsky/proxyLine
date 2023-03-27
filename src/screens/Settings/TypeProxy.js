@@ -12,7 +12,7 @@ function TypeProxy({ navigation }) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
@@ -23,12 +23,12 @@ function TypeProxy({ navigation }) {
       <SafeAreaView style={styles.container}>
         <View style={styles.mainInfo}>
           <View style={styles.descriptionContainer}>
-            <View style={{ bottom: 2, marginRight: 23 }}>
+            <View style={styles.typeIconContainer}>
               <TypeIcon />
             </View>
             <Text style={styles.descriptionText}>{text?.texts?.t33 || 'Протокол'}</Text>
           </View>
-          <View style={{ right: 100, top: 5 }}>
+          <View style={styles.toggleContainer}>
             <Toggle />
           </View>
         </View>
@@ -45,6 +45,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  headerLeftIcon: {
+    bottom: 1,
   },
   headerLeftTintText: {
     color: '#CBCBCB',
@@ -65,11 +68,19 @@ const styles = StyleSheet.create({
     marginVertical: 17,
     marginLeft: 33,
   },
+  typeIconContainer: {
+    bottom: 2,
+    marginRight: 23,
+  },
   descriptionText: {
     color: 'white',
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  toggleContainer: {
+    right: 100,
+    top: 5,
   },
 })
 

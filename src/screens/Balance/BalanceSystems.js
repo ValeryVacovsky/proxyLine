@@ -1,22 +1,24 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { ScrollView, StyleSheet, SafeAreaView, Text, View, TextInput, TouchableOpacity } from 'react-native'
+import { useSelector } from 'react-redux'
+
 import LayoutMain from '../../componets/LayoutMain'
 import BalanceTopTableSystems from '../../componets/UI/BalanceUI/BalanceTopTableSystems'
 import BalanceListSystem from '../../componets/Balance/BalanceListSystem'
-import { useSelector } from 'react-redux'
 import BottomSheetForm from '../../componets/BottomSheetForm'
-import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 import BottomSheetBalanceInfo from '../../componets/UI/ProxyUI/BottomSheetCopy'
+
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function BalanceSystems({ navigation }) {
   const text = useSelector(res => res.textReducer.balance.payload)
-  const [amount, setAmount] = useState(null)
   const systems = useSelector(res => res.BalanceSystems.BalanceSystems)
-  const [balanceSystems, setBalanceSystems] = useState([])
   const balance = useSelector(data => data.balanceReducer)
+  const [balanceSystems, setBalanceSystems] = useState([])
+  const [, setIsOpen] = useState(false)
+  const [amount, setAmount] = useState(null)
   const sheetRef = useRef(null)
   const snapPoints = useMemo(() => ['15%'], [])
-  const [, setIsOpen] = useState(false)
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -49,16 +51,18 @@ function BalanceSystems({ navigation }) {
       setMayGo(true)
     }
   }, [amount])
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
     })
   }, [navigation])
+
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
@@ -66,8 +70,6 @@ function BalanceSystems({ navigation }) {
         <Text style={styles.text}>{text?.texts?.t6}</Text>
         <View style={styles.topInputContainer}>
           <TextInput
-            onFocus={() => {}}
-            onBlur={() => {}}
             style={styles.inputFilter}
             onChangeText={setAmount}
             value={amount}
@@ -168,6 +170,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  headerLeftIcon: {
+    bottom: 1,
   },
   headerLeftTintText: {
     color: '#CBCBCB',

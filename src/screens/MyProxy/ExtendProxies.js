@@ -6,6 +6,7 @@ import LayoutMain from '../../componets/LayoutMain'
 import BottomSheetForm from '../../componets/BottomSheetForm'
 import ProxyItemExtend from '../../componets/UI/ProxyUI/ProxyItemExtend'
 import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectForm'
+
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
@@ -14,9 +15,10 @@ const heightOffScreen = Dimensions.get('window').height
 function ExtendProxies({ navigation }) {
   const text = useSelector(res => res.textReducer.myproxies.payload)
   const proxyLisStore = useSelector(data => data.proxy.proxyList.data)
+  const [, setIsOpen] = useState(false)
+  const [selectedProxies, setSelectedProxies] = useState([])
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
-  const [, setIsOpen] = useState(false)
   const snapPoints = useMemo(() => (heightOffScreen > 850 ? ['30%'] : ['33']), [])
 
   const handleSnapPress = useCallback(index => {
@@ -28,7 +30,6 @@ function ExtendProxies({ navigation }) {
     sheetRef.current?.close()
   }, [])
 
-  const [selectedProxies, setSelectedProxies] = useState([])
   const onChange = value => {
     const proxyId = Number(value)
     setSelectedProxies(prevState =>
@@ -36,18 +37,19 @@ function ExtendProxies({ navigation }) {
     )
   }
   const arryId = []
+
   proxyLisStore.map(item => arryId.push(item.id))
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => setSelectedProxies(arryId)}>
-          <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.buttons?.b14}</Text>
+          <Text style={styles.headerRightText}>{text?.buttons?.b14}</Text>
         </TouchableOpacity>
       ),
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b16}</Text>
         </TouchableOpacity>
       ),
@@ -76,10 +78,12 @@ function ExtendProxies({ navigation }) {
       </View>
       <SafeAreaView>
         <ScrollView
-          style={{
-            width: '100%',
-            marginBottom: selectedProxies.length > 0 ? 300 : 90,
-          }}
+          style={StyleSheet.flatten([
+            styles.scrollViewContainer,
+            {
+              marginBottom: selectedProxies.length > 0 ? 300 : 90,
+            },
+          ])}
           decelerationRate="fast">
           {proxyLisStore?.map(proxy => (
             <ProxyItemExtend
@@ -150,6 +154,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
   },
+  scrollViewContainer: {
+    width: '100%',
+  },
   topInputContainer: {
     backgroundColor: '#1E2127',
     color: '#CBCBCB',
@@ -181,6 +188,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  headerLeftIcon: {
+    bottom: 1,
+  },
+  headerRight: {
+    color: '#FAC637',
+    fontWeight: '600',
+    fontSize: 15,
   },
 })
 

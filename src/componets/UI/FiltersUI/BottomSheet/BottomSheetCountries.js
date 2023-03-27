@@ -3,12 +3,14 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-nativ
 import { useSelector } from 'react-redux'
 
 function BottomSheetCountries({ handleClosePress, setIsOpen }) {
-  const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [value, setValue] = useState('')
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
+
   const handlePress = () => {
     handleClosePress()
     setIsOpen(false)
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar} />

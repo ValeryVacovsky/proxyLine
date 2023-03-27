@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
-import BottomSheetIP from './BottomSheet/BottomSheetIP'
 import { useSelector } from 'react-redux'
-import getListProxies from '../../../api/getListProxies'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import BottomSheetIP from './BottomSheet/BottomSheetIP'
+
+import getListProxies from '../../../api/getListProxies'
 
 function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [Ipaddress, setIpaddress] = useState([])
+
   const handlePress = item => {
     setFilters(prevState =>
       prevState.ip.includes(item)
@@ -15,6 +18,7 @@ function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSn
         : { ...prevState, ip: prevState.ip.concat(item) },
     )
   }
+
   const handleOpenBottomSheet = () => {
     setChildrenItem(
       <BottomSheetIP
@@ -25,6 +29,7 @@ function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSn
     )
     handleSnapPress(0)
   }
+
   useEffect(() => {
     const listProxies = async () => {
       const outData = []
@@ -37,6 +42,7 @@ function IPAddress({ ip, setFilters, setChildrenItem, handleClosePress, handleSn
     }
     listProxies()
   }, [])
+
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>

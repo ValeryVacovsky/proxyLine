@@ -8,9 +8,11 @@ import HeaderTintBack from '../image/Svg/HeaderTintBack'
 import alphavit from '../utils/alphavit'
 
 function Countreis({ navigation, route }) {
+  const [selectedCountryShort, setSelectedCountryShort] = useState(route.params.selectedCountryShort)
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const countreisList = useSelector(res => res.countryOrderReducer.country)
+  const proxyText = useSelector(res => res.textReducer.order?.payload)
   const countryMockFullName = countreisList.map(item => {
     return {
       code: item.code,
@@ -29,14 +31,14 @@ function Countreis({ navigation, route }) {
       CountryByAlphavit[item] = arry
     }
   })
+
   const CountryByAlphavitArray = Object.keys(CountryByAlphavit)
-  const proxyText = useSelector(res => res.textReducer.order?.payload)
-  const [selectedCountryShort, setSelectedCountryShort] = useState(route.params.selectedCountryShort)
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <Pressable hitSlop={25} onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftTintVector} />
           <Text style={styles.headerLeftTintText}> {proxyText?.buttons?.b2}</Text>
         </Pressable>
       ),
@@ -129,6 +131,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  headerLeftTintVector: {
+    bottom: 1,
   },
 })
 

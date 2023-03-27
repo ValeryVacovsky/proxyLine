@@ -114,7 +114,7 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
     <ScrollView scrollEnabled={false} keyboardShouldPersistTaps="always" style={styles.mainContainer}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1, height: '100%' }}
+        style={styles.keyboardStyles}
         keyboardVerticalOffset={50}>
         <View style={styles.container}>
           <View>
@@ -141,28 +141,23 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
               <View />
             )}
           </View>
-          <View style={{ marginHorizontal: 20 }}>
-            <View style={{ position: 'relative' }}>
+          <View style={styles.bottomContainer}>
+            <View style={styles.inputContainer}>
               <TextInput
                 value={value}
                 onChangeText={handleChangeText}
-                style={{
-                  backgroundColor: '#1E2127',
-                  paddingHorizontal: 10,
-                  paddingVertical: 15,
-                  color: 'white',
-                  fontWeight: '600',
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  borderColor: '#333842',
-                  marginTop: open && localIps?.length == 0 ? 50 : 14,
-                }}
+                style={StyleSheet.flatten([
+                  styles.inputBottom,
+                  {
+                    marginTop: open && localIps?.length == 0 ? 50 : 14,
+                  },
+                ])}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
               {open && (
                 <ScrollView style={styles.scrollViewContainer}>
-                  <View style={{ paddingTop: 10, paddingHorizontal: 20 }}>
+                  <View style={styles.tagsContainer}>
                     {tagsFiltred.map(item => (
                       <TouchableOpacity activeOpacity={0.8} key={item.id} onPress={() => handleSelect(item)}>
                         <Text style={styles.filterText}>{item.value}</Text>
@@ -199,6 +194,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  keyboardStyles: {
+    flex: 1,
+    height: '100%',
   },
   topTabContainer: {
     position: 'relative',
@@ -247,7 +246,13 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     marginLeft: 9,
   },
-  input: {
+  bottomContainer: {
+    marginHorizontal: 20,
+  },
+  inputContainer: {
+    position: 'relative',
+  },
+  inputBottom: {
     backgroundColor: '#1E2127',
     paddingHorizontal: 10,
     paddingVertical: 15,
@@ -256,7 +261,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#333842',
-    marginTop: 14,
   },
   scrollViewContainer: {
     position: 'absolute',
@@ -288,6 +292,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
     lineHeight: 15,
+  },
+  tagsContainer: {
+    paddingTop: 10,
+    paddingHorizontal: 20,
   },
   buttonConatiner: {
     paddingVertical: 20,

@@ -38,21 +38,19 @@ function ProxyItemChange({
                 <View style={styles.infoContainerTextmock}></View>
               </View>
               <View
-                style={{
-                  paddingTop: 2,
-                  paddingBottom: 2,
-                  paddingLeft: 6,
-                  paddingRight: 6,
-                  backgroundColor: dateNeed > 3 ? '#333842' : 'rgba(226, 58, 58, 0.2)',
-                  borderRadius: 4,
-                }}>
+                style={StyleSheet.flatten([
+                  styles.dateNeed,
+                  {
+                    backgroundColor: dateNeed > 3 ? '#333842' : 'rgba(226, 58, 58, 0.2)',
+                  },
+                ])}>
                 <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 11,
-                    color: dateNeed > 3 ? '#CBCBCB' : '#E23A3A',
-                    lineHeight: 15,
-                  }}>
+                  style={StyleSheet.flatten([
+                    styles.dateNeedText,
+                    {
+                      color: dateNeed > 3 ? '#CBCBCB' : '#E23A3A',
+                    },
+                  ])}>
                   {dateNeed > 0 ? dateNeed : 0} {text?.texts?.t5}
                 </Text>
               </View>
@@ -80,8 +78,8 @@ function ProxyItemChange({
             }}
             activeOpacity={0.8}
           />
-          {selectedProxies.includes(Number(proxyRes?.id)) && <VectorYellowBig style={{ right: 20 }} />}
-          {!selectedProxies.includes(Number(proxyRes?.id)) && <View style={{ width: 20, height: 20 }} />}
+          {selectedProxies.includes(Number(proxyRes?.id)) && <VectorYellowBig style={styles.vectorYellowIcon} />}
+          {!selectedProxies.includes(Number(proxyRes?.id)) && <View style={styles.vectorYellowIconDefault} />}
         </View>
       </View>
     </TouchableOpacity>
@@ -140,6 +138,18 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: 'none',
   },
+  dateNeed: {
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 6,
+    paddingRight: 6,
+    borderRadius: 4,
+  },
+  dateNeedText: {
+    fontWeight: '600',
+    fontSize: 11,
+    lineHeight: 15,
+  },
   IpVersionContainer: {
     paddingBottom: 2,
     paddingTop: 2,
@@ -161,6 +171,13 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginLeft: 6,
     maxWidth: 170,
+  },
+  vectorYellowIcon: {
+    right: 20,
+  },
+  vectorYellowIconDefault: {
+    width: 20,
+    height: 20,
   },
 })
 

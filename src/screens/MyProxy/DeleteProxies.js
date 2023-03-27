@@ -1,12 +1,13 @@
 import React, { useCallback, useRef, useMemo, useState } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput, Dimensions } from 'react-native'
+import { useSelector } from 'react-redux'
 
 import LayoutMain from '../../componets/LayoutMain'
 import BottomSheetForm from '../../componets/BottomSheetForm'
 import ProxyItemDelete from '../../componets/UI/ProxyUI/ProxyItemDelete'
 import BottomSheetSelectForm from '../../componets/UI/ProxyUI/BottomSheetSelectForm'
+
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
-import { useSelector } from 'react-redux'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 const heightOffScreen = Dimensions.get('window').height
@@ -14,9 +15,10 @@ const heightOffScreen = Dimensions.get('window').height
 function DeleteProxies({ navigation }) {
   const text = useSelector(res => res.textReducer.myproxies.payload)
   const proxyLisStore = useSelector(data => data.proxy.proxyList.data)
+  const [selectedProxies, setSelectedProxies] = useState([])
+  const [, setIsOpen] = useState(false)
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
-  const [, setIsOpen] = useState(false)
   const snapPoints = useMemo(() => (heightOffScreen > 850 ? ['30%'] : ['33']), [])
 
   const handleSnapPress = useCallback(index => {
@@ -28,7 +30,6 @@ function DeleteProxies({ navigation }) {
     sheetRef.current?.close()
   }, [])
 
-  const [selectedProxies, setSelectedProxies] = useState([])
   const onChange = value => {
     const proxyId = Number(value)
     setSelectedProxies(prevState =>
@@ -36,18 +37,19 @@ function DeleteProxies({ navigation }) {
     )
   }
   const arryId = []
+
   proxyLisStore.map(item => arryId.push(item.id))
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
         <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => setSelectedProxies(arryId)}>
-          <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.buttons?.b14}</Text>
+          <Text style={styles.headerRightText}>{text?.buttons?.b14}</Text>
         </TouchableOpacity>
       ),
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b16}</Text>
         </TouchableOpacity>
       ),
@@ -68,18 +70,23 @@ function DeleteProxies({ navigation }) {
         />
         {valueProxy.length === 0 && (
           <ProxiesSearch
-            style={
-              heightOffScreen > 850 ? { position: 'absolute', left: '65%' } : { position: 'absolute', left: '63%' }
-            }
+            style={StyleSheet.flatten([
+              styles.proxySearch,
+              {
+                left: heightOffScreen > 850 ? '65%' : '63%',
+              },
+            ])}
           />
         )}
       </View>
       <SafeAreaView>
         <ScrollView
-          style={{
-            width: '100%',
-            marginBottom: selectedProxies.length > 0 ? 300 : 90,
-          }}>
+          style={StyleSheet.flatten([
+            styles.scrollViewContainer,
+            {
+              marginBottom: selectedProxies.length > 0 ? 300 : 90,
+            },
+          ])}>
           {proxyLisStore?.map(proxy => (
             <ProxyItemDelete
               key={proxy.id}
@@ -150,6 +157,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
   },
+  proxySearch: {
+    position: 'absolute',
+  },
+  scrollViewContainer: {
+    width: '100%',
+  },
   topInputContainer: {
     backgroundColor: '#1E2127',
     color: '#CBCBCB',
@@ -181,6 +194,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  headerLeftIcon: {
+    bottom: 1,
+  },
+  headerRightText: {
+    color: '#FAC637',
+    fontWeight: '600',
+    fontSize: 15,
   },
 })
 

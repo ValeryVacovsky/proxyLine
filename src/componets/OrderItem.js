@@ -8,16 +8,21 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
-import SliderExample from './SliderExample'
-import VectorRightSmall from '../image/Svg/VectorRightSmall'
-import postOrderAmount from '../api/postOrderAmount'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch, useSelector } from 'react-redux'
-import { addObject } from '../store/reducers/orderReducer'
+
+import SliderExample from './SliderExample'
+
 import { flagByShortName } from '../common/flagByShortName'
-import { ScrollView } from 'react-native-gesture-handler'
+
+import VectorRightSmall from '../image/Svg/VectorRightSmall'
+
+import postOrderAmount from '../api/postOrderAmount'
+
+import { addObject } from '../store/reducers/orderReducer'
 
 function generate(str) {
   return str.replace(/[xy]/g, function (c) {
@@ -29,12 +34,12 @@ function generate(str) {
 function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDescription = useSelector(res => res.countryDiscriptionReducer.country)
-  const dispatch = useDispatch()
   const [amount, setAmount] = useState(1)
   const [totalPrice, setTotalPrice] = useState(0.1)
   const [days, setDays] = useState(5)
   const [selectedCountryShort, setSelectedCountryShort] = useState('ru')
   const [selectedCountry, setSelectedCountry] = useState('Russian Federation')
+  const dispatch = useDispatch()
   const timerRefMinus = useRef(null)
   const timerRefPlus = useRef(null)
 

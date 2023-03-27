@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
-import BottomSheetId from './BottomSheet/BottomSheetId'
 import { useSelector } from 'react-redux'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import BottomSheetId from './BottomSheet/BottomSheetId'
+
 import getListProxies from '../../../api/getListProxies'
 
 function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnapPress }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [idDefault, setIdDefault] = useState([])
+
   const handlePress = item => {
     setFilters(prevState =>
       prevState.id.includes(item)
@@ -15,6 +19,7 @@ function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnap
         : { ...prevState, id: prevState.id.concat(item) },
     )
   }
+
   const handleOpenBottomSheet = () => {
     setChildrenItem(
       <BottomSheetId
@@ -25,6 +30,7 @@ function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnap
     )
     handleSnapPress(0)
   }
+
   useEffect(() => {
     const listProxies = async () => {
       const outData = []
@@ -37,6 +43,7 @@ function IdProxy({ id, setFilters, setChildrenItem, handleClosePress, handleSnap
     }
     listProxies()
   }, [])
+
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>

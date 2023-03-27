@@ -11,6 +11,7 @@ import LayoutAuth from '../../componets/LayoutAuth'
 function Ofert({ navigation }) {
   const authText = useSelector(res => res.textReducer.auth.payload)
   const ofertText = useSelector(res => res.textReducer.public_ofert.payload.texts)
+
   const { handleSubmit } = useForm({
     defaultValues: {
       email: '',
@@ -23,26 +24,22 @@ function Ofert({ navigation }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity
-          onPress={navigation.goBack}
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-          <HeaderTintBack style={{ bottom: 1 }} />
-          <Text style={{ color: '#CBCBCB', fontWeight: '600', fontSize: 14, lineHeight: 15 }}>
-            {authText?.buttons?.b4}
-          </Text>
+        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftContainer}>
+          <HeaderTintBack style={styles.headerLeftIcon} />
+          <Text style={styles.headerLeftText}>{authText?.buttons?.b4}</Text>
         </TouchableOpacity>
       ),
     })
   }, [navigation])
   return (
     <LayoutAuth>
-      <View style={{ marginTop: 25 }}>
+      <View style={styles.mainContainer}>
         <SafeAreaView style={styles.container}>
           <ScrollView style={styles.scrollView}>
-            <View style={{ color: 'white', display: 'flex', flexDirection: 'column' }}>
+            <View style={styles.scrollViewItems}>
               {Object.values(ofertText)?.map(ofert => {
                 return (
-                  <Text style={{ color: 'white', marginBottom: 15 }} key={ofert}>
+                  <Text style={styles.scrollViewText} key={ofert}>
                     {ofert}
                   </Text>
                 )
@@ -54,11 +51,7 @@ function Ofert({ navigation }) {
           onPress={data => {
             handleSubmit(onSubmit(data))
           }}
-          style={{
-            marginBottom: 25,
-            alignItems: 'center',
-            borderRadius: 12,
-          }}
+          style={styles.buttonContainer}
           activeOpacity={0.8}>
           <SuperEllipseMaskView
             radius={{
@@ -68,7 +61,7 @@ function Ofert({ navigation }) {
               bottomRight: 12,
             }}
             style={styles.buttonInner}>
-            <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>{authText?.texts?.b5}</Text>
+            <Text style={styles.buttonText}>{authText?.texts?.b5}</Text>
           </SuperEllipseMaskView>
         </TouchableOpacity>
       </View>
@@ -85,14 +78,50 @@ const styles = StyleSheet.create({
     width: '88%',
     borderRadius: 12,
   },
+  mainContainer: {
+    marginTop: 25,
+  },
   container: {
     flex: 1,
   },
   scrollView: {
     marginHorizontal: 20,
   },
+  scrollViewItems: {
+    color: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  scrollViewText: {
+    color: 'white',
+    marginBottom: 15,
+  },
   text: {
     fontSize: 42,
+  },
+  headerLeftContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLeftIcon: {
+    bottom: 1,
+  },
+  headerLeftText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 15,
+  },
+  buttonContainer: {
+    marginBottom: 25,
+    alignItems: 'center',
+    borderRadius: 12,
+  },
+  buttonText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
   },
 })
 

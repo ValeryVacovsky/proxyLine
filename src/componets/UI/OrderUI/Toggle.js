@@ -32,11 +32,9 @@ export default function Toggle() {
     if (isOnRef.current) {
       startAnimToOff()
       isOnRef.current = false
-      // setIsOn(false);
     } else {
       startAnimToOn()
       isOnRef.current = true
-      // setIsOn(true);
     }
   }
 

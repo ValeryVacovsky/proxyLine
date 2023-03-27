@@ -180,12 +180,12 @@ function Filters({ navigation }) {
           onPress={() => {
             setFilters(clearForm)
           }}>
-          <Text style={{ fontWeight: '700', fontSize: 15, color: 'white' }}>Очистить</Text>
+          <Text style={styles.headerLiftButtonClear}>{text?.buttons?.b5 || 'Очистить'}</Text>
         </Pressable>
       ),
       headerLeft: () => (
         <Pressable hitSlop={25} onPress={handleGoBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftTintVector} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b4}</Text>
         </Pressable>
       ),
@@ -193,15 +193,15 @@ function Filters({ navigation }) {
   }, [navigation])
   return (
     <LayoutMain>
-      <View
-        style={{
-          flex: 1,
-          marginHorizontal: 20,
-          // marginBottom: isOpen && 300,
-          marginTop: 15,
-        }}>
+      <View style={styles.container}>
         <SafeAreaView>
-          <ScrollView style={{ width: '100%', height: selected ? '84%' : '100%' }}>
+          <ScrollView
+            style={StyleSheet.flatten([
+              styles.scrollViewContainer,
+              {
+                height: selected ? '84%' : '100%',
+              },
+            ])}>
             <View style={styles.chipsContainer}>
               <Status status={fitlers.status} setFilters={setFilters} />
               <VersionIp ipVersion={fitlers.ip_version} setFilters={setFilters} />
@@ -318,7 +318,7 @@ function Filters({ navigation }) {
         sheetRef={sheetRef}
         snapPoints={snapPoints}
         handleClosePress={handleClosePress}>
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>{childrenItem}</View>
+        <View style={styles.backdropContainer}>{childrenItem}</View>
       </BottomSheetForm>
       <BottomSheetForm
         bottomInset={bottomInset}
@@ -328,7 +328,7 @@ function Filters({ navigation }) {
         sheetRef={sheetRefTagsIps}
         snapPoints={snapPointsTagsIps}
         handleClosePress={handleClosePressTagsIps}>
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>{childrenItem}</View>
+        <View style={styles.backdropContainer}>{childrenItem}</View>
       </BottomSheetForm>
     </LayoutMain>
   )
@@ -338,14 +338,13 @@ const styles = StyleSheet.create({
   balanceIconFilter: {
     marginRight: 15,
   },
-  balanceIconFilterDotts: {},
   container: {
     flex: 1,
     marginHorizontal: 20,
+    marginTop: 15,
   },
-  scrollView: {
-    marginHorizontal: 20,
-    marginTop: 20,
+  scrollViewContainer: {
+    width: '100%',
   },
   text: {
     fontSize: 18,
@@ -390,6 +389,18 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: '#0F1218',
+  },
+  headerLiftButtonClear: {
+    fontWeight: '700',
+    fontSize: 15,
+    color: 'white',
+  },
+  headerLeftTintVector: {
+    bottom: 1,
+  },
+  backdropContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
 })
 

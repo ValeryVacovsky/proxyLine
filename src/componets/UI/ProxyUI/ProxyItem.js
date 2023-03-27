@@ -49,28 +49,26 @@ function ProxyItem({
           <View style={styles.flagContainer}>
             <View style={styles.flag}>{flagByShortName[proxyRes.country_id]}</View>
           </View>
-          <View style={{ marginLeft: 14 }}>
+          <View style={styles.centerContainer}>
             <View style={styles.infoContainer}>
               <View>
                 <Text style={styles.infoCountryName}>{countryDiscription[languageGet][proxyRes.country_id]}</Text>
                 <View style={styles.infoCountryNameConst}></View>
               </View>
               <View
-                style={{
-                  paddingTop: 2,
-                  paddingBottom: 2,
-                  paddingLeft: 6,
-                  paddingRight: 6,
-                  backgroundColor: dateNeed > 1 ? '#333842' : 'rgba(226, 58, 58, 0.2)',
-                  borderRadius: 4,
-                }}>
+                style={StyleSheet.flatten([
+                  styles.dateNeedContainer,
+                  {
+                    backgroundColor: dateNeed > 1 ? '#333842' : 'rgba(226, 58, 58, 0.2)',
+                  },
+                ])}>
                 <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 11,
-                    color: dateNeed > 1 ? '#CBCBCB' : '#E23A3A',
-                    lineHeight: 15,
-                  }}>
+                  style={StyleSheet.flatten([
+                    styles.dateNeedText,
+                    {
+                      color: dateNeed > 1 ? '#CBCBCB' : '#E23A3A',
+                    },
+                  ])}>
                   {dateNeed > 0 ? dateNeed : 0} {text?.texts?.t5}
                 </Text>
               </View>
@@ -88,15 +86,15 @@ function ProxyItem({
         </View>
         <View style={styles.sideContainer}>
           <Pressable hitSlop={25} onPress={handleOpenModal}>
-            <ProxiesDotts style={{ marginRight: 8 }} />
+            <ProxiesDotts style={styles.dotsIcon} />
           </Pressable>
           {selected === proxyRes?.id ? (
             <Pressable hitSlop={2} onPress={() => handleSelect(null)}>
-              <LightRadioUncheked style={{ marginLeft: 12, bottom: 3 }} />
+              <LightRadioUncheked style={styles.radioButtonIcon} />
             </Pressable>
           ) : (
             <Pressable hitSlop={2} onPress={() => handleSelect(proxyRes.id)}>
-              <DarkRadioUncheked style={{ marginLeft: 12, bottom: 3 }} />
+              <DarkRadioUncheked style={styles.radioButtonIcon} />
             </Pressable>
           )}
         </View>
@@ -113,6 +111,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.06)',
     marginBottom: 5,
     height: 64,
+  },
+  centerContainer: {
+    marginLeft: 14,
   },
   mainContainer: {
     paddingLeft: 30,
@@ -152,6 +153,18 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: 'none',
   },
+  dateNeedContainer: {
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 6,
+    paddingRight: 6,
+    borderRadius: 4,
+  },
+  dateNeedText: {
+    fontWeight: '600',
+    fontSize: 11,
+    lineHeight: 15,
+  },
   IpVersionContianer: {
     paddingBottom: 2,
     paddingTop: 2,
@@ -173,6 +186,13 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginLeft: 6,
     maxWidth: 170,
+  },
+  dotsIcon: {
+    marginRight: 8,
+  },
+  radioButtonIcon: {
+    marginLeft: 12,
+    bottom: 3,
   },
 })
 

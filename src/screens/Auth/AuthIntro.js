@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { useDispatch } from 'react-redux'
-import getAllTexts, { getAuthText } from '../../common/getAllTexts'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import SplashScreen from 'react-native-splash-screen'
-import useCountryDiscription from '../../hooks/useCountryDiscription'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import getAllTexts, { getAuthText } from '../../common/getAllTexts'
+
+import useCountryDiscription from '../../hooks/useCountryDiscription'
+
 import { setAuth } from '../../store/reducers/authReducer'
 
 function AuthIntro({ navigation }) {

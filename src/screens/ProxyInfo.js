@@ -110,14 +110,14 @@ function ProxyInfo({ navigation, route }) {
       ),
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {proxyInfoText?.buttons?.b4}</Text>
         </TouchableOpacity>
       ),
     })
   }, [navigation])
   return (
-    <LayoutMain style={{ width: '100%' }}>
+    <LayoutMain style={styles.layoutConatiner}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View>
@@ -145,7 +145,7 @@ function ProxyInfo({ navigation, route }) {
               <View style={styles.textContainer}>
                 <Text style={styles.text}>{proxyInfoText?.texts?.t13}</Text>
                 <Pressable hitSlop={25} activeOpacity={0.8} onPress={handleOpenIps}>
-                  <ProxyInfoChange style={{ top: 5 }} />
+                  <ProxyInfoChange style={styles.proxyInfoChanheIp} />
                 </Pressable>
               </View>
               <View style={styles.Chips}>
@@ -160,7 +160,7 @@ function ProxyInfo({ navigation, route }) {
               <View style={styles.textContainer}>
                 <Text style={styles.text}>{proxyInfoText?.texts?.t14}</Text>
                 <Pressable hitSlop={25} activeOpacity={0.8} onPress={handleOpenTags}>
-                  <ProxyInfoChange style={{ top: 3 }} />
+                  <ProxyInfoChange style={styles.proxyInfoChanheTags} />
                 </Pressable>
               </View>
               <View style={styles.Chips}>
@@ -189,6 +189,9 @@ function ProxyInfo({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  layoutConatiner: {
+    width: '100%',
+  },
   container: {
     flex: 1,
     marginBottom: 33,
@@ -247,6 +250,15 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  headerLeftIcon: {
+    bottom: 1,
+  },
+  proxyInfoChanheIp: {
+    top: 5,
+  },
+  proxyInfoChanheTags: {
+    top: 3,
   },
 })
 

@@ -4,7 +4,6 @@ import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native'
 import backgroundlines from '../image/back-ground-lines.png'
 
 function AuthIntro({ children }) {
-  // setTimeout(() => navigation.navigate('Auth'), 1000)
   return (
     <View style={styles.sectionContainer}>
       <StatusBar barStyle="light-content" />

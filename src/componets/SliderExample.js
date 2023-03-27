@@ -7,6 +7,7 @@ const validDays = [5, 10, 20, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330
 
 function SliderExample({ setDays, setScrolling }) {
   const [value, setValue] = useState(1)
+
   useEffect(() => {
     setDays(validDays[value - 1])
   }, [value])

@@ -39,7 +39,7 @@ function ConfirmIps({ navigation }) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
@@ -63,7 +63,7 @@ function ConfirmIps({ navigation }) {
           </ScrollView>
           <View style={styles.bottomContainer}>
             <View>
-              <Text style={{ color: '#CBCBCB' }}>{text?.texts?.t26}</Text>
+              <Text style={styles.textUnderInput}>{text?.texts?.t26}</Text>
             </View>
             <Text style={styles.careText}>{text?.texts?.t27}</Text>
             <View>
@@ -81,19 +81,12 @@ function ConfirmIps({ navigation }) {
                     returnKeyType="done"
                     onFocus={handleFocus}
                     onBlur={handleBlur}
-                    style={{
-                      backgroundColor: '#1E2127',
-                      color: 'white',
-                      height: 44,
-                      minWidth: '100%',
-                      marginBottom: 20,
-                      borderRadius: 8,
-                      borderWidth: 1,
-                      paddingLeft: 20,
-                      paddingTop: 12,
-                      paddingBottom: 12,
-                      borderColor: (focusInput && '#fac637') || (errors.order && 'rgb(138,0,0)') || '#333842',
-                    }}
+                    style={StyleSheet.flatten([
+                      styles.input,
+                      {
+                        borderColor: (focusInput && '#fac637') || (errors.order && 'rgb(138,0,0)') || '#333842',
+                      },
+                    ])}
                     onChangeText={onChange}
                     value={value}
                   />
@@ -156,16 +149,20 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 24,
   },
+  textUnderInput: {
+    color: '#CBCBCB',
+  },
   input: {
     backgroundColor: '#1E2127',
-    paddingHorizontal: 10,
-    paddingVertical: 15,
     color: 'white',
-    fontWeight: '600',
+    height: 44,
+    minWidth: '100%',
+    marginBottom: 20,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#333842',
-    marginBottom: 24,
+    paddingLeft: 20,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   bottomTextContainer: {
     backgroundColor: '#FAC637',
@@ -185,6 +182,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  headerLeftIcon: {
+    bottom: 1,
   },
   headerLeftTintText: {
     color: '#CBCBCB',

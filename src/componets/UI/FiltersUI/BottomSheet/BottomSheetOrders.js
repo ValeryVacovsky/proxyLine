@@ -6,6 +6,11 @@ import { useForm, Controller } from 'react-hook-form'
 const heightOffScreen = Dimensions.get('window').height
 
 function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset }) {
+  const text = useSelector(res => res.textReducer.proxy_info.payload)
+  const [keyboardHeight, setKeyboardHeight] = useState(0)
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false)
+  const [focusInput, setFocusInput] = useState(false)
+
   const {
     control,
     handleSubmit,
@@ -15,10 +20,6 @@ function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset 
       order: '',
     },
   })
-
-  const [keyboardHeight, setKeyboardHeight] = useState(0)
-  const [isKeyboardVisible, setKeyboardVisible] = useState(false)
-  const [focusInput, setFocusInput] = useState(false)
 
   useEffect(() => {
     function onKeyboardDidShow(e) {
@@ -45,8 +46,6 @@ function BottomSheetOrders({ handleClosePress, setOrdersDefault, setBottomInset 
       keyboardDidShowListener.remove()
     }
   }, [])
-
-  const text = useSelector(res => res.textReducer.proxy_info.payload)
 
   const onSubmit = data => {
     handleClosePress()

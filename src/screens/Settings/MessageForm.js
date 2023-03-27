@@ -15,14 +15,14 @@ function MessageForm({ navigation }) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
     })
   }, [navigation])
   return (
-    <LayoutMain style={{ width: '100%' }}>
+    <LayoutMain style={styles.layoutContainer}>
       <SafeAreaView style={styles.container}>
         <View>
           <Text style={styles.text}>{text?.texts?.t9 && 'Тема'}</Text>
@@ -35,18 +35,12 @@ function MessageForm({ navigation }) {
           <View style={styles.dataProxyes}>
             <View style={styles.inputMessageContainer}>
               <TextInput
-                style={{
-                  backgroundColor: '#1E2127',
-                  color: 'white',
-                  minWidth: '90%',
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  paddingLeft: 20,
-                  paddingTop: 14,
-                  paddingBottom: 14,
-                  borderColor: '#333842',
-                  height: heightOffScreen > 700 ? 200 : 150,
-                }}
+                style={StyleSheet.flatten([
+                  styles.inputMessage,
+                  {
+                    height: heightOffScreen > 700 ? 200 : 150,
+                  },
+                ])}
                 multiline
                 numberOfLines={4}
                 onChangeText={event => setTextValue(event)}
@@ -54,7 +48,7 @@ function MessageForm({ navigation }) {
               />
             </View>
           </View>
-          <ScrollView style={{ marginBottom: 400 }}>
+          <ScrollView style={styles.scrollViewContainer}>
             <Text style={styles.textSmall}>
               {text?.texts?.t10 && 'Пишите нам в онлайн чат, он находиться с правой стороны в углу.'}
               {'\n'}Онлайн чат работает каждый день круглосуточно.
@@ -89,6 +83,9 @@ function MessageForm({ navigation }) {
   )
 }
 const styles = StyleSheet.create({
+  layoutContainer: {
+    width: '100%',
+  },
   container: {
     flex: 1,
     marginTop: 10,
@@ -107,6 +104,9 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     paddingLeft: 20,
     marginTop: 20,
+  },
+  scrollViewContainer: {
+    marginBottom: 400,
   },
   textSmall: {
     color: '#CBCBCB',
@@ -145,6 +145,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  headerLeftIcon: {
+    bottom: 1,
+  },
   headerLeftTintText: {
     color: '#CBCBCB',
     fontWeight: '600',
@@ -169,6 +172,17 @@ const styles = StyleSheet.create({
   inputMessageContainer: {
     alignItems: 'center',
     width: '100%',
+  },
+  inputMessage: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    minWidth: '90%',
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    paddingTop: 14,
+    paddingBottom: 14,
+    borderColor: '#333842',
   },
 })
 

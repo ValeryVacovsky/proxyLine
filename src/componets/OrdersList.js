@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import dateFormat from 'dateformat'
-import postCreateOrder from '../api/postCreateOrder'
-
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteObject } from '../store/reducers/orderReducer'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { flagByShortName } from '../common/flagByShortName'
-import { useListOrders } from '../hooks/useListOrders'
+import dateFormat from 'dateformat'
+
+import postCreateOrder from '../api/postCreateOrder'
 import getListProxies from '../api/getListProxies'
+
+import { deleteObject } from '../store/reducers/orderReducer'
 import { setProxy } from '../store/reducers/proxyReducer'
+
+import { flagByShortName } from '../common/flagByShortName'
+
+import { useListOrders } from '../hooks/useListOrders'
 
 function OrdersList({ data, text, toggleModal }) {
   const { listProxies } = useListOrders()

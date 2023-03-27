@@ -52,14 +52,14 @@ function ChangePassword({ navigation }) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
     })
   }, [navigation])
   return (
-    <LayoutMain style={{ width: '100%' }}>
+    <LayoutMain style={styles.layoutContainer}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View>
@@ -92,7 +92,7 @@ function ChangePassword({ navigation }) {
                     <TextInput
                       onFocus={() => setFocusOnPasswordTop(true)}
                       onBlur={() => setFocusOnPasswordTop(false)}
-                      style={{ color: 'white', width: '90%', height: '100%' }}
+                      style={styles.inputPassword}
                       onChangeText={onChange}
                       value={value}
                       secureTextEntry={showPasswordTop}
@@ -132,7 +132,7 @@ function ChangePassword({ navigation }) {
                     <TextInput
                       onFocus={() => setFocusOnPasswordBottom(true)}
                       onBlur={() => setFocusOnPasswordBottom(false)}
-                      style={{ color: 'white', width: '90%', height: '100%' }}
+                      style={styles.inputPasswordConfirmation}
                       onChangeText={onChange}
                       value={value}
                       secureTextEntry={showPasswordBottom}
@@ -176,6 +176,9 @@ function ChangePassword({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  layoutContainer: {
+    width: '100%',
+  },
   container: {
     flex: 1,
     marginTop: 10,
@@ -196,6 +199,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 20,
     marginRight: 20,
+  },
+  inputPassword: {
+    color: 'white',
+    width: '90%',
+    height: '100%',
+  },
+  inputPasswordConfirmation: {
+    color: 'white',
+    width: '90%',
+    height: '100%',
   },
   text: {
     color: 'white',
@@ -241,6 +254,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  headerLeftIcon: {
+    bottom: 1,
   },
   headerLeftTintText: {
     color: '#CBCBCB',

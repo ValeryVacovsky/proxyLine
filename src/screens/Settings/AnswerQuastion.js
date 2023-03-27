@@ -17,7 +17,7 @@ function AnswerQuastion({ navigation }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <View style={{ marginLeft: 15 }}>
+        <View style={styles.headerRightContainer}>
           <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('Message')}>
             <Text style={styles.headerRightText}>{text?.texts?.t3 && 'Написать нам'}</Text>
           </TouchableOpacity>
@@ -25,7 +25,7 @@ function AnswerQuastion({ navigation }) {
       ),
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
@@ -86,6 +86,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  headerLeftIcon: {
+    bottom: 1,
+  },
   headerLeftTintText: {
     color: '#CBCBCB',
     fontWeight: '600',
@@ -96,6 +99,9 @@ const styles = StyleSheet.create({
     color: '#FAC637',
     fontWeight: '600',
     fontSize: 15,
+  },
+  headerRightContainer: {
+    marginLeft: 15,
   },
   topInputContianer: {
     backgroundColor: '#1E2127',

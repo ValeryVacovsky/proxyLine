@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import { useSelector } from 'react-redux'
+
 import BottomSheetDateOver from './BottomSheet/BottomSheetDateOver'
 
 function DateOver({
@@ -17,6 +18,7 @@ function DateOver({
   setEndDayTo,
 }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
+
   const handlePress = item => {
     setFilters(prevState =>
       prevState.dateOver.includes(item)
@@ -24,6 +26,7 @@ function DateOver({
         : { ...prevState, dateOver: [item] },
     )
   }
+
   const handleOpenBottomSheet = () => {
     setChildrenItem(
       <BottomSheetDateOver
@@ -39,6 +42,7 @@ function DateOver({
     )
     handleSnapPress(2)
   }
+
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>

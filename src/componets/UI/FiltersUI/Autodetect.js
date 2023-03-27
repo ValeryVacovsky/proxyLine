@@ -4,6 +4,7 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 
 function Autodetect({ autoRenewal, setFilters }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
+
   const handlePress = item => {
     setFilters(prevState =>
       prevState.auto_renewal.includes(item)
@@ -11,6 +12,7 @@ function Autodetect({ autoRenewal, setFilters }) {
         : { ...prevState, auto_renewal: [item] },
     )
   }
+
   return (
     <View style={styles.Chips}>
       <Text style={styles.text}>{text?.texts?.t17}</Text>

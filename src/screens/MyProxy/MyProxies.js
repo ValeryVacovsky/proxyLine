@@ -12,42 +12,41 @@ import {
 } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import ProxiesFilter from '../../image/Svg/ProxiesFilter'
+import { useSelector } from 'react-redux'
 
 import LayoutMain from '../../componets/LayoutMain'
-import ProxiesDotts from '../../image/Svg/ProxiesDotts'
 import ProxyItem from '../../componets/UI/ProxyUI/ProxyItem'
 import BottomSheetForm from '../../componets/BottomSheetForm'
+import BottomSheetItem from '../../componets/UI/ProxyUI/BottomSheetItem'
+import ProxiesDotts from '../../image/Svg/ProxiesDotts'
 import VectorOpen from '../../image/Svg/VectorOpen'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
-import BottomSheetItem from '../../componets/UI/ProxyUI/BottomSheetItem'
-import { useSelector } from 'react-redux'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 const heightOffScreen = Dimensions.get('window').height
 
 function MyProxies({ navigation }) {
   const text = useSelector(res => res.textReducer.myproxies.payload)
+  const proxyLisStore = useSelector(data => data.proxy.proxyList)
   const [selected, setSelected] = useState(null)
   const [childrenItem, setChildrenItem] = useState()
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
-  const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['48%'] : ['54%']), [heightOffScreen])
+  const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['48%'] : ['57%']), [heightOffScreen])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
   }, [])
 
   const handleClosePress = useCallback(() => {
-    setChildrenItem(<View style={{ width: '100%', height: '100%', backgroundColor: '#0F1218' }} />)
+    setChildrenItem(<View style={styles.defaultBottomSheetContainer} />)
     sheetRef.current?.close()
   }, [])
-
-  const proxyLisStore = useSelector(data => data.proxy.proxyList)
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <View style={{ display: 'flex', flexDirection: 'row' }}>
+        <View style={styles.headerRightContainer}>
           <Pressable
             style={styles.balanceIconFilter}
             activeOpacity={0.8}
@@ -56,10 +55,9 @@ function MyProxies({ navigation }) {
               setTimeout(() => handleClosePress(), 1000)
             }}
             hitSlop={15}>
-            <ProxiesFilter style={{ top: 1 }} />
+            <ProxiesFilter style={styles.headerRightFiltersIcon} />
           </Pressable>
           <Pressable
-            style={styles.balanceIconFilterDotts}
             activeOpacity={0.8}
             onPress={() => {
               setChildrenItem(
@@ -74,7 +72,7 @@ function MyProxies({ navigation }) {
       ),
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b17}</Text>
         </TouchableOpacity>
       ),
@@ -82,7 +80,7 @@ function MyProxies({ navigation }) {
   }, [handleClosePress, handleSnapPress, navigation, text])
   return (
     <LayoutMain>
-      <View style={{ display: 'flex' }}>
+      <View style={styles.container}>
         <View style={styles.topInutContainer}>
           <TextInput
             onFocus={() => {}}
@@ -104,7 +102,13 @@ function MyProxies({ navigation }) {
           )}
         </View>
         <SafeAreaView>
-          <ScrollView style={{ width: '100%', marginBottom: selected ? 168 : 90 }}>
+          <ScrollView
+            style={StyleSheet.flatten([
+              styles.scrollViewContainer,
+              {
+                marginBottom: selected ? 168 : 90,
+              },
+            ])}>
             {proxyLisStore.data?.map((proxy, index) => (
               <ProxyItem
                 key={proxy.id}
@@ -148,7 +152,7 @@ function MyProxies({ navigation }) {
         sheetRef={sheetRef}
         snapPoints={snapPoints}
         handleClosePress={handleClosePress}>
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>{childrenItem}</View>
+        <View style={styles.bottomSheetBackDrop}>{childrenItem}</View>
       </BottomSheetForm>
     </LayoutMain>
   )
@@ -158,13 +162,18 @@ const styles = StyleSheet.create({
   balanceIconFilter: {
     marginRight: 30,
   },
-  balanceIconFilterDotts: {},
+  headerRightFiltersIcon: {
+    top: 1,
+  },
   container: {
-    flex: 1,
+    display: 'flex',
   },
   scrollView: {
     marginHorizontal: 20,
     marginTop: 20,
+  },
+  scrollViewContainer: {
+    width: '100%',
   },
   text: {
     fontSize: 42,
@@ -188,6 +197,10 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
     fontSize: 13,
+  },
+  bottomSheetBackDrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   topInutContainer: {
     backgroundColor: '#1E2127',
@@ -214,11 +227,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  headerLeftIcon: {
+    bottom: 1,
+  },
   headerLeftTintText: {
     color: '#CBCBCB',
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 15,
+  },
+  headerRightContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  defaultBottomSheetContainer: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#0F1218',
   },
 })
 

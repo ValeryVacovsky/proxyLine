@@ -1,31 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux'
-
 import { useForm, Controller } from 'react-hook-form'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
 import LayoutAuth from '../../componets/LayoutAuth'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
-import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+
 import postResetCode from '../../api/postResetCode'
 
 const heightOffScreen = Dimensions.get('window').height
 
 function AuthCodeReset({ navigation }) {
   const [text, setText] = useState({})
+  const [commonFormError, setCommonFormError] = useState('')
+  const [focusOnCode, setFocusOnCode] = useState(false)
+
   const authText = useSelector(res => res.textReducer.auth.payload)
+
   useEffect(() => {
     setText(authText)
   }, [authText, text])
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({})
-  const [commonFormError, setCommonFormError] = useState('')
-  const [focusOnCode, setFocusOnCode] = useState(false)
+
   const onSubmit = async data => {
     const email = await AsyncStorage.getItem('@sign_up_email_reset')
     const res = await postResetCode({ email, ...data })
@@ -43,22 +47,20 @@ function AuthCodeReset({ navigation }) {
       <View style={styles.authForm}>
         <View>
           <Text style={styles.authLogo}>{authText?.texts?.t11}</Text>
-          <Text style={{ color: '#CBCBCB', textAlign: 'center', paddingBottom: 30 }}>{authText?.texts?.t12}</Text>
+          <Text style={styles.authMainText}>{authText?.texts?.t12}</Text>
           {errors.code ? (
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.label} onPress={() => {}}>
-                {authText?.texts?.t30}
-              </Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t27}</Text>
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>{authText?.texts?.t30}</Text>
+              <Text style={styles.labelErrorText}>{authText?.texts?.t27}</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
-                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={styles.labelContainer}>
                   <Text style={styles.label} onPress={() => {}}>
                     {authText?.texts?.t30}
                   </Text>
-                  <Text style={{ color: 'white', fontSize: 12 }}>{authText?.texts?.t28}</Text>
+                  <Text style={styles.labelErrorText}>{authText?.texts?.t28}</Text>
                 </View>
               ) : (
                 <Text style={styles.label} onPress={() => {}}>
@@ -80,28 +82,21 @@ function AuthCodeReset({ navigation }) {
                 returnKeyType="done"
                 onFocus={() => setFocusOnCode(true)}
                 onBlur={() => setFocusOnCode(false)}
-                style={{
-                  backgroundColor: '#1E2127',
-                  color: 'white',
-                  height: 44,
-                  minWidth: '100%',
-                  marginBottom: 14,
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  paddingLeft: 20,
-                  paddingTop: 12,
-                  paddingBottom: 12,
-                  borderColor: (focusOnCode && '#fac637') || (errors.code && 'rgb(138,0,0)') || '#333842',
-                }}
+                style={StyleSheet.flatten([
+                  styles.input,
+                  {
+                    borderColor: (focusOnCode && '#fac637') || (errors.code && 'rgb(138,0,0)') || '#333842',
+                  },
+                ])}
                 onChangeText={onChange}
                 value={value}
               />
             )}
             name="code"
           />
-          {errors.email && <Text style={{ color: 'white', marginBottom: 10 }}>{authText?.texts?.t31}</Text>}
+          {errors.email && <Text style={styles.errorsEmail}>{authText?.texts?.t31}</Text>}
         </View>
-        <View style={{ marginBottom: 25 }}>
+        <View style={styles.buttonSubmitContainer}>
           <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
             <SuperEllipseMaskView
               radius={{
@@ -117,7 +112,7 @@ function AuthCodeReset({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
             <View style={styles.buttonInnerBack}>
-              <Text style={{ color: 'white', fontWeight: '600', fontSize: 13 }}>{authText?.buttons?.b3}</Text>
+              <Text style={styles.buttonInnerBackText}>{authText?.buttons?.b3}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -145,12 +140,25 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     justifyContent: 'space-between',
   },
+  labelContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   label: {
     color: 'white',
     marginBottom: 8,
     fontSize: 16,
     lineHeight: 15,
     fontWeight: '500',
+  },
+  labelErrorText: {
+    color: 'white',
+    fontSize: 12,
+  },
+  errorsEmail: {
+    color: 'white',
+    marginBottom: 10,
   },
   buttonInner: {
     backgroundColor: '#FAC637',
@@ -169,6 +177,14 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 20,
   },
+  buttonInnerBackText: {
+    color: 'white',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  buttonSubmitContainer: {
+    marginBottom: 25,
+  },
   input: {
     backgroundColor: '#1E2127',
     color: 'white',
@@ -177,16 +193,20 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#333842',
     paddingLeft: 20,
-    paddingTop: 14,
-    paddingBottom: 14,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   authLogo: {
     textAlign: 'center',
     color: 'white',
     fontWeight: '600',
     fontSize: heightOffScreen > 700 ? 22 : 20,
+  },
+  authMainText: {
+    color: '#CBCBCB',
+    textAlign: 'center',
+    paddingBottom: 30,
   },
 })
 

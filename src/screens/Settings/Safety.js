@@ -14,7 +14,7 @@ function Safety({ navigation }) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.headerLeftTintText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
@@ -25,12 +25,12 @@ function Safety({ navigation }) {
       <SafeAreaView style={styles.container}>
         <View style={styles.mainInfo}>
           <View style={styles.descriptionContainer}>
-            <View style={{ marginRight: 23 }}>
+            <View style={styles.safetyIconContainer}>
               <SafetyIcon />
             </View>
             <Text style={styles.descriptionText}>{text?.texts?.t35 || 'Вход по биометрии'}</Text>
           </View>
-          <View style={{ marginRight: 20 }}>
+          <View style={styles.radioButtonsContainer}>
             {notification ? (
               <Pressable hitSlop={25} onPress={() => setNotification(false)}>
                 <DarkRadioUncheked />
@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  headerLeftIcon: {
+    bottom: 1,
+  },
   headerLeftTintText: {
     color: '#CBCBCB',
     fontWeight: '600',
@@ -75,6 +78,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 17,
     marginLeft: 33,
+  },
+  safetyIconContainer: {
+    marginRight: 23,
+  },
+  radioButtonsContainer: {
+    marginRight: 20,
   },
   descriptionText: {
     color: 'white',

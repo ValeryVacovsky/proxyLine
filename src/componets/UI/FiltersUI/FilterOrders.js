@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native'
 import { useSelector } from 'react-redux'
-import BottomSheetOrders from './BottomSheet/BottomSheetOrders'
-import getListProxies from '../../../api/getListProxies'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import BottomSheetOrders from './BottomSheet/BottomSheetOrders'
+
+import getListProxies from '../../../api/getListProxies'
 
 function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, handleSnapPress, setBottomInset }) {
   const text = useSelector(res => res.textReducer.proxy_info.payload)
   const [ordersDefault, setOrdersDefault] = useState([])
+
   const handlePress = item => {
     setFilters(prevState =>
       prevState.orders.includes(item)
@@ -15,6 +19,7 @@ function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, h
         : { ...prevState, orders: prevState.orders.concat(item) },
     )
   }
+
   const handleOpenBottomSheet = () => {
     setChildrenItem(
       <BottomSheetOrders
@@ -26,6 +31,7 @@ function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, h
     )
     handleSnapPress(0)
   }
+
   useEffect(() => {
     const listProxies = async () => {
       const outData = []
@@ -38,6 +44,7 @@ function FilterOrders({ orders, setFilters, setChildrenItem, handleClosePress, h
     }
     listProxies()
   }, [])
+
   return (
     <View style={styles.Chips}>
       <View style={styles.topMenu}>

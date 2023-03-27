@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+
 import dateFormat from 'dateformat'
+
 import postOrderAmount from '../../api/postOrderAmount'
-import { StyleSheet } from 'react-native'
 
 function BalanceList({ data, text }) {
   const date = dateFormat(data.create_date, 'd.mm.yyyy HH:MM')
+
   useEffect(() => {
     async function name() {
       postOrderAmount({
@@ -19,6 +21,7 @@ function BalanceList({ data, text }) {
     }
     name()
   }, [])
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>

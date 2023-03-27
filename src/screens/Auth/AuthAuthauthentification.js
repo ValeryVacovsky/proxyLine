@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Pressable, Dimensions } from 'react-native'
-
 import { useForm, Controller } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+
 import LayoutAuth from '../../componets/LayoutAuth'
 
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
-import postAuth from '../../api/postAuth'
 import VectorOpen from '../../image/Svg/VectorOpen'
 import ViewIcon from '../../image/Svg/ViewIcon'
 import ViewIconOff from '../../image/Svg/ViewIconOff'
-import { useDispatch, useSelector } from 'react-redux'
+
 import { setAuth } from '../../store/reducers/authReducer'
+
 import getAllTexts from '../../common/getAllTexts'
+
+import postAuth from '../../api/postAuth'
 
 const heightOffScreen = Dimensions.get('window').height
 
@@ -67,11 +70,6 @@ function AuthAuthauthentification({ navigation }) {
     } else {
       setCommonFormError('Invalid email or password')
     }
-    // if (data.email === 'email@gmail.com' && data.password === 'password') {
-    //   navigation.push('Main', {
-    //     initial: false,
-    //   })
-    // }
   }
 
   return (
@@ -83,16 +81,16 @@ function AuthAuthauthentification({ navigation }) {
         <View>
           <Text style={styles.authLogo}>{text?.texts?.t16}</Text>
           {errors.email ? (
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={styles.lableErrorContainer}>
               <Text style={styles.label}>{text?.texts?.t1}</Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>{text?.texts?.t19}</Text>
+              <Text style={styles.lableError}>{text?.texts?.t19}</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
-                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={styles.lableErrorContainer}>
                   <Text style={styles.label}>{text?.texts?.t1}</Text>
-                  <Text style={{ color: 'white', fontSize: 12 }}>{text?.texts?.t20}</Text>
+                  <Text style={styles.lableError}>{text?.texts?.t20}</Text>
                 </View>
               ) : (
                 <Text style={styles.label}>{text?.texts?.t1}</Text>
@@ -112,19 +110,12 @@ function AuthAuthauthentification({ navigation }) {
               <TextInput
                 onFocus={() => setFocusOnEmail(true)}
                 onBlur={() => setFocusOnEmail(false)}
-                style={{
-                  backgroundColor: '#1E2127',
-                  color: 'white',
-                  height: 44,
-                  minWidth: '100%',
-                  marginBottom: 14,
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  paddingLeft: 20,
-                  paddingTop: 12,
-                  paddingBottom: 12,
-                  borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
-                }}
+                style={StyleSheet.flatten([
+                  styles.inputEmail,
+                  {
+                    borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
+                  },
+                ])}
                 onChangeText={onChange}
                 value={value}
                 keyboardType="email-address"
@@ -133,14 +124,14 @@ function AuthAuthauthentification({ navigation }) {
             name="email"
           />
           {errors.password ? (
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={styles.lableErrorContainer}>
               <Text style={styles.label}>{text?.texts?.t2}</Text>
-              <Text style={{ color: 'white', fontSize: 12 }}>{text?.texts?.t21}</Text>
+              <Text style={styles.lableError}>{text?.texts?.t21}</Text>
             </View>
           ) : (
             <View>
               {commonFormError ? (
-                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={styles.lableErrorContainer}>
                   <Text style={styles.label}>{text?.texts?.t1}</Text>
                 </View>
               ) : (
@@ -159,24 +150,16 @@ function AuthAuthauthentification({ navigation }) {
             }}
             render={({ field: { onChange, value } }) => (
               <View
-                style={{
-                  backgroundColor: '#1E2127',
-                  color: 'white',
-                  height: 44,
-                  minWidth: '100%',
-                  marginBottom: 14,
-                  borderRadius: 8,
-                  borderWidth: 1,
-                  paddingLeft: 20,
-                  borderColor: (focusOnPassword && '#fac637') || (errors.password && 'rgb(138,0,0)') || '#333842',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
+                style={StyleSheet.flatten([
+                  styles.inputPasswordContainer,
+                  {
+                    borderColor: (focusOnPassword && '#fac637') || (errors.password && 'rgb(138,0,0)') || '#333842',
+                  },
+                ])}>
                 <TextInput
                   onFocus={() => setFocusOnPassword(true)}
                   onBlur={() => setFocusOnPassword(false)}
-                  style={{ color: 'white', width: '90%', height: '100%' }}
+                  style={styles.inputPassword}
                   onChangeText={onChange}
                   value={value}
                   secureTextEntry={showPassword}
@@ -191,26 +174,17 @@ function AuthAuthauthentification({ navigation }) {
             name="password"
           />
           <TouchableOpacity activeOpacity={0.8}>
-            <View style={{}}>
-              <Text
-                style={{
-                  color: '#CBCBCB',
-                  textAlign: 'right',
-                  textDecorationLine: 'underline',
-                  fontWeight: '600',
-                }}
-                onPress={() => navigation.navigate('Recover')}>
+            <View>
+              <Text style={styles.navigationRecoverText} onPress={() => navigation.navigate('Recover')}>
                 {text?.texts?.t22}
               </Text>
             </View>
           </TouchableOpacity>
         </View>
-        <View style={{ marginBottom: 25 }}>
-          <Text style={{ color: 'white', textAlign: 'center', marginBottom: 24 }}>
+        <View style={styles.bottomContainer}>
+          <Text style={styles.bottomContainerText}>
             {text?.texts?.t13} &#160;
-            <Text
-              style={{ color: 'white', textDecorationLine: 'underline', fontWeight: '600' }}
-              onPress={() => navigation.push('Register')}>
+            <Text style={styles.navigationRegisterText} onPress={() => navigation.push('Register')}>
               {text?.texts?.t3}
             </Text>
           </Text>
@@ -226,14 +200,8 @@ function AuthAuthauthentification({ navigation }) {
                 bottomRight: 12,
                 bottomLeft: 12,
               }}
-              style={{
-                backgroundColor: '#FAC637',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: 50,
-                marginBottom: 20,
-              }}>
-              <Text style={{ color: '#0F1218', fontWeight: '600', fontSize: 13 }}>{text?.buttons?.b0}</Text>
+              style={styles.submitButtomContainer}>
+              <Text style={styles.submitButtomText}>{text?.buttons?.b0}</Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
         </View>
@@ -270,12 +238,59 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     justifyContent: 'space-between',
   },
+  lableErrorContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   label: {
     color: 'white',
     marginBottom: 8,
     fontSize: 16,
     lineHeight: 15,
     fontWeight: '500',
+  },
+  lableError: {
+    color: 'white',
+    fontSize: 12,
+  },
+  inputEmail: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '100%',
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    paddingTop: 12,
+    paddingBottom: 12,
+  },
+  inputPasswordContainer: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '100%',
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputPassword: {
+    color: 'white',
+    width: '90%',
+    height: '100%',
+  },
+  bottomContainer: {
+    marginBottom: 25,
+  },
+  bottomContainerText: {
+    color: 'white',
+    textAlign: 'center',
+    marginBottom: 24,
   },
   buttonInner: {
     backgroundColor: '#FAC637',
@@ -284,13 +299,35 @@ const styles = StyleSheet.create({
     height: 50,
     fontFamily: 'Rubik',
   },
-
+  navigationRecoverText: {
+    color: '#CBCBCB',
+    textAlign: 'right',
+    textDecorationLine: 'underline',
+    fontWeight: '600',
+  },
+  navigationRegisterText: {
+    color: 'white',
+    textDecorationLine: 'underline',
+    fontWeight: '600',
+  },
   authLogo: {
     paddingBottom: 30,
     textAlign: 'center',
     color: 'white',
     fontWeight: '600',
     fontSize: heightOffScreen < 700 ? 22 : 20,
+  },
+  submitButtomContainer: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    marginBottom: 20,
+  },
+  submitButtomText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
   },
 })
 

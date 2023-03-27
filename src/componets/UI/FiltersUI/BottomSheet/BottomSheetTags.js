@@ -51,6 +51,7 @@ function BottomSheetTags({
   useEffect(() => {
     setFilterTags(tagsFilter)
   }, [tagsFilter, handleClosePress, handleSnapPress])
+
   useEffect(() => {
     {
       if (height > 530) {
@@ -113,6 +114,7 @@ function BottomSheetTags({
       }
     }
   }, [height, handleSnapPress])
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar} />

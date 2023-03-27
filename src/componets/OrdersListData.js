@@ -1,8 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import dateFormat from 'dateformat'
-import { flagByShortName } from '../common/flagByShortName'
 import { useSelector } from 'react-redux'
+
+import dateFormat from 'dateformat'
+
+import { flagByShortName } from '../common/flagByShortName'
 
 function OrdersListData({ data, text }) {
   // преобразуем строку в объект Date

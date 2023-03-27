@@ -56,7 +56,7 @@ function AccountInfo({ navigation }) {
       ),
       headerLeft: () => (
         <TouchableOpacity onPress={navigation.goBack} style={styles.navigationLeftContainer}>
-          <HeaderTintBack style={{ bottom: 1 }} />
+          <HeaderTintBack style={styles.headerLeftIcon} />
           <Text style={styles.navigationLeftText}> {text?.buttons?.b2}</Text>
         </TouchableOpacity>
       ),
@@ -64,7 +64,7 @@ function AccountInfo({ navigation }) {
   }, [navigation])
 
   return (
-    <LayoutMain style={{ width: '100%' }}>
+    <LayoutMain style={styles.layoutContainer}>
       <SafeAreaView style={styles.container}>
         <View>
           <Text style={styles.text}>{text?.texts?.t7 && 'Данные аккаунта'}</Text>
@@ -76,8 +76,8 @@ function AccountInfo({ navigation }) {
               </View>
               <TouchableOpacity style={styles.mainInfoContainerItem} onPress={() => navigation.navigate('Balance')}>
                 <Text style={styles.mainInfoContainerLeftText}>{text?.texts?.t28 || 'Баланс'}</Text>
-                <View style={{ marginLeft: 15 }}>
-                  <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>$ {balance.balance / 100}</Text>
+                <View style={styles.balanceContainer}>
+                  <Text style={styles.balanceText}>$ {balance.balance / 100}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -108,6 +108,9 @@ function AccountInfo({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  layoutContainer: {
+    width: '100%',
+  },
   container: {
     flex: 1,
   },
@@ -153,6 +156,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  headerLeftIcon: {
+    bottom: 1,
+  },
   navigationLeftText: {
     color: '#CBCBCB',
     fontWeight: '600',
@@ -175,6 +181,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E2127',
     marginBottom: 1,
     paddingHorizontal: 20,
+  },
+  balanceContainer: {
+    marginLeft: 15,
+  },
+  balanceText: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 15,
   },
   mainInfoContainerLeftText: {
     fontWeight: '600',
