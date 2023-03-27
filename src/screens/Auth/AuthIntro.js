@@ -17,16 +17,23 @@ function AuthIntro({ navigation }) {
     async function comeIn() {
       const role = await AsyncStorage.getItem('@role')
       if (role === 'default') {
-        // TODO: обработать случай, если апи не вернул тексты или произошла ошибка
-        await getAllTexts(dispatch, language)
-        SplashScreen.hide()
-        dispatch(setAuth(true))
-        navigation.navigate('Main')
+        try {
+          await getAllTexts(dispatch, language)
+          SplashScreen.hide()
+          dispatch(setAuth(true))
+          navigation.navigate('Main')
+        } catch (error) {
+          console.log(error)
+        }
       } else {
-        await getAuthText(dispatch, language)
-        SplashScreen.hide()
-        dispatch(setAuth(false))
-        navigation.navigate('Auth')
+        try {
+          await getAuthText(dispatch, language)
+          SplashScreen.hide()
+          dispatch(setAuth(false))
+          navigation.navigate('Auth')
+        } catch (error) {
+          console.log(error)
+        }
       }
     }
     void comeIn()

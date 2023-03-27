@@ -19,8 +19,7 @@ const heightOffScreen = Dimensions.get('window').height
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-// const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/g
-// const IPS_REGEX   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/
 
 function AuthAuthauthentification({ navigation }) {
   const dispatch = useDispatch()
@@ -68,14 +67,11 @@ function AuthAuthauthentification({ navigation }) {
     } else {
       setCommonFormError('Invalid email or password')
     }
-    if (data.email === 'email@gmail.com' && data.password === 'password') {
-      navigation.push('Main', {
-        initial: false,
-      })
-    }
-    if (data.email === 1111) {
-      navigation.push('Main')
-    }
+    // if (data.email === 'email@gmail.com' && data.password === 'password') {
+    //   navigation.push('Main', {
+    //     initial: false,
+    //   })
+    // }
   }
 
   return (
@@ -157,6 +153,7 @@ function AuthAuthauthentification({ navigation }) {
             rules={{
               required: true,
               pattern: {
+                value: PASSWORD_REGEX,
                 required: true,
               },
             }}

@@ -71,7 +71,7 @@ function AccountInfo({ navigation }) {
           <View style={styles.dataProxyes}>
             <View style={styles.mainInfoContainer}>
               <View style={styles.mainInfoContainerItem}>
-                <Text style={styles.mainInfoContainerLeftText}>{text?.texts?.t8 || 'Логин'}</Text>
+                <Text style={styles.mainInfoContainerLeftText}>{text?.texts?.t36 || 'Логин'}</Text>
                 <Text style={styles.mainInfoContainerRightText}>{login}</Text>
               </View>
               <TouchableOpacity style={styles.mainInfoContainerItem} onPress={() => navigation.navigate('Balance')}>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '700',
     paddingLeft: 20,
     marginBottom: 10,
@@ -162,7 +162,6 @@ const styles = StyleSheet.create({
   mainInfoContainer: {
     alignItems: 'center',
     width: '100%',
-    backgroundColor: '#1E2127',
     marginBottom: 1,
   },
   mainInfoContainerItem: {
@@ -172,7 +171,10 @@ const styles = StyleSheet.create({
     paddingBottom: 17,
     paddingTop: 17,
     alignItems: 'center',
-    width: '90%',
+    width: '100%',
+    backgroundColor: '#1E2127',
+    marginBottom: 1,
+    paddingHorizontal: 20,
   },
   mainInfoContainerLeftText: {
     fontWeight: '600',

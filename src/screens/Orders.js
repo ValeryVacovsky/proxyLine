@@ -70,7 +70,14 @@ function Orders({ navigation }) {
       <View style={heightOffScreen > 700 ? styles.navContainer : styles.s_navContainer}>
         <UserNavigation status="Orders" navigation={navigation} />
       </View>
-      <ModalSuccess visible={modalVisible} onClose={toggleModal} text={proxyText} />
+      <ModalSuccess visible={modalVisible} onClose={toggleModal} text={proxyText}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTextTop}>{proxyText?.texts?.t11 || 'Прокси куплен!'}</Text>
+          <Text style={styles.modalBottomText}>
+            {proxyText?.texts?.t12 || 'Что бы использовать прокси выберите его из списка своих прокси'}
+          </Text>
+        </View>
+      </ModalSuccess>
     </LayoutMain>
   )
 }
@@ -150,6 +157,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '95%',
     left: 10,
+  },
+  modalContainer: {
+    backgroundColor: '#1E2127',
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+    width: '80%',
+  },
+  modalTextTop: {
+    fontWeight: '700',
+    fontSize: 17,
+    lineHeight: 15,
+    marginBottom: 6,
+    color: 'white',
+  },
+  modalBottomText: {
+    textAlign: 'center',
+    fontWeight: '400',
+    fontSize: 11,
+    lineHeight: 15,
+    color: 'white',
   },
 })
 

@@ -1,17 +1,30 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
+import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Pressable } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { TextInput } from 'react-native-gesture-handler'
 import LayoutMain from '../../componets/LayoutMain'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 import postSetUserPassword from '../../api/postSetUserPassword'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import ViewIcon from '../../image/Svg/ViewIcon'
+import ViewIconOff from '../../image/Svg/ViewIconOff'
+import ModalSuccess from '../../componets/Orders/ModalSuccess'
+
+const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/
 
 function ChangePassword({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
-  const [focusOnEmail, setFocusOnEmail] = useState(false)
-  const [focusOnPassword, setFocusOnPassword] = useState(false)
+  const [showPasswordTop, setShowPasswordTop] = useState(true)
+  const [showPasswordBottom, setShowPasswordBottom] = useState(true)
+  const [focusOnPasswordTop, setFocusOnPasswordTop] = useState(false)
+  const [focusOnPasswordBottom, setFocusOnPasswordBottom] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible)
+  }
+
   const {
     control,
     handleSubmit,
@@ -30,7 +43,7 @@ function ChangePassword({ navigation }) {
     async function ChangePassword() {
       const data = { password: item.passwordConfirmation }
       await postSetUserPassword({ token, data })
-      navigation.navigate('Auth')
+      setModalVisible(true)
     }
     ChangePassword()
   }
@@ -50,40 +63,72 @@ function ChangePassword({ navigation }) {
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View>
-            <Text style={styles.text}>{text?.texts?.t16 && 'Новый пароль'}</Text>
+            <View
+              style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Text style={styles.text}>{text?.texts?.t16 || 'Новый пароль'}</Text>
+              {errors.password && (
+                <Text style={{ fontWeight: '600', fontSize: 12, color: 'white', marginRight: 20 }}>
+                  {text?.texts?.t38 || 'Не валдиный пароль'}
+                </Text>
+              )}
+            </View>
             <View style={styles.dataProxyes}>
-              {/* <View style={styles.inputEmailContainer}>
-                <TextInput style={styles.inputEmailChange} />
-              </View> */}
               <Controller
                 control={control}
-                rules={{}}
+                rules={{
+                  required: true,
+                  pattern: {
+                    value: PASSWORD_REGEX,
+                    required: true,
+                  },
+                }}
                 render={({ field: { onChange, value } }) => (
-                  <TextInput
-                    onFocus={() => setFocusOnEmail(true)}
-                    onBlur={() => setFocusOnEmail(false)}
+                  <View
                     style={{
                       backgroundColor: '#1E2127',
                       color: 'white',
                       height: 44,
-                      marginLeft: 20,
-                      marginRight: 20,
                       marginBottom: 14,
                       borderRadius: 8,
                       borderWidth: 1,
                       paddingLeft: 20,
-                      paddingTop: 12,
-                      paddingBottom: 12,
-                      borderColor: (focusOnEmail && '#fac637') || (errors.password && 'rgb(138,0,0)') || '#333842',
-                    }}
-                    onChangeText={onChange}
-                    value={value}
-                  />
+                      borderColor:
+                        (focusOnPasswordTop && '#fac637') ||
+                        (errors.password && 'rgb(138,0,0)') ||
+                        (errors.passwordConfirmation && 'rgb(138,0,0)') ||
+                        '#333842',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginLeft: 20,
+                      marginRight: 20,
+                    }}>
+                    <TextInput
+                      onFocus={() => setFocusOnPasswordTop(true)}
+                      onBlur={() => setFocusOnPasswordTop(false)}
+                      style={{ color: 'white', width: '90%', height: '100%' }}
+                      onChangeText={onChange}
+                      value={value}
+                      secureTextEntry={showPasswordTop}
+                    />
+                    <Pressable hitSlop={50} onPress={() => setShowPasswordTop(prev => !prev)}>
+                      {showPasswordTop ? <ViewIcon /> : <ViewIconOff />}
+                    </Pressable>
+                  </View>
                 )}
                 name="password"
               />
             </View>
-            <Text style={styles.text}>{text?.texts?.t17 && 'Повторите новый пароль'}</Text>
+            <View
+              style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Text style={styles.text}>{text?.texts?.t17 || 'Повторите новый пароль'}</Text>
+              {errors.passwordConfirmation && (
+                <Text style={{ fontWeight: '600', fontSize: 12, color: 'white', marginRight: 20 }}>
+                  {' '}
+                  {text?.texts?.t39 || 'Не совпадает'}
+                </Text>
+              )}
+            </View>
             <View style={styles.dataProxyes}>
               <Controller
                 control={control}
@@ -92,27 +137,37 @@ function ChangePassword({ navigation }) {
                   validate: value => value === getValues('password'),
                 }}
                 render={({ field: { onChange, value } }) => (
-                  <TextInput
-                    onFocus={() => setFocusOnPassword(true)}
-                    onBlur={() => setFocusOnPassword(false)}
+                  <View
                     style={{
                       backgroundColor: '#1E2127',
                       color: 'white',
                       height: 44,
-                      marginLeft: 20,
-                      marginRight: 20,
                       marginBottom: 14,
                       borderRadius: 8,
                       borderWidth: 1,
                       paddingLeft: 20,
-                      paddingTop: 12,
-                      paddingBottom: 12,
                       borderColor:
-                        (focusOnPassword && '#fac637') || (errors.passwordConfirmation && 'rgb(138,0,0)') || '#333842',
-                    }}
-                    onChangeText={onChange}
-                    value={value}
-                  />
+                        (focusOnPasswordBottom && '#fac637') ||
+                        (errors.passwordConfirmation && 'rgb(138,0,0)') ||
+                        '#333842',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginLeft: 20,
+                      marginRight: 20,
+                    }}>
+                    <TextInput
+                      onFocus={() => setFocusOnPasswordBottom(true)}
+                      onBlur={() => setFocusOnPasswordBottom(false)}
+                      style={{ color: 'white', width: '90%', height: '100%' }}
+                      onChangeText={onChange}
+                      value={value}
+                      secureTextEntry={showPasswordBottom}
+                    />
+                    <Pressable hitSlop={50} onPress={() => setShowPasswordBottom(prev => !prev)}>
+                      {showPasswordBottom ? <ViewIcon /> : <ViewIconOff />}
+                    </Pressable>
+                  </View>
                 )}
                 name="passwordConfirmation"
               />
@@ -122,22 +177,27 @@ function ChangePassword({ navigation }) {
                 style={styles.buttonChangeContianer}
                 activeOpacity={0.8}
                 onPress={handleSubmit(onSubmit)}>
-                <Text style={styles.buttonChangeText}>{text?.texts?.t18 && 'Применить'}</Text>
+                <Text style={styles.buttonChangeText}>{text?.texts?.t18 || 'Применить'}</Text>
               </TouchableOpacity>
             </View>
-            <Text style={styles.textSmallh1}>{text?.texts?.t19 && 'Требования к паролю'}</Text>
+            <Text style={styles.textSmallh1}>{text?.texts?.t19 || 'Требования к паролю'}</Text>
             <Text style={styles.textSmall}>
-              {text?.texts?.t20 && '1. 8 и более символов.'}
+              {text?.texts?.t20 || '1. 8 и более символов.'}
               {'\n'}
-              {text?.texts?.t21 && '2. Непохож на email.'}
+              {text?.texts?.t21 || '2. Непохож на email.'}
               {'\n'}
-              {text?.texts?.t22 && '3. Прописные и строчые буквы.'}
+              {text?.texts?.t22 || '3. Прописные и строчые буквы.'}
               {'\n'}
-              {text?.texts?.t23 && '4. Хотя бы одна цифра.'}
+              {text?.texts?.t23 || '4. Хотя бы одна цифра.'}
             </Text>
           </View>
         </ScrollView>
       </SafeAreaView>
+      <ModalSuccess visible={modalVisible} onClose={toggleModal}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>{text?.texts?.t37 || 'Пароль обновлен!'}</Text>
+        </View>
+      </ModalSuccess>
     </LayoutMain>
   )
 }
@@ -152,7 +212,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '700',
     paddingLeft: 20,
     marginBottom: 10,
@@ -247,6 +307,20 @@ const styles = StyleSheet.create({
     color: '#FAC637',
     paddingBottom: 18,
     paddingTop: 18,
+  },
+  modalContainer: {
+    backgroundColor: '#1E2127',
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    alignItems: 'center',
+    width: '80%',
+  },
+  modalText: {
+    fontWeight: '700',
+    fontSize: 17,
+    lineHeight: 17,
+    color: 'white',
   },
 })
 

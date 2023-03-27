@@ -73,7 +73,7 @@ function getAllTexts(dispatch, language) {
     }),
   ]
 
-  return Promise.allSettled(promises)
+  return Promise.all(promises)
 }
 
 export default getAllTexts

@@ -31,6 +31,7 @@ function SliderExample({ setDays, setScrolling }) {
           shadowOffset: { width: 0, height: 10 },
           shadowOpacity: 0.3,
           shadowRadius: 10,
+          left: 13,
         }}
         step={step}
         onSlidingStart={() => setScrolling(false)}
