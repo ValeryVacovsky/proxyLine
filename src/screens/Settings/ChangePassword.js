@@ -63,14 +63,9 @@ function ChangePassword({ navigation }) {
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View>
-            <View
-              style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View style={styles.validTextContainer}>
               <Text style={styles.text}>{text?.texts?.t16 || 'Новый пароль'}</Text>
-              {errors.password && (
-                <Text style={{ fontWeight: '600', fontSize: 12, color: 'white', marginRight: 20 }}>
-                  {text?.texts?.t38 || 'Не валдиный пароль'}
-                </Text>
-              )}
+              {errors.password && <Text style={styles.validText}>{text?.texts?.t38 || 'Не валдиный пароль'}</Text>}
             </View>
             <View style={styles.dataProxyes}>
               <Controller
@@ -119,14 +114,10 @@ function ChangePassword({ navigation }) {
                 name="password"
               />
             </View>
-            <View
-              style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View style={styles.validTextContainer}>
               <Text style={styles.text}>{text?.texts?.t17 || 'Повторите новый пароль'}</Text>
               {errors.passwordConfirmation && (
-                <Text style={{ fontWeight: '600', fontSize: 12, color: 'white', marginRight: 20 }}>
-                  {' '}
-                  {text?.texts?.t39 || 'Не совпадает'}
-                </Text>
+                <Text style={styles.validText}> {text?.texts?.t39 || 'Не совпадает'}</Text>
               )}
             </View>
             <View style={styles.dataProxyes}>
@@ -293,6 +284,18 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     paddingBottom: 14,
     borderColor: '#333842',
+  },
+  validTextContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  validText: {
+    fontWeight: '600',
+    fontSize: 12,
+    color: 'white',
+    marginRight: 20,
   },
   buttonChangeContianer: {
     backgroundColor: '#1E2127',
