@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
+import React, { useCallback, useRef, useMemo, useState } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput, Dimensions } from 'react-native'
 
 import LayoutMain from '../../componets/LayoutMain'
@@ -36,9 +36,7 @@ function DeleteProxies({ navigation }) {
     )
   }
   const arryId = []
-  useEffect(() => {
-    proxyLisStore.map(item => arryId.push(item.id))
-  }, [])
+  proxyLisStore.map(item => arryId.push(item.id))
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components

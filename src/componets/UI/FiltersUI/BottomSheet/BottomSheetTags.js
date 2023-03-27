@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native'
+
 import ExcludeOff from '../../../../image/Svg/ExcludeOff'
 import ExcludeOn from '../../../../image/Svg/ExcludeOn'
+
 function BottomSheetTags({
   handleClosePress,
   setTagsList,
@@ -21,6 +23,7 @@ function BottomSheetTags({
   const [filtersTagsItemIn, setFilterTagsItem] = useState(filtersTagsItem)
   const [height, setHeight] = useState(1)
   const [marginBottom, setMarginBottom] = useState(34)
+
   const hendleExcludeStatus = () => {
     setExcludeStatus(prev => !prev)
   }
@@ -132,18 +135,18 @@ function BottomSheetTags({
                 <TouchableOpacity
                   onPress={() => handlePressTag(item)}
                   key={item.id}
-                  style={{
-                    backgroundColor: filtersTags.includes(item.id) ? '#FAC637' : '#333842',
-                    paddingHorizontal: 12,
-                    paddingVertical: 6,
-                    borderRadius: 30,
-                    marginLeft: 10,
-                    marginTop: 12,
-                  }}>
+                  style={StyleSheet.flatten([
+                    styles.filtersTagsContainer,
+                    {
+                      backgroundColor: filtersTags.includes(item.id) ? '#FAC637' : '#333842',
+                    },
+                  ])}>
                   <Text
-                    style={{
-                      color: filtersTags.includes(item.id) ? '#0F1218' : 'white',
-                    }}>
+                    style={StyleSheet.flatten([
+                      {
+                        color: filtersTags.includes(item.id) ? '#0F1218' : 'white',
+                      },
+                    ])}>
                     {item.value}
                   </Text>
                 </TouchableOpacity>
@@ -152,18 +155,18 @@ function BottomSheetTags({
                 <TouchableOpacity
                   onPress={() => handlePressTag(item)}
                   key={item.id}
-                  style={{
-                    backgroundColor: filtersTags.includes(item.id) ? '#EC3641' : '#333842',
-                    paddingHorizontal: 12,
-                    paddingVertical: 6,
-                    borderRadius: 30,
-                    marginLeft: 10,
-                    marginTop: 12,
-                  }}>
+                  style={StyleSheet.flatten([
+                    styles.filtersTagsContainer,
+                    {
+                      backgroundColor: filtersTags.includes(item.id) ? '#EC3641' : '#333842',
+                    },
+                  ])}>
                   <Text
-                    style={{
-                      color: filtersTags.includes(item.id) ? '#0F1218' : 'white',
-                    }}>
+                    style={StyleSheet.flatten([
+                      {
+                        color: filtersTags.includes(item.id) ? '#0F1218' : 'white',
+                      },
+                    ])}>
                     {item.value}
                   </Text>
                 </TouchableOpacity>
@@ -171,16 +174,12 @@ function BottomSheetTags({
         </View>
       </ScrollView>
       <TouchableOpacity
-        style={{
-          paddingTop: 18,
-          paddingBottom: 18,
-          backgroundColor: '#1E2127',
-          width: '90%',
-          marginBottom: marginBottom,
-          borderRadius: 12,
-          alignItems: 'center',
-          marginTop: 2,
-        }}
+        style={StyleSheet.flatten([
+          styles.bottomButton,
+          {
+            marginBottom: marginBottom,
+          },
+        ])}
         onPress={handlePress}
         activeOpacity={0.8}>
         <Text style={styles.bottomButtonText}>{text?.buttons?.b1}</Text>
@@ -247,10 +246,9 @@ const styles = StyleSheet.create({
     paddingBottom: 18,
     backgroundColor: '#1E2127',
     width: '90%',
-    marginBottom: 33,
     borderRadius: 12,
     alignItems: 'center',
-    marginBottom: 34,
+    marginTop: 2,
   },
   bottomButtonText: {
     color: '#FAC637',
@@ -277,6 +275,13 @@ const styles = StyleSheet.create({
   },
   tagsTextExlude: {
     color: '#0F1218',
+  },
+  filtersTagsContainer: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 30,
+    marginLeft: 10,
+    marginTop: 12,
   },
 })
 

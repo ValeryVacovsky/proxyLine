@@ -14,7 +14,7 @@ function BottomSheetItem({ handleClosePress, navigation, text }) {
       <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={handlePress}>
         <Text style={styles.topButtonText}>{text?.buttons?.b1}</Text>
       </TouchableOpacity>
-      <View style={{ width: '100%', alignItems: 'center' }}>
+      <View style={styles.centerContainer}>
         <TouchableOpacity style={styles.centerTopButton} activeOpacity={0.8}>
           <Text style={styles.centerTopButtonText}>{text?.buttons?.b2}</Text>
         </TouchableOpacity>
@@ -41,6 +41,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  centerContainer: {
+    width: '100%',
     alignItems: 'center',
   },
   topTab: {

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
+import React, { useCallback, useRef, useMemo, useState } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, SafeAreaView, Text, TextInput, Dimensions } from 'react-native'
 
 import LayoutMain from '../../componets/LayoutMain'
@@ -11,7 +11,10 @@ import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 const heightOffScreen = Dimensions.get('window').height
 
+const arryId = []
+
 function ChangeProxies({ navigation }) {
+  const [selectedProxies, setSelectedProxies] = useState([])
   const text = useSelector(res => res.textReducer.myproxies.payload)
   const proxyLisStore = useSelector(data => data.proxy.proxyList.data)
   const [valueProxy, setValueProxy] = useState('')
@@ -28,21 +31,28 @@ function ChangeProxies({ navigation }) {
     sheetRef.current?.close()
   }, [])
 
-  const [selectedProxies, setSelectedProxies] = useState([])
+  const handleGetAll = () => {
+    if (selectedProxies.length == 0) {
+      setSelectedProxies(arryId)
+      console.log(123, selectedProxies)
+    } else {
+      setSelectedProxies([])
+      console.log('err', selectedProxies)
+    }
+  }
+
   const onChange = value => {
     const proxyId = Number(value)
     setSelectedProxies(prevState =>
       prevState.includes(proxyId) ? prevState.filter(id => id !== proxyId) : prevState.concat(proxyId),
     )
   }
-  const arryId = []
-  useEffect(() => {
-    proxyLisStore.map(item => arryId.push(item.id))
-  }, [])
+
+  proxyLisStore.map(item => arryId.push(item.id))
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => setSelectedProxies(arryId)}>
+        <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={handleGetAll}>
           <Text style={{ color: '#FAC637', fontWeight: '600', fontSize: 15 }}>{text?.buttons?.b14}</Text>
         </TouchableOpacity>
       ),

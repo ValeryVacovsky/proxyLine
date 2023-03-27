@@ -7,7 +7,6 @@ import BottomSheetItem from './BottomSheetItem'
 import { useSelector } from 'react-redux'
 
 function ProxyItemDelete({
-  proxy,
   selectedProxies,
   setSelected,
   setProxyItemPicked,
@@ -26,7 +25,7 @@ function ProxyItemDelete({
   const dateEnd = new Date()
   const dateNeed = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
   return (
-    <TouchableOpacity style={styles.container} onPress={() => onChange(proxy?.id)} activeOpacity={0.8}>
+    <TouchableOpacity style={styles.container} onPress={() => onChange(proxyRes?.id)} activeOpacity={0.8}>
       <View style={styles.mainContainer}>
         <View style={styles.itemContainer}>
           <View style={styles.flagContainer}>
@@ -72,7 +71,7 @@ function ProxyItemDelete({
         <View>
           <TouchableOpacity
             onPress={() => {
-              setProxyItemPicked(proxy?.id)
+              setProxyItemPicked(proxyRes?.id)
               childrenItem && handleSnapPress(0)
               setSelected(null)
               setChildrenItem(
@@ -81,8 +80,8 @@ function ProxyItemDelete({
             }}
             activeOpacity={0.8}
           />
-          {selectedProxies.includes(Number(proxy?.id)) && <VectorYellowBig style={{ right: 20 }} />}
-          {!selectedProxies.includes(Number(proxy?.id)) && <View style={{ width: 20, height: 20 }} />}
+          {selectedProxies.includes(Number(proxyRes?.id)) && <VectorYellowBig style={{ right: 20 }} />}
+          {!selectedProxies.includes(Number(proxyRes?.id)) && <View style={{ width: 20, height: 20 }} />}
         </View>
       </View>
     </TouchableOpacity>
@@ -161,6 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '400',
     marginLeft: 6,
+    maxWidth: 170,
   },
 })
 

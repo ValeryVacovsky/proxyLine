@@ -11,7 +11,7 @@ function BottomSheetList({ handleClosePress, navigation, proxyRes, text }) {
   return (
     <View style={styles.container}>
       <View style={styles.topTab} />
-      <View style={{ width: '100%', alignItems: 'center' }}>
+      <View style={styles.centerContainer}>
         <TouchableOpacity
           style={styles.centerTopButton}
           change
@@ -51,6 +51,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  centerContainer: {
+    width: '100%',
     alignItems: 'center',
   },
   topTab: {
