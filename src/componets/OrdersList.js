@@ -19,14 +19,12 @@ function OrdersList({ data, text, toggleModal }) {
   const { listProxies } = useListOrders()
   const dispatch = useDispatch()
   const [received, setReceived] = useState(data.data.statusActive)
-  const [dateCreate, setDateCreate] = useState(new Date())
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
 
   const onHandleSuccess = id => {
     dispatch(deleteObject(id))
     setReceived(true)
-    setDateCreate(new Date())
     listProxies()
     toggleModal()
     const listProxy = async () => {
@@ -39,8 +37,7 @@ function OrdersList({ data, text, toggleModal }) {
     listProxy()
   }
 
-  const createOrderRequest = async id => {
-    dispatch(deleteObject(id))
+  const createOrderRequest = async idProps => {
     try {
       const token = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
@@ -60,6 +57,7 @@ function OrdersList({ data, text, toggleModal }) {
         token: user_token,
       })
       onHandleSuccess(id)
+      dispatch(deleteObject(idProps))
     } catch (error) {
       console.log('ошибка', error)
     }
@@ -103,12 +101,6 @@ function OrdersList({ data, text, toggleModal }) {
             <Text style={styles.leftText}>{text?.texts?.t9}</Text>
             <Text style={styles.rightText}>$ {data.data.totalPrice}</Text>
           </View>
-          {received && (
-            <View style={styles.blockContainerBottom}>
-              <Text style={styles.leftText}>{text?.texts?.t10}</Text>
-              <Text style={styles.rightText}>{dateFormat(dateCreate, 'd.mm.yyyy HH:MM')}</Text>
-            </View>
-          )}
         </View>
         {!received && (
           <TouchableOpacity
@@ -231,7 +223,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingTop: 5,
-    paddingBottom: 20,
+    paddingBottom: 15,
   },
   countryContainer: {
     display: 'flex',

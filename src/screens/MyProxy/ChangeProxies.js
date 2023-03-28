@@ -35,10 +35,8 @@ function ChangeProxies({ navigation }) {
   const handleGetAll = () => {
     if (selectedProxies.length == 0) {
       setSelectedProxies(arryId)
-      console.log(123, selectedProxies)
     } else {
       setSelectedProxies([])
-      console.log('err', selectedProxies)
     }
   }
 

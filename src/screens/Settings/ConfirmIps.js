@@ -13,6 +13,7 @@ function ConfirmIps({ navigation }) {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       order: '',
@@ -27,6 +28,7 @@ function ConfirmIps({ navigation }) {
       value: data.order,
       name: 'string',
     })
+    reset()
   }
   const handleBlur = () => {
     setFocusInput(false)

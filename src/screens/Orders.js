@@ -18,6 +18,9 @@ function Orders({ navigation }) {
 
   const toggleModal = () => {
     setModalVisible(!modalVisible)
+    setTimeout(() => {
+      setModalVisible(false)
+    }, 2000)
   }
 
   useEffect(() => {
@@ -32,12 +35,13 @@ function Orders({ navigation }) {
       headerTintColor: 'transparent',
     })
   }, [navigation])
+
   return (
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         {ordersRes?.length + dataOrders?.length > 0 && (
           <ScrollView style={styles.scrollView}>
-            {ordersRes?.reverse().map(data => (
+            {ordersRes?.map(data => (
               <OrdersList
                 key={data?.data?.id}
                 navigation={navigation}

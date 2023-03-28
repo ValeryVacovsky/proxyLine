@@ -30,6 +30,7 @@ function ChangePassword({ navigation }) {
     handleSubmit,
     formState: { errors },
     getValues,
+    reset,
   } = useForm({
     defaultValues: {
       password: '',
@@ -44,8 +45,12 @@ function ChangePassword({ navigation }) {
       const data = { password: item.passwordConfirmation }
       await postSetUserPassword({ token, data })
       setModalVisible(true)
+      setTimeout(() => {
+        setModalVisible(false)
+      }, 2000)
     }
     ChangePassword()
+    reset()
   }
 
   React.useLayoutEffect(() => {

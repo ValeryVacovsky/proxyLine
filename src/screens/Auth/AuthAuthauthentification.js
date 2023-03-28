@@ -132,7 +132,7 @@ function AuthAuthauthentification({ navigation }) {
             <View>
               {commonFormError ? (
                 <View style={styles.lableErrorContainer}>
-                  <Text style={styles.label}>{text?.texts?.t1}</Text>
+                  <Text style={styles.label}>{text?.texts?.t2}</Text>
                 </View>
               ) : (
                 <Text style={styles.label}>{text?.texts?.t2}</Text>
