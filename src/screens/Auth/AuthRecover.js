@@ -1,0 +1,208 @@
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native'
+
+import { useForm, Controller } from 'react-hook-form'
+
+import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import LayoutAuth from '../../componets/LayoutAuth'
+
+import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
+import postReset from '../../api/postReset'
+
+const EMAIL_REGEX =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+const heightOffScreen = Dimensions.get('window').height
+
+function AuthRecover({ navigation }) {
+  const [text, setText] = useState({})
+  const authText = useSelector(res => res.textReducer.auth.payload)
+  useEffect(() => {
+    setText(authText)
+  }, [authText, text])
+  const [focusOnEmail, setFocusOnEmail] = useState(false)
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
+  const onSubmit = async data => {
+    const res = await postReset(data)
+    if (res?.data?.success === true) {
+      await AsyncStorage.setItem('@sign_up_email_reset', data.email)
+      navigation.navigate('CodeReset')
+    } else {
+    }
+  }
+  return (
+    <LayoutAuth>
+      <View style={styles.header}>
+        <LogoIntroSmall width={132} height={24} style={styles.mainLogo} />
+      </View>
+      <View style={styles.authForm}>
+        <View>
+          <Text style={styles.authLogo}>{authText?.texts?.t9}</Text>
+          <Text style={styles.authMainText}>{authText?.texts?.t10}</Text>
+          {errors.email ? (
+            <View style={styles.lableErrorContainer}>
+              <Text style={styles.label}>{authText?.texts?.t1}</Text>
+              <Text style={styles.lableError}>{authText?.texts?.t21}</Text>
+            </View>
+          ) : (
+            <Text style={styles.label}>{authText?.texts?.t1}</Text>
+          )}
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+              pattern: {
+                value: EMAIL_REGEX,
+                message: 'email error',
+              },
+            }}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                keyboardType="email-address"
+                onFocus={() => setFocusOnEmail(true)}
+                onBlur={() => setFocusOnEmail(false)}
+                style={StyleSheet.flatten([
+                  styles.input,
+                  {
+                    borderColor: (focusOnEmail && '#fac637') || (errors.email && 'rgb(138,0,0)') || '#333842',
+                  },
+                ])}
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+            name="email"
+          />
+        </View>
+        <View style={styles.bottomContainer}>
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.8}>
+            <SuperEllipseMaskView
+              radius={{
+                topLeft: 12,
+                topRight: 12,
+                bottomLeft: 12,
+                bottomRight: 12,
+              }}>
+              <View style={styles.buttonInner}>
+                <Text style={styles.buttonInnerText}>{authText?.buttons?.b2}</Text>
+              </View>
+            </SuperEllipseMaskView>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Auth')} activeOpacity={0.8}>
+            <View style={styles.buttonInnerBack}>
+              <Text style={styles.buttonInnerBackText}>{authText?.buttons?.b3}</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </LayoutAuth>
+  )
+}
+
+const styles = StyleSheet.create({
+  sectionContainer: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#0F1218',
+  },
+  backgroundImage: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+  },
+  mainLogo: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 132,
+    height: 24,
+    marginTop: 25,
+  },
+  header: {
+    flex: 1,
+    paddingTop: 20,
+    marginTop: 25,
+  },
+  authForm: {
+    flex: 2,
+    paddingLeft: 30,
+    paddingRight: 30,
+    justifyContent: 'space-between',
+  },
+  label: {
+    color: 'white',
+    marginBottom: 8,
+    fontSize: 16,
+    lineHeight: 15,
+    fontWeight: '500',
+  },
+  lableError: {
+    color: 'white',
+    fontSize: 12,
+  },
+  lableErrorContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  bottomContainer: {
+    marginBottom: 25,
+  },
+  buttonInner: {
+    backgroundColor: '#FAC637',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+  },
+  buttonInnerText: {
+    color: '#0F1218',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  buttonInnerBack: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+  },
+  buttonInnerBackText: {
+    color: 'white',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  input: {
+    backgroundColor: '#1E2127',
+    color: 'white',
+    height: 44,
+    minWidth: '100%',
+    marginBottom: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 20,
+    paddingTop: 12,
+    paddingBottom: 12,
+  },
+  authLogo: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: '600',
+    fontSize: heightOffScreen > 700 ? 22 : 20,
+  },
+  authMainText: {
+    color: '#CBCBCB',
+    textAlign: 'center',
+    paddingBottom: 30,
+  },
+})
+
+export default AuthRecover

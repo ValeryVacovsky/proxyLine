@@ -1,7 +1,7 @@
 import React from 'react'
 import { StatusBar, StyleSheet, View } from 'react-native'
 
-const LayoutMain = ({ children }) => {
+function LayoutMain({ children }) {
   return (
     <View style={styles.sectionContainer}>
       <StatusBar barStyle="light-content" />

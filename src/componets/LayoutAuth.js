@@ -1,15 +1,13 @@
 import React from 'react'
 import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native'
 
-const AuthIntro = ({ children }) => {
-  // setTimeout(() => navigation.navigate('Auth'), 1000)
+import backgroundlines from '../image/back-ground-lines.png'
+
+function AuthIntro({ children }) {
   return (
     <View style={styles.sectionContainer}>
       <StatusBar barStyle="light-content" />
-      <ImageBackground
-        source={require('../image/back-ground-lines.png')}
-        resizeMode="cover"
-        style={styles.backgroundImage}>
+      <ImageBackground source={backgroundlines} resizeMode="cover" style={styles.backgroundImage}>
         {children}
       </ImageBackground>
     </View>

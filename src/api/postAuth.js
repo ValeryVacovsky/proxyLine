@@ -1,7 +1,7 @@
 import axios from 'axios'
+
 const baseUrl = 'https://proxydbtest.proxyline.net'
 
-// Passing configuration object to axios
 const postAuth = data =>
   axios({
     method: 'post',
@@ -10,7 +10,7 @@ const postAuth = data =>
       'Content-Type': 'application/json',
       apikey: 'project-1-apikey',
     },
-    data: data,
+    data,
   })
 
 export default postAuth

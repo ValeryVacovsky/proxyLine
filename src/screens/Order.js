@@ -1,274 +1,153 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { ScrollView, View, StyleSheet, Text, Pressable } from 'react-native'
 import LayoutMain from '../componets/LayoutMain'
-import FlagUsaSmall from '../image/Svg/FlagUsaSmall'
+import OrderItem from '../componets/OrderItem'
+import CloudProxyIcon from '../image/Svg/CloudProxyIcon'
 import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
-import VectorRightSmall from '../image/Svg/VectorRightSmall'
+import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
+import HeaderProxy from '../image/Svg/HeaderProxy'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import HeaderTintBack from '../image/Svg/HeaderTintBack'
 
-const Order = ({ navigation }) => {
+function Order({ navigation, route }) {
+  const proxyText = useSelector(res => res.textReducer)
+  const [scrolling, setScrolling] = useState(true)
+  const [currentProxyId, setCurrentProxyId] = useState(390)
+  const balance = useSelector(data => data.balanceReducer)
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <View style={styles.headerRightContainer}>
+          <Pressable
+            style={styles.balanceIcon}
+            activeOpacity={0.8}
+            hitSlop={50}
+            onPress={() => navigation.navigate('Balance')}>
+            <Text style={styles.headerBalanceText}>$ {balance.balance / 100}</Text>
+            <HeaderProxy style={styles.headerRightIcon} />
+          </Pressable>
+        </View>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity onPress={navigation.goBack} style={styles.headerLeftTintContainer}>
+          <HeaderTintBack style={styles.headerLeftIcon} />
+          <Text style={styles.headerLeftTintText}> {proxyText.proxy.payload?.buttons?.b1}</Text>
+        </TouchableOpacity>
+      ),
+    })
+  }, [navigation, balance])
+  const ProxyList = [
+    {
+      id: 1,
+      proxyType: proxyText.proxy.payload?.texts?.t7,
+      discription: proxyText.proxy.payload?.texts?.t0,
+      days: '5',
+      price: 0.6,
+      handDesription: proxyText.proxy.payload?.texts?.t3,
+      icon: <PeopleIconProxy />,
+      ip_type: 2,
+      ip_version: 4,
+    },
+    {
+      id: 2,
+      proxyType: proxyText.proxy.payload?.texts?.t8,
+      discription: proxyText.proxy.payload?.texts?.t1,
+      days: '5',
+      price: 0.88,
+      handDesription: proxyText.proxy.payload?.texts?.t4,
+      icon: <CloudProxyIcon />,
+      ip_type: 1,
+      ip_version: 4,
+    },
+    {
+      id: 3,
+      proxyType: proxyText.proxy.payload?.texts?.t9,
+      discription: proxyText.proxy.payload?.texts?.t2,
+      days: '5',
+      price: 1.22,
+      handDesription: proxyText.proxy.payload?.texts?.t5,
+      icon: <ServerProxyIcon />,
+      ip_type: 1,
+      ip_version: 6,
+    },
+  ]
+  const startPos = currentProxyId * (route?.params?.proxy?.id - 1)
+  const iPtypes = route?.params?.iPtypes
   return (
-    <LayoutMain style={{ display: 'flex', alignItems: 'center' }}>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          width: '100%',
-          paddingLeft: 20,
-          paddingRight: 20,
-          zIndex: 0,
-          marginTop: 11,
-        }}>
-        <View style={{ zIndex: 1 }}>
-          <Text
-            style={{
-              color: 'black',
-              backgroundColor: '#FAC637',
-              paddingLeft: 14,
-              paddingTop: 3,
-              paddingBottom: 4,
-              paddingRight: 14,
-              borderRadius: 8,
-              top: 15,
-              fontSize: 12,
-              fontWeight: '600',
-            }}>
-            Используют до 3-х человек
-          </Text>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '100%',
-            zIndex: 0,
-            border: 2,
-            borderBottomColor: 'white',
-            backgroundColor: 'rgba(51, 51, 51, 0.3)',
-            marginBottom: 1,
-            paddingLeft: 20,
-            paddingRight: 20,
-            paddingTop: 21,
-            paddingBottom: 14,
-            borderTopLeftRadius: 14,
-            borderTopRightRadius: 14,
-            borderBottomLeftRadius: 14,
-            borderBottomRightRadius: 14,
-          }}>
-          <View>
-            <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>IPv4 Shared</Text>
-            <Text style={{ color: '#CBCBCB', fontSize: 12, fontWeight: '400' }}>Подходят для любых целей и сайтов</Text>
-          </View>
-          <View>
-            <PeopleIconProxy />
-          </View>
-        </View>
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '100%',
-            paddingTop: 13,
-            paddingBottom: 13,
-          }}>
-          <View>
-            <Text style={{ color: '#CBCBCB' }}>Страна</Text>
-          </View>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <Text style={{ color: 'white' }}>United States of America</Text>
-            <FlagUsaSmall width={16} height={13} style={{ top: 2, marginLeft: 5, marginRight: 5 }} />
-            <VectorRightSmall width={6} height={12} style={{ top: 5, marginLeft: 10 }} />
-          </View>
-        </TouchableOpacity>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'space-between',
-            paddingTop: 10,
-            marginBottom: 50,
-          }}>
-          <Text style={{ color: '#CBCBCB' }}>5 дней</Text>
-          <Text style={{ color: '#CBCBCB' }}>360 дней</Text>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'space-between',
-            paddingTop: 13,
-            paddingBottom: 13,
-          }}>
-          <Text style={{ color: '#CBCBCB' }}>Период</Text>
-          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>90 дней</Text>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: 10,
-          }}>
-          <Text style={{ color: '#CBCBCB' }}>Тип</Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              backgroundColor: '#1E2127',
-              padding: 4,
-              borderRadius: 40,
-              left: 5,
-            }}>
-            <TouchableOpacity style={{}}>
-              <Text
-                style={{
-                  color: '#CBCBCB',
-                  paddingTop: 10,
-                  paddingBottom: 10,
-                  paddingLeft: 14,
-                  paddingRight: 14,
-                  fontSize: 12,
-                  fontWeight: '600',
-                }}>
-                HTTP(S)
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                marginLeft: 10,
-                backgroundColor: 'rgba(51, 51, 51, 0.5)',
-                borderRadius: 50,
-              }}>
-              <Text
-                style={{
-                  color: 'white',
-                  paddingTop: 10,
-                  paddingBottom: 10,
-                  paddingLeft: 14,
-                  paddingRight: 14,
-                  fontSize: 12,
-                  fontWeight: '600',
-                }}>
-                SOCKS5
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <Text style={{ color: '#CBCBCB' }}>Колличество</Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              padding: 4,
-              borderRadius: 40,
-              left: 5,
-              alignItems: 'center',
-            }}>
-            <TouchableOpacity style={{ backgroundColor: '#1E2127' }}>
-              <Text
-                style={{
-                  color: '#CBCBCB',
-                  paddingTop: 10,
-                  paddingBottom: 10,
-                  paddingLeft: 14,
-                  paddingRight: 14,
-                  fontSize: 12,
-                  fontWeight: '600',
-                }}>
-                +
-              </Text>
-            </TouchableOpacity>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#1E2127',
-                paddingTop: 9,
-                paddingBottom: 9,
-                paddingLeft: 14,
-                paddingRight: 14,
-              }}>
-              <Text style={{ color: 'white', fontSize: 14, fontWeight: '600' }}>10</Text>
-            </View>
-            <TouchableOpacity style={{ backgroundColor: '#1E2127' }}>
-              <Text
-                style={{
-                  color: 'white',
-                  paddingTop: 10,
-                  paddingBottom: 10,
-                  paddingLeft: 14,
-                  paddingRight: 14,
-                  fontSize: 12,
-                  fontWeight: '600',
-                }}>
-                -
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'space-between',
-            paddingTop: 13,
-            paddingBottom: 13,
-          }}>
-          <Text style={{ color: '#CBCBCB' }}>Сена за штуку</Text>
-          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ 0.60</Text>
-        </View>
-      </View>
-      <View style={{ alignItems: 'center', marginBottom: 25 }}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '90%',
-            justifyContent: 'space-between',
-            paddingTop: 13,
-            paddingBottom: 13,
-          }}>
-          <Text style={{ color: '#CBCBCB' }}>Итого к оплате</Text>
-          <Text style={{ color: 'white', fontWeight: '700', fontSize: 14 }}>$ 6.0</Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Main')}
-          style={{ alignItems: 'center', width: '100%', marginBottom: 20 }}
-          activeOpacity={0.8}>
-          <View style={styles.buttonInner}>
-            <Text style={{ color: 'black', fontWeight: '600', fontSize: 13 }}>Купить прокси</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+    <LayoutMain>
+      <ScrollView
+        horizontal
+        contentContainerStyle={{ width: `${ProxyList.length * 100}%` }}
+        showsHorizontalScrollIndicator={false}
+        scrollEventThrottle={100}
+        pagingEnabled
+        contentOffset={{ x: startPos }}
+        disableIntervalMomentum
+        onLayout={event => {
+          const { layout } = event.nativeEvent
+          setCurrentProxyId(layout.width)
+        }}
+        scrollEnabled={scrolling}>
+        {ProxyList.map((order, index) => (
+          <OrderItem
+            key={order.key}
+            navigation={navigation}
+            order={order}
+            setScrolling={setScrolling}
+            price={iPtypes[index] / 100 && 0.1}
+            proxyText={proxyText.order.payload}
+          />
+        ))}
+      </ScrollView>
     </LayoutMain>
   )
 }
 
 const styles = StyleSheet.create({
-  buttonInner: {
-    backgroundColor: '#FAC637',
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    marginHorizontal: 20,
+  },
+  text: {
+    fontSize: 42,
+  },
+  navContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    width: '90%',
+    marginBottom: 25,
+  },
+  balanceIcon: {
+    display: 'flex',
+    flexDirection: 'row',
+    fontSize: 15,
+    alignItems: 'center',
+  },
+  headerLeftTintContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLeftTintText: {
+    color: '#CBCBCB',
+    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: 15,
+  },
+  headerRightContainer: {
+    marginLeft: 15,
+  },
+  headerBalanceText: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 15,
+  },
+  headerRightIcon: {
+    marginLeft: 3,
+  },
+  headerLeftIcon: {
+    bottom: 1,
   },
 })
 

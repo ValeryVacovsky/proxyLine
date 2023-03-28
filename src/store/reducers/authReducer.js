@@ -10,3 +10,10 @@ export const authReducer = (state = initialState, action) => {
       return state
   }
 }
+
+export function setAuth(payload) {
+  return {
+    type: 'AUTH_STATUS',
+    payload,
+  }
+}
