@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   scrollView: {
-    marginBottom: 0,
+    marginBottom: -30,
   },
   visit: {
     margin: 4,

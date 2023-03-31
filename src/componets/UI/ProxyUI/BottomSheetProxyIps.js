@@ -144,6 +144,9 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
           <View style={styles.bottomContainer}>
             <View style={styles.inputContainer}>
               <TextInput
+                type="number"
+                returnKeyType="done"
+                keyboardType="decimal-pad"
                 value={value}
                 onChangeText={handleChangeText}
                 style={StyleSheet.flatten([

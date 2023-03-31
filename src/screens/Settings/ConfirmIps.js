@@ -79,7 +79,7 @@ function ConfirmIps({ navigation }) {
                 render={({ field: { onChange, value } }) => (
                   <TextInput
                     type="number"
-                    keyboardType="numeric"
+                    keyboardType="decimal-pad"
                     returnKeyType="done"
                     onFocus={handleFocus}
                     onBlur={handleBlur}

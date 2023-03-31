@@ -83,7 +83,7 @@ function AuthAuthauthentification({ navigation }) {
           {errors.email ? (
             <View style={styles.lableErrorContainer}>
               <Text style={styles.label}>{text?.texts?.t1}</Text>
-              <Text style={styles.lableError}>{text?.texts?.t19}</Text>
+              <Text style={styles.lableError}>{text?.texts?.t23}</Text>
             </View>
           ) : (
             <View>

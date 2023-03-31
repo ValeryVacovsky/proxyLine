@@ -99,7 +99,7 @@ function ProxyInfo({ navigation, route }) {
     <BottomSheetCopy handleClosePress={handleClosePress}></BottomSheetCopy>,
   )
   const nowDate = new Date()
-  const proxyInfoDate = new Date(proxyInfo.date_end)
+  const proxyInfoDate = new Date(proxyInfo.date_end % 24)
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -134,7 +134,7 @@ function ProxyInfo({ navigation, route }) {
             </View>
             <InfoCheckButton text={proxyInfoText?.buttons} />
             <Text style={styles.text}>{proxyInfoText?.texts?.t9}</Text>
-            <View styles={styles.Data}>
+            <View style={styles.Data}>
               <OrderBlock date={dateFormat(proxyInfo.suspended_till, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
               <OrderFrom date={dateFormat(proxyInfo.date_start, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
               <OrderEnd date={dateFormat(proxyInfo.date_end, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />

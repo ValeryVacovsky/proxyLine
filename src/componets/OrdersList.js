@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -18,13 +18,11 @@ import { useListOrders } from '../hooks/useListOrders'
 function OrdersList({ data, text, toggleModal }) {
   const { listProxies } = useListOrders()
   const dispatch = useDispatch()
-  const [received, setReceived] = useState(data.data.statusActive)
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
 
   const onHandleSuccess = id => {
     dispatch(deleteObject(id))
-    setReceived(true)
     listProxies()
     toggleModal()
     const listProxy = async () => {
@@ -32,7 +30,7 @@ function OrdersList({ data, text, toggleModal }) {
       const id = await AsyncStorage.getItem('@id')
       const dataProps = `${id}_${token}`
       const data = await getListProxies({ token: dataProps, limit: '100', offset: '0', endpoint: '' })
-      dispatch(setProxy(data))
+      dispatch(setProxy(data.data))
     }
     listProxy()
   }
@@ -44,11 +42,11 @@ function OrdersList({ data, text, toggleModal }) {
       const user_token = `${id}_${token}`
       await postCreateOrder({
         data: {
-          quantity: data.data.quantity,
-          ip_type: data.data.ip_type,
-          ip_version: data.data.ip_version,
-          country: data.data.country,
-          period: data.data.period,
+          quantity: data?.data?.quantity,
+          ip_type: data?.data?.ip_type,
+          ip_version: data?.data?.ip_version,
+          country: data?.data?.country,
+          period: data?.data?.period,
           selected_ips: [],
           tags: [0],
           unique_credentials: false,
@@ -68,50 +66,41 @@ function OrdersList({ data, text, toggleModal }) {
       <View style={styles.container1}>
         <View style={styles.topContainer}>
           <View>
-            <Text style={styles.IpTitle}>IPv{data.data.ip_version} Shared</Text>
+            <Text style={styles.IpTitle}>IPv{data?.data?.ip_version} Shared</Text>
             <Text style={styles.data}>
-              {text?.texts?.t2} {dateFormat(data.data.dateActive, 'd.mm.yyyy HH:MM')}
+              {text?.texts?.t2} {dateFormat(data?.data?.dateActive, 'd.mm.yyyy HH:MM')}
             </Text>
           </View>
         </View>
-        <View
-          style={StyleSheet.flatten([
-            styles.bottomContainer,
-            {
-              borderBottomLeftRadius: received ? 14 : 0,
-              borderBottomRightRadius: received ? 14 : 0,
-            },
-          ])}>
+        <View style={StyleSheet.flatten([styles.bottomContainer])}>
           <View style={styles.blockContainer}>
             <Text style={styles.leftText}>{text?.texts?.t6}</Text>
             <View style={styles.countryContainer}>
-              <Text style={styles.rightText}>{countryDiscription[languageGet][data.data.country]}</Text>
-              <View style={styles.countryFlagContinaer}>{flagByShortName[data.data.country]}</View>
+              <Text style={styles.rightText}>{countryDiscription[languageGet][data?.data?.country]}</Text>
+              <View style={styles.countryFlagContinaer}>{flagByShortName[data?.data?.country]}</View>
             </View>
           </View>
           <View style={styles.centerBlock}>
             <Text style={styles.leftText}>{text?.texts?.t7}</Text>
-            <Text style={styles.rightText}>{data.data.period}</Text>
+            <Text style={styles.rightText}>{data?.data?.period}</Text>
           </View>
           <View style={styles.blockContainer}>
             <Text style={styles.leftText}>{text?.texts?.t8}</Text>
-            <Text style={styles.rightText}>{data.data.quantity}</Text>
+            <Text style={styles.rightText}>{data?.data?.quantity}</Text>
           </View>
           <View style={styles.blockContainerBottom}>
             <Text style={styles.leftText}>{text?.texts?.t9}</Text>
-            <Text style={styles.rightText}>$ {data.data.totalPrice}</Text>
+            <Text style={styles.rightText}>$ {data?.data?.totalPrice}</Text>
           </View>
         </View>
-        {!received && (
-          <TouchableOpacity
-            style={styles.buttonInner}
-            onPress={() => {
-              createOrderRequest(data.data.id)
-            }}
-            activeOpacity={0.8}>
-            <Text style={styles.buttonInnerText}>{text?.buttons?.b1 || 'Получить'}</Text>
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          style={styles.buttonInner}
+          onPress={() => {
+            createOrderRequest(data?.data?.id)
+          }}
+          activeOpacity={0.8}>
+          <Text style={styles.buttonInnerText}>{text?.buttons?.b1 || 'Получить'}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

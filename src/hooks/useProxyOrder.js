@@ -2,36 +2,27 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import postOrderAmount from '../api/postOrderAmount'
 import { setPrice } from '../store/reducers/orderPriceReducer'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const useProxyOrder = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     async function name() {
-      const ipTypes = []
-      postOrderAmount({
+      const tokenName = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const token = `${id}_${tokenName}`
+      const data = {
         quantity: 1,
         ip_type: 2,
         ip_version: 4,
         country: 'ru',
         period: 5,
         coupon: '',
-      }).then(data => ipTypes.push(data?.data.amount))
-      postOrderAmount({
-        quantity: 1,
-        ip_type: 1,
-        ip_version: 4,
-        country: 'ru',
-        period: 5,
-        coupon: '',
-      }).then(data => ipTypes.push(data?.data.amount))
-      postOrderAmount({
-        quantity: 1,
-        ip_type: 1,
-        ip_version: 6,
-        country: 'ru',
-        period: 5,
-        coupon: '',
-      }).then(data => ipTypes.push(data?.data.amount))
+      }
+      const ipTypes = []
+      postOrderAmount({ data, token }).then(data => ipTypes.push(data?.data.amount))
+      postOrderAmount({ data, token }).then(data => ipTypes.push(data?.data.amount))
+      postOrderAmount({ data, token }).then(data => ipTypes.push(data?.data.amount))
       dispatch(setPrice(ipTypes))
     }
     name()

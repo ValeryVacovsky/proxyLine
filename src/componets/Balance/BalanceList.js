@@ -1,38 +1,23 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import dateFormat from 'dateformat'
-
-import postOrderAmount from '../../api/postOrderAmount'
+import BalanceOperationInfo from '../UI/BalanceUI/BalanceOperationInfo'
 
 function BalanceList({ data, text }) {
   const date = dateFormat(data.create_date, 'd.mm.yyyy HH:MM')
-
-  useEffect(() => {
-    async function name() {
-      postOrderAmount({
-        quantity: 1,
-        ip_type: 2,
-        ip_version: 4,
-        country: 'ru',
-        period: 5,
-        coupon: '',
-      })
-    }
-    name()
-  }, [])
-
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
-        <View style={styles.dateStart}>
-          <View>
-            <Text style={styles.dateStartText}>
-              {text?.texts?.t3} {date}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.summeContainer}>
+        <BalanceOperationInfo text={text} date={date} data={data} />
+        <View
+          style={StyleSheet.flatten([
+            styles.summeContainer,
+            {
+              borderBottomLeftRadius: data.action === 3 ? 0 : 14,
+              borderBottomRightRadius: data.action === 3 ? 0 : 14,
+            },
+          ])}>
           <View style={styles.summe}>
             <Text style={styles.summeText}>{text?.texts?.t4}</Text>
             <View style={styles.summePriceContainer}>
@@ -40,11 +25,13 @@ function BalanceList({ data, text }) {
             </View>
           </View>
         </View>
-        <View style={styles.order}>
-          <Text style={styles.orderText}>
-            {text?.texts?.t5} {data.payment_id}
-          </Text>
-        </View>
+        {data.action === 3 && (
+          <View style={styles.order}>
+            <Text style={styles.orderText}>
+              {text?.texts?.t5} {data.payment_id}
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   )
@@ -77,6 +64,12 @@ const styles = StyleSheet.create({
     paddingBottom: 14,
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
+    alignItems: 'center',
+  },
+  topInfoContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   dateStartText: {

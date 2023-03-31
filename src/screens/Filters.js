@@ -25,6 +25,7 @@ import IdProxy from '../componets/UI/FiltersUI/IdProxy'
 import FilterOrders from '../componets/UI/FiltersUI/FilterOrders'
 import getCountProxyFilter from '../api/getCountProxyFilter'
 import { useParams } from '../hooks/useParams'
+import { setEndpoint } from '../store/reducers/endpointReuced'
 
 const clearForm = {
   ip_type: [],
@@ -160,7 +161,8 @@ function Filters({ navigation }) {
       if (move) {
         navigation.navigate('Proxies')
       }
-      dispatch(setProxy(data))
+      dispatch(setProxy(data.data))
+      dispatch(setEndpoint(endpoint))
     }
     listProxies()
   }

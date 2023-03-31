@@ -12,7 +12,7 @@ const useProxyInfo = () => {
       const id = await AsyncStorage.getItem('@id')
       const dataProps = `${id}_${token}`
       const data = await getListProxies({ token: dataProps, limit: '100', offset: '0' })
-      dispatch(setProxy(data))
+      dispatch(setProxy(data.data))
     }
     listProxies()
   }, [dispatch])

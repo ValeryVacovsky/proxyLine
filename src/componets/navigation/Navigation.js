@@ -42,6 +42,8 @@ import Tags from '../../screens/Settings/Tags'
 import TypeProxy from '../../screens/Settings/TypeProxy'
 import Notification from '../../screens/Settings/Notification'
 import Safety from '../../screens/Settings/Safety'
+import NetworkError from '../../screens/Errors/NetworkError'
+import ServerError from '../../screens/Errors/ServerError'
 
 const Stack = createNativeStackNavigator()
 
@@ -58,6 +60,16 @@ function Navigation() {
           },
         }}>
         <Stack.Screen name="Intro" component={AuthIntro} options={{ headerShown: false, gestureEnabled: false }} />
+        <Stack.Screen
+          name="ServerError"
+          component={ServerError}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name="NetworkError"
+          component={NetworkError}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
         {!auth && (
           <>
             <Stack.Screen
@@ -133,7 +145,19 @@ function Navigation() {
                 gestureEnabled: false,
               }}
             />
-            <Stack.Screen name="Test" component={TestScreen} options={{ headerShown: false }} />
+            <Stack.Screen
+              name="Test"
+              component={TestScreen}
+              options={{
+                headerTitle: () => <Text style={styles.headerTitle}>Тест</Text>,
+                headerStyle: styles.headerStyle,
+                headerTintColor: '#CBCBCB',
+                headerTitleAlign: 'center',
+                headerBackTitle: 'Назад',
+                headerBackTitleStyle: styles.headerBackTitleStyle,
+                gestureEnabled: false,
+              }}
+            />
             <Stack.Screen
               name="Order"
               component={Order}

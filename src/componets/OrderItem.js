@@ -1,15 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  TextInput,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-  ScrollView,
-} from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,12 +26,57 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
   const countryDescription = useSelector(res => res.countryDiscriptionReducer.country)
   const [amount, setAmount] = useState(1)
   const [totalPrice, setTotalPrice] = useState(0.1)
+  const [initialTotalPrice, setInitialTotalPrice] = useState(0.1)
   const [days, setDays] = useState(5)
   const [selectedCountryShort, setSelectedCountryShort] = useState('ru')
   const [selectedCountry, setSelectedCountry] = useState('Russian Federation')
+  const [focusInput, setFocusInput] = useState(false)
+  const [coupon, setCoupon] = useState('')
+  const [percent, setPercent] = useState(0)
+  const [couponValue, setCouponValue] = useState('')
+  const [buttonStatus, setButtonStatus] = useState(false)
   const dispatch = useDispatch()
   const timerRefMinus = useRef(null)
   const timerRefPlus = useRef(null)
+
+  const handleOnFocus = () => {
+    setFocusInput(true)
+  }
+
+  const onTakeCoupone = ({ status, percent = '' }) => {
+    if (status) {
+      setButtonStatus(true)
+      setPercent(percent)
+    } else {
+      setButtonStatus
+      setCoupon('')
+      setPercent('')
+    }
+  }
+
+  const handleOnBlure = () => {
+    setFocusInput(false)
+    async function name() {
+      const tokenName = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const token = `${id}_${tokenName}`
+      const data = {
+        quantity: amount,
+        ip_type: order.ip_type,
+        ip_version: order.ip_version,
+        country: selectedCountryShort,
+        period: days,
+        coupon: couponValue,
+      }
+      postOrderAmount({ data, token }).then(data => {
+        data.data?.coupon?.percent
+          ? onTakeCoupone({ status: true, percent: data.data?.coupon?.percent })
+          : onTakeCoupone({ status: false })
+      })
+    }
+    void name()
+  }
+  console.log(percent)
 
   const startTimerMinus = () => {
     timerRefMinus.current = setInterval(() => {
@@ -90,7 +125,11 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
   }
 
   const handlePressAmountPlus = () => {
-    amount < 1999 && setAmount(amount + 1)
+    amount < 2000 && setAmount(amount + 1)
+  }
+
+  const handlePressAmountButtom = count => {
+    setAmount(count)
   }
 
   const handlePressCountry = () => {
@@ -104,19 +143,24 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
 
   useEffect(() => {
     async function name() {
-      postOrderAmount({
+      const tokenName = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const token = `${id}_${tokenName}`
+      const data = {
         quantity: amount,
         ip_type: order.ip_type,
         ip_version: order.ip_version,
         country: selectedCountryShort,
         period: days,
-        coupon: '',
-      }).then(data => {
+        coupon: coupon,
+      }
+      postOrderAmount({ data, token }).then(data => {
         setTotalPrice(data?.data?.amount / 100)
+        setInitialTotalPrice(data?.data?.initial_amount / 100)
       })
     }
     void name()
-  }, [days, amount, order.ip_type, order.ip_version, selectedCountryShort])
+  }, [days, amount, order.ip_type, order.ip_version, selectedCountryShort, coupon])
 
   const onSubmit = async () => {
     const token = await AsyncStorage.getItem('@token')
@@ -135,7 +179,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
           selected_ips: [],
           tags: [0],
           unique_credentials: false,
-          coupon: 'string',
+          coupon: coupon,
           statusActive: false,
           dateActive: new Date(),
           totalPrice: totalPrice,
@@ -143,111 +187,172 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         },
       }),
     )
-
     navigation.navigate('Orders')
+  }
+  const onSubmitCoupone = () => {
+    setCoupon(couponValue)
+    setButtonStatus(false)
   }
   return (
     <View style={styles.mainContainer}>
       <ScrollView>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <View style={styles.center_container}>
-            <View style={styles.handDescriptionOrderContainer}>
-              <Text style={styles.handDescriptionOrderText}>{order.handDesription}</Text>
-            </View>
-            <View style={styles.proxyTypeContianer}>
-              <View>
-                <Text style={styles.proxyTypeVersionText}>
-                  IP
-                  {order.proxyType}
-                </Text>
-                <Text style={styles.proxyTypeDiscriptionText}>{order.discription}</Text>
-              </View>
-              <View>{order.icon}</View>
-            </View>
-            <TouchableOpacity style={styles.countryContainer} onPress={handlePressCountry} activeOpacity={0.8}>
-              <View>
-                <Text style={styles.countryNameText}>{proxyText?.texts?.t0}</Text>
-              </View>
-              <View style={styles.countrySelectContainer}>
-                <Text style={styles.countrySelectText}>{countryDescription[languageGet][selectedCountryShort]}</Text>
-                <View style={styles.countryFlag}>{flagByShortName[selectedCountryShort]}</View>
-                <VectorRightSmall width={6} height={12} style={styles.vectorIcon} />
-              </View>
-            </TouchableOpacity>
-            <View style={styles.periodContainer}>
-              <Text style={styles.periodText}>5 {proxyText?.texts?.t6}</Text>
-              <Text style={styles.periodText}>360 {proxyText?.texts?.t6}</Text>
-            </View>
-            <View
-              style={styles.sliderContainer}
-              onTouchStart={() => {
-                setScrolling(false)
-              }}
-              onTouchEnd={() => {}}>
-              <SliderExample
-                days={days}
-                setDays={value => setDays(Array.isArray(value) ? value[0] : value)}
-                setScrolling={setScrolling}
-              />
-            </View>
-            <View style={styles.selectedPeriod}>
-              <Text style={styles.amountDescription}>{proxyText?.texts?.t3}</Text>
-              <Text style={styles.amountBoldDiscription}>
-                {days} {proxyText?.texts?.t6}
+        <View style={styles.center_container}>
+          <View style={{ backgroundColor: 'white', width: 50, height: 4 }}></View>
+          <View style={styles.handDescriptionOrderContainer}>
+            <Text style={styles.handDescriptionOrderText}>{order.handDesription}</Text>
+          </View>
+          <View style={styles.proxyTypeContianer}>
+            <View>
+              <Text style={styles.proxyTypeVersionText}>
+                IP
+                {order.proxyType}
               </Text>
+              <Text style={styles.proxyTypeDiscriptionText}>{order.discription}</Text>
             </View>
-            <View style={styles.orderType}>
-              <Text style={styles.amountDescription}>{proxyText?.texts?.t2}</Text>
-              <Text style={styles.htttpsocksDiscritinon}> HTTP / SOCKS5</Text>
+            <View>{order.icon}</View>
+          </View>
+          <TouchableOpacity style={styles.countryContainer} onPress={handlePressCountry} activeOpacity={0.8}>
+            <View>
+              <Text style={styles.countryNameText}>{proxyText?.texts?.t0}</Text>
             </View>
-            <View style={styles.amountContainer}>
-              <Text style={styles.amountDescription}>{proxyText?.texts?.t1}</Text>
-              <View style={styles.amountToggleContainer}>
-                <TouchableWithoutFeedback
-                  onPress={handlePressAmountMinus}
-                  onPressIn={startTimerMinus}
-                  onPressOut={stopTimerMinus}
-                  activeOpacity={0.8}>
-                  <View style={styles.amountToggleMinusCOntainer}>
-                    <Text style={styles.amountToggleMinusText}>-</Text>
-                  </View>
-                </TouchableWithoutFeedback>
-
-                <View style={styles.amountToggleCenterContainer}>
-                  <Text style={styles.amountToggleCenterText}>{amount}</Text>
+            <View style={styles.countrySelectContainer}>
+              <Text style={styles.countrySelectText}>{countryDescription[languageGet][selectedCountryShort]}</Text>
+              <View style={styles.countryFlag}>{flagByShortName[selectedCountryShort]}</View>
+              <VectorRightSmall width={6} height={12} style={styles.vectorIcon} />
+            </View>
+          </TouchableOpacity>
+          <View style={styles.selectedPeriod}>
+            <Text style={styles.amountDescription}>{proxyText?.texts?.t3}</Text>
+            <Text style={styles.amountBoldDiscription}>
+              {days} {proxyText?.texts?.t6}
+            </Text>
+          </View>
+          <View style={styles.periodContainer}>
+            <Text style={styles.periodText}>5 {proxyText?.texts?.t6}</Text>
+            <Text style={styles.periodText}>360 {proxyText?.texts?.t6}</Text>
+          </View>
+          <View
+            style={styles.sliderContainer}
+            onTouchStart={() => {
+              setScrolling(false)
+            }}
+            onTouchEnd={() => {}}>
+            <SliderExample
+              days={days}
+              setDays={value => setDays(Array.isArray(value) ? value[0] : value)}
+              setScrolling={setScrolling}
+            />
+          </View>
+          <View style={styles.orderType}>
+            <Text style={styles.amountDescription}>{proxyText?.texts?.t2}</Text>
+            <Text style={styles.htttpsocksDiscritinon}> HTTP / SOCKS5</Text>
+          </View>
+          <View style={styles.amountContainer}>
+            <Text style={styles.amountDescription}>{proxyText?.texts?.t1}</Text>
+            <View style={styles.amountToggleContainer}>
+              <TouchableWithoutFeedback
+                onPress={handlePressAmountMinus}
+                onPressIn={startTimerMinus}
+                onPressOut={stopTimerMinus}
+                activeOpacity={0.8}>
+                <View style={styles.amountToggleMinusCOntainer}>
+                  <Text style={styles.amountToggleMinusText}>-</Text>
                 </View>
-                <TouchableWithoutFeedback
-                  onPress={handlePressAmountPlus}
-                  onPressIn={startTimerPlus}
-                  onPressOut={stopTimerPlus}
-                  activeOpacity={0.8}>
-                  <View style={styles.amountTogglePlusContainer}>
-                    <Text style={styles.amountTogglePlusText}>+</Text>
-                  </View>
-                </TouchableWithoutFeedback>
+              </TouchableWithoutFeedback>
+
+              <View style={styles.amountToggleCenterContainer}>
+                <Text style={styles.amountToggleCenterText}>{amount}</Text>
               </View>
-            </View>
-            <View style={styles.priceAmount}>
-              <Text style={styles.priceAmountDescriptionText}>{proxyText?.texts?.t4}</Text>
-              <Text style={styles.priceAmountText}>$ {price}</Text>
-            </View>
-            <View style={styles.coupon}>
-              <Text style={styles.priceAmountDescriptionText}>{proxyText?.texts?.t8 || 'Купон'}</Text>
-              <TextInput style={styles.cuponInput} />
+              <TouchableWithoutFeedback
+                onPress={handlePressAmountPlus}
+                onPressIn={startTimerPlus}
+                onPressOut={stopTimerPlus}
+                activeOpacity={0.8}>
+                <View style={styles.amountTogglePlusContainer}>
+                  <Text style={styles.amountTogglePlusText}>+</Text>
+                </View>
+              </TouchableWithoutFeedback>
             </View>
           </View>
-        </KeyboardAvoidingView>
+          <View style={styles.amountButtonsContainer}>
+            <TouchableOpacity style={styles.amountButtonItemContainer} onPress={() => handlePressAmountButtom(50)}>
+              <Text style={styles.amountButtonItemText}>50</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.amountButtonItemContainer} onPress={() => handlePressAmountButtom(100)}>
+              <Text style={styles.amountButtonItemText}>100</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.amountButtonItemContainer} onPress={() => handlePressAmountButtom(250)}>
+              <Text style={styles.amountButtonItemText}>250</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.amountButtonItemContainer} onPress={() => handlePressAmountButtom(500)}>
+              <Text style={styles.amountButtonItemText}>500</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.amountButtonItemContainer} onPress={() => handlePressAmountButtom(1000)}>
+              <Text style={styles.amountButtonItemText}>1000</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.amountButtonItemContainer} onPress={() => handlePressAmountButtom(2000)}>
+              <Text style={styles.amountButtonItemText}>2000</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.priceAmount}>
+            <Text style={styles.priceAmountDescriptionText}>{proxyText?.texts?.t4}</Text>
+            <Text style={styles.priceAmountText}>$ {price}</Text>
+          </View>
+          <View style={styles.coupon}>
+            <Text style={styles.priceAmountDescriptionText}>{proxyText?.texts?.t8 || 'Купон'}</Text>
+            {coupon.length === 0 ? (
+              <TextInput
+                style={styles.cuponInput}
+                autoCapitalize="characters"
+                onFocus={handleOnFocus}
+                onBlur={handleOnBlure}
+                onChangeText={setCouponValue}
+              />
+            ) : (
+              <Text style={{ fontWeight: '700', fontSize: 13, color: 'white' }}>Скидка {percent} %</Text>
+            )}
+          </View>
+        </View>
       </ScrollView>
       <View style={styles.bottomContainer}>
         <View style={styles.priceFullAmountContainer}>
           <Text style={styles.priceFullAmountDescriptionText}>{proxyText?.texts?.t5}</Text>
-          <Text style={styles.priceFullAmountText}>$ {totalPrice}</Text>
+          {totalPrice == initialTotalPrice ? (
+            <Text style={styles.priceFullAmountText}>$ {totalPrice}</Text>
+          ) : (
+            <View style={styles.priceInitionAmountContainer}>
+              <Text style={styles.priceInitionAmountText}>$ {initialTotalPrice}</Text>
+              <Text style={styles.priceFullAmountText}>$ {totalPrice}</Text>
+            </View>
+          )}
         </View>
-        <TouchableOpacity onPress={onSubmit} style={styles.buttonContainer} activeOpacity={0.8}>
-          <SuperEllipseMaskView radius={12} style={styles.buttonInner}>
-            <Text style={styles.buttonText}>{proxyText.buttons.b0}</Text>
-          </SuperEllipseMaskView>
-        </TouchableOpacity>
+        {!buttonStatus ? (
+          <TouchableOpacity onPress={onSubmit} style={styles.buttonContainer} activeOpacity={0.8}>
+            <SuperEllipseMaskView
+              radius={12}
+              style={StyleSheet.flatten([
+                styles.buttonInner,
+                {
+                  backgroundColor: '#FAC637',
+                },
+              ])}>
+              <Text style={styles.buttonText}>{proxyText.buttons.b0}</Text>
+            </SuperEllipseMaskView>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={onSubmitCoupone} style={styles.buttonContainer} activeOpacity={0.8}>
+            <SuperEllipseMaskView
+              radius={12}
+              style={StyleSheet.flatten([
+                styles.buttonInner,
+                {
+                  backgroundColor: '#6FCF97',
+                },
+              ])}>
+              <Text style={styles.buttonText}>Применить купон</Text>
+            </SuperEllipseMaskView>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   )
@@ -258,7 +363,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonInner: {
-    backgroundColor: '#FAC637',
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
@@ -361,7 +465,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
-    paddingTop: 10,
+    marginBottom: -5,
   },
   periodText: {
     color: '#CBCBCB',
@@ -374,7 +478,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     paddingTop: 13,
-    paddingBottom: 13,
+    marginBottom: 10,
   },
   orderType: {
     display: 'flex',
@@ -391,7 +495,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 5,
   },
   amountDescription: {
     color: '#CBCBCB',
@@ -430,10 +534,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E2127',
     paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 18,
-    paddingRight: 18,
     marginRight: 1,
     marginLeft: 1,
+    width: 60,
   },
   amountToggleCenterText: {
     color: 'white',
@@ -453,6 +556,25 @@ const styles = StyleSheet.create({
     paddingRight: 22,
     fontSize: 14,
     fontWeight: '600',
+  },
+  amountButtonsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  amountButtonItemContainer: {
+    paddingHorizontal: 14,
+    paddingVertical: 5,
+    backgroundColor: '#1E2127',
+    borderRadius: 50,
+  },
+  amountButtonItemText: {
+    fontWeight: '600',
+    fontSize: 12,
+    lineHeight: 15,
+    color: 'white',
   },
   priceAmount: {
     display: 'flex',
@@ -494,6 +616,7 @@ const styles = StyleSheet.create({
     width: 157,
     fontSize: 14,
     lineHeight: 15,
+    paddingBottom: 10,
   },
   priceAmountDescriptionText: {
     color: '#CBCBCB',
@@ -515,6 +638,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 13,
     paddingBottom: 13,
+    marginTop: -13,
+  },
+  priceInitionAmountContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   priceFullAmountDescriptionText: {
     color: '#CBCBCB',
@@ -525,10 +654,16 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 18,
   },
+  priceInitionAmountText: {
+    color: '#CBCBCB',
+    fontWeight: '700',
+    fontSize: 18,
+    textDecorationLine: 'line-through',
+    marginRight: 10,
+  },
   buttonContainer: {
     alignItems: 'center',
     width: '100%',
-    marginBottom: 20,
   },
   buttonText: {
     color: 'black',

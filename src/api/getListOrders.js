@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const getListOrders = ({ token }) =>
+const getListOrders = ({ token, offset = 0 }) =>
   axios({
     method: 'get',
-    url: `https://proxydbtest.proxyline.net/projectapi/v1/1/user/${token}/orders/?limit=50&offset=0`,
+    url: `https://proxydbtest.proxyline.net/projectapi/v1/1/user/${token}/orders/?limit=50&offset=${offset}`,
     headers: {
       'Content-Type': 'application/json',
       apikey: 'project-1-apikey',

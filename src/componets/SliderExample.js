@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     position: 'relative',
+    marginBottom: -20,
   },
   rightTint: {
     width: 4,

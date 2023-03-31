@@ -1,6 +1,5 @@
-import React, { useCallback, useRef, useMemo, useState } from 'react'
+import React, { useCallback, useRef, useMemo, useState, useEffect } from 'react'
 import {
-  ScrollView,
   View,
   TouchableOpacity,
   StyleSheet,
@@ -9,11 +8,15 @@ import {
   TextInput,
   Pressable,
   Dimensions,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import ProxiesFilter from '../../image/Svg/ProxiesFilter'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
+import getListProxies from '../../api/getListProxies'
 import LayoutMain from '../../componets/LayoutMain'
 import ProxyItem from '../../componets/UI/ProxyUI/ProxyItem'
 import BottomSheetForm from '../../componets/BottomSheetForm'
@@ -22,17 +25,60 @@ import ProxiesDotts from '../../image/Svg/ProxiesDotts'
 import VectorOpen from '../../image/Svg/VectorOpen'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
+import { setSelectProxy } from '../../store/reducers/selectedProxy'
+import { setProxy } from '../../store/reducers/proxyReducer'
 
 const heightOffScreen = Dimensions.get('window').height
 
 function MyProxies({ navigation }) {
+  const dispatch = useDispatch()
   const text = useSelector(res => res.textReducer.myproxies.payload)
-  const proxyLisStore = useSelector(data => data.proxy.proxyList)
+  const proxyListStore = useSelector(data => data.proxy.proxyList)
+  const endpoint = useSelector(data => data.endpointReuced)
   const [selected, setSelected] = useState(null)
   const [childrenItem, setChildrenItem] = useState()
   const [valueProxy, setValueProxy] = useState('')
+  const [currentOffset, setCurrentOffset] = useState(0)
+  const [loading, setLoading] = useState(false)
   const sheetRef = useRef(null)
   const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['48%'] : ['57%']), [heightOffScreen])
+
+  const getProxies = async () => {
+    setLoading(true)
+    const token = await AsyncStorage.getItem('@token')
+    const id = await AsyncStorage.getItem('@id')
+    const dataProps = `${id}_${token}`
+    getListProxies({ token: dataProps, limit: 100, offset: currentOffset, endpoint: endpoint }).then(res => {
+      if (res.data.length > 0 && currentOffset > 0) {
+        dispatch(setProxy([...proxyListStore, ...res.data]))
+      }
+
+      setLoading(false)
+    })
+  }
+
+  const loadMoreItem = () => {
+    setCurrentOffset(prev => prev + 100)
+  }
+
+  const renderLoader = () => {
+    return loading ? (
+      <View>
+        <ActivityIndicator size="large" color="#aaa" />
+      </View>
+    ) : null
+  }
+
+  useEffect(() => {
+    if (proxyListStore.length > 99) {
+      getProxies()
+    }
+  }, [currentOffset])
+
+  const handleSelectProxy = () => {
+    dispatch(setSelectProxy(selected))
+    navigation.goBack()
+  }
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -78,6 +124,7 @@ function MyProxies({ navigation }) {
       ),
     })
   }, [handleClosePress, handleSnapPress, navigation, text])
+
   return (
     <LayoutMain>
       <View style={styles.container}>
@@ -102,17 +149,18 @@ function MyProxies({ navigation }) {
           )}
         </View>
         <SafeAreaView>
-          <ScrollView
+          <FlatList
             style={StyleSheet.flatten([
               styles.scrollViewContainer,
               {
-                marginBottom: selected ? 168 : 90,
+                marginBottom: selected ? 368 : 290,
               },
-            ])}>
-            {proxyLisStore.data?.map((proxy, index) => (
+            ])}
+            data={proxyListStore}
+            renderItem={({ item }) => (
               <ProxyItem
-                key={proxy.id}
-                proxyRes={proxy}
+                key={item.id}
+                proxyRes={item}
                 selected={selected}
                 setSelected={setSelected}
                 handleSnapPress={handleSnapPress}
@@ -120,21 +168,17 @@ function MyProxies({ navigation }) {
                 handleClosePress={handleClosePress}
                 childrenItem={childrenItem}
                 navigation={navigation}
-                index={index}
                 text={text}
               />
-            ))}
-          </ScrollView>
+            )}
+            ListFooterComponent={renderLoader}
+            onEndReached={loadMoreItem}
+            onEndReachedThreshold={0}
+          />
         </SafeAreaView>
       </View>
       {selected && (
-        <TouchableOpacity
-          onPress={() => {}}
-          style={styles.button}
-          activeOpacity={0.8}
-          onLongPress={() => {
-            navigation.navigate('Test')
-          }}>
+        <TouchableOpacity onPress={handleSelectProxy} style={styles.button} activeOpacity={0.8}>
           <SuperEllipseMaskView
             radius={{
               topLeft: 12,
@@ -174,6 +218,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     width: '100%',
+    height: '75%',
   },
   text: {
     fontSize: 42,

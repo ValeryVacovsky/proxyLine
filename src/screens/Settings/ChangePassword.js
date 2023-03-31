@@ -88,10 +88,7 @@ function ChangePassword({ navigation }) {
                       styles.inputStyle,
                       {
                         borderColor:
-                          (focusOnPasswordTop && '#fac637') ||
-                          (errors.password && 'rgb(138,0,0)') ||
-                          (errors.passwordConfirmation && 'rgb(138,0,0)') ||
-                          '#333842',
+                          (focusOnPasswordTop && '#fac637') || (errors.password && 'rgb(138,0,0)') || '#333842',
                       },
                     ])}>
                     <TextInput
@@ -306,7 +303,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'baseline',
   },
   validText: {
     fontWeight: '600',

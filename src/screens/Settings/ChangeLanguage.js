@@ -13,8 +13,6 @@ import getAllTexts from '../../common/getAllTexts'
 
 function ChangeLanguage({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
-  const languageGet = useSelector(res => res.textReducer.languages_get.language)
-  const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const dispatch = useDispatch()
   const [countriesShort, setCountriesShort] = useState([])
   const balanceText = useSelector(res => res.textReducer.languages)
@@ -40,13 +38,13 @@ function ChangeLanguage({ navigation }) {
     <LayoutMain style={styles.layoutContainer}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollViewContainer}>
-          {countriesShort?.map(country => {
+          {Object.keys(countriesShort)?.map((country, index) => {
             return (
               <View style={styles.countryContianer} key={country}>
                 <View style={styles.countryItem}>
                   <View style={styles.countryItemInfo}>
                     <View style={styles.countryItemFlag}>{flagByShortName[country]}</View>
-                    <Text style={styles.countryItemText}>{countryDiscription[languageGet][country]}</Text>
+                    <Text style={styles.countryItemText}>{Object.values(countriesShort)[index]}</Text>
                   </View>
                   <Pressable hitSlop={25} activeOpacity={1} onPress={() => handleChange(country)}>
                     {countrySelected !== country ? <DarkRadioUncheked /> : <LightRadioUncheked />}

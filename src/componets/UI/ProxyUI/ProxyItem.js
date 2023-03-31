@@ -17,20 +17,13 @@ function ProxyItem({
   handleClosePress,
   navigation,
   childrenItem,
-  index,
   text,
 }) {
   const handleOpenModal = () => {
     childrenItem && handleSnapPress(0)
     setSelected(null)
     setChildrenItem(
-      <BottomSheetIist
-        handleClosePress={handleClosePress}
-        navigation={navigation}
-        proxyRes={proxyRes}
-        index={index}
-        text={text}
-      />,
+      <BottomSheetIist handleClosePress={handleClosePress} navigation={navigation} proxyRes={proxyRes} text={text} />,
     )
   }
   const handleSelect = item => {
@@ -70,7 +63,9 @@ function ProxyItem({
                       color: dateNeed > 1 ? '#CBCBCB' : '#E23A3A',
                     },
                   ])}>
-                  {dateNeed > 0 ? dateNeed : huorseNeed} {dateNeed > 0 ? text?.texts?.t5 : text?.texts?.t6 || 'Часов'}
+                  {huorseNeed > 24 && dateNeed}
+                  {huorseNeed > 0 && huorseNeed < 24 ? huorseNeed : null}
+                  {huorseNeed < 0 && 0} {huorseNeed > 24 ? text?.texts?.t5 : text?.texts?.t6 || 'Часов'}
                 </Text>
               </View>
             </View>
@@ -89,12 +84,12 @@ function ProxyItem({
           <Pressable hitSlop={25} onPress={handleOpenModal}>
             <ProxiesDotts style={styles.dotsIcon} />
           </Pressable>
-          {selected === proxyRes?.id ? (
+          {selected?.id === proxyRes?.id ? (
             <Pressable hitSlop={2} onPress={() => handleSelect(null)}>
               <LightRadioUncheked style={styles.radioButtonIcon} />
             </Pressable>
           ) : (
-            <Pressable hitSlop={2} onPress={() => handleSelect(proxyRes.id)}>
+            <Pressable hitSlop={2} onPress={() => handleSelect(proxyRes)}>
               <DarkRadioUncheked style={styles.radioButtonIcon} />
             </Pressable>
           )}

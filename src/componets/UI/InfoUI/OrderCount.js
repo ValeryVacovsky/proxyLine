@@ -7,7 +7,7 @@ function OrderCount({ days, text, month }) {
       <View style={styles.item}>
         <Text style={styles.bigText}>{text?.t12}</Text>
         <Text style={styles.smallText}>
-          {month > 0 && month} {month > 0 && 'месяцев'} {days > 0 ? days : 0} дней
+          {month > 0 && month} {month > 0 && 'месяцев'} {days > 0 ? days % 24 : 0} дней
         </Text>
       </View>
     </View>

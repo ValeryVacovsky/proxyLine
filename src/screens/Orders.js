@@ -1,20 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { View, ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity, Dimensions } from 'react-native'
+import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity, Dimensions, FlatList } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import LayoutMain from '../componets/LayoutMain'
 import UserNavigation from '../componets/UserNavigation'
 import OrdersList from '../componets/OrdersList'
 import OrdersListData from '../componets/OrdersListData'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import ModalSuccess from '../componets/Orders/ModalSuccess'
+import { ActivityIndicator } from 'react-native-paper'
+import getListOrders from '../api/getListOrders'
 
 const heightOffScreen = Dimensions.get('window').height
 
 function Orders({ navigation }) {
   const dataOrders = useSelector(res => res.ordersReducer.orders)
-  const proxyText = useSelector(res => res.textReducer.orders.payload)
   const ordersRes = useSelector(data => data.orderReducer)
+  const [dataOrdersState, setDataOrdersState] = useState(dataOrders)
+  const dataOrdersRender = useMemo(() => [...ordersRes, ...dataOrdersState], [dataOrdersState, ordersRes])
+  const proxyText = useSelector(res => res.textReducer.orders.payload)
   const [modalVisible, setModalVisible] = useState(false)
+  const [currentOffset, setCurrentOffset] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   const toggleModal = () => {
     setModalVisible(!modalVisible)
@@ -23,12 +30,43 @@ function Orders({ navigation }) {
     }, 2000)
   }
 
+  const getOrders = async () => {
+    const token = await AsyncStorage.getItem('@token')
+    const id = await AsyncStorage.getItem('@id')
+    const dataProps = `${id}_${token}`
+    setLoading(true)
+    getListOrders({ token: dataProps, limit: '100', offset: currentOffset }).then(res => {
+      currentOffset > 0 && setDataOrdersState([...dataOrdersState, ...res.data])
+      setLoading(false)
+    })
+  }
+
+  const loadMoreItem = () => {
+    setCurrentOffset(prev => prev + 50)
+  }
+
+  const renderLoader = () => {
+    return loading ? (
+      <View>
+        <ActivityIndicator size="large" color="#aaa" />
+      </View>
+    ) : null
+  }
+
+  useEffect(() => {
+    getOrders()
+  }, [currentOffset])
+
   useEffect(() => {
     async function cahngeLocalOrders() {
       await AsyncStorage.setItem('@Orders', JSON.stringify(ordersRes))
     }
     cahngeLocalOrders()
   }, [ordersRes])
+
+  useEffect(() => {
+    setDataOrdersState(dataOrders)
+  }, [dataOrders])
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -40,20 +78,27 @@ function Orders({ navigation }) {
     <LayoutMain>
       <SafeAreaView style={styles.container}>
         {ordersRes?.length + dataOrders?.length > 0 && (
-          <ScrollView style={styles.scrollView}>
-            {ordersRes?.map(data => (
-              <OrdersList
-                key={data?.data?.id}
-                navigation={navigation}
-                data={data}
-                text={proxyText}
-                toggleModal={toggleModal}
-              />
-            ))}
-            {dataOrders?.map(item => {
-              return <OrdersListData key={item?.id} text={proxyText} data={item} />
-            })}
-          </ScrollView>
+          <FlatList
+            style={styles.scrollView}
+            data={dataOrdersRender}
+            renderItem={({ item }) =>
+              item.country_id ? (
+                <OrdersListData text={proxyText} data={item} />
+              ) : (
+                <OrdersList
+                  key={item?.data?.id}
+                  navigation={navigation}
+                  data={item}
+                  text={proxyText}
+                  toggleModal={toggleModal}
+                />
+              )
+            }
+            keyExtractor={item => item.id}
+            ListFooterComponent={renderLoader}
+            onEndReached={loadMoreItem}
+            onEndReachedThreshold={0}
+          />
         )}
         <View style={styles.scrollContainer}>
           {ordersRes?.length + dataOrders?.length === 0 && (

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { ScrollView, View, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, Text, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux'
+
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
+import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
 import LayoutMain from '../../componets/LayoutMain'
 import AnswerLine from '../../componets/UI/Settings/AnswerLine'
-import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
 const heightOffScreen = Dimensions.get('window').height
 
@@ -56,9 +57,9 @@ function AnswerQuastion({ navigation }) {
         <SafeAreaView>
           <ScrollView style={styles.container}>
             <View style={styles.answerContainer}>
-              {Object.values(general).map(quest => (
+              {Object.values(general).map((quest, index) => (
                 // eslint-disable-next-line react/jsx-key
-                <AnswerLine navigation={navigation} quest={quest} />
+                <AnswerLine navigation={navigation} quest={quest} key={Object.keys(general)[index]} />
               ))}
             </View>
           </ScrollView>
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   headerRightText: {
     color: '#FAC637',
     fontWeight: '600',
-    fontSize: 15,
+    fontSize: 14,
   },
   headerRightContainer: {
     marginLeft: 15,

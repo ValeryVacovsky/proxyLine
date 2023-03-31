@@ -11,6 +11,9 @@ import { ipsTagsReducer } from './reducers/ipsTagsReducer'
 import { balanceReducer } from './reducers/balanceReducer'
 import { ordersReducer } from './reducers/ordersReducer'
 import { countryDiscriptionReducer } from './reducers/countryDiscriptionReducer'
+import { selectedProxy } from './reducers/selectedProxy'
+import { cuponReducer } from './reducers/cuponReducer'
+import { endpointReuced } from './reducers/endpointReuced'
 import thunk from 'redux-thunk'
 
 const rootReducer = combineReducers({
@@ -26,6 +29,9 @@ const rootReducer = combineReducers({
   balanceReducer,
   ordersReducer,
   countryDiscriptionReducer,
+  selectedProxy,
+  cuponReducer,
+  endpointReuced,
 })
 
 const configureStore = () => createStore(rootReducer, applyMiddleware(thunk))
