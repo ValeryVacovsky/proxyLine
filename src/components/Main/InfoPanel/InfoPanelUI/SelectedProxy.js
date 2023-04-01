@@ -28,8 +28,6 @@ const SelectedProxy = ({
             <View style={styles.infoContainerNone}>
               <Text style={styles.selectProxyText}>{mainText.buttons.b0}</Text>
             </View>
-            {statusConect === 'on' && <VectorRight color="#636363" />}
-            {statusConect === 'off' && <VectorRight color="#636363" />}
           </TouchableOpacity>
         </SuperEllipseMaskView>
       ) : (
