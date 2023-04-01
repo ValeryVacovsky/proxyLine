@@ -6,7 +6,7 @@ import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 import { useForm } from 'react-hook-form'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
-import LayoutAuth from '../../componets/LayoutAuth'
+import LayoutAuth from '../../components/LayoutAuth'
 
 function Ofert({ navigation }) {
   const authText = useSelector(res => res.textReducer.auth.payload)

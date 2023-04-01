@@ -1,6 +1,6 @@
 const initialState = {}
 
-export const selectedProxy = (state = initialState, action) => {
+export const selectedProxyReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_SELECT_PROXY':
       return action.payload

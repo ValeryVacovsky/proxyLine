@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { StyleSheet, View, Text, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
-import LayoutMain from '../../componets/LayoutMain'
+import LayoutMain from '../../components/LayoutMain'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import DeleteToggleIcon from '../../image/Svg/DeleteToggleIcon'
 import { useCreateIps } from '../../hooks/useCreateIps'

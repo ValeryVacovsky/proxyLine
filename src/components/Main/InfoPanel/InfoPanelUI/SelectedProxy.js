@@ -13,36 +13,27 @@ const SelectedProxy = ({
   countryDiscription,
   selectedProxy,
 }) => {
+  const handleNavigateToProxies = () => {
+    navigation.navigate('Proxies')
+  }
   return (
     <View>
-      {statusConect === 'off' && (
-        <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('Proxies')}>
-          <SuperEllipseMaskView
-            radius={{
-              bottomRight: 12,
-              bottomLeft: 12,
-            }}
-            style={styles.selectedProxyContainer}>
-            <View style={styles.infoContainer}>
-              <View style={styles.flagContainer}>{flagByShortName['al']}</View>
-              <View style={styles.proxyInfoContainer}>
-                <View>
-                  <Text style={styles.countryText}>{countryDiscription[languageGet][selectedProxy?.country_id]}</Text>
-                </View>
-                <View style={styles.ipTypeContainer}>
-                  <View style={styles.IpContainer}>
-                    <Text style={styles.IpText}>IPv{selectedProxy?.ip_version}</Text>
-                  </View>
-                  <Text style={styles.http}>{selectedProxy?.ip}</Text>
-                </View>
-              </View>
+      {statusConect === 'none' ? (
+        <SuperEllipseMaskView
+          radius={{
+            bottomRight: 12,
+            bottomLeft: 12,
+          }}>
+          <TouchableOpacity style={styles.selectedProxyContainer} onPress={handleNavigateToProxies} activeOpacity={0.8}>
+            <View style={styles.infoContainerNone}>
+              <Text style={styles.selectProxyText}>{mainText.buttons.b0}</Text>
             </View>
-            <VectorRight color="#636363" />
-          </SuperEllipseMaskView>
-        </TouchableOpacity>
-      )}
-      {statusConect === 'on' && (
-        <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('Proxies')}>
+            {statusConect === 'on' && <VectorRight color="#636363" />}
+            {statusConect === 'off' && <VectorRight color="#636363" />}
+          </TouchableOpacity>
+        </SuperEllipseMaskView>
+      ) : (
+        <TouchableOpacity activeOpacity={0.8} onPress={handleNavigateToProxies}>
           <SuperEllipseMaskView
             radius={{
               bottomRight: 12,
@@ -66,26 +57,6 @@ const SelectedProxy = ({
             <VectorRight color="#636363" />
           </SuperEllipseMaskView>
         </TouchableOpacity>
-      )}
-      {statusConect === 'none' && (
-        <SuperEllipseMaskView
-          radius={{
-            bottomRight: 12,
-            bottomLeft: 12,
-          }}>
-          <TouchableOpacity
-            style={styles.selectedProxyContainer}
-            onPress={() => {
-              navigation.navigate('Proxies')
-            }}
-            activeOpacity={0.8}>
-            <View style={styles.infoContainerNone}>
-              <Text style={styles.selectProxyText}>{mainText.buttons.b0}</Text>
-            </View>
-            {statusConect === 'on' && <VectorRight color="#636363" />}
-            {statusConect === 'off' && <VectorRight color="#636363" />}
-          </TouchableOpacity>
-        </SuperEllipseMaskView>
       )}
     </View>
   )

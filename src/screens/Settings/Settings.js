@@ -11,8 +11,8 @@ import {
   ScrollView,
   Linking,
 } from 'react-native'
-import LayoutMain from '../../componets/LayoutMain'
-import UserNavigation from '../../componets/UserNavigation'
+import LayoutMain from '../../components/LayoutMain'
+import UserNavigation from '../../components/UserNavigation'
 import CheckProxy from '../../image/Svg/CheckProxy'
 import CheckSpeed from '../../image/Svg/CheckSpeed'
 import SettingsVector from '../../image/Svg/SettingsVector'

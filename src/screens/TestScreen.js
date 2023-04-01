@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
 import { flagByShortName } from '../common/flagByShortName'
-import Sceleton from '../componets/Sceleton/Sceleton'
+import Sceleton from '../components/Sceleton/Sceleton'
 
 function TestScreen() {
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)

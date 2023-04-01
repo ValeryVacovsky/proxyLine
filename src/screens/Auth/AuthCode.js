@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
-import LayoutAuth from '../../componets/LayoutAuth'
+import LayoutAuth from '../../components/LayoutAuth'
 
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
 import postRegister from '../../api/postRegister'

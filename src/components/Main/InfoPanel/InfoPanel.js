@@ -17,7 +17,7 @@ const InfoPanel = ({
   const dateStart = new Date(selectedProxy.date_end)
   const dateEnd = new Date()
   const dateNeed = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
-  const huorseNeed = ((dateStart - dateEnd) / 1000 / (60 * 60)).toFixed(0)
+  const hoursNeed = ((dateStart - dateEnd) / 1000 / (60 * 60)).toFixed(0)
   return (
     <View style={styles.container}>
       <StatusConnect setStatusConect={setStatusConect} statusConect={statusConect} mainText={mainText} />
@@ -31,17 +31,10 @@ const InfoPanel = ({
         countryDiscription={countryDiscription}
         languageGet={languageGet}
       />
-      {statusConect === 'on' && (
+      {statusConect !== 'none' && (
         <View style={heightOffScreen > 700 ? styles.timeCalendar : styles.s_timeCalendar}>
           <Text style={styles.timeCalendarText}>
-            {dateNeed} {mainText?.texts?.t8} {huorseNeed % 24} {mainText?.texts?.t9}
-          </Text>
-        </View>
-      )}
-      {statusConect === 'off' && (
-        <View style={heightOffScreen > 700 ? styles.timeCalendar : styles.s_timeCalendar}>
-          <Text style={styles.timeCalendarText}>
-            {dateNeed} {mainText?.texts?.t8} {huorseNeed % 24} {mainText?.texts?.t9}
+            {dateNeed} {mainText?.texts?.t8} {hoursNeed % 24} {mainText?.texts?.t9}
           </Text>
         </View>
       )}

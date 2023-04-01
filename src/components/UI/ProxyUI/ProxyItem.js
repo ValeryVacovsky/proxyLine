@@ -35,7 +35,7 @@ function ProxyItem({
   const dateStart = new Date(proxyRes.date_end)
   const dateEnd = new Date()
   const dateNeed = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
-  const huorseNeed = ((dateStart - dateEnd) / 1000 / (60 * 60)).toFixed(0)
+  const hoursNeed = ((dateStart - dateEnd) / 1000 / (60 * 60)).toFixed(0)
   return (
     <View style={styles.container}>
       <View style={styles.mainContainer}>
@@ -63,9 +63,9 @@ function ProxyItem({
                       color: dateNeed > 1 ? '#CBCBCB' : '#E23A3A',
                     },
                   ])}>
-                  {huorseNeed > 24 && dateNeed}
-                  {huorseNeed > 0 && huorseNeed < 24 ? huorseNeed : null}
-                  {huorseNeed < 0 && 0} {huorseNeed > 24 ? text?.texts?.t5 : text?.texts?.t6 || 'Часов'}
+                  {hoursNeed > 24 && dateNeed}
+                  {hoursNeed > 0 && hoursNeed < 24 ? hoursNeed : null}
+                  {hoursNeed < 0 && 0} {hoursNeed > 24 ? text?.texts?.t5 : text?.texts?.t6 || 'Часов'}
                 </Text>
               </View>
             </View>

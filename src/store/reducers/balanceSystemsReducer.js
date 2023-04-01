@@ -1,11 +1,7 @@
-const initialState = {
-  BalanceSystems: [],
-}
-
-export const BalanceSystems = (state = initialState, action) => {
+export const balanceSystemsReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_BALANCE':
-      return { BalanceSystems: action.payload }
+      return action.payload
     default:
       return state
   }

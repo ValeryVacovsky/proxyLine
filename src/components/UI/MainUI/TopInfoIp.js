@@ -1,25 +1,13 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 
-const TopInfoIp = ({ mainText, Ip, statusConect }) => {
+const TopInfoIp = ({ mainText, Ip }) => {
   return (
     <View>
       <Text style={styles.yourIP}>{mainText?.texts?.t0}</Text>
-      {statusConect === 'on' && (
-        <View style={styles.textContainer}>
-          <Text style={styles.ipAdress}>{Ip}</Text>
-        </View>
-      )}
-      {statusConect === 'off' && (
-        <View style={styles.textContainer}>
-          <Text style={styles.ipAdress}>{Ip}</Text>
-        </View>
-      )}
-      {statusConect === 'none' && (
-        <View style={styles.textContainer}>
-          <Text style={styles.ipAdress}>{Ip}</Text>
-        </View>
-      )}
+      <View style={styles.textContainer}>
+        <Text style={styles.ipAdress}>{Ip}</Text>
+      </View>
     </View>
   )
 }

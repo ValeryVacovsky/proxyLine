@@ -6,8 +6,11 @@ import FrameRed from '../../../../image/Svg/FrameRed'
 import FrameYellow from '../../../../image/Svg/FrameYellow'
 
 const StatusConnect = ({ setStatusConect, statusConect, mainText }) => {
+  const handleStatusConnctNone = () => {
+    setStatusConect('none')
+  }
   return (
-    <TouchableOpacity onPress={() => setStatusConect('none')} activeOpacity={0.8}>
+    <TouchableOpacity onPress={handleStatusConnctNone} activeOpacity={0.8}>
       <SuperEllipseMaskView
         radius={{
           topLeft: 12,
@@ -31,13 +34,17 @@ const StatusConnect = ({ setStatusConect, statusConect, mainText }) => {
                 <FrameYellow />
               </View>
             )}
-            {statusConect === 'on' && <Text style={styles.frameText}>{mainText?.texts?.t1}</Text>}
-            {statusConect === 'off' && <Text style={styles.frameText}>{mainText?.texts?.t3}</Text>}
-            {statusConect === 'none' && <Text style={styles.frameText}>{mainText?.texts?.t3}</Text>}
+            {statusConect === 'on' ? (
+              <Text style={styles.frameText}>{mainText?.texts?.t1}</Text>
+            ) : (
+              <Text style={styles.frameText}>{mainText?.texts?.t3}</Text>
+            )}
           </View>
-          {statusConect === 'on' && <Text style={styles.statusConectText}>{mainText?.texts?.t2}</Text>}
-          {statusConect === 'off' && <Text style={styles.statusConectText}>{mainText?.texts?.t4}</Text>}
-          {statusConect === 'none' && <Text style={styles.statusConectText}>{mainText?.texts?.t4}</Text>}
+          {statusConect === 'on' ? (
+            <Text style={styles.statusConectText}>{mainText?.texts?.t2}</Text>
+          ) : (
+            <Text style={styles.statusConectText}>{mainText?.texts?.t4}</Text>
+          )}
         </View>
         {statusConect === 'on' && (
           <View style={styles.speedStatusContainer}>

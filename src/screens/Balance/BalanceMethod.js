@@ -15,8 +15,8 @@ import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 
-import LayoutMain from '../../componets/LayoutMain'
-import BalanceTopTableSystems from '../../componets/UI/BalanceUI/BalanceTopTableSystems'
+import LayoutMain from '../../components/LayoutMain'
+import BalanceTopTableSystems from '../../components/UI/BalanceUI/BalanceTopTableSystems'
 
 import LightRadioUncheked from '../../image/Svg/LightRadioUncheked'
 import DarkRadioUncheked from '../../image/Svg/DarkRadioUncheked'

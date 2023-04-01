@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Image, Dimensions } from 'react-native'
 import { flagByShortName } from '../common/flagByShortName'
 
-import LayoutAuth from '../componets/LayoutAuth'
+import LayoutAuth from '../components/LayoutAuth'
 
-import UserNavigation from '../componets/UserNavigation'
+import UserNavigation from '../components/UserNavigation'
 import { useSelector } from 'react-redux'
 import { useProxyOrder } from '../hooks/useProxyOrder'
 import { useListTags } from '../hooks/useListTags'
@@ -14,10 +14,10 @@ import { useListOrders } from '../hooks/useListOrders'
 import useProxyList from '../hooks/useProxyList'
 import useCountries from '../hooks/useCountries'
 import { useListOrdersUnpay } from '../hooks/useListOrdersUnpay'
-import TopInfo from '../componets/Main/TopInfo'
-import CenterButton from '../componets/Main/CenterButton'
-import MainLogo from '../componets/UI/MainUI/MainLogo'
-import InfoPanel from '../componets/Main/InfoPanel/InfoPanel'
+import TopInfo from '../components/Main/TopInfo'
+import CenterButton from '../components/Main/CenterButton/CenterButton'
+import MainLogo from '../components/UI/MainUI/MainLogo'
+import InfoPanel from '../components/Main/InfoPanel/InfoPanel'
 import useCupones from '../hooks/useCupones'
 
 const heightOffScreen = Dimensions.get('window').height
@@ -28,7 +28,7 @@ function Main({ navigation }) {
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const mainText = useSelector(res => res.textReducer.main.payload)
-  const selectedProxy = useSelector(data => data.selectedProxy)
+  const selectedProxy = useSelector(data => data.selectedProxyReducer)
 
   useCountries()
   useListOrders()

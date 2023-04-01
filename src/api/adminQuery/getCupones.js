@@ -1,9 +1,11 @@
 import axios from 'axios'
 
+import { baseUrlAdmin } from '../common/baseUrlAdmin'
+
 const getCupones = () =>
   axios({
     method: 'get',
-    url: `https://proxyline.nomadicdemo.com/api/coupones`,
+    url: `${baseUrlAdmin}coupones`,
   })
 
 export default getCupones

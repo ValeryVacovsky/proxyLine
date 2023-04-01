@@ -7,7 +7,7 @@ import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
-import LayoutAuth from '../../componets/LayoutAuth'
+import LayoutAuth from '../../components/LayoutAuth'
 
 function Agreement({ navigation }) {
   const authText = useSelector(res => res.textReducer.auth.payload)

@@ -6,7 +6,7 @@ import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import { useWindowDimensions } from 'react-native'
 import RenderHtml from 'react-native-render-html'
 
-import LayoutMain from '../../componets/LayoutMain'
+import LayoutMain from '../../components/LayoutMain'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 const heightOffScreen = Dimensions.get('window').height

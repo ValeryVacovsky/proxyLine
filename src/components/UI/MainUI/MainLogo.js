@@ -4,10 +4,11 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 import LogoIntroWhite from '../../../image/Svg/LogoIntroWhite'
 
 const MainLogo = ({ heightOffScreen, navigation }) => {
+  const handleNAvigate = () => {
+    navigation.navigate('Test')
+  }
   return (
-    <TouchableOpacity
-      style={heightOffScreen > 700 ? styles.header : styles.smallHeader}
-      onPress={() => navigation.navigate('Test')}>
+    <TouchableOpacity style={heightOffScreen > 700 ? styles.header : styles.smallHeader} onPress={handleNAvigate}>
       <LogoIntroWhite width={88} height={16} style={styles.mainLogo} />
     </TouchableOpacity>
   )

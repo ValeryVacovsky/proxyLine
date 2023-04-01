@@ -17,15 +17,15 @@ import ProxiesFilter from '../../image/Svg/ProxiesFilter'
 import { useDispatch, useSelector } from 'react-redux'
 
 import getListProxies from '../../api/getListProxies'
-import LayoutMain from '../../componets/LayoutMain'
-import ProxyItem from '../../componets/UI/ProxyUI/ProxyItem'
-import BottomSheetForm from '../../componets/BottomSheetForm'
-import BottomSheetItem from '../../componets/UI/ProxyUI/BottomSheetItem'
+import LayoutMain from '../../components/LayoutMain'
+import ProxyItem from '../../components/UI/ProxyUI/ProxyItem'
+import BottomSheetForm from '../../components/BottomSheetForm'
+import BottomSheetItem from '../../components/UI/ProxyUI/BottomSheetItem'
 import ProxiesDotts from '../../image/Svg/ProxiesDotts'
 import VectorOpen from '../../image/Svg/VectorOpen'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
-import { setSelectProxy } from '../../store/reducers/selectedProxy'
+import { setSelectProxy } from '../../store/reducers/selectedProxyReducer'
 import { setProxy } from '../../store/reducers/proxyReducer'
 
 const heightOffScreen = Dimensions.get('window').height
@@ -34,7 +34,7 @@ function MyProxies({ navigation }) {
   const dispatch = useDispatch()
   const text = useSelector(res => res.textReducer.myproxies.payload)
   const proxyListStore = useSelector(data => data.proxy.proxyList)
-  const endpoint = useSelector(data => data.endpointReuced)
+  const endpoint = useSelector(data => data.endpointReducer)
   const [selected, setSelected] = useState(null)
   const [childrenItem, setChildrenItem] = useState()
   const [valueProxy, setValueProxy] = useState('')

@@ -1,4 +1,4 @@
-export const endpointReuced = (state = 'status=active', action) => {
+export const endpointReducer = (state = 'status=active', action) => {
   switch (action.type) {
     case 'ADD_ENDPOINT':
       return action.payload

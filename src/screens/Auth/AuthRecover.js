@@ -6,7 +6,7 @@ import { useForm, Controller } from 'react-hook-form'
 
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import LayoutAuth from '../../componets/LayoutAuth'
+import LayoutAuth from '../../components/LayoutAuth'
 
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
 import postReset from '../../api/postReset'

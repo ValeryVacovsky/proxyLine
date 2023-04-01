@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 
-import LayoutMain from '../../componets/LayoutMain'
-import AnswerLine from '../../componets/UI/Settings/AnswerLine'
+import LayoutMain from '../../components/LayoutMain'
+import AnswerLine from '../../components/UI/Settings/AnswerLine'
 
 const heightOffScreen = Dimensions.get('window').height
 

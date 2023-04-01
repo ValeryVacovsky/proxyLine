@@ -5,14 +5,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import getListBalanceLogs from '../../api/getListBalanceLogs'
 import { setBalanceLogs } from '../../store/reducers/balanceReducer'
 
-import LayoutMain from '../../componets/LayoutMain'
-import BalanceList from '../../componets/Balance/BalanceList'
-import BalanceTopTable from '../../componets/UI/BalanceUI/BalanceTopTable'
-import BalanceClearTable from '../../componets/UI/BalanceUI/BalanceClearTable'
+import LayoutMain from '../../components/LayoutMain'
+import BalanceList from '../../components/Balance/BalanceList'
+import BalanceTopTable from '../../components/UI/BalanceUI/BalanceTopTable'
+import BalanceClearTable from '../../components/UI/BalanceUI/BalanceClearTable'
 
 import getPaymentSystems from '../../api/getPaymentSystem'
 
-import { setBalanceSystems } from '../../store/reducers/balanceSystems'
+import { setBalanceSystems } from '../../store/reducers/balanceSystemsReducer'
 
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
