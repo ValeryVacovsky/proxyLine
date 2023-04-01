@@ -106,7 +106,7 @@ function Settings({ navigation }) {
           <TouchableOpacity
             style={styles.settingLine}
             activeOpacity={0.8}
-            onPress={() => handleNavigate('AnwserQuaction')}>
+            onPress={() => handleNavigate('AnswerQuestion')}>
             <View style={styles.setting}>
               <Text style={styles.settingText}>{text?.texts?.t2}</Text>
               <SettingsVector />

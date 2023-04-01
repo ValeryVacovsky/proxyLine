@@ -10,7 +10,7 @@ import AnswerLine from '../../components/UI/Settings/AnswerLine'
 
 const heightOffScreen = Dimensions.get('window').height
 
-function AnswerQuastion({ navigation }) {
+function AnswerQuestion({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
   const general = useSelector(res => res.textReducer.faq.payload.texts)
 
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default AnswerQuastion
+export default AnswerQuestion
