@@ -24,6 +24,7 @@ function generate(str) {
 function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDescription = useSelector(res => res.countryDiscriptionReducer.country)
+  const [userToken, setUserToken] = useState('')
   const [amount, setAmount] = useState(1)
   const [totalPrice, setTotalPrice] = useState(0.1)
   const [initialTotalPrice, setInitialTotalPrice] = useState(0.1)
@@ -48,18 +49,15 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
       setButtonStatus(true)
       setPercent(percent)
     } else {
-      setButtonStatus
+      setButtonStatus(false)
       setCoupon('')
       setPercent('')
     }
   }
 
-  const handleOnBlure = () => {
+  const handleOnBlur = () => {
     setFocusInput(false)
     async function name() {
-      const tokenName = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const token = `${id}_${tokenName}`
       const data = {
         quantity: amount,
         ip_type: order.ip_type,
@@ -68,7 +66,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         period: days,
         coupon: couponValue,
       }
-      postOrderAmount({ data, token }).then(data => {
+      postOrderAmount({ data, token: userToken }).then(data => {
         data.data?.coupon?.percent
           ? onTakeCoupone({ status: true, percent: data.data?.coupon?.percent })
           : onTakeCoupone({ status: false })
@@ -76,7 +74,6 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
     }
     void name()
   }
-  console.log(percent)
 
   const startTimerMinus = () => {
     timerRefMinus.current = setInterval(() => {
@@ -143,9 +140,6 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
 
   useEffect(() => {
     async function name() {
-      const tokenName = await AsyncStorage.getItem('@token')
-      const id = await AsyncStorage.getItem('@id')
-      const token = `${id}_${tokenName}`
       const data = {
         quantity: amount,
         ip_type: order.ip_type,
@@ -154,7 +148,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         period: days,
         coupon: coupon,
       }
-      postOrderAmount({ data, token }).then(data => {
+      postOrderAmount({ data, token: userToken }).then(data => {
         setTotalPrice(data?.data?.amount / 100)
         setInitialTotalPrice(data?.data?.initial_amount / 100)
       })
@@ -163,13 +157,9 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
   }, [days, amount, order.ip_type, order.ip_version, selectedCountryShort, coupon])
 
   const onSubmit = async () => {
-    const token = await AsyncStorage.getItem('@token')
-    const id = await AsyncStorage.getItem('@id')
-    const data = `${id}_${token}`
-
     dispatch(
       addObject({
-        token: data,
+        token: userToken,
         data: {
           quantity: amount,
           ip_type: order.ip_type,
@@ -193,11 +183,45 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
     setCoupon(couponValue)
     setButtonStatus(false)
   }
+
+  useEffect(() => {
+    async function getToken() {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      setUserToken(`${id}_${token}`)
+    }
+    getToken()
+  }, [])
   return (
     <View style={styles.mainContainer}>
       <ScrollView>
         <View style={styles.center_container}>
-          <View style={{ backgroundColor: 'white', width: 50, height: 4 }}></View>
+          <View style={styles.topSliderContainer}>
+            <View
+              style={StyleSheet.flatten([
+                styles.topSliderSideItem,
+                {
+                  backgroundColor: order.id === 1 ? 'gray' : '#262525',
+                },
+              ])}
+            />
+            <View
+              style={StyleSheet.flatten([
+                styles.topSliderCenterItem,
+                {
+                  backgroundColor: order.id === 2 ? 'gray' : '#262525',
+                },
+              ])}
+            />
+            <View
+              style={StyleSheet.flatten([
+                styles.topSliderSideItem,
+                {
+                  backgroundColor: order.id === 3 ? 'gray' : '#262525',
+                },
+              ])}
+            />
+          </View>
           <View style={styles.handDescriptionOrderContainer}>
             <Text style={styles.handDescriptionOrderText}>{order.handDesription}</Text>
           </View>
@@ -305,7 +329,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
                 style={styles.cuponInput}
                 autoCapitalize="characters"
                 onFocus={handleOnFocus}
-                onBlur={handleOnBlure}
+                onBlur={handleOnBlur}
                 onChangeText={setCouponValue}
               />
             ) : (
@@ -315,7 +339,13 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         </View>
       </ScrollView>
       <View style={styles.bottomContainer}>
-        <View style={styles.priceFullAmountContainer}>
+        <View
+          style={StyleSheet.flatten([
+            styles.priceFullAmountContainer,
+            {
+              marginTop: focusInput ? -13 : 0,
+            },
+          ])}>
           <Text style={styles.priceFullAmountDescriptionText}>{proxyText?.texts?.t5}</Text>
           {totalPrice == initialTotalPrice ? (
             <Text style={styles.priceFullAmountText}>$ {totalPrice}</Text>
@@ -367,6 +397,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
     width: '90%',
+  },
+  topSliderContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  topSliderSideItem: {
+    width: 40,
+    height: 4,
+  },
+  topSliderCenterItem: {
+    width: 40,
+    height: 4,
+    marginLeft: 5,
+    marginRight: 5,
   },
   center_container: {
     alignItems: 'center',
@@ -638,7 +682,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 13,
     paddingBottom: 13,
-    marginTop: -13,
   },
   priceInitionAmountContainer: {
     display: 'flex',

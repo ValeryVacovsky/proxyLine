@@ -22,23 +22,11 @@ function Balance({ navigation }) {
   const operations = useSelector(data => data.balanceReducer.balanceListLogs)
   const [currentOffset, setCurrentOffset] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [userRoken, setUserToken] = useState('')
   const dispatch = useDispatch()
 
   const loadMoreItem = () => {
     setCurrentOffset(prev => prev + 100)
-  }
-
-  const getBalanceLogs = async () => {
-    const token = await AsyncStorage.getItem('@token')
-    const id = await AsyncStorage.getItem('@id')
-    const dataProps = `${id}_${token}`
-    setLoading(true)
-    getListBalanceLogs({ token: dataProps, limit: '100', offset: currentOffset }).then(res => {
-      if (res.data.length > 0 && currentOffset > 0) {
-        dispatch(setBalanceLogs([...operations, ...res.data]))
-      }
-      setLoading(false)
-    })
   }
 
   const renderLoader = () => {
@@ -50,6 +38,23 @@ function Balance({ navigation }) {
   }
 
   useEffect(() => {
+    async function getToken() {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      setUserToken(`${id}_${token}`)
+    }
+    getToken()
+  }, [])
+
+  useEffect(() => {
+    const getBalanceLogs = async () => {
+      setLoading(true)
+      const res = getListBalanceLogs({ token: userRoken, limit: '100', offset: currentOffset })
+      if (res?.data?.length > 0 && currentOffset > 0) {
+        dispatch(setBalanceLogs([...operations, ...res.data]))
+      }
+      setLoading(false)
+    }
     getBalanceLogs()
   }, [currentOffset])
 
@@ -90,13 +95,6 @@ function Balance({ navigation }) {
             onEndReachedThreshold={0}
           />
         )}
-        {/* {operations.length > 0 && (
-          <ScrollView style={styles.scrollView}>
-            {operations.map(balance => (
-              <BalanceList key={balance?.create_date} navigation={navigation} data={balance} text={text} />
-            ))}
-          </ScrollView>
-        )} */}
         {operations.length === 0 && <BalanceClearTable text={text} />}
       </SafeAreaView>
     </LayoutMain>

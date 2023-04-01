@@ -22,23 +22,13 @@ function Orders({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false)
   const [currentOffset, setCurrentOffset] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [userRoken, setUserToken] = useState('')
 
   const toggleModal = () => {
     setModalVisible(!modalVisible)
     setTimeout(() => {
       setModalVisible(false)
     }, 2000)
-  }
-
-  const getOrders = async () => {
-    const token = await AsyncStorage.getItem('@token')
-    const id = await AsyncStorage.getItem('@id')
-    const dataProps = `${id}_${token}`
-    setLoading(true)
-    getListOrders({ token: dataProps, limit: '100', offset: currentOffset }).then(res => {
-      currentOffset > 0 && setDataOrdersState([...dataOrdersState, ...res.data])
-      setLoading(false)
-    })
   }
 
   const loadMoreItem = () => {
@@ -54,6 +44,21 @@ function Orders({ navigation }) {
   }
 
   useEffect(() => {
+    async function getToken() {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      setUserToken(`${id}_${token}`)
+    }
+    getToken()
+  }, [])
+
+  useEffect(() => {
+    const getOrders = async () => {
+      setLoading(true)
+      const res = getListOrders({ token: userRoken, limit: '100', offset: currentOffset })
+      currentOffset > 0 && setDataOrdersState([...dataOrdersState, ...res.data])
+      setLoading(false)
+    }
     getOrders()
   }, [currentOffset])
 
