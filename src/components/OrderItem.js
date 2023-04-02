@@ -333,7 +333,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
                 onChangeText={setCouponValue}
               />
             ) : (
-              <Text style={{ fontWeight: '700', fontSize: 13, color: 'white' }}>Скидка {percent} %</Text>
+              <Text style={styles.couponText}>{proxyText?.texts?.t9 || 'Скидка'} {percent} %</Text>
             )}
           </View>
         </View>
@@ -499,6 +499,11 @@ const styles = StyleSheet.create({
     height: 16,
     marginLeft: 5,
     marginRight: 5,
+  },
+  couponText: {
+    fontWeight: '700',
+    fontSize: 13,
+    color: 'white',
   },
   vectorIcon: {
     top: 1,
