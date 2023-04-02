@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity, Image } from 'react-native'
 import ButtonOff from '../../../../image/ButtonOff.png'
 
-const CenterButtonOn = ({ setStatusConnect, Image, heightOffScreen }) => {
+const CenterButtonOn = ({ setStatusConnect, heightOffScreen }) => {
   const handlePress = status => {
     setStatusConnect(status)
   }

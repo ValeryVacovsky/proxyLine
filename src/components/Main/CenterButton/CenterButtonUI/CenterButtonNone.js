@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity, Image } from 'react-native'
 import ButtonNone from '../../../../image/ButtonNone.png'
 
-const CenterButtonNone = ({ Image, heightOffScreen }) => {
+const CenterButtonNone = ({ heightOffScreen }) => {
   return (
     <TouchableOpacity activeOpacity={0.8}>
       <Image
@@ -20,8 +20,8 @@ const CenterButtonNone = ({ Image, heightOffScreen }) => {
 
 const styles = StyleSheet.create({
   defaultButton: {
-    width: 200,
-    height: 200,
+    width: 160,
+    height: 160,
     alignItems: 'center',
   },
 })

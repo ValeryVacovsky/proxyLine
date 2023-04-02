@@ -74,7 +74,6 @@ function Main({ navigation }) {
           <CenterButton
             statusConnect={statusConnect}
             setStatusConnect={setStatusConnect}
-            Image={Image}
             heightOffScreen={heightOffScreen}
           />
           <InfoPanel
