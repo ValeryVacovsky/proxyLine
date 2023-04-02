@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
-import LayoutAuth from '../../componets/LayoutAuth'
+import LayoutAuth from '../../components/LayoutAuth'
 
 import LogoIntroSmall from '../../image/Svg/LogoIntroSmall'
 import VectorOpen from '../../image/Svg/VectorOpen'
@@ -83,7 +83,7 @@ function AuthAuthauthentification({ navigation }) {
           {errors.email ? (
             <View style={styles.lableErrorContainer}>
               <Text style={styles.label}>{text?.texts?.t1}</Text>
-              <Text style={styles.lableError}>{text?.texts?.t19}</Text>
+              <Text style={styles.lableError}>{text?.texts?.t23}</Text>
             </View>
           ) : (
             <View>

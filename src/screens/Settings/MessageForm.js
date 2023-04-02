@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux'
 import { StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
-import LayoutMain from '../../componets/LayoutMain'
+import { useWindowDimensions } from 'react-native'
+import RenderHtml from 'react-native-render-html'
+
+import LayoutMain from '../../components/LayoutMain'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 const heightOffScreen = Dimensions.get('window').height
@@ -11,6 +14,12 @@ const heightOffScreen = Dimensions.get('window').height
 function MessageForm({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
   const [textValue, setTextValue] = useState('')
+  const { width } = useWindowDimensions()
+
+  const source = {
+    html: `${text?.texts?.t10}`,
+  }
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -25,13 +34,13 @@ function MessageForm({ navigation }) {
     <LayoutMain style={styles.layoutContainer}>
       <SafeAreaView style={styles.container}>
         <View>
-          <Text style={styles.text}>{text?.texts?.t9 && 'Тема'}</Text>
+          <Text style={styles.text}>{text?.texts?.t11 || 'Тема'}</Text>
           <View style={styles.dataProxyes}>
             <View style={styles.inputThemeContianer}>
               <TextInput style={styles.inputTheme} />
             </View>
           </View>
-          <Text style={styles.text}>{text?.texts?.t9 && 'Сообщение'}</Text>
+          <Text style={styles.text}>{text?.texts?.t9 || 'Сообщение'}</Text>
           <View style={styles.dataProxyes}>
             <View style={styles.inputMessageContainer}>
               <TextInput
@@ -49,17 +58,7 @@ function MessageForm({ navigation }) {
             </View>
           </View>
           <ScrollView style={styles.scrollViewContainer}>
-            <Text style={styles.textSmall}>
-              {text?.texts?.t10 && 'Пишите нам в онлайн чат, он находиться с правой стороны в углу.'}
-              {'\n'}Онлайн чат работает каждый день круглосуточно.
-              {text?.texts?.t11 && 'Онлайн чат работает каждый день круглосуточно.'}
-            </Text>
-            <Text style={styles.textSmall2}>
-              {text?.texts?.t12 && 'Если вопросы связаны:'}
-              {'\n'} {!text?.texts?.t13 && 'Заменой адреса'} {'\n'}
-              {text?.texts?.t14 &&
-                'Возвратом заказов на баланс аккаунта Пишите только в онлайн чат, поддержка отвечает в течение 1 минуты, ответ на тикет может задержаться до 72ч.'}
-            </Text>
+            <RenderHtml contentWidth={width} source={source} />
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -107,13 +106,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     marginBottom: 400,
-  },
-  textSmall: {
-    color: '#CBCBCB',
-    fontSize: 14,
-    fontWeight: '400',
-    paddingLeft: 20,
-    marginTop: 20,
+    marginHorizontal: 20,
   },
   dataProxyes: {
     width: '100%',

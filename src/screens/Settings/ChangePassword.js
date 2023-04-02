@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux'
 import { ScrollView, StyleSheet, SafeAreaView, Text, View, TouchableOpacity, Pressable } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { TextInput } from 'react-native-gesture-handler'
-import LayoutMain from '../../componets/LayoutMain'
+import LayoutMain from '../../components/LayoutMain'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 import postSetUserPassword from '../../api/postSetUserPassword'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import ViewIcon from '../../image/Svg/ViewIcon'
 import ViewIconOff from '../../image/Svg/ViewIconOff'
-import ModalSuccess from '../../componets/Orders/ModalSuccess'
+import ModalSuccess from '../../components/Orders/ModalSuccess'
 
 const PASSWORD_REGEX = /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,64}/
 
@@ -88,10 +88,7 @@ function ChangePassword({ navigation }) {
                       styles.inputStyle,
                       {
                         borderColor:
-                          (focusOnPasswordTop && '#fac637') ||
-                          (errors.password && 'rgb(138,0,0)') ||
-                          (errors.passwordConfirmation && 'rgb(138,0,0)') ||
-                          '#333842',
+                          (focusOnPasswordTop && '#fac637') || (errors.password && 'rgb(138,0,0)') || '#333842',
                       },
                     ])}>
                     <TextInput
@@ -306,7 +303,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'baseline',
   },
   validText: {
     fontWeight: '600',

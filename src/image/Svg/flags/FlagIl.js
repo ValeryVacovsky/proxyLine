@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Svg, { Defs, ClipPath, Path, G } from 'react-native-svg'
 
-const SvgComponent = () => (
+const FlagIl = () => (
   <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
     <Defs>
       <ClipPath id="a">
@@ -24,4 +24,4 @@ const SvgComponent = () => (
   </Svg>
 )
 
-export default SvgComponent
+export default FlagIl

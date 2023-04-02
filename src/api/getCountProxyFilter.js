@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://proxydbtest.proxyline.net'
+import { baseUrl } from './common/baseUrl'
 
 const getCountProxyFilter = ({ token, limit = 100, offset = 0, endpoint }) =>
   axios({

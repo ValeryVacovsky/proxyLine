@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { StyleSheet, View, Text, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
-import LayoutMain from '../../componets/LayoutMain'
+import LayoutMain from '../../components/LayoutMain'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 

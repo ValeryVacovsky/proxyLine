@@ -5,12 +5,15 @@ import { orderReducer } from './reducers/orderReducer'
 import { countryOrderReducer } from './reducers/countryOrderReducer'
 import { textReducer } from './reducers/textReducer'
 import { filterReducer } from './reducers/filterReducer'
-import { BalanceSystems } from './reducers/balanceSystems'
+import { balanceSystemsReducer } from './reducers/balanceSystemsReducer'
 import { orderPriceReducer } from './reducers/orderPriceReducer'
 import { ipsTagsReducer } from './reducers/ipsTagsReducer'
 import { balanceReducer } from './reducers/balanceReducer'
 import { ordersReducer } from './reducers/ordersReducer'
 import { countryDiscriptionReducer } from './reducers/countryDiscriptionReducer'
+import { selectedProxyReducer } from './reducers/selectedProxyReducer'
+import { cuponReducer } from './reducers/cuponReducer'
+import { endpointReducer } from './reducers/endpointReducer'
 import thunk from 'redux-thunk'
 
 const rootReducer = combineReducers({
@@ -18,7 +21,7 @@ const rootReducer = combineReducers({
   proxy: proxyReducer,
   orderReducer,
   countryOrderReducer,
-  BalanceSystems,
+  balanceSystemsReducer,
   textReducer,
   filterReducer,
   orderPriceReducer,
@@ -26,6 +29,9 @@ const rootReducer = combineReducers({
   balanceReducer,
   ordersReducer,
   countryDiscriptionReducer,
+  selectedProxyReducer,
+  cuponReducer,
+  endpointReducer,
 })
 
 const configureStore = () => createStore(rootReducer, applyMiddleware(thunk))

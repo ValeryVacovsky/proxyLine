@@ -1,9 +1,11 @@
 import axios from 'axios'
 
+import { baseUrlAdmin } from '../common/baseUrlAdmin'
+
 const getText = (url, language) =>
   axios({
     method: 'get',
-    url: `https://proxyline.nomadicdemo.com/api/${language}/${url}`,
+    url: `${baseUrlAdmin}${language}/${url}`,
   })
 
 export default getText

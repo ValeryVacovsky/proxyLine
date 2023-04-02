@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { StyleSheet, SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
-import LayoutMain from '../../componets/LayoutMain'
+import LayoutMain from '../../components/LayoutMain'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
-import Toggle from '../../componets/UI/OrderUI/Toggle'
+import Toggle from '../../components/UI/OrderUI/Toggle'
 import TypeIcon from '../../image/Svg/TypeIcon'
 
 function TypeProxy({ navigation }) {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { StyleSheet, SafeAreaView, Text, TouchableOpacity, View, Pressable } from 'react-native'
-import LayoutMain from '../../componets/LayoutMain'
+import LayoutMain from '../../components/LayoutMain'
 import DarkRadioUncheked from '../../image/Svg/DarkRadioUncheked'
 import LightRadioUncheked from '../../image/Svg/LightRadioUncheked'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'

@@ -1,9 +1,11 @@
 import axios from 'axios'
 
+import { baseUrlAdmin } from '../common/baseUrlAdmin'
+
 const getLanguages = url =>
   axios({
     method: 'get',
-    url: `https://proxyline.nomadicdemo.com/api/${url}`,
+    url: `${baseUrlAdmin}${url}`,
   })
 
 export default getLanguages

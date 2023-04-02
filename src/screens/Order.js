@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { ScrollView, View, StyleSheet, Text, Pressable } from 'react-native'
-import LayoutMain from '../componets/LayoutMain'
-import OrderItem from '../componets/OrderItem'
+import { ScrollView, View, StyleSheet, Text, Pressable, KeyboardAvoidingView, Platform } from 'react-native'
+import LayoutMain from '../components/LayoutMain'
+import OrderItem from '../components/OrderItem'
 import CloudProxyIcon from '../image/Svg/CloudProxyIcon'
 import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
 import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
@@ -76,30 +76,32 @@ function Order({ navigation, route }) {
   const iPtypes = route?.params?.iPtypes
   return (
     <LayoutMain>
-      <ScrollView
-        horizontal
-        contentContainerStyle={{ width: `${ProxyList.length * 100}%` }}
-        showsHorizontalScrollIndicator={false}
-        scrollEventThrottle={100}
-        pagingEnabled
-        contentOffset={{ x: startPos }}
-        disableIntervalMomentum
-        onLayout={event => {
-          const { layout } = event.nativeEvent
-          setCurrentProxyId(layout.width)
-        }}
-        scrollEnabled={scrolling}>
-        {ProxyList.map((order, index) => (
-          <OrderItem
-            key={order.key}
-            navigation={navigation}
-            order={order}
-            setScrolling={setScrolling}
-            price={iPtypes[index] / 100 && 0.1}
-            proxyText={proxyText.order.payload}
-          />
-        ))}
-      </ScrollView>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ height: '100%' }}>
+        <ScrollView
+          horizontal
+          contentContainerStyle={{ width: `${ProxyList.length * 100}%` }}
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={100}
+          pagingEnabled
+          contentOffset={{ x: startPos }}
+          disableIntervalMomentum
+          onLayout={event => {
+            const { layout } = event.nativeEvent
+            setCurrentProxyId(layout.width)
+          }}
+          scrollEnabled={scrolling}>
+          {ProxyList.map((order, index) => (
+            <OrderItem
+              key={order.key}
+              navigation={navigation}
+              order={order}
+              setScrolling={setScrolling}
+              price={iPtypes[index] / 100 && 0.1}
+              proxyText={proxyText.order.payload}
+            />
+          ))}
+        </ScrollView>
+      </KeyboardAvoidingView>
     </LayoutMain>
   )
 }

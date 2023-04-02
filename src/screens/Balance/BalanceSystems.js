@@ -2,17 +2,17 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { ScrollView, StyleSheet, SafeAreaView, Text, View, TextInput, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 
-import LayoutMain from '../../componets/LayoutMain'
-import BalanceTopTableSystems from '../../componets/UI/BalanceUI/BalanceTopTableSystems'
-import BalanceListSystem from '../../componets/Balance/BalanceListSystem'
-import BottomSheetForm from '../../componets/BottomSheetForm'
-import BottomSheetBalanceInfo from '../../componets/UI/ProxyUI/BottomSheetCopy'
+import LayoutMain from '../../components/LayoutMain'
+import BalanceTopTableSystems from '../../components/UI/BalanceUI/BalanceTopTableSystems'
+import BalanceListSystem from '../../components/Balance/BalanceListSystem'
+import BottomSheetForm from '../../components/BottomSheetForm'
+import BottomSheetBalanceInfo from '../../components/UI/ProxyUI/BottomSheetCopy'
 
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 function BalanceSystems({ navigation }) {
   const text = useSelector(res => res.textReducer.balance.payload)
-  const systems = useSelector(res => res.BalanceSystems.BalanceSystems)
+  const systems = useSelector(res => res.balanceSystemsReducer)
   const balance = useSelector(data => data.balanceReducer)
   const [balanceSystems, setBalanceSystems] = useState([])
   const [, setIsOpen] = useState(false)

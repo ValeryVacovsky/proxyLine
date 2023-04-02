@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, TouchableOpacity, Text, View, Pressable, Keyboard } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
-import LayoutMain from '../componets/LayoutMain'
+import LayoutMain from '../components/LayoutMain'
 import NotesTab from '../image/Svg/NotesTab'
 import HeaderTintBack from '../image/Svg/HeaderTintBack'
 import { TextInput } from 'react-native-gesture-handler'

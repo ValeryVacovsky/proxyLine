@@ -1,8 +1,18 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { View, StyleSheet, SafeAreaView, TouchableOpacity, Text, Dimensions, Pressable, ScrollView } from 'react-native'
-import LayoutMain from '../../componets/LayoutMain'
-import UserNavigation from '../../componets/UserNavigation'
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+  Dimensions,
+  Pressable,
+  ScrollView,
+  Linking,
+} from 'react-native'
+import LayoutMain from '../../components/LayoutMain'
+import UserNavigation from '../../components/UserNavigation'
 import CheckProxy from '../../image/Svg/CheckProxy'
 import CheckSpeed from '../../image/Svg/CheckSpeed'
 import SettingsVector from '../../image/Svg/SettingsVector'
@@ -12,9 +22,15 @@ const heightOffScreen = Dimensions.get('window').height
 
 function Settings({ navigation }) {
   const text = useSelector(res => res.textReducer.settings.payload)
+
   const handleNavigate = item => {
     navigation.navigate(item)
   }
+
+  const handleLink = () => {
+    Linking.openURL(text?.texts?.t4.split('/|')[1])
+  }
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -90,7 +106,7 @@ function Settings({ navigation }) {
           <TouchableOpacity
             style={styles.settingLine}
             activeOpacity={0.8}
-            onPress={() => handleNavigate('AnwserQuaction')}>
+            onPress={() => handleNavigate('AnswerQuestion')}>
             <View style={styles.setting}>
               <Text style={styles.settingText}>{text?.texts?.t2}</Text>
               <SettingsVector />
@@ -98,28 +114,25 @@ function Settings({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Message')}>
             <View style={styles.setting}>
-              <Text style={styles.settingText}>{text?.texts?.t3 && 'Написать нам'}</Text>
+              <Text style={styles.settingText}>{text?.texts?.t3 || 'Написать нам'}</Text>
               <SettingsVector />
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => handleNavigate('Language')}>
             <View style={styles.setting}>
-              <Text style={styles.settingText}>{text?.texts?.t6 && 'Язык'}</Text>
+              <Text style={styles.settingText}>{text?.texts?.t12 || 'Язык'}</Text>
               <SettingsVector />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={() => {}}>
+          <TouchableOpacity style={styles.settingLine} activeOpacity={0.8} onPress={handleLink}>
             <View style={styles.setting}>
-              <Text style={styles.settingText}>{text?.texts?.t4 && 'Больше возможностей'}</Text>
+              <Text style={styles.settingText}>{text?.texts?.t4.split('/|')[0] || 'Больше возможностей'}</Text>
               <SettingsVector2 />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingLineBottom} activeOpacity={0.8}>
-            <View style={styles.setting}>
-              <Text style={styles.settingText}>{text?.texts?.t5 && 'Версия'} Proxy Line</Text>
-              <Text style={styles.settingTextVersion}>1.0.1</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={styles.settingVersion}>
+            <Text style={styles.settingTextVersion}>{text?.texts?.t5 || 'Версия'} Proxy Line 1.0.1</Text>
+          </View>
         </SafeAreaView>
       </ScrollView>
       <View style={heightOffScreen > 700 ? styles.navContainer : styles.s_navContainer}>
@@ -187,6 +200,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
   },
+  settingVersion: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingBottom: 17,
+    paddingTop: 17,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   settingText: {
     fontWeight: '600',
     fontSize: 15,
@@ -194,8 +215,8 @@ const styles = StyleSheet.create({
   },
   settingTextVersion: {
     fontWeight: '700',
-    fontSize: 14,
-    color: 'white',
+    fontSize: 13,
+    color: '#4F4F4F',
   },
   s_navContainer: {
     alignItems: 'center',

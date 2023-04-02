@@ -1,31 +1,31 @@
 import React, { useMemo, useRef, useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { ScrollView, StyleSheet, SafeAreaView, Text, View, Pressable, TouchableOpacity, Clipboard } from 'react-native'
-import LayoutMain from '../componets/LayoutMain'
+import LayoutMain from '../components/LayoutMain'
 import ProxyInfoChange from '../image/Svg/ProxyInfoChange'
 import ReadTrash from '../image/Svg/ReadTrash'
 import HeaderTintBack from '../image/Svg/HeaderTintBack'
-import BottomSheetForm from '../componets/BottomSheetForm'
-import BottomSheetCopy from '../componets/UI/ProxyUI/BottomSheetCopy'
-import BottomSheetProxyTags from '../componets/UI/ProxyUI/BottomSheetProxyTags'
+import BottomSheetForm from '../components/BottomSheetForm'
+import BottomSheetCopy from '../components/UI/ProxyUI/BottomSheetCopy'
+import BottomSheetProxyTags from '../components/UI/ProxyUI/BottomSheetProxyTags'
 import dateFormat from 'dateformat'
-import IdOrder from '../componets/UI/InfoUI/IdOrder'
-import Country from '../componets/UI/InfoUI/Country'
-import Version from '../componets/UI/InfoUI/Version'
-import IpAdress from '../componets/UI/InfoUI/IpAdress'
-import Port from '../componets/UI/InfoUI/Port'
-import InfoLogin from '../componets/UI/InfoUI/InfoLogin'
-import InfoPassword from '../componets/UI/InfoUI/InfoPassword'
-import InfoType from '../componets/UI/InfoUI/InfoType'
-import InfoCheckButton from '../componets/UI/InfoUI/InfoCheckButton'
-import OrderFrom from '../componets/UI/InfoUI/OrderFrom'
-import OrderEnd from '../componets/UI/InfoUI/OrderEnd'
-import OrderCount from '../componets/UI/InfoUI/OrderCount'
-import ConfirnIP from '../componets/UI/InfoUI/ConfirnIP'
-import InfoTag from '../componets/UI/InfoUI/InfoTag'
-import BottomSheetProxyIps from '../componets/UI/ProxyUI/BottomSheetProxyIps'
-import OrderBlock from '../componets/UI/InfoUI/OrderBlock'
-import OrderRenew from '../componets/UI/InfoUI/OrderRenew'
+import IdOrder from '../components/UI/InfoUI/IdOrder'
+import Country from '../components/UI/InfoUI/Country'
+import Version from '../components/UI/InfoUI/Version'
+import IpAdress from '../components/UI/InfoUI/IpAdress'
+import Port from '../components/UI/InfoUI/Port'
+import InfoLogin from '../components/UI/InfoUI/InfoLogin'
+import InfoPassword from '../components/UI/InfoUI/InfoPassword'
+import InfoType from '../components/UI/InfoUI/InfoType'
+import InfoCheckButton from '../components/UI/InfoUI/InfoCheckButton'
+import OrderFrom from '../components/UI/InfoUI/OrderFrom'
+import OrderEnd from '../components/UI/InfoUI/OrderEnd'
+import OrderCount from '../components/UI/InfoUI/OrderCount'
+import ConfirnIP from '../components/UI/InfoUI/ConfirnIP'
+import InfoTag from '../components/UI/InfoUI/InfoTag'
+import BottomSheetProxyIps from '../components/UI/ProxyUI/BottomSheetProxyIps'
+import OrderBlock from '../components/UI/InfoUI/OrderBlock'
+import OrderRenew from '../components/UI/InfoUI/OrderRenew'
 
 function ProxyInfo({ navigation, route }) {
   const proxyInfoText = useSelector(res => res.textReducer.proxy_info.payload)
@@ -99,7 +99,7 @@ function ProxyInfo({ navigation, route }) {
     <BottomSheetCopy handleClosePress={handleClosePress}></BottomSheetCopy>,
   )
   const nowDate = new Date()
-  const proxyInfoDate = new Date(proxyInfo.date_end)
+  const proxyInfoDate = new Date(proxyInfo.date_end % 24)
   React.useLayoutEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -134,7 +134,7 @@ function ProxyInfo({ navigation, route }) {
             </View>
             <InfoCheckButton text={proxyInfoText?.buttons} />
             <Text style={styles.text}>{proxyInfoText?.texts?.t9}</Text>
-            <View styles={styles.Data}>
+            <View style={styles.Data}>
               <OrderBlock date={dateFormat(proxyInfo.suspended_till, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
               <OrderFrom date={dateFormat(proxyInfo.date_start, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
               <OrderEnd date={dateFormat(proxyInfo.date_end, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />

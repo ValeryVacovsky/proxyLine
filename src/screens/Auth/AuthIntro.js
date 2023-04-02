@@ -25,7 +25,11 @@ function AuthIntro({ navigation }) {
           dispatch(setAuth(true))
           navigation.navigate('Main')
         } catch (error) {
-          console.log(error)
+          if (error.message === 'Network Error') {
+            navigation.navigate('NetworkError')
+          } else {
+            navigation.navigate('ServerError')
+          }
         }
       } else {
         try {
@@ -34,7 +38,11 @@ function AuthIntro({ navigation }) {
           dispatch(setAuth(false))
           navigation.navigate('Auth')
         } catch (error) {
-          console.log(error)
+          if (error.message === 'Network Error') {
+            navigation.navigate('NetworkError')
+          } else {
+            navigation.navigate('ServerError')
+          }
         }
       }
     }

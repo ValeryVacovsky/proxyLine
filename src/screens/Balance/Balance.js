@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
-import { ScrollView, StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import getListBalanceLogs from '../../api/getListBalanceLogs'
+import { setBalanceLogs } from '../../store/reducers/balanceReducer'
 
-import LayoutMain from '../../componets/LayoutMain'
-import BalanceList from '../../componets/Balance/BalanceList'
-import BalanceTopTable from '../../componets/UI/BalanceUI/BalanceTopTable'
-import BalanceClearTable from '../../componets/UI/BalanceUI/BalanceClearTable'
+import LayoutMain from '../../components/LayoutMain'
+import BalanceList from '../../components/Balance/BalanceList'
+import BalanceTopTable from '../../components/UI/BalanceUI/BalanceTopTable'
+import BalanceClearTable from '../../components/UI/BalanceUI/BalanceClearTable'
 
 import getPaymentSystems from '../../api/getPaymentSystem'
 
-import { setBalanceSystems } from '../../store/reducers/balanceSystems'
+import { setBalanceSystems } from '../../store/reducers/balanceSystemsReducer'
 
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
@@ -17,7 +20,43 @@ function Balance({ navigation }) {
   const text = useSelector(res => res.textReducer.balance.payload)
   const balance = useSelector(data => data.balanceReducer)
   const operations = useSelector(data => data.balanceReducer.balanceListLogs)
+  const [currentOffset, setCurrentOffset] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const [userRoken, setUserToken] = useState('')
   const dispatch = useDispatch()
+
+  const loadMoreItem = () => {
+    setCurrentOffset(prev => prev + 100)
+  }
+
+  const renderLoader = () => {
+    return loading ? (
+      <View>
+        <ActivityIndicator size="large" color="#aaa" />
+      </View>
+    ) : null
+  }
+
+  useEffect(() => {
+    async function getToken() {
+      const token = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      setUserToken(`${id}_${token}`)
+    }
+    getToken()
+  }, [])
+
+  useEffect(() => {
+    const getBalanceLogs = async () => {
+      setLoading(true)
+      const res = await getListBalanceLogs({ token: userRoken, limit: '100', offset: currentOffset })
+      if (res?.data?.length > 0 && currentOffset > 0) {
+        dispatch(setBalanceLogs([...operations, ...res.data]))
+      }
+      setLoading(false)
+    }
+    getBalanceLogs()
+  }, [currentOffset])
 
   useEffect(() => {
     const listPayments = async () => {
@@ -44,11 +83,17 @@ function Balance({ navigation }) {
         <BalanceTopTable balance={balance.balance} navigation={navigation} text={text} />
         <Text style={styles.text}>{text?.texts?.t0}</Text>
         {operations.length > 0 && (
-          <ScrollView style={styles.scrollView}>
-            {operations.map(key => (
-              <BalanceList key={key?.create_date} navigation={navigation} data={key} text={text} />
-            ))}
-          </ScrollView>
+          <FlatList
+            style={styles.scrollView}
+            data={operations}
+            renderItem={({ item }) => (
+              <BalanceList key={item?.create_date} navigation={navigation} data={item} text={text} />
+            )}
+            keyExtractor={item => item.id}
+            ListFooterComponent={renderLoader}
+            onEndReached={loadMoreItem}
+            onEndReachedThreshold={0}
+          />
         )}
         {operations.length === 0 && <BalanceClearTable text={text} />}
       </SafeAreaView>

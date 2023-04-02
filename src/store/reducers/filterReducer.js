@@ -6,8 +6,6 @@ const initialState = {
     typesIP: [],
     id: [],
     auto_renewal: [],
-    // start_date_from: [],
-    // start_date_to: [],
     dateCreate: [],
     dateOver: [],
     ip: [],
