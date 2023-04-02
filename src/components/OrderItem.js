@@ -55,7 +55,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
     }
   }
 
-  const handleOnBlure = () => {
+  const handleOnBlur = () => {
     setFocusInput(false)
     async function name() {
       const data = {
@@ -329,11 +329,13 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
                 style={styles.cuponInput}
                 autoCapitalize="characters"
                 onFocus={handleOnFocus}
-                onBlur={handleOnBlure}
+                onBlur={handleOnBlur}
                 onChangeText={setCouponValue}
               />
             ) : (
-              <Text style={styles.couponText}>{proxyText?.texts?.t9 || 'Скидка'} {percent} %</Text>
+              <Text style={styles.couponText}>
+                {proxyText?.texts?.t9 || 'Скидка'} {percent} %
+              </Text>
             )}
           </View>
         </View>

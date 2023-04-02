@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, Image, Dimensions } from 'react-native'
+import { StyleSheet, View, Dimensions } from 'react-native'
 import { flagByShortName } from '../common/flagByShortName'
 
 import LayoutAuth from '../components/LayoutAuth'
