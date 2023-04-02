@@ -26,6 +26,7 @@ import FilterOrders from '../components/UI/FiltersUI/FilterOrders'
 import getCountProxyFilter from '../api/getCountProxyFilter'
 import { useParams } from '../hooks/useParams'
 import { setEndpoint } from '../store/reducers/endpointReducer'
+import { setCurrentOffset } from '../store/reducers/currentOffsetReducer'
 
 const clearForm = {
   ip_type: [],
@@ -151,6 +152,7 @@ function Filters({ navigation }) {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setFilter(fitlers))
+    dispatch(setCurrentOffset(0))
   }, [dispatch, fitlers])
   const getFilter = (move = false) => {
     const listProxies = async () => {
@@ -163,6 +165,7 @@ function Filters({ navigation }) {
       }
       dispatch(setProxy(data.data))
       dispatch(setEndpoint(endpoint))
+      dispatch(setCurrentOffset(0))
     }
     listProxies()
   }

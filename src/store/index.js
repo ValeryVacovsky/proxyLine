@@ -14,6 +14,7 @@ import { countryDiscriptionReducer } from './reducers/countryDiscriptionReducer'
 import { selectedProxyReducer } from './reducers/selectedProxyReducer'
 import { cuponReducer } from './reducers/cuponReducer'
 import { endpointReducer } from './reducers/endpointReducer'
+import { currentOffsetReducer } from './reducers/currentOffsetReducer'
 import thunk from 'redux-thunk'
 
 const rootReducer = combineReducers({
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   selectedProxyReducer,
   cuponReducer,
   endpointReducer,
+  currentOffsetReducer,
 })
 
 const configureStore = () => createStore(rootReducer, applyMiddleware(thunk))
