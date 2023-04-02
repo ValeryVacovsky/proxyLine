@@ -66,11 +66,10 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         period: days,
         coupon: couponValue,
       }
-      postOrderAmount({ data, token: userToken }).then(data => {
-        data.data?.coupon?.percent
-          ? onTakeCoupone({ status: true, percent: data.data?.coupon?.percent })
-          : onTakeCoupone({ status: false })
-      })
+      const res = await postOrderAmount({ data, token: userToken })
+      res.data?.coupon?.percent
+        ? onTakeCoupone({ status: true, percent: res.data?.coupon?.percent })
+        : onTakeCoupone({ status: false })
     }
     void name()
   }
@@ -148,10 +147,9 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
         period: days,
         coupon: coupon,
       }
-      postOrderAmount({ data, token: userToken }).then(data => {
-        setTotalPrice(data?.data?.amount / 100)
-        setInitialTotalPrice(data?.data?.initial_amount / 100)
-      })
+      const res = await postOrderAmount({ data, token: userToken })
+      setTotalPrice(res?.data?.amount / 100)
+      setInitialTotalPrice(res?.data?.initial_amount / 100)
     }
     void name()
   }, [days, amount, order.ip_type, order.ip_version, selectedCountryShort, coupon])
@@ -658,7 +656,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E2127',
     paddingHorizontal: 15,
     paddingTop: 12,
-    paddingBottom: 8,
     color: 'white',
     fontWeight: '400',
     borderRadius: 8,

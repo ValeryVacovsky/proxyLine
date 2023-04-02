@@ -5,7 +5,6 @@ import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
 
 function ProxyTariff({ navigation, proxy, iPtype, proxyText }) {
   const iPtypes = useSelector(res => res.orderPriceReducer.orderPrice)
-  console.log(iPtypes)
   return (
     <View style={styles.container}>
       <View style={styles.container2}>

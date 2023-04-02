@@ -5,7 +5,7 @@ import { setCountry } from '../store/reducers/countryOrderReducer'
 const useCountries = () => {
   const dispatch = useDispatch()
   useEffect(() => {
-    async function takeCountries() {
+    function takeCountries() {
       fetch('https://proxydbtest.proxyline.net/projectapi/v1/1/countries/', {
         method: 'GET',
         headers: {
