@@ -27,6 +27,7 @@ import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 import { setSelectProxy } from '../../store/reducers/selectedProxyReducer'
 import { setProxy } from '../../store/reducers/proxyReducer'
+import { setCurrentOffset } from '../../store/reducers/currentOffsetReducer'
 
 const heightOffScreen = Dimensions.get('window').height
 
@@ -34,18 +35,18 @@ function MyProxies({ navigation }) {
   const dispatch = useDispatch()
   const text = useSelector(res => res.textReducer.myproxies.payload)
   const proxyListStore = useSelector(data => data.proxy.proxyList)
+  const currentOffset = useSelector(data => data.currentOffsetReducer.proxy)
   const endpoint = useSelector(data => data.endpointReducer)
   const [selected, setSelected] = useState(null)
   const [childrenItem, setChildrenItem] = useState()
   const [valueProxy, setValueProxy] = useState('')
-  const [currentOffset, setCurrentOffset] = useState(0)
   const [loading, setLoading] = useState(false)
   const [userRoken, setUserToken] = useState('')
   const sheetRef = useRef(null)
   const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['48%'] : ['57%']), [heightOffScreen])
 
   const loadMoreItem = () => {
-    setCurrentOffset(prev => prev + 100)
+    dispatch(setCurrentOffset(currentOffset + 100))
   }
 
   const renderLoader = () => {

@@ -35,7 +35,7 @@ function SliderExample({ setDays, setScrolling }) {
               styles.renderTrackMarkComponent,
               {
                 width: index === 0 ? 4 : 2,
-                backgroundColor: value < trackMarks[index] ? '#1E2127' : '#FAC637',
+                backgroundColor: value < trackMarks[index] - 1 ? '#1E2127' : '#FAC637',
               },
             ])}
           />
