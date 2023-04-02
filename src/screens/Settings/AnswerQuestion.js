@@ -57,9 +57,8 @@ function AnswerQuestion({ navigation }) {
         <SafeAreaView>
           <ScrollView style={styles.container}>
             <View style={styles.answerContainer}>
-              {Object.values(general).map((quest, index) => (
-                // eslint-disable-next-line react/jsx-key
-                <AnswerLine navigation={navigation} quest={quest} key={Object.keys(general)[index]} />
+              {Object.keys(general).map(key => (
+                <AnswerLine quest={general[key]} key={key} />
               ))}
             </View>
           </ScrollView>

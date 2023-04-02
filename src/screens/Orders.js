@@ -55,7 +55,7 @@ function Orders({ navigation }) {
   useEffect(() => {
     const getOrders = async () => {
       setLoading(true)
-      const res = getListOrders({ token: userRoken, limit: '100', offset: currentOffset })
+      const res = await getListOrders({ token: userRoken, limit: '100', offset: currentOffset })
       currentOffset > 0 && setDataOrdersState([...dataOrdersState, ...res.data])
       setLoading(false)
     }

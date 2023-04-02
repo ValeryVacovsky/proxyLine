@@ -5,9 +5,9 @@ import FrameGreen from '../../../../image/Svg/FrameGreen'
 import FrameRed from '../../../../image/Svg/FrameRed'
 import FrameYellow from '../../../../image/Svg/FrameYellow'
 
-const StatusConnect = ({ setStatusConect, statusConect, mainText }) => {
+const StatusConnect = ({ setStatusConnect, statusConnect, mainText }) => {
   const handleStatusConnctNone = () => {
-    setStatusConect('none')
+    setStatusConnect('none')
   }
   return (
     <TouchableOpacity onPress={handleStatusConnctNone} activeOpacity={0.8}>
@@ -19,34 +19,34 @@ const StatusConnect = ({ setStatusConect, statusConect, mainText }) => {
         style={styles.conectStatus}>
         <View>
           <View style={styles.frameContainer}>
-            {statusConect === 'on' && (
+            {statusConnect === 'on' && (
               <View style={styles.frameShadowGreen}>
                 <FrameGreen />
               </View>
             )}
-            {statusConect === 'off' && (
+            {statusConnect === 'off' && (
               <View style={styles.frameShadowRed}>
                 <FrameRed />
               </View>
             )}
-            {statusConect === 'none' && (
+            {statusConnect === 'none' && (
               <View style={styles.frameShadowNone}>
                 <FrameYellow />
               </View>
             )}
-            {statusConect === 'on' ? (
+            {statusConnect === 'on' ? (
               <Text style={styles.frameText}>{mainText?.texts?.t1}</Text>
             ) : (
               <Text style={styles.frameText}>{mainText?.texts?.t3}</Text>
             )}
           </View>
-          {statusConect === 'on' ? (
-            <Text style={styles.statusConectText}>{mainText?.texts?.t2}</Text>
+          {statusConnect === 'on' ? (
+            <Text style={styles.statusConnectText}>{mainText?.texts?.t2}</Text>
           ) : (
-            <Text style={styles.statusConectText}>{mainText?.texts?.t4}</Text>
+            <Text style={styles.statusConnectText}>{mainText?.texts?.t4}</Text>
           )}
         </View>
-        {statusConect === 'on' && (
+        {statusConnect === 'on' && (
           <View style={styles.speedStatusContainer}>
             <Text style={styles.speedStatusTextBig}>12.18 </Text>
             <Text style={styles.speedStatusTextSmall}>Mbit/s</Text>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  statusConectText: {
+  statusConnectText: {
     fontWeight: '400',
     fontSize: 12,
     lineHeight: 15,

@@ -49,7 +49,7 @@ function Balance({ navigation }) {
   useEffect(() => {
     const getBalanceLogs = async () => {
       setLoading(true)
-      const res = getListBalanceLogs({ token: userRoken, limit: '100', offset: currentOffset })
+      const res = await getListBalanceLogs({ token: userRoken, limit: '100', offset: currentOffset })
       if (res?.data?.length > 0 && currentOffset > 0) {
         dispatch(setBalanceLogs([...operations, ...res.data]))
       }

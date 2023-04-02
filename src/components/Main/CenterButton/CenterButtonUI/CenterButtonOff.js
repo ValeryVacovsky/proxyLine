@@ -2,9 +2,9 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import ButtonOn from '../../../../image/ButtonOn.png'
 
-const CenterButtonOff = ({ setStatusConect, Image, heightOffScreen }) => {
+const CenterButtonOff = ({ setStatusConnect, Image, heightOffScreen }) => {
   const handlePress = status => {
-    setStatusConect(status)
+    setStatusConnect(status)
   }
   return (
     <TouchableOpacity onPress={() => handlePress('on')} activeOpacity={0.8}>

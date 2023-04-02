@@ -4,7 +4,7 @@ import CenterButtonOn from './CenterButtonUI/CenterButtonOn'
 import CenterButtonOff from './CenterButtonUI/CenterButtonOff'
 import CenterButtonNone from './CenterButtonUI/CenterButtonNone'
 
-const CenterButton = ({ statusConect, setStatusConect, Image, heightOffScreen }) => {
+const CenterButton = ({ statusConnect, setStatusConnect, Image, heightOffScreen }) => {
   return (
     <View
       style={StyleSheet.flatten([
@@ -13,13 +13,13 @@ const CenterButton = ({ statusConect, setStatusConect, Image, heightOffScreen })
           marginTop: heightOffScreen > 700 ? 40 : 0,
         },
       ])}>
-      {statusConect === 'on' && (
-        <CenterButtonOn setStatusConect={setStatusConect} Image={Image} heightOffScreen={heightOffScreen} />
+      {statusConnect === 'on' && (
+        <CenterButtonOn setStatusConnect={setStatusConnect} Image={Image} heightOffScreen={heightOffScreen} />
       )}
-      {statusConect === 'off' && (
-        <CenterButtonOff setStatusConect={setStatusConect} Image={Image} heightOffScreen={heightOffScreen} />
+      {statusConnect === 'off' && (
+        <CenterButtonOff setStatusConnect={setStatusConnect} Image={Image} heightOffScreen={heightOffScreen} />
       )}
-      {statusConect === 'none' && <CenterButtonNone Image={Image} heightOffScreen={heightOffScreen} />}
+      {statusConnect === 'none' && <CenterButtonNone Image={Image} heightOffScreen={heightOffScreen} />}
     </View>
   )
 }

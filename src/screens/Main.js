@@ -24,7 +24,7 @@ const heightOffScreen = Dimensions.get('window').height
 
 function Main({ navigation }) {
   const [Ip, setIp] = useState('')
-  const [statusConect, setStatusConect] = useState('off')
+  const [statusConnect, setStatusConnect] = useState('off')
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
   const mainText = useSelector(res => res.textReducer.main.payload)
@@ -51,9 +51,9 @@ function Main({ navigation }) {
 
   useEffect(() => {
     if (Object.keys(selectedProxy).length === 0) {
-      setStatusConect('none')
+      setStatusConnect('none')
     } else {
-      setStatusConect('off')
+      setStatusConnect('off')
     }
   }, [selectedProxy])
 
@@ -65,23 +65,23 @@ function Main({ navigation }) {
           <TopInfo
             mainText={mainText}
             Ip={Ip}
-            statusConect={statusConect}
+            statusConnect={statusConnect}
             flagByShortName={flagByShortName}
             langugeMain="ru"
             countryDiscription={countryDiscription}
             languageGet={languageGet}
           />
           <CenterButton
-            statusConect={statusConect}
-            setStatusConect={setStatusConect}
+            statusConnect={statusConnect}
+            setStatusConnect={setStatusConnect}
             Image={Image}
             heightOffScreen={heightOffScreen}
           />
           <InfoPanel
             selectedProxy={selectedProxy}
             flagByShortName={flagByShortName}
-            setStatusConect={setStatusConect}
-            statusConect={statusConect}
+            setStatusConnect={setStatusConnect}
+            statusConnect={statusConnect}
             mainText={mainText}
             navigation={navigation}
             heightOffScreen={heightOffScreen}

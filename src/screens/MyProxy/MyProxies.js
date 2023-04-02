@@ -67,7 +67,7 @@ function MyProxies({ navigation }) {
   useEffect(() => {
     const getProxies = async () => {
       setLoading(true)
-      const res = getListProxies({ token: userRoken, limit: 100, offset: currentOffset, endpoint: endpoint })
+      const res = await getListProxies({ token: userRoken, limit: 100, offset: currentOffset, endpoint: endpoint })
       if (res?.data?.length > 0 && currentOffset > 0) {
         dispatch(setProxy([...proxyListStore, ...res.data]))
       }

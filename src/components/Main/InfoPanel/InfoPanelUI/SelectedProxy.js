@@ -6,7 +6,7 @@ import VectorRight from '../../../../image/Svg/VectorRight'
 
 const SelectedProxy = ({
   flagByShortName,
-  statusConect,
+  statusConnect,
   mainText,
   navigation,
   languageGet,
@@ -18,7 +18,7 @@ const SelectedProxy = ({
   }
   return (
     <View>
-      {statusConect === 'none' ? (
+      {statusConnect === 'none' ? (
         <SuperEllipseMaskView
           radius={{
             bottomRight: 12,

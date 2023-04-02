@@ -55,7 +55,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
     }
   }
 
-  const handleOnBlur = () => {
+  const handleOnBlure = () => {
     setFocusInput(false)
     async function name() {
       const data = {
@@ -329,7 +329,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
                 style={styles.cuponInput}
                 autoCapitalize="characters"
                 onFocus={handleOnFocus}
-                onBlur={handleOnBlur}
+                onBlur={handleOnBlure}
                 onChangeText={setCouponValue}
               />
             ) : (
@@ -347,7 +347,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
             },
           ])}>
           <Text style={styles.priceFullAmountDescriptionText}>{proxyText?.texts?.t5}</Text>
-          {totalPrice == initialTotalPrice ? (
+          {totalPrice === initialTotalPrice ? (
             <Text style={styles.priceFullAmountText}>$ {totalPrice}</Text>
           ) : (
             <View style={styles.priceInitionAmountContainer}>
@@ -379,7 +379,7 @@ function OrderItem({ navigation, order, setScrolling, price, proxyText }) {
                   backgroundColor: '#6FCF97',
                 },
               ])}>
-              <Text style={styles.buttonText}>Применить купон</Text>
+              <Text style={styles.buttonText}>{proxyText.buttons.b0 || 'Применить купон'}</Text>
             </SuperEllipseMaskView>
           </TouchableOpacity>
         )}
