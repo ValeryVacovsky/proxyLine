@@ -14,7 +14,7 @@ const heightOffScreen = Dimensions.get('window').height
 
 function DeleteProxies({ navigation }) {
   const text = useSelector(res => res.textReducer.myproxies.payload)
-  const proxyLisStore = useSelector(data => data.proxy.proxyList.data)
+  const proxyListStore = useSelector(data => data.proxy.proxyList)
   const [selectedProxies, setSelectedProxies] = useState([])
   const [, setIsOpen] = useState(false)
   const [valueProxy, setValueProxy] = useState('')
@@ -38,7 +38,7 @@ function DeleteProxies({ navigation }) {
   }
   const arryId = []
 
-  proxyLisStore.map(item => arryId.push(item.id))
+  proxyListStore.map(item => arryId.push(item.id))
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -87,7 +87,7 @@ function DeleteProxies({ navigation }) {
               marginBottom: selectedProxies.length > 0 ? 300 : 90,
             },
           ])}>
-          {proxyLisStore?.map(proxy => (
+          {proxyListStore?.map(proxy => (
             <ProxyItemDelete
               key={proxy.id}
               proxy={proxy.id}

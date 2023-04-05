@@ -23,6 +23,7 @@ function Balance({ navigation }) {
   const [currentOffset, setCurrentOffset] = useState(0)
   const [loading, setLoading] = useState(false)
   const [userRoken, setUserToken] = useState('')
+  const [loadStop, setLoadStop] = useState(false)
   const dispatch = useDispatch()
 
   const loadMoreItem = () => {
@@ -48,12 +49,17 @@ function Balance({ navigation }) {
 
   useEffect(() => {
     const getBalanceLogs = async () => {
-      setLoading(true)
-      const res = await getListBalanceLogs({ token: userRoken, limit: '100', offset: currentOffset })
-      if (res?.data?.length > 0 && currentOffset > 0) {
-        dispatch(setBalanceLogs([...operations, ...res.data]))
+      if (!loadStop) {
+        setLoading(true)
+        const res = await getListBalanceLogs({ token: userRoken, limit: '100', offset: currentOffset })
+        res.data.length === 0 && setLoadStop(true)
+        if (res?.data?.length > 0 && currentOffset > 99) {
+          dispatch(setBalanceLogs([...operations, ...res.data]))
+        }
+        setLoading(false)
+      } else {
+        null
       }
-      setLoading(false)
     }
     getBalanceLogs()
   }, [currentOffset])
@@ -113,8 +119,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     paddingLeft: 20,
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 20,
+    marginBottom: 0,
   },
   circleGradient: {
     backgroundColor: 'white',

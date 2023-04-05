@@ -44,6 +44,8 @@ function MyProxies({ navigation }) {
   const [userRoken, setUserToken] = useState('')
   const sheetRef = useRef(null)
   const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['48%'] : ['57%']), [heightOffScreen])
+  const sheetRefItem = useRef(null)
+  const snapPointsItem = useMemo(() => (heightOffScreen > 800 ? ['43%'] : ['52%']), [heightOffScreen])
 
   const loadMoreItem = () => {
     dispatch(setCurrentOffset(currentOffset + 100))
@@ -89,8 +91,15 @@ function MyProxies({ navigation }) {
   }, [])
 
   const handleClosePress = useCallback(() => {
-    setChildrenItem(<View style={styles.defaultBottomSheetContainer} />)
     sheetRef.current?.close()
+  }, [])
+
+  const handleSnapPressItem = useCallback(index => {
+    sheetRefItem.current?.snapToIndex(index)
+  }, [])
+
+  const handleClosePressItem = useCallback(() => {
+    sheetRefItem.current?.close()
   }, [])
 
   React.useLayoutEffect(() => {
@@ -110,9 +119,6 @@ function MyProxies({ navigation }) {
           <Pressable
             activeOpacity={0.8}
             onPress={() => {
-              setChildrenItem(
-                <BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} text={text} />,
-              )
               handleSnapPress(0)
             }}
             hitSlop={15}>
@@ -167,7 +173,7 @@ function MyProxies({ navigation }) {
                 proxyRes={item}
                 selected={selected}
                 setSelected={setSelected}
-                handleSnapPress={handleSnapPress}
+                handleSnapPress={handleSnapPressItem}
                 setChildrenItem={setChildrenItem}
                 handleClosePress={handleClosePress}
                 childrenItem={childrenItem}
@@ -200,6 +206,15 @@ function MyProxies({ navigation }) {
         sheetRef={sheetRef}
         snapPoints={snapPoints}
         handleClosePress={handleClosePress}>
+        <View style={styles.bottomSheetBackDrop}>
+          <BottomSheetItem handleClosePress={handleClosePress} navigation={navigation} text={text} />
+        </View>
+      </BottomSheetForm>
+      <BottomSheetForm
+        navigation={navigation}
+        sheetRef={sheetRefItem}
+        snapPoints={snapPointsItem}
+        handleClosePress={handleClosePressItem}>
         <View style={styles.bottomSheetBackDrop}>{childrenItem}</View>
       </BottomSheetForm>
     </LayoutMain>
@@ -214,7 +229,7 @@ const styles = StyleSheet.create({
     top: 1,
   },
   container: {
-    display: 'flex',
+    flex: 1,
   },
   scrollView: {
     marginHorizontal: 20,
@@ -222,7 +237,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     width: '100%',
-    height: '75%',
+    height: heightOffScreen > 700 ? heightOffScreen - 150 : heightOffScreen - 125,
   },
   text: {
     fontSize: 42,

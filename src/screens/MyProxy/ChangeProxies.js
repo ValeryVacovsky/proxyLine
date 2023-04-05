@@ -17,7 +17,7 @@ const arryId = []
 function ChangeProxies({ navigation }) {
   const [selectedProxies, setSelectedProxies] = useState([])
   const text = useSelector(res => res.textReducer.myproxies.payload)
-  const proxyLisStore = useSelector(data => data.proxy.proxyList.data)
+  const proxyListStore = useSelector(data => data.proxy.proxyList)
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const [, setIsOpen] = useState(false)
@@ -43,11 +43,11 @@ function ChangeProxies({ navigation }) {
   const onChange = value => {
     const proxyId = Number(value)
     setSelectedProxies(prevState =>
-      prevState.includes(proxyId) ? prevState.filter(id => id !== proxyId) : prevState.concat(proxyId),
+      prevState?.includes(proxyId) ? prevState?.filter(id => id !== proxyId) : prevState?.concat(proxyId),
     )
   }
 
-  proxyLisStore.map(item => arryId.push(item.id))
+  proxyListStore?.map(item => arryId.push(item.id))
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -92,7 +92,7 @@ function ChangeProxies({ navigation }) {
               marginBottom: selectedProxies.length > 0 ? 300 : 90,
             },
           ])}>
-          {proxyLisStore?.map(proxy => (
+          {proxyListStore?.map(proxy => (
             <ProxyItemChange
               key={proxy.id}
               proxy={proxy.id}

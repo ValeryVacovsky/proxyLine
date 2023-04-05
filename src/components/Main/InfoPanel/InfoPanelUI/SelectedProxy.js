@@ -13,8 +13,8 @@ const SelectedProxy = ({
   countryDiscription,
   selectedProxy,
 }) => {
-  const handleNavigateToProxies = () => {
-    navigation.navigate('Proxies')
+  const handleNavigateToProxies = item => {
+    navigation.navigate(item)
   }
   return (
     <View>
@@ -24,14 +24,17 @@ const SelectedProxy = ({
             bottomRight: 12,
             bottomLeft: 12,
           }}>
-          <TouchableOpacity style={styles.selectedProxyContainer} onPress={handleNavigateToProxies} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.selectedProxyContainer}
+            onPress={() => handleNavigateToProxies('Proxy')}
+            activeOpacity={0.8}>
             <View style={styles.infoContainerNone}>
               <Text style={styles.selectProxyText}>{mainText.buttons.b0}</Text>
             </View>
           </TouchableOpacity>
         </SuperEllipseMaskView>
       ) : (
-        <TouchableOpacity activeOpacity={0.8} onPress={handleNavigateToProxies}>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => handleNavigateToProxies('Proxies')}>
           <SuperEllipseMaskView
             radius={{
               bottomRight: 12,

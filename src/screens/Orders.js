@@ -23,6 +23,7 @@ function Orders({ navigation }) {
   const [currentOffset, setCurrentOffset] = useState(0)
   const [loading, setLoading] = useState(false)
   const [userRoken, setUserToken] = useState('')
+  const [loadStop, setLoadStop] = useState(false)
 
   const toggleModal = () => {
     setModalVisible(!modalVisible)
@@ -54,10 +55,15 @@ function Orders({ navigation }) {
 
   useEffect(() => {
     const getOrders = async () => {
-      setLoading(true)
-      const res = await getListOrders({ token: userRoken, limit: '100', offset: currentOffset })
-      currentOffset > 0 && setDataOrdersState([...dataOrdersState, ...res.data])
-      setLoading(false)
+      if (!loadStop) {
+        setLoading(true)
+        const res = await getListOrders({ token: userRoken, limit: '100', offset: currentOffset })
+        currentOffset > 0 && setDataOrdersState([...dataOrdersState, ...res.data])
+        setLoading(false)
+        res.data.length == 0 && setLoadStop(true)
+      } else {
+        null
+      }
     }
     getOrders()
   }, [currentOffset])

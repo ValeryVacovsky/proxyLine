@@ -24,12 +24,14 @@ import ProxiesSearch from '../../image/Svg/ProxiesSearch'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 
 import postCreatePayment from '../../api/postCreatePayment'
+import ModalSuccess from '../../components/Orders/ModalSuccess'
 
 const heightOffScreen = Dimensions.get('window').height
 
 function BalanceMethod({ navigation, route }) {
   const text = useSelector(res => res.textReducer.balance.payload)
   const [valueProxy, setValueProxy] = useState('')
+  const [modalVisible, setModalVisible] = useState(false)
   const amount = route.params?.dataNav.amount
   const balance = useSelector(data => data.balanceReducer)
   const [methods] = useState(route.params?.dataNav?.methods)
@@ -48,6 +50,14 @@ function BalanceMethod({ navigation, route }) {
   useEffect(() => {
     setFiltredMethods(methods?.filter(meth => meth?.name_en.toLowerCase()?.includes(valueProxy?.toLowerCase())))
   }, [valueProxy])
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible)
+    setTimeout(() => {
+      setModalVisible(false)
+    }, 2000)
+  }
+
   const handelPayment = async () => {
     async function paymentTake() {
       try {
@@ -60,6 +70,10 @@ function BalanceMethod({ navigation, route }) {
         setSelectedStatus(false)
       } catch (error) {
         console.log(error)
+        setModalVisible(true)
+        setTimeout(() => {
+          setModalVisible(false)
+        }, 4000)
       }
     }
     paymentTake()
@@ -132,6 +146,12 @@ function BalanceMethod({ navigation, route }) {
           </TouchableOpacity>
         )}
       </SafeAreaView>
+      <ModalSuccess visible={modalVisible} onClose={toggleModal}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTextTop}>{text?.texts?.t17 || 'Минимальный лимит!'}</Text>
+          <Text style={styles.modalBottomText}>{text?.texts?.t18 || 'Введите большую сумму поплнения'}</Text>
+        </View>
+      </ModalSuccess>
     </LayoutMain>
   )
 }
@@ -270,6 +290,27 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
     lineHeight: 15,
+  },
+  modalContainer: {
+    backgroundColor: '#1E2127',
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+    width: '80%',
+  },
+  modalTextTop: {
+    fontWeight: '700',
+    fontSize: 17,
+    lineHeight: 15,
+    marginBottom: 6,
+    color: 'white',
+  },
+  modalBottomText: {
+    textAlign: 'center',
+    fontWeight: '400',
+    fontSize: 11,
+    lineHeight: 15,
+    color: 'white',
   },
 })
 

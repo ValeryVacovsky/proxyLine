@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 
-function InfoCheckButton({ text }) {
+function InfoCheckButton({ text, handlePressCheckButton }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.textContainer} activeOpacity={0.8}>
+      <TouchableOpacity style={styles.textContainer} activeOpacity={0.8} onPress={handlePressCheckButton}>
         <Text style={styles.text}>{text?.b0}</Text>
       </TouchableOpacity>
     </View>

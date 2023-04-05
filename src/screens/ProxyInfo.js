@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { ScrollView, StyleSheet, SafeAreaView, Text, View, Pressable, TouchableOpacity, Clipboard } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import LayoutMain from '../components/LayoutMain'
 import ProxyInfoChange from '../image/Svg/ProxyInfoChange'
 import ReadTrash from '../image/Svg/ReadTrash'
@@ -26,6 +27,7 @@ import InfoTag from '../components/UI/InfoUI/InfoTag'
 import BottomSheetProxyIps from '../components/UI/ProxyUI/BottomSheetProxyIps'
 import OrderBlock from '../components/UI/InfoUI/OrderBlock'
 import OrderRenew from '../components/UI/InfoUI/OrderRenew'
+import postUserCheck from '../api/Checker/postUserCheck'
 
 function ProxyInfo({ navigation, route }) {
   const proxyInfoText = useSelector(res => res.textReducer.proxy_info.payload)
@@ -38,6 +40,32 @@ function ProxyInfo({ navigation, route }) {
   const days = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
   const [heightTags, setHeightTags] = useState(1)
   const mounth = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24 * 30)).toFixed(0)
+
+  const handlePressCheckButton = () => {
+    async function getCheckConnectStatus() {
+      let jsonString
+      const dataToken = await AsyncStorage.getItem('@token')
+      const id = await AsyncStorage.getItem('@id')
+      const token = `${id}_${dataToken}`
+      const data = {
+        project_id: 1,
+        ids: [proxyInfo.id],
+      }
+      const res = await postUserCheck({ token, data })
+      jsonString = res.data
+      const objectsArray = jsonString
+        .split('\n')
+        .filter(Boolean)
+        .map(objectString => {
+          return JSON.parse(objectString)
+        })
+      navigation.navigate('ResultConnect', {
+        objectsArray,
+        proxyInfo,
+      })
+    }
+    getCheckConnectStatus()
+  }
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
@@ -130,12 +158,17 @@ function ProxyInfo({ navigation, route }) {
               <Port port={proxyInfo.port_socks5} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
               <InfoLogin login={proxyInfo.username} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
               <InfoPassword password={proxyInfo.password} handelOpenCopy={handelOpenCopy} text={proxyInfoText?.texts} />
-              <InfoType type="HTTP" text={proxyInfoText?.texts} />
+              <InfoType type="HTTP / SOCKS5" text={proxyInfoText?.texts} />
             </View>
-            <InfoCheckButton text={proxyInfoText?.buttons} />
+            <InfoCheckButton text={proxyInfoText?.buttons} handlePressCheckButton={handlePressCheckButton} />
             <Text style={styles.text}>{proxyInfoText?.texts?.t9}</Text>
             <View style={styles.Data}>
-              <OrderBlock date={dateFormat(proxyInfo.suspended_till, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
+              {proxyInfo.suspended_till ? (
+                <OrderBlock
+                  date={dateFormat(proxyInfo.suspended_till, 'd.mm.yyyy HH:MM')}
+                  text={proxyInfoText?.texts}
+                />
+              ) : null}
               <OrderFrom date={dateFormat(proxyInfo.date_start, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
               <OrderEnd date={dateFormat(proxyInfo.date_end, 'd.mm.yyyy HH:MM')} text={proxyInfoText?.texts} />
               <OrderCount days={days} month={mounth} text={proxyInfoText?.texts} />
@@ -201,7 +234,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: '700',
     paddingLeft: 20,
     marginBottom: 10,

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, TouchableOpacity, Text, View, Pressable, Keyboard } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
-import LayoutMain from '../components/LayoutMain'
-import NotesTab from '../image/Svg/NotesTab'
-import HeaderTintBack from '../image/Svg/HeaderTintBack'
+import LayoutMain from '../../components/LayoutMain'
+import NotesTab from '../../image/Svg/NotesTab'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
 import { TextInput } from 'react-native-gesture-handler'
-import postUserComment from '../api/postUserComment'
+import postUserComment from '../../api/postUserComment'
 import { useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import getUserComment from '../api/getUserComment'
+import getUserComment from '../../api/getUserComment'
 
 function Notes({ navigation }) {
   const text = useSelector(res => res.textReducer.notes.payload)

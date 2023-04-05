@@ -41,6 +41,8 @@ function SliderExample({ setDays, setScrolling }) {
           />
         )}
       />
+      <View style={styles.rightTintPrev} />
+      <View style={styles.rightVectorCenter} />
       <View style={styles.rightTint} />
     </View>
   )
@@ -60,8 +62,24 @@ const styles = StyleSheet.create({
     width: 4,
     height: 14,
     backgroundColor: '#1E2127',
+    left: '105%',
+    bottom: 45,
+    zIndex: -10,
+  },
+  rightTintPrev: {
+    width: 2,
+    height: 14,
+    backgroundColor: '#1E2127',
     left: '100%',
     bottom: 27,
+    zIndex: -10,
+  },
+  rightVectorCenter: {
+    width: 20,
+    height: 4,
+    backgroundColor: '#1E2127',
+    left: '100%',
+    bottom: 36,
     zIndex: -10,
   },
   thumbStyle: {

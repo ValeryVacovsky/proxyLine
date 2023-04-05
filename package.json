@@ -48,6 +48,7 @@
     "react-native-super-ellipse-mask": "^1.0.7",
     "react-native-svg": "^13.4.0",
     "react-native-svg-uri": "^1.2.3",
+    "react-native-user-agent": "^2.3.1",
     "react-native-webview": "^11.26.1",
     "react-redux": "^8.0.4",
     "react-smooth-corners": "^1.0.4",

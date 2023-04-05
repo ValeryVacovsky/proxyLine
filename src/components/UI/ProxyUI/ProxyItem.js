@@ -64,8 +64,7 @@ function ProxyItem({
                     },
                   ])}>
                   {hoursNeed > 24 && dateNeed}
-                  {hoursNeed > 0 && hoursNeed < 24 ? hoursNeed : null}
-                  {hoursNeed < 0 && 0} {hoursNeed > 24 ? text?.texts?.t5 : text?.texts?.t6 || 'Часов'}
+                  {hoursNeed < 24 && hoursNeed} {hoursNeed > 24 ? text?.texts?.t5 : text?.texts?.t6 || 'Часов'}
                 </Text>
               </View>
             </View>

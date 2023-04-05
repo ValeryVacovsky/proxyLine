@@ -14,12 +14,14 @@ import { setProxy } from '../store/reducers/proxyReducer'
 import { flagByShortName } from '../common/flagByShortName'
 
 import { useListOrders } from '../hooks/useListOrders'
+import { setCurrentOffset } from '../store/reducers/currentOffsetReducer'
 
 function OrdersList({ data, text, toggleModal }) {
   const { listProxies } = useListOrders()
   const dispatch = useDispatch()
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
+  const endpoint = useSelector(data => data.endpointReducer)
 
   const onHandleSuccess = id => {
     dispatch(deleteObject(id))
@@ -29,8 +31,9 @@ function OrdersList({ data, text, toggleModal }) {
       const token = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
       const dataProps = `${id}_${token}`
-      const data = await getListProxies({ token: dataProps, limit: '100', offset: '0', endpoint: '' })
+      const data = await getListProxies({ token: dataProps, limit: '100', offset: '0', endpoint: endpoint })
       dispatch(setProxy(data.data))
+      dispatch(setCurrentOffset(0))
     }
     listProxy()
   }
