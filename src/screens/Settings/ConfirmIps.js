@@ -1,8 +1,16 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { StyleSheet, View, Text, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  TextInput,
+  ScrollView,
+} from 'react-native'
 import LayoutMain from '../../components/LayoutMain'
-import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import DeleteToggleIcon from '../../image/Svg/DeleteToggleIcon'
 import { useCreateIps } from '../../hooks/useCreateIps'
 import HeaderTintBack from '../../image/Svg/HeaderTintBack'
@@ -78,8 +86,10 @@ function ConfirmIps({ navigation }) {
                 }}
                 render={({ field: { onChange, value } }) => (
                   <TextInput
+                    mask="[000].[000].[000].[000]"
                     type="number"
-                    keyboardType="decimal-pad"
+                    // keyboardType="numbers-and-punctuation"
+                    keyboardType="phone-pad"
                     returnKeyType="done"
                     onFocus={handleFocus}
                     onBlur={handleBlur}

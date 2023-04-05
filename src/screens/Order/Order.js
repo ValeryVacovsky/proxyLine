@@ -1,14 +1,26 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { ScrollView, View, StyleSheet, Text, Pressable, KeyboardAvoidingView, Platform } from 'react-native'
-import LayoutMain from '../components/LayoutMain'
-import OrderItem from '../components/OrderItem'
-import CloudProxyIcon from '../image/Svg/CloudProxyIcon'
-import PeopleIconProxy from '../image/Svg/PeopleIconProxy'
-import ServerProxyIcon from '../image/Svg/ServerProxyIcon'
-import HeaderProxy from '../image/Svg/HeaderProxy'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import HeaderTintBack from '../image/Svg/HeaderTintBack'
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Text,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native'
+
+import LayoutMain from '../../components/LayoutMain'
+import OrderItem from '../../components/Order/OrderItem'
+import CloudProxyIcon from '../../image/Svg/CloudProxyIcon'
+import PeopleIconProxy from '../../image/Svg/PeopleIconProxy'
+import ServerProxyIcon from '../../image/Svg/ServerProxyIcon'
+import HeaderProxy from '../../image/Svg/HeaderProxy'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
+
+const heightOffScreen = Dimensions.get('window').height
 
 function Order({ navigation, route }) {
   const proxyText = useSelector(res => res.textReducer)
@@ -76,7 +88,10 @@ function Order({ navigation, route }) {
   const iPtypes = route?.params?.iPtypes
   return (
     <LayoutMain>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ height: '100%' }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ height: '100%' }}
+        keyboardVerticalOffset={heightOffScreen > 700 ? -15 : -41}>
         <ScrollView
           horizontal
           contentContainerStyle={{ width: `${ProxyList.length * 100}%` }}

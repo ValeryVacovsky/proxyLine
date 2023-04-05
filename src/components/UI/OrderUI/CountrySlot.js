@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { StyleSheet } from 'react-native'
-import LightRadioUncheked from '../image/Svg/LightRadioUncheked'
+import LightRadioUncheked from '../../../image/Svg/LightRadioUncheked'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import { useSelector } from 'react-redux'
 
-import RadioUncheked from '../image/Svg/RadioUncheked'
-import { flagByShortName } from '../common/flagByShortName'
+import RadioUncheked from '../../../image/Svg/RadioUncheked'
+import { flagByShortName } from '../../../common/flagByShortName'
 
 function CountrySlot({
   country,

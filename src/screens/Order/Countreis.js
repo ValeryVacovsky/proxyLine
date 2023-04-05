@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ScrollView, StyleSheet, SafeAreaView, TouchableOpacity, Text, Pressable } from 'react-native'
 import SuperEllipseMaskView from 'react-native-super-ellipse-mask'
-import CountrySlot from '../components/CountrySlot'
-import LayoutMain from '../components/LayoutMain'
-import HeaderTintBack from '../image/Svg/HeaderTintBack'
-import alphavit from '../utils/alphavit'
+import CountrySlot from '../../components/UI/OrderUI/CountrySlot'
+import LayoutMain from '../../components/LayoutMain'
+import HeaderTintBack from '../../image/Svg/HeaderTintBack'
+import alphavit from '../../utils/alphavit'
 
 function Countreis({ navigation, route }) {
   const [selectedCountryShort, setSelectedCountryShort] = useState(route.params.selectedCountryShort)

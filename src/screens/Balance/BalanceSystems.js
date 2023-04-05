@@ -20,6 +20,10 @@ function BalanceSystems({ navigation }) {
   const sheetRef = useRef(null)
   const snapPoints = useMemo(() => ['15%'], [])
 
+  const handelAmount = item => {
+    setAmount(item * 100)
+  }
+
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
   }, [])
@@ -71,7 +75,7 @@ function BalanceSystems({ navigation }) {
         <View style={styles.topInputContainer}>
           <TextInput
             style={styles.inputFilter}
-            onChangeText={setAmount}
+            onChangeText={handelAmount}
             value={amount}
             iconPosition="right"
             placeholder=""

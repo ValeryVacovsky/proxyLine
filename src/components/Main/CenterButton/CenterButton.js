@@ -10,8 +10,8 @@ const CenterButton = ({ statusConnect, setStatusConnect, heightOffScreen }) => {
       style={StyleSheet.flatten([
         styles.container,
         {
-          marginTop: heightOffScreen > 700 ? 60 : 40,
-          marginBottom: heightOffScreen > 700 ? 80 : 40,
+          marginTop: heightOffScreen > 700 ? 60 : 10,
+          marginBottom: heightOffScreen > 700 ? 80 : 10,
         },
       ])}>
       {statusConnect === 'on' && (
@@ -20,7 +20,9 @@ const CenterButton = ({ statusConnect, setStatusConnect, heightOffScreen }) => {
       {statusConnect === 'off' && (
         <CenterButtonOff setStatusConnect={setStatusConnect} heightOffScreen={heightOffScreen} />
       )}
-      {statusConnect === 'none' && <CenterButtonNone heightOffScreen={heightOffScreen} />}
+      {statusConnect === 'none' && (
+        <CenterButtonNone heightOffScreen={heightOffScreen} setStatusConnect={setStatusConnect} />
+      )}
     </View>
   )
 }
@@ -39,8 +41,6 @@ const styles = StyleSheet.create({
     height: 160,
     alignItems: 'center',
     padding: 40,
-    marginTop: 30,
-    marginBottom: 10,
   },
 })
 

@@ -13,7 +13,7 @@ function TestScreen() {
         {Object.keys(countryDiscription['ru']).map((item, index) => {
           return (
             <View key={item} style={{ width: '100%', height: 60, backgroundColor: 'black' }}>
-              <View style={{ width: 48, height: 32 }}>{flagByShortName[item]}</View>
+              <View style={{ width: 20, height: 20 }}>{flagByShortName[item]}</View>
               <Text style={{ color: 'white' }}>
                 {countryDiscription['ru'][item]} {index}
               </Text>

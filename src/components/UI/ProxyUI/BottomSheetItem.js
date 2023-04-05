@@ -4,18 +4,18 @@ import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-nati
 let heightOffScreen = Dimensions.get('window').height
 
 function BottomSheetItem({ handleClosePress, navigation, text }) {
-  const handlePress = () => {
-    navigation.navigate('Notes')
+  const handlePress = item => {
+    navigation.navigate(item)
     handleClosePress()
   }
   return (
     <View style={styles.container}>
       <View style={styles.topTab} />
-      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={handlePress}>
+      <TouchableOpacity style={styles.topButton} activeOpacity={0.8} onPress={() => handlePress('Notes')}>
         <Text style={styles.topButtonText}>{text?.buttons?.b1}</Text>
       </TouchableOpacity>
       <View style={styles.centerContainer}>
-        <TouchableOpacity style={styles.centerTopButton} activeOpacity={0.8}>
+        <TouchableOpacity style={styles.centerTopButton} activeOpacity={0.8} onPress={() => handlePress('TypeProxy')}>
           <Text style={styles.centerTopButtonText}>{text?.buttons?.b2}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.centerMiddleButton} activeOpacity={0.8}>

@@ -146,7 +146,7 @@ function BottomSheetProxyIps({ handleClosePress, proxyIps, handleSnapPress, prox
               <TextInput
                 type="number"
                 returnKeyType="done"
-                keyboardType="decimal-pad"
+                keyboardType="numbers-and-punctuation"
                 value={value}
                 onChangeText={handleChangeText}
                 style={StyleSheet.flatten([

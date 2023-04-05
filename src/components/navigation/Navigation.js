@@ -16,19 +16,19 @@ import Main from '../../screens/Main'
 import Proxy from '../../screens/Proxy'
 import TestScreen from '../../screens/TestScreen'
 import Agreement from '../../screens/Auth/Agreement'
-import Order from '../../screens/Order'
-import Countreis from '../../screens/Countreis'
+import Order from '../../screens/Order/Order'
+import Countreis from '../../screens/Order/Countreis'
 import Orders from '../../screens/Orders'
 import Balance from '../../screens/Balance/Balance'
 import MyProxies from '../../screens/MyProxy/MyProxies'
-import Notes from '../../screens/Notes'
+import Notes from '../../screens/MyProxy/Notes'
 import ProxyInfo from '../../screens/ProxyInfo'
 import Settings from '../../screens/Settings/Settings'
 import AnswerQuestion from '../../screens/Settings/AnswerQuestion'
 import AccountInfo from '../../screens/Settings/AccountInfo'
 import ChangePassword from '../../screens/Settings/ChangePassword'
 import MessageForm from '../../screens/Settings/MessageForm'
-import Filters from '../../screens/Filters'
+import Filters from '../../screens/MyProxy/Filters'
 import DeleteProxies from '../../screens/MyProxy/DeleteProxies'
 import ExtendProxies from '../../screens/MyProxy/ExtendProxies'
 import ChangeProxies from '../../screens/MyProxy/ChangeProxies'
@@ -44,6 +44,7 @@ import Notification from '../../screens/Settings/Notification'
 import Safety from '../../screens/Settings/Safety'
 import NetworkError from '../../screens/Errors/NetworkError'
 import ServerError from '../../screens/Errors/ServerError'
+import ResultConnect from '../../screens/ProxyChecker/ResultConnect'
 
 const Stack = createNativeStackNavigator()
 
@@ -493,6 +494,20 @@ function Navigation() {
                 headerBackTitleStyle: styles.headerBackTitleStyle,
                 gestureEnabled: false,
                 headerBackTitle: 'Настройки',
+              }}
+            />
+            <Stack.Screen
+              name="ResultConnect"
+              component={ResultConnect}
+              options={{
+                headerTitle: () => <Text style={styles.headerTitle}>Результат</Text>,
+                headerStyle: styles.headerStyle,
+                headerTintColor: '#CBCBCB',
+                headerTitleAlign: 'center',
+                headerBackTitleVisible: true,
+                headerBackTitleStyle: styles.headerBackTitleStyle,
+                gestureEnabled: false,
+                headerBackTitle: 'Назад',
               }}
             />
             <Stack.Screen name="WebPayment" component={WebPayment} />

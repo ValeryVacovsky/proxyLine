@@ -2,9 +2,9 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, Image } from 'react-native'
 import ButtonNone from '../../../../image/ButtonNone.png'
 
-const CenterButtonNone = ({ heightOffScreen }) => {
+const CenterButtonNone = ({ heightOffScreen, setStatusConnect }) => {
   return (
-    <TouchableOpacity activeOpacity={0.8}>
+    <TouchableOpacity activeOpacity={0.8} onPress={() => setStatusConnect('on')}>
       <Image
         source={ButtonNone}
         style={StyleSheet.flatten([

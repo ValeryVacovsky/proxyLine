@@ -14,7 +14,7 @@ const heightOffScreen = Dimensions.get('window').height
 
 function ExtendProxies({ navigation }) {
   const text = useSelector(res => res.textReducer.myproxies.payload)
-  const proxyLisStore = useSelector(data => data.proxy.proxyList.data)
+  const proxyListStore = useSelector(data => data.proxy.proxyList)
   const [, setIsOpen] = useState(false)
   const [selectedProxies, setSelectedProxies] = useState([])
   const [valueProxy, setValueProxy] = useState('')
@@ -38,7 +38,7 @@ function ExtendProxies({ navigation }) {
   }
   const arryId = []
 
-  proxyLisStore.map(item => arryId.push(item.id))
+  proxyListStore.map(item => arryId.push(item.id))
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -85,7 +85,7 @@ function ExtendProxies({ navigation }) {
             },
           ])}
           decelerationRate="fast">
-          {proxyLisStore?.map(proxy => (
+          {proxyListStore?.map(proxy => (
             <ProxyItemExtend
               key={proxy.id}
               proxy={proxy}

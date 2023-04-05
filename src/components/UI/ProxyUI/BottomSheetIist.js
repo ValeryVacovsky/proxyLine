@@ -12,14 +12,7 @@ function BottomSheetList({ handleClosePress, navigation, proxyRes, text }) {
     <View style={styles.container}>
       <View style={styles.topTab} />
       <View style={styles.centerContainer}>
-        <TouchableOpacity
-          style={styles.centerTopButton}
-          change
-          activeOpacity={0.8}
-          onPress={() => handlePress('Change')}>
-          <Text style={styles.centerTopButtonText}>{text?.buttons?.b5}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.centerMiddleButton} activeOpacity={0.8} onPress={() => handlePress('Delete')}>
+        <TouchableOpacity style={styles.centerTopButton} activeOpacity={0.8} onPress={() => handlePress('Delete')}>
           <Text style={styles.centerMiddleButtonText}>{text?.buttons?.b6}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.centerBottomButton} onPress={() => handlePress('Extend')} activeOpacity={0.8}>

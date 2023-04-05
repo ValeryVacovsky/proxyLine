@@ -322,6 +322,8 @@ PODS:
     - React-Core
   - react-native-super-ellipse-mask (1.0.7):
     - React
+  - react-native-user-agent (2.3.1):
+    - React
   - react-native-webview (11.26.1):
     - React-Core
   - React-perflogger (0.70.1)
@@ -490,6 +492,7 @@ DEPENDENCIES:
   - react-native-simple-openvpn (from `../node_modules/react-native-simple-openvpn`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-super-ellipse-mask (from `../node_modules/react-native-super-ellipse-mask`)
+  - react-native-user-agent (from `../node_modules/react-native-user-agent`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -589,6 +592,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-splash-screen"
   react-native-super-ellipse-mask:
     :path: "../node_modules/react-native-super-ellipse-mask"
+  react-native-user-agent:
+    :path: "../node_modules/react-native-user-agent"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-perflogger:
@@ -675,6 +680,7 @@ SPEC CHECKSUMS:
   react-native-simple-openvpn: b3b63ccf07a29b8c53642d5111cecfc55f5445c2
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-super-ellipse-mask: 950abe130db6203b75e31f007e8568ac4c355a25
+  react-native-user-agent: a90a1e839b99801baad67a73dd6f361a52aa3cf1
   react-native-webview: 9f111dfbcfc826084d6c507f569e5e03342ee1c1
   React-perflogger: 48c6b363e867d64b682e84f80ca45636bd65e19c
   React-RCTActionSheet: 33c74fe5c754835e3715c300618da9aa2f7203fa
@@ -699,6 +705,6 @@ SPEC CHECKSUMS:
   Yoga: 6c8252e38d65aa387daee699eacf027e055e0b31
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 71a58aaccae0cb28db75439e8504e0294ac2f198
+PODFILE CHECKSUM: 9020f214d3663506d0d0be7dc05a234b63a5c275
 
 COCOAPODS: 1.11.3
