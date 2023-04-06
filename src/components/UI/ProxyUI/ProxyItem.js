@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import ProxiesDotts from '../../../image/Svg/ProxiesDotts'
@@ -19,6 +19,7 @@ function ProxyItem({
   childrenItem,
   text,
 }) {
+  const [timeLeft, setTimeLeft] = useState(0)
   const handleOpenModal = () => {
     childrenItem && handleSnapPress(0)
     setSelected(null)
@@ -32,10 +33,25 @@ function ProxyItem({
   }
   const languageGet = useSelector(res => res.textReducer.languages_get.language)
   const countryDiscription = useSelector(res => res.countryDiscriptionReducer.country)
-  const dateStart = new Date(proxyRes.date_end)
-  const dateEnd = new Date()
-  const dateNeed = ((dateStart - dateEnd) / 1000 / (60 * 60 * 24)).toFixed(0)
-  const hoursNeed = ((dateStart - dateEnd) / 1000 / (60 * 60)).toFixed(0)
+  useEffect(() => {
+    const dateStart = new Date(proxyRes.date_end)
+    const dateEnd = new Date()
+
+    const timeDiff = dateStart.getTime() - dateEnd.getTime()
+    const hoursLeft = Math.floor(timeDiff / (1000 * 60 * 60))
+    const daysLeft = Math.floor(hoursLeft / 24)
+
+    let timeLeftValue = 0
+    if (dateStart < dateEnd) {
+      timeLeftValue = 0
+    } else if (hoursLeft < 24) {
+      timeLeftValue = hoursLeft
+    } else {
+      timeLeftValue = daysLeft
+    }
+
+    setTimeLeft(timeLeftValue)
+  }, [proxyRes.date_end])
   return (
     <View style={styles.container}>
       <View style={styles.mainContainer}>
@@ -53,18 +69,17 @@ function ProxyItem({
                 style={StyleSheet.flatten([
                   styles.dateNeedContainer,
                   {
-                    backgroundColor: dateNeed > 1 ? '#333842' : 'rgba(226, 58, 58, 0.2)',
+                    backgroundColor: timeLeft > 1 ? '#333842' : 'rgba(226, 58, 58, 0.2)',
                   },
                 ])}>
                 <Text
                   style={StyleSheet.flatten([
                     styles.dateNeedText,
                     {
-                      color: dateNeed > 1 ? '#CBCBCB' : '#E23A3A',
+                      color: timeLeft > 1 ? '#CBCBCB' : '#E23A3A',
                     },
                   ])}>
-                  {hoursNeed > 24 && dateNeed}
-                  {hoursNeed < 24 && hoursNeed} {hoursNeed > 24 ? text?.texts?.t5 : text?.texts?.t6 || 'Часов'}
+                  {timeLeft} {timeLeft > 24 ? text?.texts?.t5 : text?.texts?.t6 || 'Часов'}
                 </Text>
               </View>
             </View>
