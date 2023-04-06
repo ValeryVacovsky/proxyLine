@@ -10,8 +10,8 @@ const CenterButton = ({ statusConnect, setStatusConnect, heightOffScreen }) => {
       style={StyleSheet.flatten([
         styles.container,
         {
-          marginTop: heightOffScreen > 700 ? 60 : 10,
-          marginBottom: heightOffScreen > 700 ? 80 : 10,
+          marginTop: heightOffScreen > 700 ? 30 : 10,
+          marginBottom: heightOffScreen > 700 ? 40 : 10,
         },
       ])}>
       {statusConnect === 'on' && (

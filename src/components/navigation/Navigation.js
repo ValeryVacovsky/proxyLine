@@ -31,7 +31,6 @@ import MessageForm from '../../screens/Settings/MessageForm'
 import Filters from '../../screens/MyProxy/Filters'
 import DeleteProxies from '../../screens/MyProxy/DeleteProxies'
 import ExtendProxies from '../../screens/MyProxy/ExtendProxies'
-import ChangeProxies from '../../screens/MyProxy/ChangeProxies'
 import Ofert from '../../screens/Auth/Ofert'
 import BalanceSystems from '../../screens/Balance/BalanceSystems'
 import WebPayment from '../../screens/WebView/WeBPayment'
@@ -389,20 +388,6 @@ function Navigation() {
               component={ExtendProxies}
               options={{
                 headerTitle: () => <Text style={styles.headerTitle}>{texts?.t20}</Text>,
-                headerStyle: styles.headerStyle,
-                headerTintColor: '#CBCBCB',
-                headerTitleAlign: 'center',
-                headerBackTitleVisible: true,
-                headerBackTitleStyle: styles.headerBackTitleStyle,
-                gestureEnabled: false,
-                headerBackTitle: 'Мои прокси',
-              }}
-            />
-            <Stack.Screen
-              name="Change"
-              component={ChangeProxies}
-              options={{
-                headerTitle: () => <Text style={styles.headerTitle}>{texts?.t21}</Text>,
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#CBCBCB',
                 headerTitleAlign: 'center',

@@ -43,7 +43,6 @@ function ProxyInfo({ navigation, route }) {
 
   const handlePressCheckButton = () => {
     async function getCheckConnectStatus() {
-      let jsonString
       const dataToken = await AsyncStorage.getItem('@token')
       const id = await AsyncStorage.getItem('@id')
       const token = `${id}_${dataToken}`
@@ -52,8 +51,7 @@ function ProxyInfo({ navigation, route }) {
         ids: [proxyInfo.id],
       }
       const res = await postUserCheck({ token, data })
-      jsonString = res.data
-      const objectsArray = jsonString
+      const objectsArray = res.data
         .split('\n')
         .filter(Boolean)
         .map(objectString => {

@@ -41,6 +41,7 @@ function MyProxies({ navigation }) {
   const [childrenItem, setChildrenItem] = useState()
   const [valueProxy, setValueProxy] = useState('')
   const [loading, setLoading] = useState(false)
+  const [loadStop, setLoadStop] = useState(false)
   const [userRoken, setUserToken] = useState('')
   const sheetRef = useRef(null)
   const snapPoints = useMemo(() => (heightOffScreen > 800 ? ['48%'] : ['57%']), [heightOffScreen])
@@ -68,16 +69,19 @@ function MyProxies({ navigation }) {
   }, [])
 
   useEffect(() => {
-    const getProxies = async () => {
-      setLoading(true)
-      const res = await getListProxies({ token: userRoken, limit: 100, offset: currentOffset, endpoint: endpoint })
-      if (res?.data?.length > 0 && currentOffset > 0) {
-        dispatch(setProxy([...proxyListStore, ...res.data]))
+    if (!loadStop) {
+      const getProxies = async () => {
+        setLoading(true)
+        const res = await getListProxies({ token: userRoken, limit: 100, offset: currentOffset, endpoint: endpoint })
+        if (res?.data?.length > 0 && currentOffset > 0) {
+          dispatch(setProxy([...proxyListStore, ...res.data]))
+        }
+        res.data.length == 0 && setLoadStop(true)
+        setLoading(false)
       }
-      setLoading(false)
-    }
-    if (proxyListStore.length > 99) {
-      getProxies()
+      if (proxyListStore.length > 99) {
+        getProxies()
+      }
     }
   }, [currentOffset])
 

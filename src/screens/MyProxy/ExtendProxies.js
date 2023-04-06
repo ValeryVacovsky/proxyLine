@@ -15,7 +15,6 @@ const heightOffScreen = Dimensions.get('window').height
 function ExtendProxies({ navigation }) {
   const text = useSelector(res => res.textReducer.myproxies.payload)
   const proxyListStore = useSelector(data => data.proxy.proxyList)
-  const [, setIsOpen] = useState(false)
   const [selectedProxies, setSelectedProxies] = useState([])
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
@@ -23,7 +22,6 @@ function ExtendProxies({ navigation }) {
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
-    setIsOpen(false)
   }, [])
 
   const handleClosePress = useCallback(() => {
@@ -31,19 +29,16 @@ function ExtendProxies({ navigation }) {
   }, [])
 
   const onChange = value => {
+    handleSnapPress(0)
     const proxyId = Number(value)
     setSelectedProxies(prevState =>
       prevState.includes(proxyId) ? prevState.filter(id => id !== proxyId) : prevState.concat(proxyId),
     )
   }
-  const arryId = []
-
-  proxyListStore.map(item => arryId.push(item.id))
-
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => setSelectedProxies(arryId)}>
+        <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8}>
           <Text style={styles.headerRightText}>{text?.buttons?.b14}</Text>
         </TouchableOpacity>
       ),
@@ -77,45 +72,42 @@ function ExtendProxies({ navigation }) {
         )}
       </View>
       <SafeAreaView>
-        <ScrollView
-          style={StyleSheet.flatten([
-            styles.scrollViewContainer,
-            {
-              marginBottom: selectedProxies.length > 0 ? 300 : 90,
-            },
-          ])}
-          decelerationRate="fast">
-          {proxyListStore?.map(proxy => (
-            <ProxyItemExtend
-              key={proxy.id}
-              proxy={proxy}
-              handleSnapPress={handleSnapPress}
-              handleClosePress={handleClosePress}
-              onChange={onChange}
-              selectedProxies={selectedProxies}
-              navigation={navigation}
-              proxyRes={proxy}
-            />
-          ))}
+        <ScrollView style={StyleSheet.flatten([styles.scrollViewContainer])} decelerationRate="fast">
+          <View
+            style={StyleSheet.flatten([
+              {
+                marginBottom: selectedProxies.length > 0 ? 120 : 90,
+              },
+            ])}>
+            {proxyListStore?.map(proxy => (
+              <ProxyItemExtend
+                key={proxy.id}
+                proxy={proxy}
+                handleSnapPress={handleSnapPress}
+                handleClosePress={handleClosePress}
+                onChange={onChange}
+                selectedProxies={selectedProxies}
+                navigation={navigation}
+                proxyRes={proxy}
+              />
+            ))}
+          </View>
         </ScrollView>
       </SafeAreaView>
-      {selectedProxies.length > 0 && (
-        <BottomSheetForm
+      <BottomSheetForm
+        navigation={navigation}
+        sheetRef={sheetRef}
+        snapPoints={snapPoints}
+        handleClosePress={handleClosePress}>
+        <BottomSheetSelectForm
+          handleClosePress={handleClosePress}
           navigation={navigation}
-          sheetRef={sheetRef}
-          snapPoints={snapPoints}
-          setIsOpen={setIsOpen}
-          handleClosePress={handleClosePress}>
-          <BottomSheetSelectForm
-            handleClosePress={handleClosePress}
-            navigation={navigation}
-            setSelectedProxies={setSelectedProxies}
-            selected={selectedProxies.length}
-            move={text?.buttons?.b10}
-            text={text?.buttons?.b10}
-          />
-        </BottomSheetForm>
-      )}
+          setSelectedProxies={setSelectedProxies}
+          selected={selectedProxies.length}
+          move={text?.buttons?.b10}
+          text={text?.buttons?.b10}
+        />
+      </BottomSheetForm>
     </LayoutMain>
   )
 }

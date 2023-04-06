@@ -117,19 +117,21 @@ function BalanceMethod({ navigation, route }) {
           )}
         </View>
         <ScrollView style={styles.scrollView}>
-          {filtredMethods.map(data => (
-            <View key={data.id} style={styles.methodContainer}>
-              <View style={styles.methodItem}>
-                <View style={styles.nameContainer}>
-                  <Image style={styles.nameLogo} source={{ uri: data.icon_path_2 }} />
-                  <Text style={styles.nameText}>{data.name_en}</Text>
+          <View style={selectedStatus ? { marginBottom: 100 } : { marginBottom: 50 }}>
+            {filtredMethods.map(data => (
+              <View key={data.id} style={styles.methodContainer}>
+                <View style={styles.methodItem}>
+                  <View style={styles.nameContainer}>
+                    <Image style={styles.nameLogo} source={{ uri: data.icon_path_2 }} />
+                    <Text style={styles.nameText}>{data.name_en}</Text>
+                  </View>
+                  <Pressable hitSlop={25} activeOpacity={1} onPress={() => handleChooseItem(data)}>
+                    {selectedMethod !== data.name_en ? <DarkRadioUncheked /> : <LightRadioUncheked />}
+                  </Pressable>
                 </View>
-                <Pressable hitSlop={25} activeOpacity={1} onPress={() => handleChooseItem(data)}>
-                  {selectedMethod !== data.name_en ? <DarkRadioUncheked /> : <LightRadioUncheked />}
-                </Pressable>
               </View>
-            </View>
-          ))}
+            ))}
+          </View>
         </ScrollView>
         {selectedStatus && (
           <TouchableOpacity style={styles.paymentButtonContiner} onPress={handelPayment}>
