@@ -16,14 +16,12 @@ function DeleteProxies({ navigation }) {
   const text = useSelector(res => res.textReducer.myproxies.payload)
   const proxyListStore = useSelector(data => data.proxy.proxyList)
   const [selectedProxies, setSelectedProxies] = useState([])
-  const [, setIsOpen] = useState(false)
   const [valueProxy, setValueProxy] = useState('')
   const sheetRef = useRef(null)
   const snapPoints = useMemo(() => (heightOffScreen > 850 ? ['30%'] : ['33']), [])
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index)
-    setIsOpen(false)
   }, [])
 
   const handleClosePress = useCallback(() => {
@@ -36,14 +34,11 @@ function DeleteProxies({ navigation }) {
       prevState.includes(proxyId) ? prevState.filter(id => id !== proxyId) : prevState.concat(proxyId),
     )
   }
-  const arryId = []
-
-  proxyListStore.map(item => arryId.push(item.id))
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8} onPress={() => setSelectedProxies(arryId)}>
+        <TouchableOpacity style={styles.balanceIcon} activeOpacity={0.8}>
           <Text style={styles.headerRightText}>{text?.buttons?.b14}</Text>
         </TouchableOpacity>
       ),
@@ -106,7 +101,6 @@ function DeleteProxies({ navigation }) {
           navigation={navigation}
           sheetRef={sheetRef}
           snapPoints={snapPoints}
-          setIsOpen={setIsOpen}
           handleClosePress={handleClosePress}>
           <BottomSheetSelectForm
             handleClosePress={handleClosePress}
